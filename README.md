@@ -1,3 +1,9 @@
+This is a Movie Catalog App to catalog Movies and store data on the Movies, Directors, Actors, Genres, and the Users who wish to view the data
+To get running: Simply launch index.html
+Project Dependencies: 
+Which API this project uses: myFlixAPI https://stix2you-myflix-5cbcd3c20372.herokuapp.com/
+
+
 Project brief below.  
 Build using Parcel 
 
