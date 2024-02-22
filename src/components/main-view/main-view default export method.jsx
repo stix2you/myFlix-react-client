@@ -1,13 +1,13 @@
-// this version of main-view.jsx uses named exports to export the MainView component. 
-// This means that when you import the component, you need to destructure it from the module. 
-// Import the MainView component WITH curly braces:  import { MainView } from './path/to/main-view';  
+// This version of main-view.jsx uses the default export method to export the MainView component.
+// This means that when you import the component, you don't need to destructure it from the module.
+// Import the MainView component WITHOUT curly braces:  import MainView from './path/to/main-view';
 // This MUST BE CHANGED in the index.jsx file to use this method
 
 import { useState } from "react";                   // import the useState hook from the react package
 import { MovieCard } from "../movie-card/movie-card";  // import the MovieCard component from the movie-card module
 import { MovieView } from "../movie-view/movie-view";  // import the MovieView component from the movie-view module  
 
-export const MainView = () => {              // create a functional component called MainView
+const MainView = () => {              // create a functional component called MainView
     const [movies, setMovies] = useState([     // create a new piece of state called movies, and a function called setMovies to update it
         {
             id: 1,
@@ -132,3 +132,5 @@ export const MainView = () => {              // create a functional component ca
     );
 
 };
+
+export default MainView;   // export the MainView component as the default export
