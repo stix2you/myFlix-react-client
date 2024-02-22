@@ -2964,7 +2964,7 @@ root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/index.jsx",
     lineNumber: 15,
     columnNumber: 13
-}, undefined)); // root.render(<MainView />);
+}, undefined));
 var _c;
 $RefreshReg$(_c, "App");
 
@@ -27445,7 +27445,8 @@ const MovieView = ({ movie, onBackClick })=>{
                     display: "flex",
                     justifyContent: "center"
                 },
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button" // when the button is clicked, it will call onBackClick
+                , {
                     onClick: onBackClick,
                     style: {
                         width: "100px",

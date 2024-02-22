@@ -1,5 +1,5 @@
-export const MovieView = ({ movie, onBackClick }) => {
-    return (
+export const MovieView = ({ movie, onBackClick }) => {   // create a functional component called MovieView, which takes two props: movie and onBackClick
+    return (                                             // returns a new piece of UI
         <div>
             <div style={{ textAlign: 'center' }}>
                 <img src={movie.image} />
@@ -12,7 +12,7 @@ export const MovieView = ({ movie, onBackClick }) => {
                 <h4>    </h4>
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button
+                <button                                  // when the button is clicked, it will call onBackClick
                     onClick={onBackClick}
                     style={{
                         width: '100px',  
