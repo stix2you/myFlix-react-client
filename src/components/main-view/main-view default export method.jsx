@@ -96,7 +96,7 @@ const MainView = () => {              // create a functional component called Ma
                 "Drama   ",
                 "War   "
             ],
-            director: "director_stevenspielberg000",
+            director: "Steven Spielberg",
             actors: [
                 "Tom Hanks   ",
                 "Edward Burns   ",

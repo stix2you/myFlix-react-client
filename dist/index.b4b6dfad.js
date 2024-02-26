@@ -2973,7 +2973,7 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"cpOWO","./components/main-view/main-view":"4gflv","@parcel/transformer-js/src/esmodule-helpers.js":"2BZ6I"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"cpOWO","./components/main-view/main-view":"4gflv"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27214,7 +27214,7 @@ const MainView = ()=>{
                 "Drama   ",
                 "War   "
             ],
-            director: "director_stevenspielberg000",
+            director: "Steven Spielberg",
             actors: [
                 "Tom Hanks   ",
                 "Edward Burns   ",
@@ -27258,7 +27258,7 @@ const MainView = ()=>{
         columnNumber: 9
     }, undefined);
 };
-_s(MainView, "2mDmYtsc7GDx1jvCUb3LlNcnBAg=");
+_s(MainView, "1aMvcyn8Lalt5S0rpyqEzDSA6lE=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
