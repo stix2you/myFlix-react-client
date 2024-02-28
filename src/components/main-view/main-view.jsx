@@ -14,11 +14,11 @@ export const MainView = () => {              // create a functional component ca
 
     useEffect(() => {   // the purpose of this function is to fetch data from an API and update the movies state with the data, 
         // useEffect is a hook that allows you to perform side effects in function components
-        fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies")
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("movies from api:", data);
-                const moviesFromApi = data.docs.map((doc) => {
+        fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies")   // fetches data from the API, GET request to the /movies endpoint
+            .then((response) => response.json())             // parses the JSON data from the response
+            .then((data) => {                               
+                console.log("movies from api:", data);          // logs the data to the console
+                const moviesFromApi = data.map((doc) => {   // maps each element in the array to a new piece of UI, after execution will have <div>{movie.title}</div> for each movie in the array
                     return {
                         id: doc._id,
                         title: doc.Title,
@@ -26,6 +26,9 @@ export const MainView = () => {              // create a functional component ca
                         rating: doc.Rating,
                         runtime: doc.Runtime,
                         description: doc.Description,
+                        genres: doc.Genres,
+                        director: doc.Director,
+                        actors: doc.Actors,
                         image: doc.ImagePath
                     };
                 });
@@ -46,7 +49,7 @@ export const MainView = () => {              // create a functional component ca
     return (                         // returns a new piece of UI
         <div>
             {movies.map((movie) => (   // maps each element in the array to a new piece of UI, after execution will have <div>{movie.title}</div> for each movie in the array
-                <MovieCard            // returns a new MovieCard component for each movie in the array
+                <MovieCard        // returns a new MovieCard component for each movie in the array
                     key={movie.id}    // key is a special attribute that's used by React to keep track of the elements in the array -- it should be unique for each element
                     movie={movie}      // movie is a prop that's passed to the MovieCard component
                     onMovieClick={(newSelectedMovie) => {       // onMovieClick is a prop that's passed to the MovieCard component
@@ -58,17 +61,45 @@ export const MainView = () => {              // create a functional component ca
 
 };
 
-// Here is where we define all the props constraints for the MainView
 MainView.propTypes = {
     movies: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
+        releaseYear: PropTypes.string,
+        rating: PropTypes.string,
+        runtime: PropTypes.string,
+        genres: PropTypes.array.isRequired,
+        director: PropTypes.array.isRequired,
+        actors: PropTypes.array.isRequired,
+        description: PropTypes.string.isRequired,
         image: PropTypes.string.isRequired,
 
     })),
 
     selectedMovie: PropTypes.shape({
         title: PropTypes.string.isRequired,
+        releaseYear: PropTypes.string.isRequired,
+        rating: PropTypes.string.isRequired,
+        runtime: PropTypes.string.isRequired,
+        genres: PropTypes.array.isRequired,
+        director: PropTypes.array.isRequired,
+        actors: PropTypes.array.isRequired,
+        description: PropTypes.string.isRequired,
         image: PropTypes.string.isRequired,
 
     }).isRequired
+};
+
+MainView.defaultProps = {
+    movies: [],
+    selectedMovie: {
+        title: "Title",
+        releaseYear: "Release Year",
+        rating: "Rating",
+        runtime: "Runtime",
+        genres: ["Genre"],
+        director: ["Director"],
+        actors: ["Actors"],
+        description: "Description",
+        image: "Image",
+    }
 };

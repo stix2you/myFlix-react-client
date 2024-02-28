@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export const MovieCard = ({ movie, onMovieClick }) => {    // create a functional component called MovieCard, which takes two props: movie and onMovieClick
     return (                           // returns a new piece of UI
         <div style={{ textAlign: 'center' }}
@@ -5,8 +7,36 @@ export const MovieCard = ({ movie, onMovieClick }) => {    // create a functiona
                 onMovieClick(movie);     // onMovieClick is a prop that's passed to the MovieCard component
             }}
         >
-            <h2>{movie.title}</h2>            
+            <h2>{movie.title}</h2>         
         </div>                // returns the title of the movie
     );
 };
 
+MovieCard.propTypes = {
+    movie: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        releaseYear: PropTypes.string,
+        rating: PropTypes.string,
+        runtime: PropTypes.string,
+        genres: PropTypes.array.isRequired,
+        director: PropTypes.array.isRequired,
+        actors: PropTypes.array.isRequired,
+        description: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+    }).isRequired,
+    onMovieClick: PropTypes.func.isRequired
+  };
+
+MovieCard.defaultProps = {  
+    movie: {
+        title: "Title",
+        releaseYear: "Release Year",
+        rating: "Rating",
+        runtime: "Runtime",
+        genre: "Genre",
+        director: "Director",
+        actors: "Actors",
+        description: "Description",
+        image: "Image",
+    }
+};

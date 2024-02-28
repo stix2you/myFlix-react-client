@@ -27131,9 +27131,11 @@ const MainView = ()=>{
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null); // create a new piece of state called selectedMovie, and a function called setSelectedMovie to update it
     (0, _react.useEffect)(()=>{
         // useEffect is a hook that allows you to perform side effects in function components
-        fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies").then((response)=>response.json()).then((data)=>{
-            console.log("movies from api:", data);
-            const moviesFromApi = data.docs.map((doc)=>{
+        fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies") // fetches data from the API, GET request to the /movies endpoint
+        .then((response)=>response.json()) // parses the JSON data from the response
+        .then((data)=>{
+            console.log("movies from api:", data); // logs the data to the console
+            const moviesFromApi = data.map((doc)=>{
                 return {
                     id: doc._id,
                     title: doc.Title,
@@ -27141,6 +27143,9 @@ const MainView = ()=>{
                     rating: doc.Rating,
                     runtime: doc.Runtime,
                     description: doc.Description,
+                    genres: doc.Genres,
+                    director: doc.Director,
+                    actors: doc.Actors,
                     image: doc.ImagePath
                 };
             });
@@ -27152,7 +27157,7 @@ const MainView = ()=>{
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 38,
+        lineNumber: 41,
         columnNumber: 13
     }, undefined) // onBackClick is a prop that's passed to the MovieView component
     ;
@@ -27160,7 +27165,7 @@ const MainView = ()=>{
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 43,
+        lineNumber: 46,
         columnNumber: 16
     }, undefined); // returns a message that says "The list is empty!"
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27172,27 +27177,60 @@ const MainView = ()=>{
                 }
             }, movie.id, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 49,
+                lineNumber: 52,
                 columnNumber: 17
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 47,
+        lineNumber: 50,
         columnNumber: 9
     }, undefined);
 };
 _s(MainView, "PO+XgOji7E32nFJj3H5UPLPJ7w4=");
 _c = MainView;
-// Here is where we define all the props constraints for the MainView
 MainView.propTypes = {
     movies: (0, _propTypes.PropTypes).arrayOf((0, _propTypes.PropTypes).shape({
         title: (0, _propTypes.PropTypes).string.isRequired,
+        releaseYear: (0, _propTypes.PropTypes).string,
+        rating: (0, _propTypes.PropTypes).string,
+        runtime: (0, _propTypes.PropTypes).string,
+        genres: (0, _propTypes.PropTypes).array.isRequired,
+        director: (0, _propTypes.PropTypes).array.isRequired,
+        actors: (0, _propTypes.PropTypes).array.isRequired,
+        description: (0, _propTypes.PropTypes).string.isRequired,
         image: (0, _propTypes.PropTypes).string.isRequired
     })),
     selectedMovie: (0, _propTypes.PropTypes).shape({
         title: (0, _propTypes.PropTypes).string.isRequired,
+        releaseYear: (0, _propTypes.PropTypes).string.isRequired,
+        rating: (0, _propTypes.PropTypes).string.isRequired,
+        runtime: (0, _propTypes.PropTypes).string.isRequired,
+        genres: (0, _propTypes.PropTypes).array.isRequired,
+        director: (0, _propTypes.PropTypes).array.isRequired,
+        actors: (0, _propTypes.PropTypes).array.isRequired,
+        description: (0, _propTypes.PropTypes).string.isRequired,
         image: (0, _propTypes.PropTypes).string.isRequired
     }).isRequired
+};
+MainView.defaultProps = {
+    movies: [],
+    selectedMovie: {
+        title: "Title",
+        releaseYear: "Release Year",
+        rating: "Rating",
+        runtime: "Runtime",
+        genres: [
+            "Genre"
+        ],
+        director: [
+            "Director"
+        ],
+        actors: [
+            "Actors"
+        ],
+        description: "Description",
+        image: "Image"
+    }
 };
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -27243,6 +27281,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MovieCard", ()=>MovieCard);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 const MovieCard = ({ movie, onMovieClick })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         style: {
@@ -27255,17 +27295,44 @@ const MovieCard = ({ movie, onMovieClick })=>{
             children: movie.title
         }, void 0, false, {
             fileName: "src/components/movie-card/movie-card.jsx",
-            lineNumber: 8,
+            lineNumber: 10,
             columnNumber: 13
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/movie-card/movie-card.jsx",
-        lineNumber: 3,
+        lineNumber: 5,
         columnNumber: 9
     }, undefined) // returns the title of the movie
     ;
 };
 _c = MovieCard;
+MovieCard.propTypes = {
+    movie: (0, _propTypesDefault.default).shape({
+        title: (0, _propTypesDefault.default).string.isRequired,
+        releaseYear: (0, _propTypesDefault.default).string,
+        rating: (0, _propTypesDefault.default).string,
+        runtime: (0, _propTypesDefault.default).string,
+        genres: (0, _propTypesDefault.default).array.isRequired,
+        director: (0, _propTypesDefault.default).array.isRequired,
+        actors: (0, _propTypesDefault.default).array.isRequired,
+        description: (0, _propTypesDefault.default).string.isRequired,
+        image: (0, _propTypesDefault.default).string.isRequired
+    }).isRequired,
+    onMovieClick: (0, _propTypesDefault.default).func.isRequired
+};
+MovieCard.defaultProps = {
+    movie: {
+        title: "Title",
+        releaseYear: "Release Year",
+        rating: "Rating",
+        runtime: "Runtime",
+        genre: "Genre",
+        director: "Director",
+        actors: "Actors",
+        description: "Description",
+        image: "Image"
+    }
+};
 var _c;
 $RefreshReg$(_c, "MovieCard");
 
@@ -27274,151 +27341,7 @@ $RefreshReg$(_c, "MovieCard");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"2BZ6I","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"cpOWO"}],"ggaUx":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$e9f6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$e9f6.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "MovieView", ()=>MovieView);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-const MovieView = ({ movie, onBackClick })=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                style: {
-                    textAlign: "center"
-                },
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                        src: movie.image
-                    }, void 0, false, {
-                        fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 5,
-                        columnNumber: 17
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                        children: [
-                            "Title: ",
-                            movie.title
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 6,
-                        columnNumber: 17
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                        children: [
-                            "Release Year: ",
-                            movie.releaseYear,
-                            ", Rated: ",
-                            movie.rating,
-                            ", Runtime: ",
-                            movie.runtime
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 7,
-                        columnNumber: 17
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                        children: [
-                            "Genres: ",
-                            movie.genres
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 8,
-                        columnNumber: 17
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                        children: [
-                            "Director: ",
-                            movie.director
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 9,
-                        columnNumber: 17
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                        children: [
-                            "Starring: ",
-                            movie.actors
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 10,
-                        columnNumber: 17
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
-                        style: {
-                            maxWidth: "700px",
-                            margin: "auto"
-                        },
-                        children: movie.description
-                    }, void 0, false, {
-                        fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 11,
-                        columnNumber: 17
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
-                        children: "    "
-                    }, void 0, false, {
-                        fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 12,
-                        columnNumber: 17
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 4,
-                columnNumber: 13
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                style: {
-                    display: "flex",
-                    justifyContent: "center"
-                },
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button" // when the button is clicked, it will call onBackClick
-                , {
-                    onClick: onBackClick,
-                    style: {
-                        width: "100px",
-                        height: "50px",
-                        fontSize: "30px"
-                    },
-                    children: "Back"
-                }, void 0, false, {
-                    fileName: "src/components/movie-view/movie-view.jsx",
-                    lineNumber: 15,
-                    columnNumber: 17
-                }, undefined)
-            }, void 0, false, {
-                fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 14,
-                columnNumber: 13
-            }, undefined)
-        ]
-    }, void 0, true, {
-        fileName: "src/components/movie-view/movie-view.jsx",
-        lineNumber: 3,
-        columnNumber: 9
-    }, undefined);
-};
-_c = MovieView;
-var _c;
-$RefreshReg$(_c, "MovieView");
-
-  $parcel$ReactRefreshHelpers$e9f6.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"2BZ6I","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"cpOWO"}],"7wKI2":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"2BZ6I","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"cpOWO","prop-types":"7wKI2"}],"7wKI2":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -28165,6 +28088,179 @@ printWarning = function(text) {
 };
 module.exports = checkPropTypes;
 
-},{"24ba1e58d167a82c":"jZTZJ","898bc82f39d83f7c":"fqKuf"}]},["cGwEu","3G56m","d8Dch"], "d8Dch", "parcelRequireaec4")
+},{"24ba1e58d167a82c":"jZTZJ","898bc82f39d83f7c":"fqKuf"}],"ggaUx":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$e9f6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$e9f6.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MovieView", ()=>MovieView);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+const MovieView = ({ movie, onBackClick })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                style: {
+                    textAlign: "center"
+                },
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                        src: movie.image
+                    }, void 0, false, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 7,
+                        columnNumber: 17
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                        children: [
+                            "Title: ",
+                            movie.title
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 8,
+                        columnNumber: 17
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                        children: [
+                            "Release Year: ",
+                            movie.releaseYear,
+                            ", Rated: ",
+                            movie.rating,
+                            ", Runtime: ",
+                            movie.runtime
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 9,
+                        columnNumber: 17
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                        children: [
+                            "Genres: ",
+                            movie.genres
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 10,
+                        columnNumber: 17
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                        children: [
+                            "Director: ",
+                            movie.director
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 11,
+                        columnNumber: 17
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                        children: [
+                            "Starring: ",
+                            movie.actors
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 12,
+                        columnNumber: 17
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
+                        style: {
+                            maxWidth: "700px",
+                            margin: "auto"
+                        },
+                        children: movie.description
+                    }, void 0, false, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 13,
+                        columnNumber: 17
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
+                        children: "    "
+                    }, void 0, false, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 14,
+                        columnNumber: 17
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/movie-view/movie-view.jsx",
+                lineNumber: 6,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                style: {
+                    display: "flex",
+                    justifyContent: "center"
+                },
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button" // when the button is clicked, it will call onBackClick
+                , {
+                    onClick: onBackClick,
+                    style: {
+                        width: "100px",
+                        height: "50px",
+                        fontSize: "30px"
+                    },
+                    children: "Back"
+                }, void 0, false, {
+                    fileName: "src/components/movie-view/movie-view.jsx",
+                    lineNumber: 17,
+                    columnNumber: 17
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/components/movie-view/movie-view.jsx",
+                lineNumber: 16,
+                columnNumber: 13
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/movie-view/movie-view.jsx",
+        lineNumber: 5,
+        columnNumber: 9
+    }, undefined);
+};
+_c = MovieView;
+MovieView.propTypes = {
+    movie: (0, _propTypesDefault.default).shape({
+        title: (0, _propTypesDefault.default).string.isRequired,
+        releaseYear: (0, _propTypesDefault.default).string,
+        rating: (0, _propTypesDefault.default).string,
+        runtime: (0, _propTypesDefault.default).string,
+        genres: (0, _propTypesDefault.default).array.isRequired,
+        director: (0, _propTypesDefault.default).array.isRequired,
+        actors: (0, _propTypesDefault.default).array.isRequired,
+        description: (0, _propTypesDefault.default).string.isRequired,
+        image: (0, _propTypesDefault.default).string.isRequired
+    }).isRequired,
+    onBackClick: (0, _propTypesDefault.default).func.isRequired
+};
+MovieView.defaultProps = {
+    movie: {
+        title: "Title",
+        releaseYear: "Release Year",
+        rating: "Rating",
+        runtime: "Runtime",
+        genres: "Genres",
+        director: "Director",
+        actors: "Actors",
+        description: "Description",
+        image: "Image"
+    }
+};
+var _c;
+$RefreshReg$(_c, "MovieView");
+
+  $parcel$ReactRefreshHelpers$e9f6.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"2BZ6I","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"cpOWO","prop-types":"7wKI2"}]},["cGwEu","3G56m","d8Dch"], "d8Dch", "parcelRequireaec4")
 
 //# sourceMappingURL=index.b4b6dfad.js.map
