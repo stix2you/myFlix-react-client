@@ -27139,12 +27139,12 @@ const MainView = ()=>{
                 return {
                     id: doc._id,
                     title: doc.Title,
+                    director: doc.Director,
                     releaseYear: doc.ReleaseYear,
                     rating: doc.Rating,
                     runtime: doc.Runtime,
                     description: doc.Description,
                     genres: doc.Genres,
-                    director: doc.Director,
                     actors: doc.Actors,
                     image: doc.ImagePath
                 };
