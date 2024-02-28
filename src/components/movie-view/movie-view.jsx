@@ -7,9 +7,9 @@ export const MovieView = ({ movie, onBackClick }) => {   // create a functional 
                 <img src={movie.image} />
                 <h1>Title: {movie.title}</h1>
                 <h3>Release Year: {movie.releaseYear}, Rated: {movie.rating}, Runtime: {movie.runtime}</h3>
-                <h3>Genres: {movie.genres}</h3>
+                <h3>Genres: {movie.genres.join(", ")}</h3>
                 <h2>Director: {movie.director}</h2>
-                <h2>Starring: {movie.actors}</h2>
+                <h2>Starring: {movie.actors.join(", ")}</h2>
                 <h4 style={{ maxWidth: '700px', margin: 'auto' }}>{movie.description}</h4>
                 <h4>    </h4>
             </div>
@@ -36,7 +36,7 @@ MovieView.propTypes = {
         rating: PropTypes.string,
         runtime: PropTypes.string,
         genres: PropTypes.array.isRequired,
-        director: PropTypes.array.isRequired,
+        director: PropTypes.string.isRequired,
         actors: PropTypes.array.isRequired,
         description: PropTypes.string.isRequired,
         image: PropTypes.string.isRequired,

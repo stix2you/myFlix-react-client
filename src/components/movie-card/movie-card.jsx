@@ -19,7 +19,7 @@ MovieCard.propTypes = {
         rating: PropTypes.string,
         runtime: PropTypes.string,
         genres: PropTypes.array.isRequired,
-        director: PropTypes.array.isRequired,
+        director: PropTypes.string.isRequired,
         actors: PropTypes.array.isRequired,
         description: PropTypes.string.isRequired,
         image: PropTypes.string.isRequired,

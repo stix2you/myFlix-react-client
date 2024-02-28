@@ -27195,7 +27195,7 @@ MainView.propTypes = {
         rating: (0, _propTypes.PropTypes).string,
         runtime: (0, _propTypes.PropTypes).string,
         genres: (0, _propTypes.PropTypes).array.isRequired,
-        director: (0, _propTypes.PropTypes).array.isRequired,
+        director: (0, _propTypes.PropTypes).string.isRequired,
         actors: (0, _propTypes.PropTypes).array.isRequired,
         description: (0, _propTypes.PropTypes).string.isRequired,
         image: (0, _propTypes.PropTypes).string.isRequired
@@ -27206,7 +27206,7 @@ MainView.propTypes = {
         rating: (0, _propTypes.PropTypes).string.isRequired,
         runtime: (0, _propTypes.PropTypes).string.isRequired,
         genres: (0, _propTypes.PropTypes).array.isRequired,
-        director: (0, _propTypes.PropTypes).array.isRequired,
+        director: (0, _propTypes.PropTypes).string.isRequired,
         actors: (0, _propTypes.PropTypes).array.isRequired,
         description: (0, _propTypes.PropTypes).string.isRequired,
         image: (0, _propTypes.PropTypes).string.isRequired
@@ -27222,9 +27222,7 @@ MainView.defaultProps = {
         genres: [
             "Genre"
         ],
-        director: [
-            "Director"
-        ],
+        director: "Director",
         actors: [
             "Actors"
         ],
@@ -27313,7 +27311,7 @@ MovieCard.propTypes = {
         rating: (0, _propTypesDefault.default).string,
         runtime: (0, _propTypesDefault.default).string,
         genres: (0, _propTypesDefault.default).array.isRequired,
-        director: (0, _propTypesDefault.default).array.isRequired,
+        director: (0, _propTypesDefault.default).string.isRequired,
         actors: (0, _propTypesDefault.default).array.isRequired,
         description: (0, _propTypesDefault.default).string.isRequired,
         image: (0, _propTypesDefault.default).string.isRequired
@@ -28130,7 +28128,7 @@ const MovieView = ({ movie, onBackClick })=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
                         children: [
                             "Genres: ",
-                            movie.genres
+                            movie.genres.join(", ")
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-view/movie-view.jsx",
@@ -28150,7 +28148,7 @@ const MovieView = ({ movie, onBackClick })=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                         children: [
                             "Starring: ",
-                            movie.actors
+                            movie.actors.join(", ")
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-view/movie-view.jsx",
@@ -28220,7 +28218,7 @@ MovieView.propTypes = {
         rating: (0, _propTypesDefault.default).string,
         runtime: (0, _propTypesDefault.default).string,
         genres: (0, _propTypesDefault.default).array.isRequired,
-        director: (0, _propTypesDefault.default).array.isRequired,
+        director: (0, _propTypesDefault.default).string.isRequired,
         actors: (0, _propTypesDefault.default).array.isRequired,
         description: (0, _propTypesDefault.default).string.isRequired,
         image: (0, _propTypesDefault.default).string.isRequired
