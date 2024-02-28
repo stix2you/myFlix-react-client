@@ -27320,19 +27320,6 @@ MovieCard.propTypes = {
     }).isRequired,
     onMovieClick: (0, _propTypesDefault.default).func.isRequired
 };
-MovieCard.defaultProps = {
-    movie: {
-        title: "Title",
-        releaseYear: "Release Year",
-        rating: "Rating",
-        runtime: "Runtime",
-        genre: "Genre",
-        director: "Director",
-        actors: "Actors",
-        description: "Description",
-        image: "Image"
-    }
-};
 var _c;
 $RefreshReg$(_c, "MovieCard");
 
@@ -28239,19 +28226,6 @@ MovieView.propTypes = {
         image: (0, _propTypesDefault.default).string.isRequired
     }).isRequired,
     onBackClick: (0, _propTypesDefault.default).func.isRequired
-};
-MovieView.defaultProps = {
-    movie: {
-        title: "Title",
-        releaseYear: "Release Year",
-        rating: "Rating",
-        runtime: "Runtime",
-        genres: "Genres",
-        director: "Director",
-        actors: "Actors",
-        description: "Description",
-        image: "Image"
-    }
 };
 var _c;
 $RefreshReg$(_c, "MovieView");

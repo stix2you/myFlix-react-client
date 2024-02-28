@@ -43,17 +43,3 @@ MovieView.propTypes = {
     }).isRequired,                          
     onBackClick: PropTypes.func.isRequired  
 };
-
-MovieView.defaultProps = {               
-    movie: {
-        title: "Title",
-        releaseYear: "Release Year",
-        rating: "Rating",
-        runtime: "Runtime",
-        genres: "Genres",
-        director: "Director",
-        actors: "Actors",
-        description: "Description",
-        image: "Image",
-    }
-};

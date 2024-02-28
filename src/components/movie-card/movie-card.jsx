@@ -27,16 +27,3 @@ MovieCard.propTypes = {
     onMovieClick: PropTypes.func.isRequired
   };
 
-MovieCard.defaultProps = {  
-    movie: {
-        title: "Title",
-        releaseYear: "Release Year",
-        rating: "Rating",
-        runtime: "Runtime",
-        genre: "Genre",
-        director: "Director",
-        actors: "Actors",
-        description: "Description",
-        image: "Image",
-    }
-};
