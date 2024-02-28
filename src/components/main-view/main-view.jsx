@@ -47,7 +47,7 @@ export const MainView = () => {              // create a functional component ca
     }
 
     return (                         // returns a new piece of UI
-        <div>
+        <div className="movie-list">
             {movies.map((movie) => (   // maps each element in the array to a new piece of UI, after execution will have <div>{movie.title}</div> for each movie in the array
                 <MovieCard        // returns a new MovieCard component for each movie in the array
                     key={movie.id}    // key is a special attribute that's used by React to keep track of the elements in the array -- it should be unique for each element
