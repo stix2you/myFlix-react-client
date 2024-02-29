@@ -39,7 +39,7 @@ export const MainView = () => {              // create a functional component ca
     }, []);
 
     if (!user) {
-        return <LoginView />;
+        return <LoginView onLoggedIn={(user) => setUser(user)}/>;   // passes the onLoggedIn prop to the LoginView component, prop has the updated user
     }
 
     if (selectedMovie) {                             // if selectedMovie is truthy, return a new MovieView component
