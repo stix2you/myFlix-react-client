@@ -21,7 +21,9 @@ export const MainView = () => {              // create a functional component ca
             return;     // if the token is falsy, return from the function
         }
 
-        fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies")   // fetches data from the API, GET request to the /movies endpoint
+        fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies", {  // fetches data from the API, GET request to the /movies endpoint}
+            headers: { Authorization: `Bearer ${token}` }
+        })
             .then((response) => response.json())             // parses the JSON data from the response
             .then((data) => {
                 console.log("movies from api:", data);          // logs the data to the console
@@ -41,7 +43,7 @@ export const MainView = () => {              // create a functional component ca
                 });
                 setMovies(moviesFromApi);
             });
-    }, []);
+    }, [token]);   // the second argument to useEffect is an array of dependencies, when the dependencies change, the effect is re-run
 
     if (!user) {
         return (
