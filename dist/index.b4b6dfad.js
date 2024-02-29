@@ -27194,6 +27194,7 @@ const MainView = ()=>{
     const [token, setToken] = (0, _react.useState)(null);
     (0, _react.useEffect)(()=>{
         // useEffect is a hook that allows you to perform side effects in function components
+        if (!token) return; // if the token is falsy, return from the function
         fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies") // fetches data from the API, GET request to the /movies endpoint
         .then((response)=>response.json()) // parses the JSON data from the response
         .then((data)=>{
@@ -27222,7 +27223,7 @@ const MainView = ()=>{
         }
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 44,
+        lineNumber: 48,
         columnNumber: 13
     }, undefined); // passes the onLoggedIn prop to the LoginView component, prop has the updated user
     if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
@@ -27230,7 +27231,7 @@ const MainView = ()=>{
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 55,
+        lineNumber: 59,
         columnNumber: 13
     }, undefined) // onBackClick is a prop that's passed to the MovieView component
     ;
@@ -27238,7 +27239,7 @@ const MainView = ()=>{
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 60,
+        lineNumber: 64,
         columnNumber: 16
     }, undefined); // returns a message that says "The list is empty!"
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27252,7 +27253,7 @@ const MainView = ()=>{
                     }
                 }, movie.id, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 66,
+                    lineNumber: 70,
                     columnNumber: 17
                 }, undefined)),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27262,13 +27263,13 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 73,
+                lineNumber: 77,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 64,
+        lineNumber: 68,
         columnNumber: 9
     }, undefined);
 };

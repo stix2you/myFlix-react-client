@@ -17,6 +17,10 @@ export const MainView = () => {              // create a functional component ca
 
     useEffect(() => {   // the purpose of this function is to fetch data from an API and update the movies state with the data, 
         // useEffect is a hook that allows you to perform side effects in function components
+        if (!token) {
+            return;     // if the token is falsy, return from the function
+        }
+
         fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies")   // fetches data from the API, GET request to the /movies endpoint
             .then((response) => response.json())             // parses the JSON data from the response
             .then((data) => {
