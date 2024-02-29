@@ -10,19 +10,28 @@ export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop 
         console.log("Button clicked");
 
         const data = {
-            access: username,
-            secret: password
+            Username: username,
+            Password: password
         };
 
-        fetch("https://openlibrary.org/account/login.json", {
+        fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/login/", {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(data)
-        }).then((response) => {
-            if (response.ok) {
-                onLoggedIn(username);
+        })
+        .then ((response) => response.json())
+        .then((data) => {
+            console.log("login response:", data);
+            if (data.user) {
+                onLoggedIn(data.user, data.token);
             } else {
-                alert("Login failed");
+                alert("No such user");
             }
+        })
+        .catch((e) => {
+            alert("something went wrong ");
         });
     };
 
