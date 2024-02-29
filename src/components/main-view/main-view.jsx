@@ -5,18 +5,20 @@
 
 import { useState, useEffect } from "react";                   // import the useState hook from the react package
 import { MovieCard } from "../movie-card/movie-card";  // import the MovieCard component from the movie-card module
-import { MovieView } from "../movie-view/movie-view";  // import the MovieView component from the movie-view module  
+import { MovieView } from "../movie-view/movie-view";  // import the MovieView component from the movie-view module 
+import { LoginView } from "../login-view/login-view";  // import the LoginView component from the login-view module 
 import { PropTypes } from "prop-types";    // import the PropTypes library from the prop-types package
 
 export const MainView = () => {              // create a functional component called MainView
     const [movies, setMovies] = useState([]);    // create a new piece of state called movies, an empty array, and a function called setMovies to update it
     const [selectedMovie, setSelectedMovie] = useState(null);   // create a new piece of state called selectedMovie, and a function called setSelectedMovie to update it
+    const [user, setUser] = useState(null);
 
     useEffect(() => {   // the purpose of this function is to fetch data from an API and update the movies state with the data, 
         // useEffect is a hook that allows you to perform side effects in function components
         fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies")   // fetches data from the API, GET request to the /movies endpoint
             .then((response) => response.json())             // parses the JSON data from the response
-            .then((data) => {                               
+            .then((data) => {
                 console.log("movies from api:", data);          // logs the data to the console
                 const moviesFromApi = data.map((doc) => {   // maps each element in the array to a new piece of UI, after execution will have <div>{movie.title}</div> for each movie in the array
                     return {
@@ -35,6 +37,10 @@ export const MainView = () => {              // create a functional component ca
                 setMovies(moviesFromApi);
             });
     }, []);
+
+    if (!user) {
+        return <LoginView />;
+    }
 
     if (selectedMovie) {                             // if selectedMovie is truthy, return a new MovieView component
         return (                                    // returns a new MovieView component with the selectedMovie as a prop
