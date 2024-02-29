@@ -3,110 +3,38 @@
 // Import the MainView component WITH curly braces:  import { MainView } from './path/to/main-view';  
 // This MUST BE CHANGED in the index.jsx file to use this method
 
-import { useState } from "react";                   // import the useState hook from the react package
+import { useState, useEffect } from "react";                   // import the useState hook from the react package
 import { MovieCard } from "../movie-card/movie-card";  // import the MovieCard component from the movie-card module
 import { MovieView } from "../movie-view/movie-view";  // import the MovieView component from the movie-view module  
+import { PropTypes } from "prop-types";    // import the PropTypes library from the prop-types package
 
 export const MainView = () => {              // create a functional component called MainView
-    const [movies, setMovies] = useState([     // create a new piece of state called movies, and a function called setMovies to update it
-        {
-            id: 1,
-            title: "The Shawshank Redemption",
-            releaseYear: "1994",
-            rating: "R",
-            runtime: "2h 22m",
-            description: "The Shawshank Redemption is a 1994 American prison drama film written and directed by Frank Darabont, based on the 1982 Stephen King novella Rita Hayworth and Shawshank Redemption. The film tells the story of banker Andy Dufresne (Tim Robbins), who is sentenced to life in Shawshank State Penitentiary for the murders of his wife and her lover, despite his claims of innocence. Over the following two decades, he befriends a fellow prisoner, contraband smuggler Ellis Redding (Morgan Freeman), and becomes instrumental in a money laundering operation led by the prison warden Samuel Norton (Bob Gunton). William Sadler, Clancy Brown, Gil Bellows, and James Whitmore appear in supporting roles.",
-            genres: [
-                "Drama   "
-            ],
-            director: "Frank Darabont   ",
-            actors: [
-                "Tim Robbins   ",
-                "Morgran Freeman   ",
-                "Bob Gunton   ",
-            ],
-            image: "https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg"
-        },
-        {
-            id: 2,
-            title: "Seven Samurai",
-            releaseYear: "1954",
-            rating: "Not Rated",
-            runtime: "3h 27m",
-            description: "Seven Samurai is a 1954 Japanese epic samurai film co-written, edited, and directed by Akira Kurosawa. Taking place in 1586 in the Sengoku period of Japanese history, it follows the story of a village of desperate farmers who seek to hire masterless samurai to combat bandits who will return after the harvest to steal their crops.",
-            genres: [
-                "Action   ",
-                "Drama   "
-            ],
-            director: "Akira Kurosawa",
-            actors: [
-                "Toshiro Mifune   ",
-                "Takashi Shimura   ",
-                "Keiko Tsushima   "
-            ],
-            image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Seven_Samurai_poster.jpg/330px-Seven_Samurai_poster.jpg"
-        },
-        {
-            id: 3,
-            title: "Interstellar",
-            releaseYear: "2014",
-            rating: "PG-13",
-            runtime: "2h 48m",
-            description: "Interstellar is a 2014 epic science fiction film co-written, directed, and produced by Christopher Nolan. It stars Matthew McConaughey, Anne Hathaway, Jessica Chastain, Bill Irwin, Ellen Burstyn, Michael Caine, and Matt Damon. Set in a dystopian future where humanity is embroiled in a catastrophic blight and famine, the film follows a group of astronauts who travel through a wormhole near Saturn in search of a new home for humankind.",
-            genres: [
-                "Adventure   ",
-                "Drama   ",
-                "SciFi   "
-            ],
-            director: "Christopher Nolan",
-            actors: [
-                "Matthew McConaughey   ",
-                "Anne Hathaway   ",
-                "Jessica Chastain   "
-            ],
-            image: "https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg"
-        },
-        {
-            id: 4,
-            title: "The Godfather Part II",
-            releaseYear: "1974",
-            rating: "R",
-            runtime: "3h 22m",
-            description: "The Godfather Part II is a 1974 American epic crime film. The film is produced and directed by Francis Ford Coppola, loosely based on the 1969 novel The Godfather by Mario Puzo. The film is both a sequel and a prequel to The Godfather, presenting parallel dramas: one picks up the 1958 story of Michael Corleone (Al Pacino), the new Don of the Corleone crime family, protecting the family business in the aftermath of an attempt on his life; the prequel covers the journey of his father, Vito Corleone (Robert De Niro), from his Sicilian childhood to the founding of his family enterprise in New York City.",
-            genres: [
-                "Crime   ",
-                "Drama   "
-            ],
-            director: "Francis Ford Coppola",
-            actors: [
-                "Al Pacino   ",
-                "Robert De Niro   ",
-                "Robert Duvall   "
-            ],
-            image: "https://upload.wikimedia.org/wikipedia/en/0/03/Godfather_part_ii.jpg"
-        },
-        {
-            id: 5,
-            title: "Saving Private Ryan",
-            releaseYear: "1998",
-            rating: "R",
-            runtime: "2h 49m",
-            description: "Tom Hanks plays a bad ass history teacher in this movie.",
-            genres: [
-                "Drama   ",
-                "War   "
-            ],
-            director: "Steven Spielberg",
-            actors: [
-                "Tom Hanks   ",
-                "Edward Burns   ",
-                "Matt Damon   "
-            ],
-            image: "https://upload.wikimedia.org/wikipedia/en/a/ac/Saving_Private_Ryan_poster.jpg"
-        }
-    ]);
-
+    const [movies, setMovies] = useState([]);    // create a new piece of state called movies, an empty array, and a function called setMovies to update it
     const [selectedMovie, setSelectedMovie] = useState(null);   // create a new piece of state called selectedMovie, and a function called setSelectedMovie to update it
+
+    useEffect(() => {   // the purpose of this function is to fetch data from an API and update the movies state with the data, 
+        // useEffect is a hook that allows you to perform side effects in function components
+        fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies")   // fetches data from the API, GET request to the /movies endpoint
+            .then((response) => response.json())             // parses the JSON data from the response
+            .then((data) => {                               
+                console.log("movies from api:", data);          // logs the data to the console
+                const moviesFromApi = data.map((doc) => {   // maps each element in the array to a new piece of UI, after execution will have <div>{movie.title}</div> for each movie in the array
+                    return {
+                        id: doc._id,
+                        title: doc.Title,
+                        director: doc.Director,
+                        releaseYear: doc.ReleaseYear,
+                        rating: doc.Rating,
+                        runtime: doc.Runtime,
+                        description: doc.Description,
+                        genres: doc.Genres,
+                        actors: doc.Actors,
+                        image: doc.ImagePath
+                    };
+                });
+                setMovies(moviesFromApi);
+            });
+    }, []);
 
     if (selectedMovie) {                             // if selectedMovie is truthy, return a new MovieView component
         return (                                    // returns a new MovieView component with the selectedMovie as a prop
@@ -119,9 +47,9 @@ export const MainView = () => {              // create a functional component ca
     }
 
     return (                         // returns a new piece of UI
-        <div>
+        <div className="movie-list">
             {movies.map((movie) => (   // maps each element in the array to a new piece of UI, after execution will have <div>{movie.title}</div> for each movie in the array
-                <MovieCard            // returns a new MovieCard component for each movie in the array
+                <MovieCard        // returns a new MovieCard component for each movie in the array
                     key={movie.id}    // key is a special attribute that's used by React to keep track of the elements in the array -- it should be unique for each element
                     movie={movie}      // movie is a prop that's passed to the MovieCard component
                     onMovieClick={(newSelectedMovie) => {       // onMovieClick is a prop that's passed to the MovieCard component
@@ -131,4 +59,47 @@ export const MainView = () => {              // create a functional component ca
         </div>
     );
 
+};
+
+MainView.propTypes = {
+    movies: PropTypes.arrayOf(PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        releaseYear: PropTypes.string,
+        rating: PropTypes.string,
+        runtime: PropTypes.string,
+        genres: PropTypes.array.isRequired,
+        director: PropTypes.string.isRequired,
+        actors: PropTypes.array.isRequired,
+        description: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+
+    })),
+
+    selectedMovie: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        releaseYear: PropTypes.string.isRequired,
+        rating: PropTypes.string.isRequired,
+        runtime: PropTypes.string.isRequired,
+        genres: PropTypes.array.isRequired,
+        director: PropTypes.string.isRequired,
+        actors: PropTypes.array.isRequired,
+        description: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+
+    }).isRequired
+};
+
+MainView.defaultProps = {
+    movies: [],
+    selectedMovie: {
+        title: "Title",
+        releaseYear: "Release Year",
+        rating: "Rating",
+        runtime: "Runtime",
+        genres: ["Genre"],
+        director: "Director",
+        actors: ["Actors"],
+        description: "Description",
+        image: "Image",
+    }
 };
