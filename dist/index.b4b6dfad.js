@@ -27191,6 +27191,7 @@ const MainView = ()=>{
     const [movies, setMovies] = (0, _react.useState)([]); // create a new piece of state called movies, an empty array, and a function called setMovies to update it
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null); // create a new piece of state called selectedMovie, and a function called setSelectedMovie to update it
     const [user, setUser] = (0, _react.useState)(null);
+    const [token, setToken] = (0, _react.useState)(null);
     (0, _react.useEffect)(()=>{
         // useEffect is a hook that allows you to perform side effects in function components
         fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies") // fetches data from the API, GET request to the /movies endpoint
@@ -27215,18 +27216,21 @@ const MainView = ()=>{
         });
     }, []);
     if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-        onLoggedIn: (user)=>setUser(user)
+        onLoggedIn: (user, token)=>{
+            setUser(user);
+            setToken(token);
+        }
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 42,
-        columnNumber: 16
+        lineNumber: 44,
+        columnNumber: 13
     }, undefined); // passes the onLoggedIn prop to the LoginView component, prop has the updated user
     if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
         movie: selectedMovie,
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 47,
+        lineNumber: 55,
         columnNumber: 13
     }, undefined) // onBackClick is a prop that's passed to the MovieView component
     ;
@@ -27234,7 +27238,7 @@ const MainView = ()=>{
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 52,
+        lineNumber: 60,
         columnNumber: 16
     }, undefined); // returns a message that says "The list is empty!"
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27248,7 +27252,7 @@ const MainView = ()=>{
                     }
                 }, movie.id, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 58,
+                    lineNumber: 66,
                     columnNumber: 17
                 }, undefined)),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27258,17 +27262,17 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 65,
+                lineNumber: 73,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 56,
+        lineNumber: 64,
         columnNumber: 9
     }, undefined);
 };
-_s(MainView, "AA2Lbd5vppiQn5Rpxq/geFPiCys=");
+_s(MainView, "ld1mNqbzEgxPu9ZfASjBJ7ZrUMw=");
 _c = MainView;
 MainView.propTypes = {
     movies: (0, _propTypes.PropTypes).arrayOf((0, _propTypes.PropTypes).shape({

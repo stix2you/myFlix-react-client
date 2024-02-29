@@ -13,6 +13,7 @@ export const MainView = () => {              // create a functional component ca
     const [movies, setMovies] = useState([]);    // create a new piece of state called movies, an empty array, and a function called setMovies to update it
     const [selectedMovie, setSelectedMovie] = useState(null);   // create a new piece of state called selectedMovie, and a function called setSelectedMovie to update it
     const [user, setUser] = useState(null);
+    const [token, setToken] = useState(null);
 
     useEffect(() => {   // the purpose of this function is to fetch data from an API and update the movies state with the data, 
         // useEffect is a hook that allows you to perform side effects in function components
@@ -39,7 +40,14 @@ export const MainView = () => {              // create a functional component ca
     }, []);
 
     if (!user) {
-        return <LoginView onLoggedIn={(user) => setUser(user)}/>;   // passes the onLoggedIn prop to the LoginView component, prop has the updated user
+        return (
+            <LoginView
+                onLoggedIn={(user, token) => {
+                    setUser(user);
+                    setToken(token);
+                }}
+            />
+        );   // passes the onLoggedIn prop to the LoginView component, prop has the updated user
     }
 
     if (selectedMovie) {                             // if selectedMovie is truthy, return a new MovieView component
