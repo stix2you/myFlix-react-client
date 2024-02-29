@@ -62,6 +62,7 @@ export const MainView = () => {              // create a functional component ca
                         setSelectedMovie(newSelectedMovie);     // when the MovieCard component calls onMovieClick, it will call setSelectedMovie with the newSelectedMovie as an argument (newSelectedMovie is the movie that was clicked on
                     }} />
             ))}
+            <button onClick={() => { setUser(null); }}>Logout</button>
         </div>
     );
 
