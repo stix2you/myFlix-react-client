@@ -20,11 +20,11 @@ export const MainView = () => {              // create a functional component ca
 
 
     useEffect(() => {   // the purpose of this function is to fetch data from an API and update the movies state with the data, 
-        if (!token) {
+        if (!token) {     // if the token is falsy, return from the function, falsy values are: false, 0, "", null, undefined, and NaN
             return;     // if the token is falsy, return from the function
         }
 
-        fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies", {  // fetches data from the API, GET request to the /movies endpoint}
+        fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies", {  // fetches data from the API, GET request to the /movies endpoint
             headers: { Authorization: `Bearer ${token}` }
         })
             .then((response) => response.json())             // parses the JSON data from the response
@@ -49,7 +49,7 @@ export const MainView = () => {              // create a functional component ca
             });
     }, [token]);   // the second argument to useEffect is an array of dependencies, when the dependencies change, the effect is re-run
 
-    if (!user) {
+    if (!user) {    // if user is falsy, return the LoginView and SignupView components
         return (
             <>
                 <LoginView onLoggedIn={(user, token) => {
