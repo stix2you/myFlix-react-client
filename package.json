@@ -15,10 +15,12 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "bootstrap": "^5.3.3",
         "parcel": "^2.12.0",
         "prop-types": "^15.8.1",
         "proptypes": "^1.1.0",
         "react": "^18.2.0",
+        "react-bootstrap": "^2.10.1",
         "react-dom": "^18.2.0"
     },
     "devDependencies": {
