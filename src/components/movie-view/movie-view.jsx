@@ -1,4 +1,6 @@
 import PropTypes from "prop-types";
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 export const MovieView = ({ movie, onBackClick }) => {   // create a functional component called MovieView, which takes two props: movie and onBackClick
     return (
