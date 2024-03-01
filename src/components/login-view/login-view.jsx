@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop from the MainView component, which contains
     const [username, setUsername] = useState("");
@@ -39,30 +41,30 @@ export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop 
     };
 
     return (
-        <div className="login-signup-container">
-            <form className="login-signup-detail" onSubmit={handleSubmit}>
+        
+            <Form onSubmit={handleSubmit}>
                 <h1>Login</h1>
-                <label>
-                    Username:
-                    <input id="loginForm"
+                <Form.Group controlID="formUsername">
+                <Form.Label>Username:</Form.Label>
+                    <Form.Control 
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required />
-                </label>
-                <label>
-                    Password:
-                    <input id="loginForm"
+                </Form.Group>
+                <Form.Group controlID="formPassword">
+                <Form.Label>Password:</Form.Label>
+                    <Form.Control
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required />
-                </label>
-                <button type="submit">
+                </Form.Group>
+                <Button type="submit">
                     Submit
-                </button>
-            </form>
-        </div>
+                </Button>
+            </Form>
+        
     );
 };
 

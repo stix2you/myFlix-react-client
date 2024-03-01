@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 export const SignupView = () => {
     const [username, setUsername] = useState("");
@@ -34,12 +36,12 @@ export const SignupView = () => {
     };
 
     return (
-        <div className="login-signup-container">
-        <form className="login-signup-detail" onSubmit={handleSubmit}>
+        
+        <Form onSubmit={handleSubmit}>
             <h1>Sign Up</h1>
-            <label>
-                Username:
-                <input
+            <Form.Group controlID="formUsername">
+            <Form.Label>Username:</Form.Label>
+                <Form.Control
                     id="loginForm"
                     type="text"
                     value={username}
@@ -47,39 +49,40 @@ export const SignupView = () => {
                     required
                     minLength="3"
                 />
-            </label>
-            <label>
-                Password:
-                <input
+            </Form.Group>
+            <Form.Group controlID="formPassword">
+            <Form.Label>Password:</Form.Label>
+                <Form.Control
                     id="loginForm"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-            </label>
-            <label>
-                Email:
-                <input
+            
+            </Form.Group>
+            <Form.Group controlID="formEmail">
+            <Form.Label>Email:</Form.Label>
+                <Form.Control
                     id="loginForm"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
                 />
-            </label>
-            <label>
-                Birthday:
-                <input
+            </Form.Group>
+            <Form.Group controlID="formBirthday">
+            <Form.Label>Birthday:</Form.Label>
+                <Form.Control
                     id="loginForm"
                     type="date"
                     value={birthday}
                     onChange={(e) => setBirthday(e.target.value)}
                     required
                 />
-            </label>
-            <button type="submit">Submit</button>
-        </form>
-        </div>
+            </Form.Group>
+            <Button type="submit">Submit</Button>
+        </Form>
+        
     );
 };
