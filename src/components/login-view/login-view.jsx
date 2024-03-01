@@ -10,8 +10,8 @@ export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop 
         console.log("Button clicked");
 
         const data = {
-            Username: username,
-            Password: password
+            username: username,
+            password: password
         };
         console.log("data value", data);
 

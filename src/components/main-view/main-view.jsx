@@ -7,16 +7,17 @@ import { useState, useEffect } from "react";                   // import the use
 import { MovieCard } from "../movie-card/movie-card";  // import the MovieCard component from the movie-card module
 import { MovieView } from "../movie-view/movie-view";  // import the MovieView component from the movie-view module 
 import { LoginView } from "../login-view/login-view";  // import the LoginView component from the login-view module 
+import { SignupView } from "../signup-view.jsx/signup-view"; // import the SignupView component from the signup-view module
 import { PropTypes } from "prop-types";    // import the PropTypes library from the prop-types package
 
 export const MainView = () => {              // create a functional component called MainView
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
-    const [user, setUser] = useState(storedUser? storedUser : null);
-    const [token, setToken] = useState(storedToken? storedToken : null);
+    const [user, setUser] = useState(storedUser ? storedUser : null);
+    const [token, setToken] = useState(storedToken ? storedToken : null);
     const [movies, setMovies] = useState([]);    // create a new piece of state called movies, an empty array, and a function called setMovies to update it
     const [selectedMovie, setSelectedMovie] = useState(null);   // create a new piece of state called selectedMovie, and a function called setSelectedMovie to update it
-   
+
 
     useEffect(() => {   // the purpose of this function is to fetch data from an API and update the movies state with the data, 
         if (!token) {
@@ -27,7 +28,8 @@ export const MainView = () => {              // create a functional component ca
             headers: { Authorization: `Bearer ${token}` }
         })
             .then((response) => response.json())             // parses the JSON data from the response
-            .then((movies) => { setMovies(movies);         // updates the movies state with the data from the API
+            .then((movies) => {
+                setMovies(movies);         // updates the movies state with the data from the API
                 console.log("movies from api:", movies);          // logs the data to the console
                 const moviesFromApi = movies.map((doc) => {   // maps each element in the array to a new piece of UI, after execution will have <div>{movie.title}</div> for each movie in the array
                     return {
@@ -49,13 +51,15 @@ export const MainView = () => {              // create a functional component ca
 
     if (!user) {
         return (
-            <LoginView
-                onLoggedIn={(user, token) => {
+            <>
+                <LoginView onLoggedIn={(user, token) => {
                     setUser(user);
                     setToken(token);
-                }}
-            />
-        );   // passes the onLoggedIn prop to the LoginView component, prop has the updated user
+                }} />
+                or
+                <SignupView />
+            </>
+        );
     }
 
     if (selectedMovie) {                             // if selectedMovie is truthy, return a new MovieView component
