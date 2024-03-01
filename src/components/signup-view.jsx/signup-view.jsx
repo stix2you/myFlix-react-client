@@ -10,15 +10,16 @@ export const SignupView = () => {
         event.preventDefault();
 
         const data = {
-            Username: username,
-            Password: password,
-            Email: email,
-            Birthday: birthday
+            username: username,
+            password: password,
+            email: email,
+            birthday: birthday
         };
+        console.log("User Data:", data);
 
         fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users", {
             method: "POST",
-            body: JSON.stringify(data),
+            body: JSON.stringify(data),  // data is sent to the server as a string
             headers: {
                 "Content-Type": "application/json"
             }
