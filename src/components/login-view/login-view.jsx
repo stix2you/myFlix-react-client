@@ -13,6 +13,7 @@ export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop 
             Username: username,
             Password: password
         };
+        console.log("data value", data);
 
         fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/login/", {
             method: "POST",
