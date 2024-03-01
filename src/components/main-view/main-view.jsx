@@ -4,7 +4,9 @@ import { MovieView } from "../movie-view/movie-view";  // import the MovieView c
 import { LoginView } from "../login-view/login-view";  // import the LoginView component from the login-view module 
 import { SignupView } from "../signup-view.jsx/signup-view"; // import the SignupView component from the signup-view module
 import { PropTypes } from "prop-types";    // import the PropTypes library from the prop-types package
+import Container from 'react-bootstrap/Container';  // import the Container component from the react-bootstrap package
 import Row from 'react-bootstrap/Container';  // import the Row component from the react-bootstrap package
+import Col from 'react-bootstrap/Col';
 
 export const MainView = () => {              // create a functional component called MainView
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -46,38 +48,43 @@ export const MainView = () => {              // create a functional component ca
     }, [token]);   // the second argument to useEffect is an array of dependencies, when the dependencies change, the effect is re-run
 
 
-    return (                         // returns a new piece of UI
-        <Row>
+    return ( 
+                             
+        <Row className="justify-content-md-center">
             {!user ? (
-
-                <>
+                <Col md={5}>
                     <LoginView onLoggedIn={(user, token) => {
                         setUser(user);
                         setToken(token);
                     }} />
                     <SignupView />
-                </>
+                </Col>
             ) : selectedMovie ? (
-                <MovieView
-                    movie={selectedMovie}
-                    onBackClick={() => setSelectedMovie(null)} />
+                <Col md={8} style={{ border: "1px solid black" }}>
+                    <MovieView
+                        movie={selectedMovie}
+                        onBackClick={() => setSelectedMovie(null)} />
+                </Col>
             ) : movies.length === 0 ? (
                 <div>The list is empty!</div>
             ) : (
                 <>
                     {movies.map((movie) => (
+                        <Col key={movie.id} md={3}>
                         <MovieCard
-                            key={movie.id}
+                            // key={movie.id}
                             movie={movie}
                             onMovieClick={(newSelectedMovie) => {
                                 setSelectedMovie(newSelectedMovie);
                             }}
                         />
+                        </Col>
                     ))}
                 </>
             )}
             <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
         </Row >
+        
     );
 };
 
