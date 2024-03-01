@@ -22,18 +22,20 @@ export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop 
             },
             body: JSON.stringify(data)
         })
-        .then ((response) => response.json())
-        .then((data) => {
-            console.log("login response:", data);
-            if (data.user) {
-                onLoggedIn(data.user, data.token);
-            } else {
-                alert("No such user");
-            }
-        })
-        .catch((e) => {
-            alert("something went wrong ");
-        });
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("login response:", data);
+                if (data.user) {
+                    localStorage.setItem("user", JSON.stringify(data.user));
+                    localStorage.setItem("token", data.token);
+                    onLoggedIn(data.user, data.token);
+                } else {
+                    alert("No such user");
+                }
+            })
+            .catch((e) => {
+                alert("something went wrong ");
+            });
     };
 
     return (

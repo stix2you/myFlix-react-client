@@ -10,13 +10,15 @@ import { LoginView } from "../login-view/login-view";  // import the LoginView c
 import { PropTypes } from "prop-types";    // import the PropTypes library from the prop-types package
 
 export const MainView = () => {              // create a functional component called MainView
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedToken = localStorage.getItem("token");
+    const [user, setUser] = useState(storedUser? storedUser : null);
+    const [token, setToken] = useState(storedToken? storedToken : null);
     const [movies, setMovies] = useState([]);    // create a new piece of state called movies, an empty array, and a function called setMovies to update it
     const [selectedMovie, setSelectedMovie] = useState(null);   // create a new piece of state called selectedMovie, and a function called setSelectedMovie to update it
-    const [user, setUser] = useState(null);
-    const [token, setToken] = useState(null);
+   
 
     useEffect(() => {   // the purpose of this function is to fetch data from an API and update the movies state with the data, 
-        // useEffect is a hook that allows you to perform side effects in function components
         if (!token) {
             return;     // if the token is falsy, return from the function
         }
@@ -25,9 +27,9 @@ export const MainView = () => {              // create a functional component ca
             headers: { Authorization: `Bearer ${token}` }
         })
             .then((response) => response.json())             // parses the JSON data from the response
-            .then((data) => {
-                console.log("movies from api:", data);          // logs the data to the console
-                const moviesFromApi = data.map((doc) => {   // maps each element in the array to a new piece of UI, after execution will have <div>{movie.title}</div> for each movie in the array
+            .then((movies) => { setMovies(movies);         // updates the movies state with the data from the API
+                console.log("movies from api:", movies);          // logs the data to the console
+                const moviesFromApi = movies.map((doc) => {   // maps each element in the array to a new piece of UI, after execution will have <div>{movie.title}</div> for each movie in the array
                     return {
                         id: doc._id,
                         title: doc.Title,
@@ -76,7 +78,7 @@ export const MainView = () => {              // create a functional component ca
                         setSelectedMovie(newSelectedMovie);     // when the MovieCard component calls onMovieClick, it will call setSelectedMovie with the newSelectedMovie as an argument (newSelectedMovie is the movie that was clicked on
                     }} />
             ))}
-            <button onClick={() => { setUser(null); setToken(null); }}>Logout</button>
+            <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
         </div>
     );
 
