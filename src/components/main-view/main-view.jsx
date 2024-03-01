@@ -56,7 +56,6 @@ export const MainView = () => {              // create a functional component ca
                     setUser(user);
                     setToken(token);
                 }} />
-                or
                 <SignupView />
             </>
         );

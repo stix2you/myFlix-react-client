@@ -34,10 +34,13 @@ export const SignupView = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <div className="login-signup-container">
+        <form className="login-signup-detail" onSubmit={handleSubmit}>
+            <h1>Sign Up</h1>
             <label>
                 Username:
                 <input
+                    id="loginForm"
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -48,6 +51,7 @@ export const SignupView = () => {
             <label>
                 Password:
                 <input
+                    id="loginForm"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -57,6 +61,7 @@ export const SignupView = () => {
             <label>
                 Email:
                 <input
+                    id="loginForm"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -66,6 +71,7 @@ export const SignupView = () => {
             <label>
                 Birthday:
                 <input
+                    id="loginForm"
                     type="date"
                     value={birthday}
                     onChange={(e) => setBirthday(e.target.value)}
@@ -74,5 +80,6 @@ export const SignupView = () => {
             </label>
             <button type="submit">Submit</button>
         </form>
+        </div>
     );
 };

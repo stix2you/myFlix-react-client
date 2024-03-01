@@ -39,21 +39,30 @@ export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop 
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Username:
-                <input type="text" value={username}
-                    onChange={(e) => setUsername(e.target.value)} required />
-            </label>
-            <label>
-                Password:
-                <input type="password" value={password}
-                    onChange={(e) => setPassword(e.target.value)} required />
-            </label>
-            <button type="submit">
-                Submit
-            </button>
-        </form>
+        <div className="login-signup-container">
+            <form className="login-signup-detail" onSubmit={handleSubmit}>
+                <h1>Login</h1>
+                <label>
+                    Username:
+                    <input id="loginForm"
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required />
+                </label>
+                <label>
+                    Password:
+                    <input id="loginForm"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required />
+                </label>
+                <button type="submit">
+                    Submit
+                </button>
+            </form>
+        </div>
     );
 };
 
