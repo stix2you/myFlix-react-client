@@ -1,4 +1,3 @@
-// import React from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -41,7 +40,6 @@ export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop 
     };
 
     return (
-        
             <Form onSubmit={handleSubmit}>
                 <h1>Login</h1>
                 <Form.Group className="mb-2" controlID="formUsername">
@@ -64,6 +62,5 @@ export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop 
                     Submit
                 </Button>
             </Form>
-        
     );
 };

@@ -4,7 +4,7 @@ import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 
 export const MovieView = ({ movie, onBackClick }) => {   // create a functional component called MovieView, which takes two props: movie and onBackClick
     return (
-        <Card onClick={onBackClick} style={{ borderRadius: "3%", overflow: 'hidden' }}>
+        <Card className="m-4" onClick={onBackClick} style={{ borderRadius: "3%", overflow: 'hidden' }}>
             <Container style={{ padding: 0 }}>
                 <Row noGutters>
                     <Col style={{ overflow: 'hidden', borderRadius: '3% 0 0 3%' }}>
@@ -14,8 +14,12 @@ export const MovieView = ({ movie, onBackClick }) => {   // create a functional 
                     <Col>
                         <Card.Body>
                             <Card.Title>{movie.title}</Card.Title>
-                            <Card.Text>{movie.author}</Card.Text>
-                            <Button className="back-button" style={{ cursor: "pointer" }} onClick={e => { e.stopPropagation(); onBackClick(); }}>Back
+                            <Card.Text style={{whiteSpace: 'pre'}}>{movie.releaseYear}        {movie.rating}          {movie.runtime}</Card.Text>
+                            <Card.Text>{movie.genres.join(" / ")}</Card.Text>
+                            <Card.Text>Director: {movie.director}</Card.Text>
+                            <Card.Text>Starring: {movie.actors.join(", ")}</Card.Text>
+                            <Card.Text style={{ maxWidth: '700px', margin: 'auto' }}>{movie.description}</Card.Text>
+                            <Button className="back-button m-4 btn-lg" style={{ cursor: "pointer" }} onClick={e => { e.stopPropagation(); onBackClick(); }}>Back
                             </Button>
                         </Card.Body>
                     </Col>
