@@ -27295,7 +27295,7 @@ const MainView = ()=>{
                 columnNumber: 17
             }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                 children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                        className: "mb-5",
+                        className: "mt-4 mb-4",
                         md: 3,
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                             movie: movie,
@@ -27420,6 +27420,9 @@ var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _reactBootstrap = require("react-bootstrap");
 const MovieCard = ({ movie, onMovieClick })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
+        style: {
+            cursor: "pointer"
+        },
         className: "h-100",
         onClick: ()=>onMovieClick(movie),
         children: [
@@ -27449,18 +27452,6 @@ const MovieCard = ({ movie, onMovieClick })=>{
                         fileName: "src/components/movie-card/movie-card.jsx",
                         lineNumber: 11,
                         columnNumber: 17
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                        style: {
-                            cursor: "pointer"
-                        },
-                        onClick: ()=>onBookClick(book),
-                        variant: "link",
-                        children: "Open"
-                    }, void 0, false, {
-                        fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 12,
-                        columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
@@ -27476,20 +27467,6 @@ const MovieCard = ({ movie, onMovieClick })=>{
     }, undefined);
 };
 _c = MovieCard;
-// export const MovieCard = ({ movie, onMovieClick }) => {
-//     return (                // The Card component is wrapped in a div with the class name "d-flex flex-row" in order to stack image b                                   
-//         <Card style={{ width: '15rem' }} onClick={() => onMovieClick(movie)} className="d-flex flex-row">             
-//             <Card.Img variant="top" src={movie.image} />
-//             <Card.Body>
-//                 <Card.Title>{movie.title}</Card.Title>
-//                 <Card.Text>{movie.author}</Card.Text>
-//                 <Button onClick={() => onMovieClick(movie)} variant="link">
-//                     Open
-//                 </Button>
-//             </Card.Body>
-//         </Card>
-//     );
-// };
 MovieCard.propTypes = {
     movie: (0, _propTypesDefault.default).shape({
         title: (0, _propTypesDefault.default).string.isRequired,
@@ -30819,7 +30796,7 @@ const MovieView = ({ movie, onBackClick })=>{
                             }
                         }, void 0, false, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 12,
+                            lineNumber: 11,
                             columnNumber: 25
                         }, undefined)
                     }, void 0, false, {
@@ -30834,7 +30811,7 @@ const MovieView = ({ movie, onBackClick })=>{
                                     children: movie.title
                                 }, void 0, false, {
                                     fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 16,
+                                    lineNumber: 15,
                                     columnNumber: 29
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
@@ -30850,14 +30827,14 @@ const MovieView = ({ movie, onBackClick })=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 17,
+                                    lineNumber: 16,
                                     columnNumber: 29
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
                                     children: movie.genres.join(" / ")
                                 }, void 0, false, {
                                     fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 18,
+                                    lineNumber: 17,
                                     columnNumber: 29
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
@@ -30867,7 +30844,7 @@ const MovieView = ({ movie, onBackClick })=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 19,
+                                    lineNumber: 18,
                                     columnNumber: 29
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
@@ -30877,7 +30854,7 @@ const MovieView = ({ movie, onBackClick })=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 20,
+                                    lineNumber: 19,
                                     columnNumber: 29
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
@@ -30888,7 +30865,7 @@ const MovieView = ({ movie, onBackClick })=>{
                                     children: movie.description
                                 }, void 0, false, {
                                     fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 21,
+                                    lineNumber: 20,
                                     columnNumber: 29
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -30903,18 +30880,18 @@ const MovieView = ({ movie, onBackClick })=>{
                                     children: "Back"
                                 }, void 0, false, {
                                     fileName: "src/components/movie-view/movie-view.jsx",
-                                    lineNumber: 22,
+                                    lineNumber: 21,
                                     columnNumber: 29
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/movie-view/movie-view.jsx",
-                            lineNumber: 15,
+                            lineNumber: 14,
                             columnNumber: 25
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 14,
+                        lineNumber: 13,
                         columnNumber: 21
                     }, undefined)
                 ]

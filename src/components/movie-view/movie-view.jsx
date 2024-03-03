@@ -8,13 +8,12 @@ export const MovieView = ({ movie, onBackClick }) => {   // create a functional 
             <Container style={{ padding: 0 }}>
                 <Row noGutters>
                     <Col style={{ overflow: 'hidden', borderRadius: '3% 0 0 3%' }}>
-                        {/* Apply borderRadius to the specific corners based on image position */}
                         <Card.Img variant="top" src={movie.image} style={{ width: "100%" }} />
                     </Col>
                     <Col>
                         <Card.Body>
                             <Card.Title>{movie.title}</Card.Title>
-                            <Card.Text style={{whiteSpace: 'pre'}}>{movie.releaseYear}        {movie.rating}          {movie.runtime}</Card.Text>
+                            <Card.Text style={{ whiteSpace: 'pre' }}>{movie.releaseYear}        {movie.rating}          {movie.runtime}</Card.Text>
                             <Card.Text>{movie.genres.join(" / ")}</Card.Text>
                             <Card.Text>Director: {movie.director}</Card.Text>
                             <Card.Text>Starring: {movie.actors.join(", ")}</Card.Text>
