@@ -1,26 +1,27 @@
+import React from 'react';
 import PropTypes from "prop-types";
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 
 export const MovieView = ({ movie, onBackClick }) => {   // create a functional component called MovieView, which takes two props: movie and onBackClick
     return (
-        <div className="movie-list">
-            <div className="movie-detail">
-                <div><img src={movie.image} /></div>
-                <div className="movie-details-list">
-                <h1>Title: {movie.title}</h1>
-                <h3 style={{whiteSpace: 'pre'}}> {movie.releaseYear}        {movie.rating}          {movie.runtime}</h3>
-                <h3>{movie.genres.join(" / ")}</h3>
-                <h3>{'\u00A0'}</h3>
-                <h2>Director: {movie.director}</h2>
-                <h2>Starring: {movie.actors.join(", ")}</h2>
-                <h4 style={{ maxWidth: '700px', margin: 'auto' }}>{movie.description}</h4>
-                <button onClick={onBackClick}>
-                    Back
-                </button>
-                </div>
-            </div>
-        </div>
+        <Card onClick={onBackClick} style={{ borderRadius: "3%", overflow: 'hidden' }}>
+            <Container style={{ padding: 0 }}>
+                <Row noGutters>
+                    <Col style={{ overflow: 'hidden', borderRadius: '3% 0 0 3%' }}>
+                        {/* Apply borderRadius to the specific corners based on image position */}
+                        <Card.Img variant="top" src={movie.image} style={{ width: "100%" }} />
+                    </Col>
+                    <Col>
+                        <Card.Body>
+                            <Card.Title>{movie.title}</Card.Title>
+                            <Card.Text>{movie.author}</Card.Text>
+                            <Button className="back-button" style={{ cursor: "pointer" }} onClick={e => { e.stopPropagation(); onBackClick(); }}>Back
+                            </Button>
+                        </Card.Body>
+                    </Col>
+                </Row>
+            </Container>
+        </Card>
     );
 };
 
@@ -38,3 +39,25 @@ MovieView.propTypes = {
     }).isRequired,
     onBackClick: PropTypes.func.isRequired
 };
+
+
+
+// OLD RETURNED CODE:
+
+// <div className="movie-list">
+// <div className="movie-detail">
+//     <div><img src={movie.image} /></div>
+//     <div className="movie-details-list">
+//     <h1>Title: {movie.title}</h1>
+//     <h3 style={{whiteSpace: 'pre'}}> {movie.releaseYear}        {movie.rating}          {movie.runtime}</h3>
+//     <h3>{movie.genres.join(" / ")}</h3>
+//     <h3>{'\u00A0'}</h3>
+//     <h2>Director: {movie.director}</h2>
+//     <h2>Starring: {movie.actors.join(", ")}</h2>
+//     <h4 style={{ maxWidth: '700px', margin: 'auto' }}>{movie.description}</h4>
+//     <button onClick={onBackClick}>
+//         Back
+//     </button>
+//     </div>
+// </div>
+// </div>

@@ -1,12 +1,12 @@
+
 import { useState, useEffect } from "react";                   // import the useState hook from the react package
 import { MovieCard } from "../movie-card/movie-card";  // import the MovieCard component from the movie-card module
 import { MovieView } from "../movie-view/movie-view";  // import the MovieView component from the movie-view module 
 import { LoginView } from "../login-view/login-view";  // import the LoginView component from the login-view module 
 import { SignupView } from "../signup-view.jsx/signup-view"; // import the SignupView component from the signup-view module
 import { PropTypes } from "prop-types";    // import the PropTypes library from the prop-types package
-import Container from 'react-bootstrap/Container';  // import the Container component from the react-bootstrap package
-import Row from 'react-bootstrap/Container';  // import the Row component from the react-bootstrap package
-import Col from 'react-bootstrap/Col';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Caintainer, Row, Col } from 'react-bootstrap';
 
 export const MainView = () => {              // create a functional component called MainView
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -52,7 +52,7 @@ export const MainView = () => {              // create a functional component ca
                              
         <Row className="justify-content-md-center">
             {!user ? (
-                <Col md={5}>
+                <Col className="mb-5" md={4}>
                     <LoginView onLoggedIn={(user, token) => {
                         setUser(user);
                         setToken(token);
@@ -60,19 +60,26 @@ export const MainView = () => {              // create a functional component ca
                     <SignupView />
                 </Col>
             ) : selectedMovie ? (
-                <Col md={8} style={{ border: "1px solid black" }}>
+                <Row className="justify-content-md-center">
+                    <Col md={8}>
                     <MovieView
                         movie={selectedMovie}
                         onBackClick={() => setSelectedMovie(null)} />
                 </Col>
+                </Row>
             ) : movies.length === 0 ? (
-                <div>The list is empty!</div>
+                <h2 style={{
+                    position: 'fixed', // Use 'fixed' or 'absolute' depending on the use case
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    textAlign: 'center' // This centers the text inside the h2 element itself
+                  }}>Loading Book Data . . .</h2>
             ) : (
                 <>
                     {movies.map((movie) => (
-                        <Col key={movie.id} md={3}>
+                        <Col className="mb-5" key={movie.id} md={3} >
                         <MovieCard
-                            // key={movie.id}
                             movie={movie}
                             onMovieClick={(newSelectedMovie) => {
                                 setSelectedMovie(newSelectedMovie);
