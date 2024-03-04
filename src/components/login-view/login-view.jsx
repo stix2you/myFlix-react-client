@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -41,10 +40,9 @@ export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop 
     };
 
     return (
-        
             <Form onSubmit={handleSubmit}>
                 <h1>Login</h1>
-                <Form.Group controlID="formUsername">
+                <Form.Group className="mb-2" controlID="formUsername">
                 <Form.Label>Username:</Form.Label>
                     <Form.Control 
                         type="text"
@@ -52,7 +50,7 @@ export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop 
                         onChange={(e) => setUsername(e.target.value)}
                         required />
                 </Form.Group>
-                <Form.Group controlID="formPassword">
+                <Form.Group className="mb-3" controlID="formPassword">
                 <Form.Label>Password:</Form.Label>
                     <Form.Control
                         type="password"
@@ -60,12 +58,9 @@ export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop 
                         onChange={(e) => setPassword(e.target.value)}
                         required />
                 </Form.Group>
-                <Button type="submit">
+                <Button className="mb-4" variant="primary" type="submit">
                     Submit
                 </Button>
             </Form>
-        
     );
 };
-
-export default LoginView;

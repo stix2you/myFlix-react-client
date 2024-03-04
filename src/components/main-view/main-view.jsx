@@ -1,20 +1,20 @@
-import { useState, useEffect } from "react";                   // import the useState hook from the react package
-import { MovieCard } from "../movie-card/movie-card";  // import the MovieCard component from the movie-card module
-import { MovieView } from "../movie-view/movie-view";  // import the MovieView component from the movie-view module 
-import { LoginView } from "../login-view/login-view";  // import the LoginView component from the login-view module 
-import { SignupView } from "../signup-view.jsx/signup-view"; // import the SignupView component from the signup-view module
-import { PropTypes } from "prop-types";    // import the PropTypes library from the prop-types package
-import Container from 'react-bootstrap/Container';  // import the Container component from the react-bootstrap package
-import Row from 'react-bootstrap/Container';  // import the Row component from the react-bootstrap package
-import Col from 'react-bootstrap/Col';
 
-export const MainView = () => {              // create a functional component called MainView
+import { useState, useEffect } from "react";                 
+import { MovieCard } from "../movie-card/movie-card";  
+import { MovieView } from "../movie-view/movie-view"; 
+import { LoginView } from "../login-view/login-view"; 
+import { SignupView } from "../signup-view.jsx/signup-view";
+import { PropTypes } from "prop-types";  
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, Container, Row, Col } from 'react-bootstrap';
+
+export const MainView = () => {             
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
     const [user, setUser] = useState(storedUser ? storedUser : null);
     const [token, setToken] = useState(storedToken ? storedToken : null);
-    const [movies, setMovies] = useState([]);    // create a new piece of state called movies, an empty array, and a function called setMovies to update it
-    const [selectedMovie, setSelectedMovie] = useState(null);   // create a new piece of state called selectedMovie, and a function called setSelectedMovie to update it
+    const [movies, setMovies] = useState([]);   
+    const [selectedMovie, setSelectedMovie] = useState(null);  
 
 
     useEffect(() => {   // the purpose of this function is to fetch data from an API and update the movies state with the data, 
@@ -48,11 +48,10 @@ export const MainView = () => {              // create a functional component ca
     }, [token]);   // the second argument to useEffect is an array of dependencies, when the dependencies change, the effect is re-run
 
 
-    return ( 
-                             
+    return (
         <Row className="justify-content-md-center">
             {!user ? (
-                <Col md={5}>
+                <Col className="mb-5" md={4}>
                     <LoginView onLoggedIn={(user, token) => {
                         setUser(user);
                         setToken(token);
@@ -60,31 +59,49 @@ export const MainView = () => {              // create a functional component ca
                     <SignupView />
                 </Col>
             ) : selectedMovie ? (
-                <Col md={8} style={{ border: "1px solid black" }}>
-                    <MovieView
-                        movie={selectedMovie}
-                        onBackClick={() => setSelectedMovie(null)} />
-                </Col>
+                <Row className="justify-content-md-center">
+                    <Col md={10}>
+                        <MovieView
+                            movie={selectedMovie}
+                            onBackClick={() => setSelectedMovie(null)} />
+                    </Col>
+                </Row>
             ) : movies.length === 0 ? (
-                <div>The list is empty!</div>
+                <h2 style={{
+                    position: 'fixed', // Use 'fixed' or 'absolute' depending on the use case
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    textAlign: 'center' // This centers the text inside the h2 element itself
+                }}>Loading Book Data . . .</h2>
             ) : (
                 <>
                     {movies.map((movie) => (
-                        <Col key={movie.id} md={3}>
-                        <MovieCard
-                            // key={movie.id}
-                            movie={movie}
-                            onMovieClick={(newSelectedMovie) => {
-                                setSelectedMovie(newSelectedMovie);
-                            }}
-                        />
+                        <Col className="mt-4 mb-4" key={movie.id} md={3} >
+                            <MovieCard
+                                movie={movie}
+                                onMovieClick={(newSelectedMovie) => {
+                                    setSelectedMovie(newSelectedMovie);
+                                }}
+                            />
                         </Col>
                     ))}
                 </>
             )}
-            <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
+            {user && (     // if user is truthy (logged in), display the Logout button, otherwise skip it
+                <Row className="justify-content-md-center mt-4">
+                    <Col md={8}>
+                        <Button
+                            className="btn-lg"
+                            style={{ width: '100%', cursor: 'pointer' }}
+                            variant="primary"
+                            onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>
+                            Logout
+                        </Button>
+                    </Col>
+                </Row>
+            )}
         </Row >
-        
     );
 };
 
