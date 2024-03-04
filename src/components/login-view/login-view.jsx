@@ -42,7 +42,7 @@ export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop 
     return (
             <Form onSubmit={handleSubmit}>
                 <h1>Login</h1>
-                <Form.Group className="mb-2" controlID="formUsername">
+                <Form.Group className="mb-2" controlId="formUsername">
                 <Form.Label>Username:</Form.Label>
                     <Form.Control 
                         type="text"
@@ -50,7 +50,7 @@ export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop 
                         onChange={(e) => setUsername(e.target.value)}
                         required />
                 </Form.Group>
-                <Form.Group className="mb-3" controlID="formPassword">
+                <Form.Group className="mb-3" controlId="formPassword">
                 <Form.Label>Password:</Form.Label>
                     <Form.Control
                         type="password"

@@ -1,18 +1,25 @@
 import React from 'react';
 import { useParams } from "react-router";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 // import PropTypes from "prop-types";
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 
-export const MovieView = ({ movies }) => {   // create a functional component called MovieView, which takes one prop: movie
-   const { movieId } = useParams();   // get the movie ID from the URL, useParams() is a hook 
-                                     // from react-router-dom which allows access to the parameters of the current <Route>
-   const movie = movies.find((m) => m.id === movieId);   // find the movie with the ID passed in the URL
+
+export const MovieView = ({ movies }) => {   
+   console.log("MovieView.jsx was called");    // this logs to the console the the component was called, this happens okay
+   console.log("movies state passed to MovieView", movies);   // I see in the console where there is a full array, all the data is passed okay
+   const { moviesId } = useParams();   // this is SUPPOSED to set the ID in the URL to the moviesId variable, the ID is in the URL, but it's not being set to moviesId
+   console.log("moviesId at start of MovieView", moviesId);   // confirmed here -- moviesId is undefined
+   const movie = movies.find((m) => m.id === moviesId);   
+
+   
+
 
    return (
       <Card className="m-4" style={{ borderRadius: "3%", overflow: 'hidden' }}>
-         {/* <Container style={{ padding: 0 }}>
-            <Row noGutters>
+         <Container style={{ padding: 0 }}>
+            <Row gutters="false">
                <Col style={{ overflow: 'hidden', borderRadius: '3% 0 0 3%' }}>
                   <Card.Img variant="top" src={movie.image} style={{ width: "100%" }} />
                </Col>
@@ -30,7 +37,7 @@ export const MovieView = ({ movies }) => {   // create a functional component ca
                   </Card.Body>
                </Col>
             </Row>
-         </Container> */}
+         </Container>
       </Card>
    );
 };

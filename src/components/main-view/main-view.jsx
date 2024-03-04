@@ -29,8 +29,8 @@ export const MainView = () => {
          .then((response) => response.json())             // parses the JSON data from the response
          .then((movies) => {
             setMovies(movies);         // updates the movies state with the data from the API
-            console.log("movies from api:", movies);          // logs the data to the console
-            const moviesFromApi = movies.map((doc) => {   // maps each element in the array to a new piece of UI, after execution will have <div>{movie.title}</div> for each movie in the array
+            console.log("movies from api after fetch:", movies);          // logs the data to the console
+            const moviesFromApi = movies.map((doc) => {   // maps each element in the array to a new piece of UI
                return {
                   id: doc._id,
                   title: doc.Title,
@@ -52,7 +52,7 @@ export const MainView = () => {
    return (
       <Container>
          <BrowserRouter>
-            <NavigationBar user={user} onLoggedOut={() => { setUser(null), setToken(null), localStorage.clear()}} />
+            <NavigationBar user={user} onLoggedOut={() => { setUser(null), setToken(null), localStorage.clear() }} />
             <Row className="justify-content-md-center">
                <Routes>
                   <Route
@@ -88,10 +88,14 @@ export const MainView = () => {
                      element={
                         <>{!user ? (
                            <Navigate to="/login" replace />
-                        ) : (
+                        ) : movies.length > 0 ? (
                            <Col md={8}>
                               <MovieView movies={movies} />
-                           </Col>  // navigate to individual movie-view if the user is logged in
+                           </Col>  // Navigate to individual movie-view if the user is logged in and movies are loaded
+                        ) : (
+                           <Col>
+                              <h2>Loading Movie Data...</h2>
+                           </Col>  // Show loading message while movies data is loading
                         )}
                         </>
                      }
