@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from 'react-router-dom';
 
 export const MovieCard = ({ movie }) => {           // onClick={() => onMovieClick(movie)} . . .  was removed from the Card tag
    return (

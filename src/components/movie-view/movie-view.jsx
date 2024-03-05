@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from "react-router";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 // import PropTypes from "prop-types";
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
