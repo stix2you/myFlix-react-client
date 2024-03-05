@@ -19,6 +19,7 @@ export const MainView = () => {
    const [token, setToken] = useState(storedToken ? storedToken : null);
    const [movies, setMovies] = useState([]);
 
+      console.log("user: ", user);
 
    useEffect(() => {   // the purpose of this function is to fetch data from an API and update the movies state with the data, 
       if (!token) {     // if the token is falsy, return from the function, falsy values are: false, 0, "", null, undefined, and NaN
