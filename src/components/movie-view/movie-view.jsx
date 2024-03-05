@@ -6,14 +6,8 @@ import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 
 
 export const MovieView = ({ movies }) => {   
-   console.log("MovieView.jsx was called");    // this logs to the console the the component was called, this happens okay
-   console.log("movies state passed to MovieView", movies);   // I see in the console where there is a full array, all the data is passed okay
-   const { moviesId } = useParams();   // this is SUPPOSED to set the ID in the URL to the moviesId variable, the ID is in the URL, but it's not being set to moviesId
-   console.log("moviesId at start of MovieView", moviesId);   // confirmed here -- moviesId is undefined
-   const movie = movies.find((m) => m.id === moviesId);   
-
-   
-
+   const { moviesId } = useParams();     // set moviesId to the value of the parameter in the URL (movie_id)
+   const movie = movies.find((m) => m.id === moviesId);   // find the movie with the same id as the parameter in the URL
 
    return (
       <Card className="m-4" style={{ borderRadius: "3%", overflow: 'hidden' }}>
