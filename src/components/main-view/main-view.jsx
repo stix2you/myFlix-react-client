@@ -13,18 +13,20 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 
 export const MainView = () => {
-   const storedUser = JSON.parse(localStorage.getItem("user"));
+   const storedUser = JSON.parse(localStorage.getItem("user"));   // retrieves the user data from local storage which is a 
    const storedToken = localStorage.getItem("token");
    const [user, setUser] = useState(storedUser ? storedUser : null);
    const [token, setToken] = useState(storedToken ? storedToken : null);
    const [movies, setMovies] = useState([]);
 
-      console.log("user: ", user);
+   console.log("user at start of MainView: ", user);
 
+   
    useEffect(() => {   // the purpose of this function is to fetch data from an API and update the movies state with the data, 
       if (!token) {     // if the token is falsy, return from the function, falsy values are: false, 0, "", null, undefined, and NaN
          return;     // if the token is falsy, return from the function
       }
+      console.log("token in useEffect: ", token);
       fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies", {  // fetches data from the API, GET request to the /movies endpoint
          headers: { Authorization: `Bearer ${token}` }
       })
@@ -47,6 +49,7 @@ export const MainView = () => {
                };
             });
             setMovies(moviesFromApi);
+            console.log("movies from api after mapping:", moviesFromApi);
          });
    }, [token]);   // the second argument to useEffect is an array of dependencies, when the dependencies change, the effect is re-run
 
@@ -83,7 +86,7 @@ export const MainView = () => {
                         </>
                      }
                   />
-                  
+
                   <Route
                      path="/movies/:moviesId"
                      element={
@@ -122,27 +125,27 @@ export const MainView = () => {
                         </>
                      }
                   />
-                  
-                  {/* <Route
+
+                  <Route
                      path="/users/:username"
                      element={
-                        <>{!user ? (
-                           <Navigate to="/login" replace />
-                        ) : user > 0 ? (
-                           <Col md={8}>
-                              <ProfileView user ={user} token={token}/>
-                           </Col>  
-                        ) : (
-                           <Col>
-                              <h2>Loading User Data...</h2>
-                           </Col>  // Show loading message while movies data is loading
-                        )}
+                        <>
+                           {!user ? (
+                              <Navigate to="/login" replace />
+                           ) : Object.keys(user).length > 0 ? ( // Check if user object is not empty
+                              <Col md={8}>
+                                 <ProfileView user={user} token={token} />
+                              </Col>
+                           ) : (
+                              <Col>
+                                 <h2>Loading User Data...</h2>
+                              </Col> // Show loading message while user data is loading
+                           )}
                         </>
                      }
-                  /> */}
+                  />
+                  
 
-                  <Route path="/users/:username" element={<ProfileView user ={user} token={token}/>} />
-               
                </Routes>
             </Row >
          </BrowserRouter>

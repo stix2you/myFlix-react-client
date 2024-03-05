@@ -41,7 +41,6 @@ export const SignupView = () => {
             <Form.Group className="mb-2" controlId="formUsername">
             <Form.Label>Username:</Form.Label>
                 <Form.Control
-                    id="loginForm"
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -52,7 +51,6 @@ export const SignupView = () => {
             <Form.Group className="mb-2" controlId="formPassword">
             <Form.Label>Password:</Form.Label>
                 <Form.Control
-                    id="loginForm"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -62,7 +60,6 @@ export const SignupView = () => {
             <Form.Group className="mb-2" controlId="formEmail">
             <Form.Label>Email:</Form.Label>
                 <Form.Control
-                    id="loginForm"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -72,7 +69,6 @@ export const SignupView = () => {
             <Form.Group className="mb-3" controlId="formBirthday">
             <Form.Label>Birthday:</Form.Label>
                 <Form.Control
-                    id="loginForm"
                     type="date"
                     value={birthday}
                     onChange={(e) => setBirthday(e.target.value)}
