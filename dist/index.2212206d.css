@@ -7358,6 +7358,12 @@ button, input, optgroup, select, textarea {
   }
 }
 
+.custom-navbar {
+  color: #fff;
+  background-color: #802929;
+  margin-bottom: 20px;
+}
+
 :root, [data-bs-theme="light"] {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;

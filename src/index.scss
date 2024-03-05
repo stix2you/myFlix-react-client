@@ -2,4 +2,10 @@ $primary: rgb(128, 41, 41);
 $body-bg: rgb(233, 199, 125);
 $card-bg: rgb(255, 249, 238);
 
+.custom-navbar {
+   background-color: rgb(128, 41, 41); /* Custom background color */
+   color: #fff; /* Custom text color */
+   margin-bottom: 20px; /* Custom margin */
+ }
+
 @import '~bootstrap/scss/bootstrap.scss';
