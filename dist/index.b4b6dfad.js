@@ -27559,7 +27559,6 @@ const MovieCard = ({ user: initialUser, movie, onUserUpdate })=>{
     const [localUser, setLocalUser] = (0, _react.useState)(initialUser);
     // Check if the movie is already in the favorites
     const isFavorite = (movieTitle)=>localUser.favorite_movies.includes(movieTitle);
-    console.log("localUser favorite movies:", localUser.favorite_movies);
     // Handle adding the movie to favorites
     const addToFavorites = async ()=>{
         if (!isFavorite(movie.title)) try {
@@ -27591,7 +27590,7 @@ const MovieCard = ({ user: initialUser, movie, onUserUpdate })=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 39,
+                lineNumber: 37,
                 columnNumber: 10
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
@@ -27600,7 +27599,7 @@ const MovieCard = ({ user: initialUser, movie, onUserUpdate })=>{
                         children: movie.title
                     }, void 0, false, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 41,
+                        lineNumber: 39,
                         columnNumber: 13
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
@@ -27614,14 +27613,14 @@ const MovieCard = ({ user: initialUser, movie, onUserUpdate })=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 42,
+                        lineNumber: 40,
                         columnNumber: 13
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
                         children: movie.director
                     }, void 0, false, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 43,
+                        lineNumber: 41,
                         columnNumber: 13
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
@@ -27631,12 +27630,12 @@ const MovieCard = ({ user: initialUser, movie, onUserUpdate })=>{
                             children: "Open"
                         }, void 0, false, {
                             fileName: "src/components/movie-card/movie-card.jsx",
-                            lineNumber: 45,
+                            lineNumber: 43,
                             columnNumber: 16
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 44,
+                        lineNumber: 42,
                         columnNumber: 13
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -27644,19 +27643,19 @@ const MovieCard = ({ user: initialUser, movie, onUserUpdate })=>{
                         children: isFavorite(movie.title) ? "Already in Favorites" : "Add to Favorites"
                     }, void 0, false, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 47,
+                        lineNumber: 45,
                         columnNumber: 13
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 40,
+                lineNumber: 38,
                 columnNumber: 10
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/movie-card/movie-card.jsx",
-        lineNumber: 38,
+        lineNumber: 36,
         columnNumber: 7
     }, undefined);
 };

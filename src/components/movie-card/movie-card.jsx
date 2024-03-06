@@ -11,8 +11,6 @@ export const MovieCard = ({ user: initialUser, movie, onUserUpdate }) => {      
    // Check if the movie is already in the favorites
    const isFavorite = (movieTitle) => localUser.favorite_movies.includes(movieTitle);
 
-   console.log("localUser favorite movies:", localUser.favorite_movies);
-
    // Handle adding the movie to favorites
    const addToFavorites = async () => {
       if (!isFavorite(movie.title)) {
