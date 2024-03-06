@@ -1,8 +1,12 @@
 import React from 'react';
 
-export const UserInfo = ({ user, name }) => {
+function UserInfo  ({ name, email }) {
+   return (
    <>
-      <p>User: {name}</p>
-      <p>Email: {email}</p>
+      <p>Your Username: {name}</p>
+      <p>Your Email: {email}</p>
    </>
-}
+   );
+};
+
+export default UserInfo;

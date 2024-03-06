@@ -33,102 +33,102 @@ export function ProfileView({ movies, onUpdatedUserInfo }) {
       <>
          <UserInfo name={user.Username} email={user.Email} />
          <FavoriteMovies favoriteMovieList={favoriteMovieList} />
-         <UpdateUser handleSubmit={handleSubmit} handleUpdate={handleUpdate} />
+         <UpdateUser user={user} handleSubmit={handleSubmit} handleUpdate={handleUpdate} />
       </>
    );
-   };
+};
 
-   // return (
-   //    <Card className="m-4" style={{ borderRadius: "3%", overflow: 'hidden' }}>
-   //       <Container>
-   //          <Row>
-   //             <Col>
-   //                <Card.Body>
-   //                   <Card.Title className="mb-4" style={{ fontSize: '36px' }}>User Profile:</Card.Title>
-   //                   <Card.Text>User Name: {
-   //                      editMode.username ?
-   //                         (<input
-   //                            type="username"
-   //                            value={userValues.username}
-   //                            onChange={(e) => handleChange('username', e.target.value)}
-   //                         />)
-   //                         : userData.username
-   //                   }
-   //                      {!editMode.username ? (
-   //                         <Button onClick={() => handleEdit('username')}>Edit</Button>
-   //                      ) : (
-   //                         <Button onClick={() => handleSave('username')}>Save</Button>
-   //                      )}
-   //                   </Card.Text>
-   //                   <Card.Text>Password: {
-   //                      editMode.password ?
-   //                         (<input
-   //                            type="password"
-   //                            value={""}
-   //                            onChange={(e) => handleChange('password', e.target.value)}
-   //                         />) : " ******** "
+// return (
+//    <Card className="m-4" style={{ borderRadius: "3%", overflow: 'hidden' }}>
+//       <Container>
+//          <Row>
+//             <Col>
+//                <Card.Body>
+//                   <Card.Title className="mb-4" style={{ fontSize: '36px' }}>User Profile:</Card.Title>
+//                   <Card.Text>User Name: {
+//                      editMode.username ?
+//                         (<input
+//                            type="username"
+//                            value={userValues.username}
+//                            onChange={(e) => handleChange('username', e.target.value)}
+//                         />)
+//                         : userData.username
+//                   }
+//                      {!editMode.username ? (
+//                         <Button onClick={() => handleEdit('username')}>Edit</Button>
+//                      ) : (
+//                         <Button onClick={() => handleSave('username')}>Save</Button>
+//                      )}
+//                   </Card.Text>
+//                   <Card.Text>Password: {
+//                      editMode.password ?
+//                         (<input
+//                            type="password"
+//                            value={""}
+//                            onChange={(e) => handleChange('password', e.target.value)}
+//                         />) : " ******** "
 
-   //                   }
-   //                      {!editMode.password ? (
-   //                         <Button onClick={() => handleEdit('password')}>Edit</Button>
-   //                      ) : (
-   //                         <Button onClick={() => handleSave('password')}>Save</Button>
-   //                      )}
-   //                   </Card.Text>
+//                   }
+//                      {!editMode.password ? (
+//                         <Button onClick={() => handleEdit('password')}>Edit</Button>
+//                      ) : (
+//                         <Button onClick={() => handleSave('password')}>Save</Button>
+//                      )}
+//                   </Card.Text>
 
-   //                   <Card.Text>Email: {
-   //                      editMode.email ?
-   //                         (<input
-   //                            type="email"
-   //                            value={userValues.email}
-   //                            onChange={(e) => handleChange('email', e.target.value)}
-   //                         />)
-   //                         : userData.email
-   //                   }
-   //                      {!editMode.email ? (
-   //                         <Button onClick={() => handleEdit('email')}>Edit</Button>
-   //                      ) : (
-   //                         <Button onClick={() => handleSave('email')}>Save</Button>
-   //                      )}
-   //                   </Card.Text>
+//                   <Card.Text>Email: {
+//                      editMode.email ?
+//                         (<input
+//                            type="email"
+//                            value={userValues.email}
+//                            onChange={(e) => handleChange('email', e.target.value)}
+//                         />)
+//                         : userData.email
+//                   }
+//                      {!editMode.email ? (
+//                         <Button onClick={() => handleEdit('email')}>Edit</Button>
+//                      ) : (
+//                         <Button onClick={() => handleSave('email')}>Save</Button>
+//                      )}
+//                   </Card.Text>
 
-   //                   <Card.Text>Birthday: {
-   //                      editMode.birthday ?
-   //                         (<input
-   //                            type="date"
-   //                            value={userValues.birthday}
-   //                            onChange={(e) => handleChange('birthday', e.target.value)}
-   //                         />)
-   //                         : (new Date(userData.birthday)).toLocaleDateString()
-   //                   }
-   //                      {!editMode.birthday ? (
-   //                         <Button onClick={() => handleEdit('birthday')}>Edit</Button>
-   //                      ) : (
-   //                         <Button onClick={() => handleSave('birthday')}>Save</Button>
-   //                      )}
-   //                   </Card.Text>
+//                   <Card.Text>Birthday: {
+//                      editMode.birthday ?
+//                         (<input
+//                            type="date"
+//                            value={userValues.birthday}
+//                            onChange={(e) => handleChange('birthday', e.target.value)}
+//                         />)
+//                         : (new Date(userData.birthday)).toLocaleDateString()
+//                   }
+//                      {!editMode.birthday ? (
+//                         <Button onClick={() => handleEdit('birthday')}>Edit</Button>
+//                      ) : (
+//                         <Button onClick={() => handleSave('birthday')}>Save</Button>
+//                      )}
+//                   </Card.Text>
 
-   //                   <Card.Text>Favorite Movies: {
-   //                      editMode.favorite_movies ?
-   //                         (<input
-   //                            type="favorite_movies"
-   //                            value={userValues.birthday}
-   //                            onChange={(e) => handleChange('favorite_movies', e.target.value)}
-   //                         />)
-   //                         : userData.favorite_movies.join(", ")
-   //                   }
-   //                      {!editMode.favorite_movies ? (
-   //                         <Button onClick={() => handleEdit('favorite_movies')}>Edit</Button>
-   //                      ) : (
-   //                         <Button onClick={() => handleSave('favorite_movies')}>Save</Button>
-   //                      )}
-   //                   </Card.Text>
-   //                   <Link to={`/`}>
-   //                      <Button className="back-button m-4 btn-lg" style={{ cursor: "pointer" }}>Back</Button>
-   //                   </Link>
-   //                </Card.Body>
-   //             </Col>
-   //          </Row>
-   //       </Container>
-   //    </Card>
-   // );
+//                   <Card.Text>Favorite Movies: {
+//                      editMode.favorite_movies ?
+//                         (<input
+//                            type="favorite_movies"
+//                            value={userValues.birthday}
+//                            onChange={(e) => handleChange('favorite_movies', e.target.value)}
+//                         />)
+//                         : userData.favorite_movies.join(", ")
+//                   }
+//                      {!editMode.favorite_movies ? (
+//                         <Button onClick={() => handleEdit('favorite_movies')}>Edit</Button>
+//                      ) : (
+//                         <Button onClick={() => handleSave('favorite_movies')}>Save</Button>
+//                      )}
+//                   </Card.Text>
+//                   <Link to={`/`}>
+//                      <Button className="back-button m-4 btn-lg" style={{ cursor: "pointer" }}>Back</Button>
+//                   </Link>
+//                </Card.Body>
+//             </Col>
+//          </Row>
+//       </Container>
+//    </Card>
+// );
