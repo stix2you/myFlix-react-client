@@ -3,13 +3,15 @@ import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
-import { SignupView } from "../signup-view.jsx/signup-view";
+import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
 import { PropTypes } from "prop-types";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Col, Row, Container } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+
 
 
 export const MainView = () => {
@@ -19,21 +21,26 @@ export const MainView = () => {
    const [token, setToken] = useState(storedToken ? storedToken : null);
    const [movies, setMovies] = useState([]);
 
-   console.log("user at start of MainView: ", user);
+   const handleUserDataUpdate = (updatedUserData) => {
+      setUser(updatedUserData); // Update the state with the new user data
+   };
 
-   
+
+   //console.log("user at start of MainView: ", user);  
+   //console.log("token at start of MainView: ", token);
+
    useEffect(() => {   // the purpose of this function is to fetch data from an API and update the movies state with the data, 
       if (!token) {     // if the token is falsy, return from the function, falsy values are: false, 0, "", null, undefined, and NaN
          return;     // if the token is falsy, return from the function
       }
-      console.log("token in useEffect: ", token);
+      // console.log("token in useEffect: ", token);
       fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies", {  // fetches data from the API, GET request to the /movies endpoint
          headers: { Authorization: `Bearer ${token}` }
       })
          .then((response) => response.json())             // parses the JSON data from the response
          .then((movies) => {
             setMovies(movies);         // updates the movies state with the data from the API
-            console.log("movies from api after fetch:", movies);          // logs the data to the console
+            // console.log("movies from api after fetch:", movies);          // logs the data to the console
             const moviesFromApi = movies.map((doc) => {   // maps each element in the array to a new piece of UI
                return {
                   id: doc._id,
@@ -49,9 +56,10 @@ export const MainView = () => {
                };
             });
             setMovies(moviesFromApi);
-            console.log("movies from api after mapping:", moviesFromApi);
+            // console.log("movies from api after mapping:", moviesFromApi);
          });
    }, [token]);   // the second argument to useEffect is an array of dependencies, when the dependencies change, the effect is re-run
+   // having token as a dependency ensures that the effect runs when the token changes
 
    return (
       <Container>
@@ -63,7 +71,7 @@ export const MainView = () => {
                      path="/signup"
                      element={
                         <>
-                           {user ? (
+                           {user ? (   // if the user is logged in, navigate to the home page
                               <Navigate to="/" />
                            ) : (
                               <Col md={5}>
@@ -76,11 +84,11 @@ export const MainView = () => {
                   <Route
                      path="/login"
                      element={
-                        <>{user ? (
+                        <>{user ? (   // if the user is logged in, navigate to the home page
                            <Navigate to="/" />
                         ) : (
                            <Col md={5}>
-                              <LoginView onLoggedIn={(user) => setUser(user)} />
+                              <LoginView onLoggedIn={(user, token) => { setUser(user); setToken(token); }} />
                            </Col>   // navigate to the login view if the user is not logged in
                         )}
                         </>
@@ -134,7 +142,7 @@ export const MainView = () => {
                               <Navigate to="/login" replace />
                            ) : Object.keys(user).length > 0 ? ( // Check if user object is not empty
                               <Col md={8}>
-                                 <ProfileView user={user} token={token} />
+                                 <ProfileView user={user} token={token} onUpdateUserData={handleUserDataUpdate} />
                               </Col>
                            ) : (
                               <Col>
@@ -144,8 +152,24 @@ export const MainView = () => {
                         </>
                      }
                   />
-                  
-
+                  {/* <Route
+                     path="/update-user"
+                     element={
+                        <>
+                           {!user ? (
+                              <Navigate to="/login" replace />
+                           ) : Object.keys(user).length > 0 ? (
+                              <Col md={8}>
+                                 <UpdateUser user={user} token={token} onUpdateSuccess={() => console.log("Update successful!")} />
+                              </Col>
+                           ) : (
+                              <Col>
+                                 <h2>Loading User Data...</h2>
+                              </Col>
+                           )}
+                        </>
+                     }
+                  /> */}
                </Routes>
             </Row >
          </BrowserRouter>

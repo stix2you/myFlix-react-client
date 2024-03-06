@@ -27,9 +27,9 @@ export const LoginView = ({ onLoggedIn }) => {   // receive the onLoggedIn prop 
          .then((data) => {
             console.log("login response:", data);
             if (data.user) {
-               localStorage.setItem("user", JSON.stringify(data.user));
-               localStorage.setItem("token", data.token);
-               onLoggedIn(data.user, data.token);
+               localStorage.setItem("user", JSON.stringify(data.user));   // stores the user data in local storage as a JSON string
+               localStorage.setItem("token", data.token);                 // stores the token in local storage as a string
+               onLoggedIn(data.user, data.token);                         // update the onLoggedIn prop with the user and token data
             } else {
                alert("No such user");
             }
