@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 function UpdateUser ({ user, handleSubmit, handleUpdate }) {
+
+
+
+
    return (
       <>
          <Form className='profile-form' onSubmit={(e) => handleSubmit(e)}>

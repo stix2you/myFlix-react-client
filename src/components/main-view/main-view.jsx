@@ -25,6 +25,9 @@ export const MainView = () => {
       setUser(updatedUserData); // Update the state with the new user data
    };
 
+   const handleUserUpdate = (updatedUser) => {
+      setUser(updatedUser);
+    };
 
    //console.log("user at start of MainView: ", user);  
    //console.log("token at start of MainView: ", token);
@@ -102,7 +105,7 @@ export const MainView = () => {
                            <Navigate to="/login" replace />
                         ) : movies.length > 0 ? (
                            <Col md={8}>
-                              <MovieView movies={movies} />
+                              <MovieView user={user} movies={movies} onUserUpdate={handleUserUpdate} />
                            </Col>  // Navigate to individual movie-view if the user is logged in and movies are loaded
                         ) : (
                            <Col>
@@ -125,7 +128,7 @@ export const MainView = () => {
                         ) : (
                            <>{movies.map((movie) => (
                               <Col className="mb-4" key={movie.id} md={3}>
-                                 <MovieCard movie={movie} />
+                                 <MovieCard user={user} movie={movie} onUserUpdate={handleUserUpdate} />
                               </Col>  // map over the movies and create a card for each one, MovieCard component renders the movie card
                            ))}
                            </>

@@ -8,32 +8,80 @@ import './profile-view.scss';
 import UserInfo from './user-info';
 import UpdateUser from './update-user';
 import FavoriteMovies from './favorite-movies';
+import axios from 'axios';
 
 
 
-export function ProfileView({ movies, onUpdatedUserInfo }) {
+export function ProfileView({ user, movies, onUpdatedUserInfo }) {
+   const [userProfile, setUserProfile] = useState([]);
 
-   const [user, setUser] = useState({});  // set the initial state of user to an empty object
 
-   const favoriteMovieList = movies.filter((movies) => { }); // filter the movies array to only include the movies that are in the user's favorite_movies array
 
-   const getUser = () => { };  // function to get the user data from the API
+   // DISPLAY USER INFORMATION REQUIREMENT: fetch user data from API function here:
+   async function fetchUser() {
+      try {
+         const username = user.username; // Make sure to replace this with actual logic to get the username
+         const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+         const response = await axios.get(`https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${username}`, {
+            headers: { Authorization: `Bearer ${token}` },
+         });
+         setUserProfile(response.data); // Set the user state with the fetched data
+         console.log("user after fetch:", user)
+         console.log("userProfile after fetch:", userProfile)
+      } catch (error) {
+         console.error("Failed to fetch user:", error);
+         // Handle error appropriately
+      }
+   };
 
-   const handleSubmit = (e) => { };  // function to submit the form
+   // UPDATE USER INFORMATION REQUIREMENT: write user data to API functions here, one for submitting the form, and one for updating the form
+   async function writeUser() {
+      // e.preventDefault();  // Prevent the default refresh of the page
+      try {
+         await axios.put(
+            `https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${user.username}`,
+            {
+               Username: user.Username,
+               Password: user.Password,
+               Email: user.Email,
+            },
+            {
+               headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+            }
+         );
+         getUser();
+         onUpdatedUserInfo();
+      } catch (error) {
+         console.log(error);
+      }
+   };
 
+   // ALLOW USER TO DEREGISTER REQUIREMENT: delete user from API function here:
+   const handleDeregister = async (e) => { };
+
+   // DISPLAY FAVORITE MOVIES REQUIREMENT: filter the movies array to only include the movies that are in the user's favorite_movies array
+   const favoriteMovieList = movies.filter((movie) => user.favorite_movies.includes(movie._id));
+
+   // REMOVE FAVORITE MOVIE REQUIREMENT: function to remove a movie from the user's favorite_movies array
    const removeFav = (id) => { };  // function to remove a movie from the user's favorite_movies array
 
-   const handleUpdate = (e) => { };  // function to update the user data
+   // ADD A FAVORITE MOVIE REQUIREMENT: function to add a movie to the user's favorite_movies array -- SEE MOVIE-VIEW.JSX and MOVIE-CARD.JSX
 
-   useEffect(() => { }, []);  // useEffect to run when the component mounts
+   useEffect(() => {      // useEffect to run when the component mounts
+      let isMounted = true;
+      isMounted && fetchUser(); 
+      return () => {
+         isMounted = false;
+      }
+   }, []);   // Empty dependency array means this effect runs once on component mount
 
 
 
    return (
       <>
-         <UserInfo name={user.Username} email={user.Email} />
+         <UserInfo name={user.username} email={user.email} />
          <FavoriteMovies favoriteMovieList={favoriteMovieList} />
-         <UpdateUser user={user} handleSubmit={handleSubmit} handleUpdate={handleUpdate} />
+         <UpdateUser user={user} handleUpdate={writeUser} />
       </>
    );
 };

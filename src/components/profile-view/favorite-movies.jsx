@@ -3,6 +3,21 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function FavoriteMovies  ({ favoriteMovieList }) {
+   const removeFav = (id) => {
+      let token = localStorage.getItem('token');
+      let url = `https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${localStorage.getItem('user')}/movies/${id}`;
+      axios.delete(url, {
+         headers: { Authorization: `Bearer ${token}` },
+      })
+         // .then((response) => {  
+         //    console.log(response);
+         //    getUser();   //
+         // })
+         // .catch((e) => {
+         //    console.log(e);
+         // });
+   }
+
    return (
       <>
          <h2>Favorite Movies</h2>
