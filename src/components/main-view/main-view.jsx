@@ -142,7 +142,7 @@ export const MainView = () => {
                               <Navigate to="/login" replace />
                            ) : Object.keys(user).length > 0 ? ( // Check if user object is not empty
                               <Col md={8}>
-                                 <ProfileView user={user} token={token} onUpdateUserData={handleUserDataUpdate} />
+                                 <ProfileView movies={movies} user={user} token={token} onUpdateUserData={handleUserDataUpdate} />
                               </Col>
                            ) : (
                               <Col>

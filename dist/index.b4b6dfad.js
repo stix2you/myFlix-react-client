@@ -27420,6 +27420,7 @@ const MainView = ()=>{
                                     }, void 0) : Object.keys(user).length > 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                         md: 8,
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileView.ProfileView), {
+                                            movies: movies,
                                             user: user,
                                             token: token,
                                             onUpdateUserData: handleUserDataUpdate
@@ -27623,15 +27624,11 @@ const MovieCard = ({ movie })=>{
 _c = MovieCard;
 MovieCard.propTypes = {
     movie: (0, _propTypesDefault.default).shape({
+        image: (0, _propTypesDefault.default).string.isRequired,
         title: (0, _propTypesDefault.default).string.isRequired,
         releaseYear: (0, _propTypesDefault.default).string,
         rating: (0, _propTypesDefault.default).string,
-        runtime: (0, _propTypesDefault.default).string,
-        genres: (0, _propTypesDefault.default).array,
-        director: (0, _propTypesDefault.default).string.isRequired,
-        actors: (0, _propTypesDefault.default).array,
-        description: (0, _propTypesDefault.default).string,
-        image: (0, _propTypesDefault.default).string.isRequired
+        director: (0, _propTypesDefault.default).string.isRequired
     }).isRequired
 };
 var _c;
@@ -28895,7 +28892,7 @@ var _toggleButtonGroupDefault = parcelHelpers.interopDefault(_toggleButtonGroup)
 var _tooltip = require("./Tooltip");
 var _tooltipDefault = parcelHelpers.interopDefault(_tooltip);
 
-},{"./Accordion":false,"./AccordionContext":false,"./AccordionCollapse":false,"./AccordionButton":false,"./AccordionBody":false,"./AccordionHeader":false,"./AccordionItem":false,"./Alert":false,"./AlertHeading":false,"./AlertLink":false,"./Anchor":false,"./Badge":false,"./Breadcrumb":false,"./BreadcrumbItem":false,"./Button":"aPzUt","./ButtonGroup":false,"./ButtonToolbar":false,"./Card":"lAynp","./CardBody":false,"./CardFooter":false,"./CardGroup":false,"./CardHeader":false,"./CardImg":false,"./CardImgOverlay":false,"./CardLink":false,"./CardSubtitle":false,"./CardText":false,"./CardTitle":false,"./Carousel":false,"./CarouselCaption":false,"./CarouselItem":false,"./CloseButton":false,"./Col":"2L2I6","./Collapse":false,"./Container":"hEdsw","./Dropdown":false,"./DropdownButton":false,"./DropdownDivider":false,"./DropdownHeader":false,"./DropdownItem":false,"./DropdownItemText":false,"./DropdownMenu":false,"./DropdownToggle":false,"./Fade":false,"./Figure":false,"./FigureCaption":false,"./FigureImage":false,"./Form":false,"./FormControl":false,"./FormCheck":false,"./FormFloating":false,"./FloatingLabel":false,"./FormGroup":false,"./FormLabel":false,"./FormText":false,"./FormSelect":false,"./Image":false,"./InputGroup":false,"./ListGroup":false,"./ListGroupItem":false,"./Modal":false,"./ModalBody":false,"./ModalDialog":false,"./ModalFooter":false,"./ModalHeader":false,"./ModalTitle":false,"./Nav":"cXyL2","./Navbar":"1mHjo","./NavbarBrand":false,"./NavbarCollapse":false,"./NavbarOffcanvas":false,"./NavbarText":false,"./NavbarToggle":false,"./NavDropdown":false,"./NavItem":false,"./NavLink":false,"./Offcanvas":false,"./OffcanvasBody":false,"./OffcanvasHeader":false,"./OffcanvasTitle":false,"./OffcanvasToggling":false,"./Overlay":false,"./OverlayTrigger":false,"./PageItem":false,"./Pagination":false,"./Placeholder":false,"./PlaceholderButton":false,"./Popover":false,"./PopoverBody":false,"./PopoverHeader":false,"./ProgressBar":false,"./Ratio":false,"./Row":"cMC39","./Spinner":false,"./SplitButton":false,"./SSRProvider":false,"./Stack":false,"./Tab":false,"./TabContainer":false,"./TabContent":false,"./Table":false,"./TabPane":false,"./Tabs":false,"./ThemeProvider":false,"./Toast":false,"./ToastBody":false,"./ToastContainer":false,"./ToastHeader":false,"./ToggleButton":false,"./ToggleButtonGroup":false,"./Tooltip":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aPzUt":[function(require,module,exports) {
+},{"./Accordion":false,"./AccordionContext":false,"./AccordionCollapse":false,"./AccordionButton":false,"./AccordionBody":false,"./AccordionHeader":false,"./AccordionItem":false,"./Alert":false,"./AlertHeading":false,"./AlertLink":false,"./Anchor":false,"./Badge":false,"./Breadcrumb":false,"./BreadcrumbItem":false,"./Button":"aPzUt","./ButtonGroup":false,"./ButtonToolbar":false,"./Card":"lAynp","./CardBody":false,"./CardFooter":false,"./CardGroup":false,"./CardHeader":false,"./CardImg":false,"./CardImgOverlay":false,"./CardLink":false,"./CardSubtitle":false,"./CardText":false,"./CardTitle":false,"./Carousel":false,"./CarouselCaption":false,"./CarouselItem":false,"./CloseButton":false,"./Col":"2L2I6","./Collapse":false,"./Container":"hEdsw","./Dropdown":false,"./DropdownButton":false,"./DropdownDivider":false,"./DropdownHeader":false,"./DropdownItem":false,"./DropdownItemText":false,"./DropdownMenu":false,"./DropdownToggle":false,"./Fade":false,"./Figure":false,"./FigureCaption":false,"./FigureImage":false,"./Form":"iBZ80","./FormControl":false,"./FormCheck":false,"./FormFloating":false,"./FloatingLabel":false,"./FormGroup":false,"./FormLabel":false,"./FormText":false,"./FormSelect":false,"./Image":false,"./InputGroup":false,"./ListGroup":false,"./ListGroupItem":false,"./Modal":false,"./ModalBody":false,"./ModalDialog":false,"./ModalFooter":false,"./ModalHeader":false,"./ModalTitle":false,"./Nav":"cXyL2","./Navbar":"1mHjo","./NavbarBrand":false,"./NavbarCollapse":false,"./NavbarOffcanvas":false,"./NavbarText":false,"./NavbarToggle":false,"./NavDropdown":false,"./NavItem":false,"./NavLink":false,"./Offcanvas":false,"./OffcanvasBody":false,"./OffcanvasHeader":false,"./OffcanvasTitle":false,"./OffcanvasToggling":false,"./Overlay":false,"./OverlayTrigger":false,"./PageItem":false,"./Pagination":false,"./Placeholder":false,"./PlaceholderButton":false,"./Popover":false,"./PopoverBody":false,"./PopoverHeader":false,"./ProgressBar":false,"./Ratio":false,"./Row":"cMC39","./Spinner":false,"./SplitButton":false,"./SSRProvider":false,"./Stack":false,"./Tab":false,"./TabContainer":false,"./TabContent":false,"./Table":false,"./TabPane":false,"./Tabs":false,"./ThemeProvider":false,"./Toast":false,"./ToastBody":false,"./ToastContainer":false,"./ToastHeader":false,"./ToggleButton":false,"./ToggleButtonGroup":false,"./Tooltip":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aPzUt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
@@ -41778,6 +41775,8 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$3c12.prelude(module);
 
 try {
+// Structure: profile-view.jsx will have the functions and control mechanicms as a Parent element
+// Child elements will be display portion, the form and the favorite movies list
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ProfileView", ()=>ProfileView);
@@ -41786,342 +41785,270 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
+var _profileViewScss = require("./profile-view.scss");
 var _s = $RefreshSig$();
-const ProfileView = ({ user, token, onUpdateUserData })=>{
+function ProfileView({ movies, onUpdatedUserInfo }) {
     _s();
-    // const username = user.username;
-    const userData = user;
-    const [editMode, setEditMode] = (0, _react.useState)({
-        username: false,
-        password: false,
-        email: false,
-        birthday: false
-    });
-    const [userValues, setUserValues] = (0, _react.useState)({
-        username: userData.username,
-        password: userData.password,
-        email: userData.email,
-        birthday: userData.birthday
-    });
-    const birthday = new Date(user.birthday).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-    });
-    const handleEdit = (field)=>{
-        setEditMode({
-            ...editMode,
-            [field]: true
-        });
-    };
-    const handleChange = (field, value)=>{
-        setUserValues({
-            ...userValues,
-            [field]: value
-        });
-    };
-    const fetchUpdatedUserData = async ()=>{
-        try {
-            const response = await fetch(`https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${userValues.username}`, {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            });
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const updatedUserData = await response.json();
-            setUserValues(updatedUserData);
-            onUpdateUserData(updatedUserData);
-            console.log("User information fetched and refreshed successfully!");
-        } catch (error) {
-            console.error("Error fetching the updated user information", error);
-        }
-    };
-    const handleSave = async (field)=>{
-        try {
-            const response = await fetch(`https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${userValues.username}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    username: userValues.username,
-                    password: userValues.password,
-                    email: userValues.email,
-                    birthday: userValues.birthday
-                })
-            });
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            else {
-                // If the save is successful, disable edit mode for this field
-                setEditMode({
-                    ...editMode,
-                    [field]: false
-                });
-                await fetchUpdatedUserData(); // Fetch the updated user data
-                console.log("User information saved to API and refreshed successfully!");
-            }
-        } catch (error) {
-            console.error("Error saving the updated information", error);
-        // Handle error (e.g., show error message)
-        }
-    };
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
-        className: "m-4",
-        style: {
-            borderRadius: "3%",
-            overflow: "hidden"
-        },
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
-            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
-                                className: "mb-4",
-                                style: {
-                                    fontSize: "36px"
-                                },
-                                children: "User Profile:"
-                            }, void 0, false, {
-                                fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 93,
-                                columnNumber: 22
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                children: [
-                                    "User Name: ",
-                                    editMode.username ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                        type: "username",
-                                        value: userValues.username,
-                                        onChange: (e)=>handleChange("username", e.target.value)
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 96,
-                                        columnNumber: 29
-                                    }, undefined) : userData.username,
-                                    !editMode.username ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        onClick: ()=>handleEdit("username"),
-                                        children: "Edit"
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 104,
-                                        columnNumber: 28
-                                    }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        onClick: ()=>handleSave("username"),
-                                        children: "Save"
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 106,
-                                        columnNumber: 28
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 94,
-                                columnNumber: 22
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                children: [
-                                    "Password: ",
-                                    editMode.password ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                        type: "password",
-                                        value: "",
-                                        onChange: (e)=>handleChange("password", e.target.value)
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 111,
-                                        columnNumber: 29
-                                    }, undefined) : " ******** ",
-                                    !editMode.password ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        onClick: ()=>handleEdit("password"),
-                                        children: "Edit"
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 119,
-                                        columnNumber: 28
-                                    }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        onClick: ()=>handleSave("password"),
-                                        children: "Save"
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 121,
-                                        columnNumber: 28
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 109,
-                                columnNumber: 22
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                children: [
-                                    "Email: ",
-                                    editMode.email ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                        type: "email",
-                                        value: userValues.email,
-                                        onChange: (e)=>handleChange("email", e.target.value)
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 127,
-                                        columnNumber: 29
-                                    }, undefined) : userData.email,
-                                    !editMode.email ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        onClick: ()=>handleEdit("email"),
-                                        children: "Edit"
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 135,
-                                        columnNumber: 28
-                                    }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        onClick: ()=>handleSave("email"),
-                                        children: "Save"
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 137,
-                                        columnNumber: 28
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 125,
-                                columnNumber: 22
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                children: [
-                                    "Birthday: ",
-                                    editMode.birthday ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                        type: "date",
-                                        value: userValues.birthday,
-                                        onChange: (e)=>handleChange("birthday", e.target.value)
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 143,
-                                        columnNumber: 29
-                                    }, undefined) : new Date(userData.birthday).toLocaleDateString(),
-                                    !editMode.birthday ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        onClick: ()=>handleEdit("birthday"),
-                                        children: "Edit"
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 151,
-                                        columnNumber: 28
-                                    }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        onClick: ()=>handleSave("birthday"),
-                                        children: "Save"
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 153,
-                                        columnNumber: 28
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 141,
-                                columnNumber: 22
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                children: [
-                                    "Favorite Movies: ",
-                                    editMode.favorite_movies ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                        type: "favorite_movies",
-                                        value: userValues.birthday,
-                                        onChange: (e)=>handleChange("favorite_movies", e.target.value)
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 159,
-                                        columnNumber: 29
-                                    }, undefined) : userData.favorite_movies.join(", "),
-                                    !editMode.favorite_movies ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        onClick: ()=>handleEdit("favorite_movies"),
-                                        children: "Edit"
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 167,
-                                        columnNumber: 28
-                                    }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        onClick: ()=>handleSave("favorite_movies"),
-                                        children: "Save"
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 169,
-                                        columnNumber: 28
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 157,
-                                columnNumber: 22
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                                to: `/`,
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                    className: "back-button m-4 btn-lg",
-                                    style: {
-                                        cursor: "pointer"
-                                    },
-                                    children: "Back"
+    const [user, setUser] = (0, _react.useState)({}); // set the initial state of user to an empty object
+    const favoriteMovieList = movies.filter((movies)=>{}); // filter the movies array to only include the movies that are in the user's favorite_movies array
+    const getUser = ()=>{}; // function to get the user data from the API
+    const handleSubmit = (e)=>{}; // function to submit the form
+    const removeFav = (id)=>{}; // function to remove a movie from the user's favorite_movies array
+    const handleUpdate = (e)=>{}; // function to update the user data
+    (0, _react.useEffect)(()=>{}, []); // useEffect to run when the component mounts
+    return(// 1. user info 
+    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    "User: ",
+                    user.Username
+                ]
+            }, void 0, true, {
+                fileName: "src/components/profile-view/profile-view.jsx",
+                lineNumber: 29,
+                columnNumber: 10
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    "Email: ",
+                    user.Email
+                ]
+            }, void 0, true, {
+                fileName: "src/components/profile-view/profile-view.jsx",
+                lineNumber: 30,
+                columnNumber: 10
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                        children: "Favorite Movies"
+                    }, void 0, false, {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 33,
+                        columnNumber: 13
+                    }, this),
+                    favoriteMovieList.map((movie)=>{
+                        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                    src: movie.ImagePath
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 173,
-                                    columnNumber: 25
-                                }, undefined)
-                            }, void 0, false, {
-                                fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 172,
-                                columnNumber: 22
-                            }, undefined)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 92,
-                        columnNumber: 19
-                    }, undefined)
-                }, void 0, false, {
-                    fileName: "src/components/profile-view/profile-view.jsx",
-                    lineNumber: 91,
-                    columnNumber: 16
-                }, undefined)
-            }, void 0, false, {
+                                    lineNumber: 37,
+                                    columnNumber: 22
+                                }, this),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                                    to: `/movies/${movies._id}`,
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
+                                        children: movie.Title
+                                    }, void 0, false, {
+                                        fileName: "src/components/profile-view/profile-view.jsx",
+                                        lineNumber: 39,
+                                        columnNumber: 25
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "src/components/profile-view/profile-view.jsx",
+                                    lineNumber: 38,
+                                    columnNumber: 22
+                                }, this),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                    variant: "secondary",
+                                    onClick: ()=>removeFav(movie._id),
+                                    children: "Remove from list"
+                                }, void 0, false, {
+                                    fileName: "src/components/profile-view/profile-view.jsx",
+                                    lineNumber: 41,
+                                    columnNumber: 22
+                                }, this)
+                            ]
+                        }, movie._id, true, {
+                            fileName: "src/components/profile-view/profile-view.jsx",
+                            lineNumber: 36,
+                            columnNumber: 19
+                        }, this);
+                    })
+                ]
+            }, void 0, true, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 90,
-                columnNumber: 13
-            }, undefined)
-        }, void 0, false, {
-            fileName: "src/components/profile-view/profile-view.jsx",
-            lineNumber: 89,
-            columnNumber: 10
-        }, undefined)
-    }, void 0, false, {
+                lineNumber: 31,
+                columnNumber: 10
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
+                className: "profile-form",
+                onSubmit: (e)=>handleSubmit(e),
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                        children: "Update User Info"
+                    }, void 0, false, {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 49,
+                        columnNumber: 13
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                        children: "Username:"
+                    }, void 0, false, {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 50,
+                        columnNumber: 13
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        type: "text",
+                        name: "Username",
+                        defaultValue: user.Username,
+                        onChange: (e)=>handleUpdate(e)
+                    }, void 0, false, {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 51,
+                        columnNumber: 13
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                        children: "Password"
+                    }, void 0, false, {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 52,
+                        columnNumber: 13
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        type: "password",
+                        name: "Password",
+                        defaultValue: user.Password,
+                        onChange: (e)=>handleUpdate(e)
+                    }, void 0, false, {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 53,
+                        columnNumber: 13
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                        children: "Email:"
+                    }, void 0, false, {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 54,
+                        columnNumber: 13
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        type: "email",
+                        name: "Email",
+                        defaultValue: user.Email,
+                        onChange: (e)=>handleUpdate(e)
+                    }, void 0, false, {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 55,
+                        columnNumber: 13
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                        variant: "primary",
+                        type: "submit",
+                        children: "Update"
+                    }, void 0, false, {
+                        fileName: "src/components/profile-view/profile-view.jsx",
+                        lineNumber: 58,
+                        columnNumber: 13
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/profile-view/profile-view.jsx",
+                lineNumber: 48,
+                columnNumber: 10
+            }, this)
+        ]
+    }, void 0, true, {
         fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 88,
+        lineNumber: 28,
         columnNumber: 7
-    }, undefined);
-}; // return (
- //    <Card className="m-4" style={{ borderRadius: "3%", overflow: 'hidden' }}>
- //       <Container>
- //          <Row>
- //             <Col>
- //                <Card.Body>
- //                   <Card.Title className="mb-4" style={{ fontSize: '36px' }}>User Profile:</Card.Title>
- //                   <Card.Text>Username: {userData.username}</Card.Text>
- //                   <Card.Text>Email: {userData.email}</Card.Text>
- //                   <Card.Text>Birthday: {birthday}</Card.Text>
- //                   <Card.Text>Favorite Movies: {userData.favorite_movies.join(", ")}</Card.Text>
- //                   <Card.Text>User ID# {userData._id}</Card.Text>
- //                   <Link to="/update-user" className="btn btn-primary">Update Profile</Link>
- //                   <Link to={`/`}>
- //                      <Button className="back-button m-4 btn-lg" style={{ cursor: "pointer" }}>Back</Button>
- //                   </Link>
- //                </Card.Body>
- //             </Col>
- //          </Row>
- //       </Container>
- //    </Card>
- // );
- // };
-_s(ProfileView, "vsOrncVwRqxgXHCXAb0xfShYw5U=");
+    }, this));
+// return (
+//    <Card className="m-4" style={{ borderRadius: "3%", overflow: 'hidden' }}>
+//       <Container>
+//          <Row>
+//             <Col>
+//                <Card.Body>
+//                   <Card.Title className="mb-4" style={{ fontSize: '36px' }}>User Profile:</Card.Title>
+//                   <Card.Text>User Name: {
+//                      editMode.username ?
+//                         (<input
+//                            type="username"
+//                            value={userValues.username}
+//                            onChange={(e) => handleChange('username', e.target.value)}
+//                         />)
+//                         : userData.username
+//                   }
+//                      {!editMode.username ? (
+//                         <Button onClick={() => handleEdit('username')}>Edit</Button>
+//                      ) : (
+//                         <Button onClick={() => handleSave('username')}>Save</Button>
+//                      )}
+//                   </Card.Text>
+//                   <Card.Text>Password: {
+//                      editMode.password ?
+//                         (<input
+//                            type="password"
+//                            value={""}
+//                            onChange={(e) => handleChange('password', e.target.value)}
+//                         />) : " ******** "
+//                   }
+//                      {!editMode.password ? (
+//                         <Button onClick={() => handleEdit('password')}>Edit</Button>
+//                      ) : (
+//                         <Button onClick={() => handleSave('password')}>Save</Button>
+//                      )}
+//                   </Card.Text>
+//                   <Card.Text>Email: {
+//                      editMode.email ?
+//                         (<input
+//                            type="email"
+//                            value={userValues.email}
+//                            onChange={(e) => handleChange('email', e.target.value)}
+//                         />)
+//                         : userData.email
+//                   }
+//                      {!editMode.email ? (
+//                         <Button onClick={() => handleEdit('email')}>Edit</Button>
+//                      ) : (
+//                         <Button onClick={() => handleSave('email')}>Save</Button>
+//                      )}
+//                   </Card.Text>
+//                   <Card.Text>Birthday: {
+//                      editMode.birthday ?
+//                         (<input
+//                            type="date"
+//                            value={userValues.birthday}
+//                            onChange={(e) => handleChange('birthday', e.target.value)}
+//                         />)
+//                         : (new Date(userData.birthday)).toLocaleDateString()
+//                   }
+//                      {!editMode.birthday ? (
+//                         <Button onClick={() => handleEdit('birthday')}>Edit</Button>
+//                      ) : (
+//                         <Button onClick={() => handleSave('birthday')}>Save</Button>
+//                      )}
+//                   </Card.Text>
+//                   <Card.Text>Favorite Movies: {
+//                      editMode.favorite_movies ?
+//                         (<input
+//                            type="favorite_movies"
+//                            value={userValues.birthday}
+//                            onChange={(e) => handleChange('favorite_movies', e.target.value)}
+//                         />)
+//                         : userData.favorite_movies.join(", ")
+//                   }
+//                      {!editMode.favorite_movies ? (
+//                         <Button onClick={() => handleEdit('favorite_movies')}>Edit</Button>
+//                      ) : (
+//                         <Button onClick={() => handleSave('favorite_movies')}>Save</Button>
+//                      )}
+//                   </Card.Text>
+//                   <Link to={`/`}>
+//                      <Button className="back-button m-4 btn-lg" style={{ cursor: "pointer" }}>Back</Button>
+//                   </Link>
+//                </Card.Body>
+//             </Col>
+//          </Row>
+//       </Container>
+//    </Card>
+// );
+}
+_s(ProfileView, "l0nCqodPWuiGgcnCHidP90F0Gls=");
 _c = ProfileView;
 var _c;
 $RefreshReg$(_c, "ProfileView");
@@ -42131,7 +42058,7 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","react":"21dqq"}],"4OGiN":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","react":"21dqq","./profile-view.scss":"eyKYH"}],"eyKYH":[function() {},{}],"4OGiN":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$73d1 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

@@ -21,15 +21,11 @@ export const MovieCard = ({ movie }) => {           // onClick={() => onMovieCli
 
 MovieCard.propTypes = {
    movie: PropTypes.shape({
+      image: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       releaseYear: PropTypes.string,
       rating: PropTypes.string,
-      runtime: PropTypes.string,
-      genres: PropTypes.array,
       director: PropTypes.string.isRequired,
-      actors: PropTypes.array,
-      description: PropTypes.string,
-      image: PropTypes.string.isRequired,
    }).isRequired,
 };
 
