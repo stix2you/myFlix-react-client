@@ -12,22 +12,23 @@ import axios from 'axios';
 
 
 
-export function ProfileView({ user, movies, onUpdatedUserInfo }) {
-   const [userProfile, setUserProfile] = useState([]);
+export function ProfileView({ user: initialUser, movies, onUserUpdate }) {
+   const [localUser, setLocalUser] = useState(initialUser);                // Set the local user state with the initial user data
 
 
 
-   // DISPLAY USER INFORMATION REQUIREMENT: fetch user data from API function here:
+   // DISPLAY USER INFORMATION REQUIREMENT: fetch user data from API function 
    async function fetchUser() {
       try {
-         const username = user.username; // Make sure to replace this with actual logic to get the username
-         const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
-         const response = await axios.get(`https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${username}`, {
-            headers: { Authorization: `Bearer ${token}` },
+         const response = await axios.get(`https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${localUser.username}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
          });
-         setUserProfile(response.data); // Set the user state with the fetched data
-         console.log("user after fetch:", user)
-         console.log("userProfile after fetch:", userProfile)
+         const updatedUser = response.data;
+         setLocalUser(updatedUser);  // Update local user state with data retuned confirming post operation
+         onUserUpdate(updatedUser);  // Update the user state in MainView with data returned confirming post operation
+
+         console.log("localUser after fetch:", localUser)
+         
       } catch (error) {
          console.error("Failed to fetch user:", error);
          // Handle error appropriately
@@ -39,11 +40,11 @@ export function ProfileView({ user, movies, onUpdatedUserInfo }) {
       // e.preventDefault();  // Prevent the default refresh of the page
       try {
          await axios.put(
-            `https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${user.username}`,
+            `https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${localUser.username}`,
             {
-               Username: user.Username,
-               Password: user.Password,
-               Email: user.Email,
+               Username: localUser.Username,
+               Password: localUser.Password,
+               Email: localUser.Email,
             },
             {
                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -60,7 +61,7 @@ export function ProfileView({ user, movies, onUpdatedUserInfo }) {
    const handleDeregister = async (e) => { };
 
    // DISPLAY FAVORITE MOVIES REQUIREMENT: filter the movies array to only include the movies that are in the user's favorite_movies array
-   const favoriteMovieList = movies.filter((movie) => user.favorite_movies.includes(movie._id));
+   const favoriteMovieList = movies.filter((movie) => localUser.favorite_movies.includes(movie._id));
 
    // REMOVE FAVORITE MOVIE REQUIREMENT: function to remove a movie from the user's favorite_movies array
    const removeFav = (id) => { };  // function to remove a movie from the user's favorite_movies array
@@ -69,7 +70,7 @@ export function ProfileView({ user, movies, onUpdatedUserInfo }) {
 
    useEffect(() => {      // useEffect to run when the component mounts
       let isMounted = true;
-      isMounted && fetchUser(); 
+      isMounted && fetchUser();
       return () => {
          isMounted = false;
       }
@@ -79,104 +80,9 @@ export function ProfileView({ user, movies, onUpdatedUserInfo }) {
 
    return (
       <>
-         <UserInfo name={user.username} email={user.email} />
+         <UserInfo name={localUser.username} email={localUser.email} birthday={localUser.birthday} handleDeregister={handleDeregister} />
+         <UpdateUser localUser={localUser} handleUpdate={writeUser} />
          <FavoriteMovies favoriteMovieList={favoriteMovieList} />
-         <UpdateUser user={user} handleUpdate={writeUser} />
       </>
    );
 };
-
-// return (
-//    <Card className="m-4" style={{ borderRadius: "3%", overflow: 'hidden' }}>
-//       <Container>
-//          <Row>
-//             <Col>
-//                <Card.Body>
-//                   <Card.Title className="mb-4" style={{ fontSize: '36px' }}>User Profile:</Card.Title>
-//                   <Card.Text>User Name: {
-//                      editMode.username ?
-//                         (<input
-//                            type="username"
-//                            value={userValues.username}
-//                            onChange={(e) => handleChange('username', e.target.value)}
-//                         />)
-//                         : userData.username
-//                   }
-//                      {!editMode.username ? (
-//                         <Button onClick={() => handleEdit('username')}>Edit</Button>
-//                      ) : (
-//                         <Button onClick={() => handleSave('username')}>Save</Button>
-//                      )}
-//                   </Card.Text>
-//                   <Card.Text>Password: {
-//                      editMode.password ?
-//                         (<input
-//                            type="password"
-//                            value={""}
-//                            onChange={(e) => handleChange('password', e.target.value)}
-//                         />) : " ******** "
-
-//                   }
-//                      {!editMode.password ? (
-//                         <Button onClick={() => handleEdit('password')}>Edit</Button>
-//                      ) : (
-//                         <Button onClick={() => handleSave('password')}>Save</Button>
-//                      )}
-//                   </Card.Text>
-
-//                   <Card.Text>Email: {
-//                      editMode.email ?
-//                         (<input
-//                            type="email"
-//                            value={userValues.email}
-//                            onChange={(e) => handleChange('email', e.target.value)}
-//                         />)
-//                         : userData.email
-//                   }
-//                      {!editMode.email ? (
-//                         <Button onClick={() => handleEdit('email')}>Edit</Button>
-//                      ) : (
-//                         <Button onClick={() => handleSave('email')}>Save</Button>
-//                      )}
-//                   </Card.Text>
-
-//                   <Card.Text>Birthday: {
-//                      editMode.birthday ?
-//                         (<input
-//                            type="date"
-//                            value={userValues.birthday}
-//                            onChange={(e) => handleChange('birthday', e.target.value)}
-//                         />)
-//                         : (new Date(userData.birthday)).toLocaleDateString()
-//                   }
-//                      {!editMode.birthday ? (
-//                         <Button onClick={() => handleEdit('birthday')}>Edit</Button>
-//                      ) : (
-//                         <Button onClick={() => handleSave('birthday')}>Save</Button>
-//                      )}
-//                   </Card.Text>
-
-//                   <Card.Text>Favorite Movies: {
-//                      editMode.favorite_movies ?
-//                         (<input
-//                            type="favorite_movies"
-//                            value={userValues.birthday}
-//                            onChange={(e) => handleChange('favorite_movies', e.target.value)}
-//                         />)
-//                         : userData.favorite_movies.join(", ")
-//                   }
-//                      {!editMode.favorite_movies ? (
-//                         <Button onClick={() => handleEdit('favorite_movies')}>Edit</Button>
-//                      ) : (
-//                         <Button onClick={() => handleSave('favorite_movies')}>Save</Button>
-//                      )}
-//                   </Card.Text>
-//                   <Link to={`/`}>
-//                      <Button className="back-button m-4 btn-lg" style={{ cursor: "pointer" }}>Back</Button>
-//                   </Link>
-//                </Card.Body>
-//             </Col>
-//          </Row>
-//       </Container>
-//    </Card>
-// );
