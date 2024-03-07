@@ -5,32 +5,24 @@ import axios from 'axios';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { useState } from 'react';
 
-
-export const MovieView = ({ user:initialUser, movies, onUserUpdate }) => {
+export const MovieView = ({ user: initialUser, movies, onUserUpdate }) => {
    const { moviesId } = useParams();     // set moviesId to the value of the parameter in the URL (movie_id)
    const movie = movies.find((m) => m.id === moviesId);   // find the movie with the same id as the parameter in the URL
-
    const [localUser, setLocalUser] = useState(initialUser);
+   const isFavorite = (movieTitle) => localUser.favorite_movies.includes(movieTitle);  // is movie in favorites?
 
-   // Function to check if the movie is already in the favorites
-   const isFavorite = (movieTitle) => localUser.favorite_movies.includes(movieTitle);
-
-   // Function to handle adding the movie to favorites
-   const addToFavorites = async () => {
+   const addToFavorites = async () => {   // Add movie to favorites
       if (!isFavorite(movie.title)) {
-         
          try {
             const response = await axios.post(
                `https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${localUser.username}/movies/${movie.title}`,
                {},
                { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
             );
-
-            const updatedUser = response.data; 
+            const updatedUser = response.data;
             setLocalUser(updatedUser);  // Update local user state with data retuned confirming post operation
             onUserUpdate(updatedUser);  // Update the user state in MainView with data returned confirming post operation
             alert("Movie added to favorites!");
-
          } catch (error) {
             console.error("Error adding movie to favorites:", error);
          }

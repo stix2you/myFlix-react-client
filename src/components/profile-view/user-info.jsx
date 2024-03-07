@@ -1,9 +1,7 @@
 import React from 'react';
 import { Card, Container, Row, Col } from 'react-bootstrap';
-import { format, parseISO } from 'date-fns';
 
 function UserInfo({ user }) {
-   console.log("birthday:", user.birthday)
 
    return (
       <>

@@ -5,7 +5,6 @@ import UpdateUser from "./update-user";
 import FavoriteMovies from "./favorite-movies";
 import axios from "axios";
 import { Container, Col, Row } from "react-bootstrap";
-import "./profile-view.scss";
 
 export function ProfileView({
    user: initialUser,
@@ -36,14 +35,13 @@ export function ProfileView({
       localUser.favorite_movies.includes(movie.title)
    );
 
-   useEffect(() => {
-      // useEffect to run when the component mounts
+   useEffect(() => {      // useEffect to run when the component mounts
       let isMounted = true;
       isMounted && fetchUser();
       return () => {
          isMounted = false;
       };
-   }, []); // Empty dependency array means this effect runs once on component mount
+   }, []);
 
    return (
       <Container>

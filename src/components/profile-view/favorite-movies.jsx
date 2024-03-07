@@ -17,9 +17,8 @@ function FavoriteMovies({ favoriteMovieList: initialFavoriteMovieList, localUser
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       }).then(() => {
-        // Filter out the removed movie from the favoriteMovieList
-        const updatedFavoriteMovieList = favoriteMovieList.filter(movie => movie.title !== title);
-        setFavoriteMovieList(updatedFavoriteMovieList); // This will trigger a re-render
+        const updatedFavoriteMovieList = favoriteMovieList.filter(movie => movie.title !== title);  // Filter the removed movie from the favoriteMovieList
+        setFavoriteMovieList(updatedFavoriteMovieList); // trigger a re-render
       }).catch(error => {
         console.error("Failed to remove movie from favorites:", error);
       });
@@ -33,7 +32,7 @@ function FavoriteMovies({ favoriteMovieList: initialFavoriteMovieList, localUser
                   Favorite Movies:
                </Card.Title>
                <Row>
-                  {favoriteMovieList.map((movie) => (
+                  {favoriteMovieList.map((movie) => (    // map over the movies and create a card for each one, similar to the MovieCard component
                      <Col className="mb-4" key={movie.title} md={3}>
                         <Card style={{ cursor: "pointer" }} className="h-100">
                            <Card.Img variant="top" src={movie.image} style={{ width: "100%", overflow: 'hidden' }} />
@@ -44,7 +43,7 @@ function FavoriteMovies({ favoriteMovieList: initialFavoriteMovieList, localUser
                               <Button onClick={() => removeFromFavorites(movie.title)}>Remove from Favorites</Button>
                            </Card.Body>
                         </Card>
-                     </Col> // map over the movies and create a card for each one, MovieCard component renders the movie card
+                     </Col> 
                   ))}
                </Row>
             </Card.Body>

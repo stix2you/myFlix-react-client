@@ -5,13 +5,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
-export const MovieCard = ({ user: initialUser, movie, onUserUpdate }) => {           // onClick={() => onMovieClick(movie)} . . .  was removed from the Card tag
+export const MovieCard = ({ user: initialUser, movie, onUserUpdate }) => {  
    const [localUser, setLocalUser] = useState(initialUser);
+   const isFavorite = (movieTitle) => localUser.favorite_movies.includes(movieTitle);  // Check if the movie is already in the favorites
 
-   // Check if the movie is already in the favorites
-   const isFavorite = (movieTitle) => localUser.favorite_movies.includes(movieTitle);
-
-   // Handle adding the movie to favorites
    const addToFavorites = async () => {
       if (!isFavorite(movie.title)) {
          try {
@@ -20,8 +17,7 @@ export const MovieCard = ({ user: initialUser, movie, onUserUpdate }) => {      
                {},
                { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
             );
-
-            const updatedUser = response.data; 
+            const updatedUser = response.data;
             setLocalUser(updatedUser);  // Update local user state with data retuned confirming post operation
             onUserUpdate(updatedUser);  // Update the user state in MainView with data returned confirming post operation
             alert("Movie added to favorites!");
@@ -57,4 +53,3 @@ MovieCard.propTypes = {
       director: PropTypes.string.isRequired,
    }).isRequired,
 };
-

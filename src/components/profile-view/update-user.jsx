@@ -14,26 +14,21 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut }) => {
 
    const handleSubmitChanges = async e => {
       e.preventDefault() // Prevent the default form submit action
-
       const updatedUserData = {
          username,
          password, // Include password only if it's been changed; consider omitting if empty
          email,
          birthday
       }
-
       try {
-         // Make an API call to update the user data
-         const response = await axios.put(
+         const response = await axios.put(          // Make an API call to update the user data
             `https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${user.username}`,
             updatedUserData,
             {
                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             }
          )
-
-         // If the API call is successful, use the onUserUpdate callback to update the parent component
-         onUserUpdate(response.data)
+         onUserUpdate(response.data)     // If the API call is successful, use the onUserUpdate callback to update the parent component
          alert('User information updated successfully.')
       } catch (error) {
          console.error('Error updating user information:', error)
@@ -42,7 +37,7 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut }) => {
    }
 
    const formatDateForInput = isoDateString => {
-      return isoDateString.split('T')[0] // This splits the ISO string at 'T' and returns the date part
+      return isoDateString.split('T')[0] // This splits the ISO string at 'T' and returns the date part -- date formatting problems 
    }
 
    const handleDeleteAccount = async () => {
@@ -78,8 +73,7 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut }) => {
                Update Your Information:
             </Card.Title>
             <Form onSubmit={handleSubmitChanges}>
-            <Container>
-               
+               <Container>
                   <Row>
                      <Col>
                         <Form.Group controlId='formUsername'>
@@ -126,28 +120,27 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut }) => {
                         </Form.Group>
                      </Col>
                   </Row>
-            </Container>
-
+               </Container>
                <Button className='m-4 btn-lg' variant='primary' type='submit'>
-               Submit Changes
-            </Button>
-            <Button
-               className='m-4 btn-lg'
-               variant='danger'
-               onClick={handleDeleteAccount}
-            >
-               Delete Account
-            </Button>
-            <Link to={`/`}>
-               <Button
-                  className='back-button m-4 btn-lg'
-                  style={{ cursor: 'pointer' }}
-               >
-                  Back
+                  Submit Changes
                </Button>
-            </Link>
-         </Form>
-      </Card.Body>
+               <Button
+                  className='m-4 btn-lg'
+                  variant='danger'
+                  onClick={handleDeleteAccount}
+               >
+                  Delete Account
+               </Button>
+               <Link to={`/`}>
+                  <Button
+                     className='back-button m-4 btn-lg'
+                     style={{ cursor: 'pointer' }}
+                  >
+                     Back
+                  </Button>
+               </Link>
+            </Form>
+         </Card.Body>
       </Card >
    )
 }
