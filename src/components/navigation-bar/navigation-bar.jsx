@@ -30,13 +30,6 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                   )}
                   {user && (
                      <>
-                        <Nav.Link as={Link} to="/">
-                           Favorite Movies
-                        </Nav.Link>                        
-                     </>
-                  )}
-                  {user && (
-                     <>
                         <Nav.Link as={Link} to={`/users/${encodeURIComponent(user.username)}`}>
                            Profile
                         </Nav.Link>

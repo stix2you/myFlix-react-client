@@ -78,7 +78,7 @@ export const MainView = () => {
             setUser(null), setToken(null), localStorage.clear();
           }}
         />
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-lg-center">
           <Routes>
             <Route
               path="/signup"
@@ -171,7 +171,7 @@ export const MainView = () => {
                   {!user ? (
                     <Navigate to="/login" replace />
                   ) : Object.keys(user).length > 0 ? ( // Check if user object is not empty
-                    <Col md={8}>
+                    <Col md={12}>
                       <ProfileView
                         movies={movies}
                         user={user}
