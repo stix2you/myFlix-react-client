@@ -46554,7 +46554,7 @@ function UserInfo({ user }) {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
             className: "m-4",
             style: {
-                borderRadius: "3%",
+                borderRadius: "0%",
                 overflow: "hidden"
             },
             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
@@ -62055,7 +62055,7 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
         className: "m-4",
         style: {
-            borderRadius: "3%",
+            borderRadius: "0%",
             overflow: "hidden"
         },
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
@@ -62306,20 +62306,30 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
-var _reactRouterDom = require("react-router-dom");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
-function FavoriteMovies({ favoriteMovieList, localUser }) {
-    const username = localUser.username;
-    console.log("username", username);
+var _s = $RefreshSig$();
+function FavoriteMovies({ favoriteMovieList: initialFavoriteMovieList, localUser }) {
+    _s();
+    const [favoriteMovieList, setFavoriteMovieList] = (0, _react.useState)(initialFavoriteMovieList);
+    (0, _react.useEffect)(()=>{
+        setFavoriteMovieList(initialFavoriteMovieList);
+    }, [
+        initialFavoriteMovieList
+    ]);
     const removeFromFavorites = (title)=>{
         (0, _axiosDefault.default).delete(`https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${localUser.username}/movies/${title}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
+        }).then(()=>{
+            // Filter out the removed movie from the favoriteMovieList
+            const updatedFavoriteMovieList = favoriteMovieList.filter((movie)=>movie.title !== title);
+            setFavoriteMovieList(updatedFavoriteMovieList); // This will trigger a re-render
+        }).catch((error)=>{
+            console.error("Failed to remove movie from favorites:", error);
         });
     };
-    console.log("favoriteMovieList", favoriteMovieList);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
             className: "m-4",
@@ -62337,7 +62347,7 @@ function FavoriteMovies({ favoriteMovieList, localUser }) {
                         children: "Favorite Movies:"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/favorite-movies.jsx",
-                        lineNumber: 24,
+                        lineNumber: 32,
                         columnNumber: 16
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -62359,7 +62369,7 @@ function FavoriteMovies({ favoriteMovieList, localUser }) {
                                             }
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/favorite-movies.jsx",
-                                            lineNumber: 31,
+                                            lineNumber: 39,
                                             columnNumber: 28
                                         }, this),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
@@ -62368,7 +62378,7 @@ function FavoriteMovies({ favoriteMovieList, localUser }) {
                                                     children: movie.title
                                                 }, void 0, false, {
                                                     fileName: "src/components/profile-view/favorite-movies.jsx",
-                                                    lineNumber: 33,
+                                                    lineNumber: 41,
                                                     columnNumber: 31
                                                 }, this),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
@@ -62382,14 +62392,14 @@ function FavoriteMovies({ favoriteMovieList, localUser }) {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "src/components/profile-view/favorite-movies.jsx",
-                                                    lineNumber: 34,
+                                                    lineNumber: 42,
                                                     columnNumber: 31
                                                 }, this),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
                                                     children: movie.director
                                                 }, void 0, false, {
                                                     fileName: "src/components/profile-view/favorite-movies.jsx",
-                                                    lineNumber: 35,
+                                                    lineNumber: 43,
                                                     columnNumber: 31
                                                 }, this),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -62397,49 +62407,50 @@ function FavoriteMovies({ favoriteMovieList, localUser }) {
                                                     children: "Remove from Favorites"
                                                 }, void 0, false, {
                                                     fileName: "src/components/profile-view/favorite-movies.jsx",
-                                                    lineNumber: 36,
+                                                    lineNumber: 44,
                                                     columnNumber: 31
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/profile-view/favorite-movies.jsx",
-                                            lineNumber: 32,
+                                            lineNumber: 40,
                                             columnNumber: 28
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/profile-view/favorite-movies.jsx",
-                                    lineNumber: 30,
+                                    lineNumber: 38,
                                     columnNumber: 25
                                 }, this)
                             }, movie.title, false, {
                                 fileName: "src/components/profile-view/favorite-movies.jsx",
-                                lineNumber: 29,
+                                lineNumber: 37,
                                 columnNumber: 22
                             }, this) // map over the movies and create a card for each one, MovieCard component renders the movie card
                         )
                     }, void 0, false, {
                         fileName: "src/components/profile-view/favorite-movies.jsx",
-                        lineNumber: 27,
+                        lineNumber: 35,
                         columnNumber: 16
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/favorite-movies.jsx",
-                lineNumber: 23,
+                lineNumber: 31,
                 columnNumber: 13
             }, this)
         }, void 0, false, {
             fileName: "src/components/profile-view/favorite-movies.jsx",
-            lineNumber: 22,
+            lineNumber: 30,
             columnNumber: 10
         }, this)
     }, void 0, false, {
         fileName: "src/components/profile-view/favorite-movies.jsx",
-        lineNumber: 21,
+        lineNumber: 29,
         columnNumber: 7
     }, this);
 }
+_s(FavoriteMovies, "jKkUmwCQeO0CB1mExJmjJ2H5jL4=");
 _c = FavoriteMovies;
 exports.default = FavoriteMovies;
 var _c;
@@ -62450,6 +62461,6 @@ $RefreshReg$(_c, "FavoriteMovies");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","axios":"jo6P5","react-router-dom":"9xmpe"}],"i5LP7":[function() {},{}],"i5LP7":[function() {},{}],"lJZlQ":[function() {},{}]},["gjUm6","1xC6H","d8Dch"], "d8Dch", "parcelRequireaec4")
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","axios":"jo6P5"}],"i5LP7":[function() {},{}],"i5LP7":[function() {},{}],"lJZlQ":[function() {},{}]},["gjUm6","1xC6H","d8Dch"], "d8Dch", "parcelRequireaec4")
 
 //# sourceMappingURL=index.b4b6dfad.js.map

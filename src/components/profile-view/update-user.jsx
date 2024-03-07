@@ -72,7 +72,7 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut }) => {
    }
 
    return (
-      <Card className='m-4' style={{ borderRadius: '3%', overflow: 'hidden' }}>
+      <Card className='m-4' style={{ borderRadius: '0%', overflow: 'hidden' }}>
          <Card.Body>
             <Card.Title className='mb-4' style={{ fontSize: '36px' }}>
                Update Your Information:

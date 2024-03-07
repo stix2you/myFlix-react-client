@@ -7,7 +7,7 @@ function UserInfo({ user }) {
 
    return (
       <>
-         <Card className="m-4" style={{ borderRadius: "3%", overflow: 'hidden' }}>
+         <Card className="m-4" style={{ borderRadius: "0%", overflow: 'hidden' }}>
             <Container>
                <Row>
                   <Col>
