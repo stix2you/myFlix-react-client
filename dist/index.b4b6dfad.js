@@ -27200,7 +27200,7 @@ var _reactRouterDom = require("react-router-dom");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const storedUser = JSON.parse(localStorage.getItem("user")); // retrieves the user data from local storage which is a 
+    const storedUser = JSON.parse(localStorage.getItem("user")); // retrieves the user data from local storage which is a
     const storedToken = localStorage.getItem("token");
     const [user, setUser] = (0, _react.useState)(storedUser ? storedUser : null);
     const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
@@ -27209,14 +27209,22 @@ const MainView = ()=>{
         setUser(updatedUserData); // Update the state with the new user data
     };
     const handleUserUpdate = (updatedUser)=>{
+        // updates the user state with the new user data updatedUser is coming from the MovieView component
         setUser(updatedUser);
     };
-    //console.log("user at start of MainView: ", user);  
-    //console.log("token at start of MainView: ", token);
+    const onLoggedOut = ()=>{
+        setUser(null);
+        setToken(null);
+        localStorage.clear();
+    // Possibly navigate to a public page or the login page here as well
+    };
     (0, _react.useEffect)(()=>{
-        if (!token) return; // if the token is falsy, return from the function
+        // the purpose of this function is to fetch data from an API and update the movies state with the data,
+        if (!token) // if the token is falsy, return from the function, falsy values are: false, 0, "", null, undefined, and NaN
+        return; // if the token is falsy, return from the function
         // console.log("token in useEffect: ", token);
         fetch("https://stix2you-myflix-5cbcd3c20372.herokuapp.com/movies", {
+            // fetches data from the API, GET request to the /movies endpoint
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -27225,6 +27233,7 @@ const MainView = ()=>{
             setMovies(movies); // updates the movies state with the data from the API
             // console.log("movies from api after fetch:", movies);          // logs the data to the console
             const moviesFromApi = movies.map((doc)=>{
+                // maps each element in the array to a new piece of UI
                 return {
                     id: doc._id,
                     title: doc.Title,
@@ -27255,8 +27264,8 @@ const MainView = ()=>{
                     }
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 70,
-                    columnNumber: 13
+                    lineNumber: 75,
+                    columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                     className: "justify-content-md-center",
@@ -27269,25 +27278,25 @@ const MainView = ()=>{
                                         to: "/"
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 78,
-                                        columnNumber: 31
+                                        lineNumber: 88,
+                                        columnNumber: 21
                                     }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                         md: 5,
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 81,
-                                            columnNumber: 34
+                                            lineNumber: 91,
+                                            columnNumber: 23
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 80,
-                                        columnNumber: 31
+                                        lineNumber: 90,
+                                        columnNumber: 21
                                     }, void 0)
                                 }, void 0, false) // navigate to the signup view if the user is not logged in
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 73,
-                                columnNumber: 19
+                                lineNumber: 83,
+                                columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                                 path: "/login",
@@ -27296,8 +27305,8 @@ const MainView = ()=>{
                                         to: "/"
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 91,
-                                        columnNumber: 28
+                                        lineNumber: 102,
+                                        columnNumber: 21
                                     }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                         md: 5,
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
@@ -27307,19 +27316,19 @@ const MainView = ()=>{
                                             }
                                         }, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 94,
-                                            columnNumber: 31
+                                            lineNumber: 105,
+                                            columnNumber: 23
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 93,
-                                        columnNumber: 28
+                                        lineNumber: 104,
+                                        columnNumber: 21
                                     }, void 0) // navigate to the login view if the user is not logged in
                                 }, void 0, false)
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 87,
-                                columnNumber: 19
+                                lineNumber: 97,
+                                columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                                 path: "/movies/:moviesId",
@@ -27329,8 +27338,8 @@ const MainView = ()=>{
                                         replace: true
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 105,
-                                        columnNumber: 28
+                                        lineNumber: 122,
+                                        columnNumber: 21
                                     }, void 0) : movies.length > 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                         md: 8,
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
@@ -27339,32 +27348,32 @@ const MainView = ()=>{
                                             onUserUpdate: handleUserUpdate
                                         }, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 108,
-                                            columnNumber: 31
+                                            lineNumber: 125,
+                                            columnNumber: 23
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 107,
-                                        columnNumber: 28
+                                        lineNumber: 124,
+                                        columnNumber: 21
                                     }, void 0) // Navigate to individual movie-view if the user is logged in and movies are loaded
                                      : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                                             children: "Loading Movie Data..."
                                         }, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 112,
-                                            columnNumber: 31
+                                            lineNumber: 133,
+                                            columnNumber: 23
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 111,
-                                        columnNumber: 28
+                                        lineNumber: 132,
+                                        columnNumber: 21
                                     }, void 0) // Show loading message while movies data is loading
                                 }, void 0, false)
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 101,
-                                columnNumber: 19
+                                lineNumber: 117,
+                                columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                                 path: "/",
@@ -27374,20 +27383,20 @@ const MainView = ()=>{
                                         replace: true
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 123,
-                                        columnNumber: 28
+                                        lineNumber: 145,
+                                        columnNumber: 21
                                     }, void 0) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                                             children: "Loading Movie Data . . ."
                                         }, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 126,
-                                            columnNumber: 31
+                                            lineNumber: 148,
+                                            columnNumber: 23
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 125,
-                                        columnNumber: 28
+                                        lineNumber: 147,
+                                        columnNumber: 21
                                     }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                         children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                                 className: "mb-4",
@@ -27398,21 +27407,21 @@ const MainView = ()=>{
                                                     onUserUpdate: handleUserUpdate
                                                 }, void 0, false, {
                                                     fileName: "src/components/main-view/main-view.jsx",
-                                                    lineNumber: 131,
-                                                    columnNumber: 34
+                                                    lineNumber: 154,
+                                                    columnNumber: 27
                                                 }, void 0)
                                             }, movie.id, false, {
                                                 fileName: "src/components/main-view/main-view.jsx",
-                                                lineNumber: 130,
-                                                columnNumber: 31
+                                                lineNumber: 153,
+                                                columnNumber: 25
                                             }, void 0) // map over the movies and create a card for each one, MovieCard component renders the movie card
                                         )
                                     }, void 0, false)
                                 }, void 0, false)
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 119,
-                                columnNumber: 19
+                                lineNumber: 140,
+                                columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                                 path: "/users/:username",
@@ -27422,63 +27431,64 @@ const MainView = ()=>{
                                         replace: true
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 145,
-                                        columnNumber: 31
+                                        lineNumber: 172,
+                                        columnNumber: 21
                                     }, void 0) : Object.keys(user).length > 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                         md: 8,
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileView.ProfileView), {
                                             movies: movies,
                                             user: user,
+                                            onLoggedOut: onLoggedOut,
                                             onUserUpdate: handleUserDataUpdate
                                         }, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 148,
-                                            columnNumber: 34
+                                            lineNumber: 175,
+                                            columnNumber: 23
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 147,
-                                        columnNumber: 31
+                                        lineNumber: 174,
+                                        columnNumber: 21
                                     }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                                             children: "Loading User Data..."
                                         }, void 0, false, {
                                             fileName: "src/components/main-view/main-view.jsx",
-                                            lineNumber: 152,
-                                            columnNumber: 34
+                                            lineNumber: 184,
+                                            columnNumber: 23
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "src/components/main-view/main-view.jsx",
-                                        lineNumber: 151,
-                                        columnNumber: 31
+                                        lineNumber: 183,
+                                        columnNumber: 21
                                     }, void 0) // Show loading message while user data is loading
                                 }, void 0, false)
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 140,
-                                columnNumber: 19
+                                lineNumber: 167,
+                                columnNumber: 13
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 72,
-                        columnNumber: 16
+                        lineNumber: 82,
+                        columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 71,
-                    columnNumber: 13
+                    lineNumber: 81,
+                    columnNumber: 9
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 69,
-            columnNumber: 10
+            lineNumber: 74,
+            columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 68,
-        columnNumber: 7
+        lineNumber: 73,
+        columnNumber: 5
     }, undefined);
 };
 _s(MainView, "vrQobkEX5jhNcI69dtstaSSmWyg=");
@@ -53305,6 +53315,17 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                 }, undefined)
                             }, void 0, false),
                             user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                    as: (0, _reactRouterDom.Link),
+                                    to: "/",
+                                    children: "Favorite Movies"
+                                }, void 0, false, {
+                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                    lineNumber: 33,
+                                    columnNumber: 25
+                                }, undefined)
+                            }, void 0, false),
+                            user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                 children: [
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                         as: (0, _reactRouterDom.Link),
@@ -53312,7 +53333,7 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                         children: "Profile"
                                     }, void 0, false, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 33,
+                                        lineNumber: 40,
                                         columnNumber: 25
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -53320,7 +53341,7 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                         children: "Logout"
                                     }, void 0, false, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 36,
+                                        lineNumber: 43,
                                         columnNumber: 25
                                     }, undefined)
                                 ]
@@ -53384,10 +53405,9 @@ var _favoriteMoviesDefault = parcelHelpers.interopDefault(_favoriteMovies);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _s = $RefreshSig$();
-function ProfileView({ user: initialUser, movies, onUserUpdate }) {
+function ProfileView({ user: initialUser, movies, onLoggedOut, onUserUpdate }) {
     _s();
     const [localUser, setLocalUser] = (0, _react.useState)(initialUser); // Set the local user state with the initial user data
-    // DISPLAY USER INFORMATION REQUIREMENT: fetch user data from API function 
     async function fetchUser() {
         try {
             const response = await (0, _axiosDefault.default).get(`https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${localUser.username}`, {
@@ -53401,35 +53421,10 @@ function ProfileView({ user: initialUser, movies, onUserUpdate }) {
             console.log("localUser after fetch:", localUser);
         } catch (error) {
             console.error("Failed to fetch user:", error);
-        // Handle error appropriately
         }
     }
-    // UPDATE USER INFORMATION REQUIREMENT: write user data to API functions here, one for submitting the form, and one for updating the form
-    async function writeUser() {
-        // e.preventDefault();  // Prevent the default refresh of the page
-        try {
-            await (0, _axiosDefault.default).put(`https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${localUser.username}`, {
-                Username: localUser.Username,
-                Password: localUser.Password,
-                Email: localUser.Email
-            }, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
-                }
-            });
-            getUser();
-            onUpdatedUserInfo();
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    // ALLOW USER TO DEREGISTER REQUIREMENT: delete user from API function here:
-    const handleDeregister = async (e)=>{};
-    // DISPLAY FAVORITE MOVIES REQUIREMENT: filter the movies array to only include the movies that are in the user's favorite_movies array
     const favoriteMovieList = movies.filter((movie)=>localUser.favorite_movies.includes(movie._id));
-    // REMOVE FAVORITE MOVIE REQUIREMENT: function to remove a movie from the user's favorite_movies array
     const removeFav = (id)=>{}; // function to remove a movie from the user's favorite_movies array
-    // ADD A FAVORITE MOVIE REQUIREMENT: function to add a movie to the user's favorite_movies array -- SEE MOVIE-VIEW.JSX and MOVIE-CARD.JSX
     (0, _react.useEffect)(()=>{
         let isMounted = true;
         isMounted && fetchUser();
@@ -53440,28 +53435,29 @@ function ProfileView({ user: initialUser, movies, onUserUpdate }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userInfoDefault.default), {
+                user: initialUser,
                 name: localUser.username,
                 email: localUser.email,
-                birthday: localUser.birthday,
-                handleDeregister: handleDeregister
+                birthday: localUser.birthday
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 83,
+                lineNumber: 45,
                 columnNumber: 10
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _updateUserDefault.default), {
-                localUser: localUser,
-                handleUpdate: writeUser
+                localUser: initialUser,
+                onUserUpdate: onUserUpdate,
+                onLoggedOut: onLoggedOut
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 84,
+                lineNumber: 46,
                 columnNumber: 10
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _favoriteMoviesDefault.default), {
                 favoriteMovieList: favoriteMovieList
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 85,
+                lineNumber: 47,
                 columnNumber: 10
             }, this)
         ]
@@ -53490,7 +53486,9 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
-function UserInfo({ name, email, birthday }) {
+var _dateFns = require("date-fns");
+function UserInfo({ user }) {
+    console.log("birthday:", user.birthday);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
             className: "m-4",
@@ -53511,33 +53509,35 @@ function UserInfo({ name, email, birthday }) {
                                     children: "User Profile:"
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/user-info.jsx",
-                                    lineNumber: 12,
-                                    columnNumber: 25
-                                }, this),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                    children: [
-                                        "Username: ",
-                                        name
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/profile-view/user-info.jsx",
-                                    lineNumber: 13,
-                                    columnNumber: 25
-                                }, this),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                    children: [
-                                        "Email: ",
-                                        email
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/profile-view/user-info.jsx",
                                     lineNumber: 15,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
                                     children: [
+                                        "Username: ",
+                                        user.username
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/profile-view/user-info.jsx",
+                                    lineNumber: 16,
+                                    columnNumber: 25
+                                }, this),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
+                                    children: [
+                                        "Email: ",
+                                        user.email
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/profile-view/user-info.jsx",
+                                    lineNumber: 18,
+                                    columnNumber: 25
+                                }, this),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
+                                    children: [
                                         "Birthday: ",
-                                        new Date(birthday).toLocaleDateString("en-US", {
+                                        new Date(new Date(user.birthday).getTime() + 86400000) // Adds one day for display purposes only, 
+                                        // user.birthday remains unchanged
+                                        .toLocaleDateString("en-US", {
                                             year: "numeric",
                                             month: "long",
                                             day: "numeric"
@@ -53545,33 +53545,33 @@ function UserInfo({ name, email, birthday }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/profile-view/user-info.jsx",
-                                    lineNumber: 17,
+                                    lineNumber: 20,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/profile-view/user-info.jsx",
-                            lineNumber: 11,
+                            lineNumber: 14,
                             columnNumber: 22
                         }, this)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/user-info.jsx",
-                        lineNumber: 10,
+                        lineNumber: 13,
                         columnNumber: 19
                     }, this)
                 }, void 0, false, {
                     fileName: "src/components/profile-view/user-info.jsx",
-                    lineNumber: 9,
+                    lineNumber: 12,
                     columnNumber: 16
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/profile-view/user-info.jsx",
-                lineNumber: 8,
+                lineNumber: 11,
                 columnNumber: 13
             }, this)
         }, void 0, false, {
             fileName: "src/components/profile-view/user-info.jsx",
-            lineNumber: 7,
+            lineNumber: 10,
             columnNumber: 10
         }, this)
     }, void 0, false);
@@ -53586,7 +53586,15340 @@ $RefreshReg$(_c, "UserInfo");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-bootstrap":"3AD9A"}],"2SBwg":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-bootstrap":"3AD9A","date-fns":"ceTbP"}],"ceTbP":[function(require,module,exports) {
+// This file is generated automatically by `scripts/build/indices.ts`. Please, don't change it.
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _addMjs = require("./add.mjs");
+parcelHelpers.exportAll(_addMjs, exports);
+var _addBusinessDaysMjs = require("./addBusinessDays.mjs");
+parcelHelpers.exportAll(_addBusinessDaysMjs, exports);
+var _addDaysMjs = require("./addDays.mjs");
+parcelHelpers.exportAll(_addDaysMjs, exports);
+var _addHoursMjs = require("./addHours.mjs");
+parcelHelpers.exportAll(_addHoursMjs, exports);
+var _addISOWeekYearsMjs = require("./addISOWeekYears.mjs");
+parcelHelpers.exportAll(_addISOWeekYearsMjs, exports);
+var _addMillisecondsMjs = require("./addMilliseconds.mjs");
+parcelHelpers.exportAll(_addMillisecondsMjs, exports);
+var _addMinutesMjs = require("./addMinutes.mjs");
+parcelHelpers.exportAll(_addMinutesMjs, exports);
+var _addMonthsMjs = require("./addMonths.mjs");
+parcelHelpers.exportAll(_addMonthsMjs, exports);
+var _addQuartersMjs = require("./addQuarters.mjs");
+parcelHelpers.exportAll(_addQuartersMjs, exports);
+var _addSecondsMjs = require("./addSeconds.mjs");
+parcelHelpers.exportAll(_addSecondsMjs, exports);
+var _addWeeksMjs = require("./addWeeks.mjs");
+parcelHelpers.exportAll(_addWeeksMjs, exports);
+var _addYearsMjs = require("./addYears.mjs");
+parcelHelpers.exportAll(_addYearsMjs, exports);
+var _areIntervalsOverlappingMjs = require("./areIntervalsOverlapping.mjs");
+parcelHelpers.exportAll(_areIntervalsOverlappingMjs, exports);
+var _clampMjs = require("./clamp.mjs");
+parcelHelpers.exportAll(_clampMjs, exports);
+var _closestIndexToMjs = require("./closestIndexTo.mjs");
+parcelHelpers.exportAll(_closestIndexToMjs, exports);
+var _closestToMjs = require("./closestTo.mjs");
+parcelHelpers.exportAll(_closestToMjs, exports);
+var _compareAscMjs = require("./compareAsc.mjs");
+parcelHelpers.exportAll(_compareAscMjs, exports);
+var _compareDescMjs = require("./compareDesc.mjs");
+parcelHelpers.exportAll(_compareDescMjs, exports);
+var _constructFromMjs = require("./constructFrom.mjs");
+parcelHelpers.exportAll(_constructFromMjs, exports);
+var _daysToWeeksMjs = require("./daysToWeeks.mjs");
+parcelHelpers.exportAll(_daysToWeeksMjs, exports);
+var _differenceInBusinessDaysMjs = require("./differenceInBusinessDays.mjs");
+parcelHelpers.exportAll(_differenceInBusinessDaysMjs, exports);
+var _differenceInCalendarDaysMjs = require("./differenceInCalendarDays.mjs");
+parcelHelpers.exportAll(_differenceInCalendarDaysMjs, exports);
+var _differenceInCalendarISOWeekYearsMjs = require("./differenceInCalendarISOWeekYears.mjs");
+parcelHelpers.exportAll(_differenceInCalendarISOWeekYearsMjs, exports);
+var _differenceInCalendarISOWeeksMjs = require("./differenceInCalendarISOWeeks.mjs");
+parcelHelpers.exportAll(_differenceInCalendarISOWeeksMjs, exports);
+var _differenceInCalendarMonthsMjs = require("./differenceInCalendarMonths.mjs");
+parcelHelpers.exportAll(_differenceInCalendarMonthsMjs, exports);
+var _differenceInCalendarQuartersMjs = require("./differenceInCalendarQuarters.mjs");
+parcelHelpers.exportAll(_differenceInCalendarQuartersMjs, exports);
+var _differenceInCalendarWeeksMjs = require("./differenceInCalendarWeeks.mjs");
+parcelHelpers.exportAll(_differenceInCalendarWeeksMjs, exports);
+var _differenceInCalendarYearsMjs = require("./differenceInCalendarYears.mjs");
+parcelHelpers.exportAll(_differenceInCalendarYearsMjs, exports);
+var _differenceInDaysMjs = require("./differenceInDays.mjs");
+parcelHelpers.exportAll(_differenceInDaysMjs, exports);
+var _differenceInHoursMjs = require("./differenceInHours.mjs");
+parcelHelpers.exportAll(_differenceInHoursMjs, exports);
+var _differenceInISOWeekYearsMjs = require("./differenceInISOWeekYears.mjs");
+parcelHelpers.exportAll(_differenceInISOWeekYearsMjs, exports);
+var _differenceInMillisecondsMjs = require("./differenceInMilliseconds.mjs");
+parcelHelpers.exportAll(_differenceInMillisecondsMjs, exports);
+var _differenceInMinutesMjs = require("./differenceInMinutes.mjs");
+parcelHelpers.exportAll(_differenceInMinutesMjs, exports);
+var _differenceInMonthsMjs = require("./differenceInMonths.mjs");
+parcelHelpers.exportAll(_differenceInMonthsMjs, exports);
+var _differenceInQuartersMjs = require("./differenceInQuarters.mjs");
+parcelHelpers.exportAll(_differenceInQuartersMjs, exports);
+var _differenceInSecondsMjs = require("./differenceInSeconds.mjs");
+parcelHelpers.exportAll(_differenceInSecondsMjs, exports);
+var _differenceInWeeksMjs = require("./differenceInWeeks.mjs");
+parcelHelpers.exportAll(_differenceInWeeksMjs, exports);
+var _differenceInYearsMjs = require("./differenceInYears.mjs");
+parcelHelpers.exportAll(_differenceInYearsMjs, exports);
+var _eachDayOfIntervalMjs = require("./eachDayOfInterval.mjs");
+parcelHelpers.exportAll(_eachDayOfIntervalMjs, exports);
+var _eachHourOfIntervalMjs = require("./eachHourOfInterval.mjs");
+parcelHelpers.exportAll(_eachHourOfIntervalMjs, exports);
+var _eachMinuteOfIntervalMjs = require("./eachMinuteOfInterval.mjs");
+parcelHelpers.exportAll(_eachMinuteOfIntervalMjs, exports);
+var _eachMonthOfIntervalMjs = require("./eachMonthOfInterval.mjs");
+parcelHelpers.exportAll(_eachMonthOfIntervalMjs, exports);
+var _eachQuarterOfIntervalMjs = require("./eachQuarterOfInterval.mjs");
+parcelHelpers.exportAll(_eachQuarterOfIntervalMjs, exports);
+var _eachWeekOfIntervalMjs = require("./eachWeekOfInterval.mjs");
+parcelHelpers.exportAll(_eachWeekOfIntervalMjs, exports);
+var _eachWeekendOfIntervalMjs = require("./eachWeekendOfInterval.mjs");
+parcelHelpers.exportAll(_eachWeekendOfIntervalMjs, exports);
+var _eachWeekendOfMonthMjs = require("./eachWeekendOfMonth.mjs");
+parcelHelpers.exportAll(_eachWeekendOfMonthMjs, exports);
+var _eachWeekendOfYearMjs = require("./eachWeekendOfYear.mjs");
+parcelHelpers.exportAll(_eachWeekendOfYearMjs, exports);
+var _eachYearOfIntervalMjs = require("./eachYearOfInterval.mjs");
+parcelHelpers.exportAll(_eachYearOfIntervalMjs, exports);
+var _endOfDayMjs = require("./endOfDay.mjs");
+parcelHelpers.exportAll(_endOfDayMjs, exports);
+var _endOfDecadeMjs = require("./endOfDecade.mjs");
+parcelHelpers.exportAll(_endOfDecadeMjs, exports);
+var _endOfHourMjs = require("./endOfHour.mjs");
+parcelHelpers.exportAll(_endOfHourMjs, exports);
+var _endOfISOWeekMjs = require("./endOfISOWeek.mjs");
+parcelHelpers.exportAll(_endOfISOWeekMjs, exports);
+var _endOfISOWeekYearMjs = require("./endOfISOWeekYear.mjs");
+parcelHelpers.exportAll(_endOfISOWeekYearMjs, exports);
+var _endOfMinuteMjs = require("./endOfMinute.mjs");
+parcelHelpers.exportAll(_endOfMinuteMjs, exports);
+var _endOfMonthMjs = require("./endOfMonth.mjs");
+parcelHelpers.exportAll(_endOfMonthMjs, exports);
+var _endOfQuarterMjs = require("./endOfQuarter.mjs");
+parcelHelpers.exportAll(_endOfQuarterMjs, exports);
+var _endOfSecondMjs = require("./endOfSecond.mjs");
+parcelHelpers.exportAll(_endOfSecondMjs, exports);
+var _endOfTodayMjs = require("./endOfToday.mjs");
+parcelHelpers.exportAll(_endOfTodayMjs, exports);
+var _endOfTomorrowMjs = require("./endOfTomorrow.mjs");
+parcelHelpers.exportAll(_endOfTomorrowMjs, exports);
+var _endOfWeekMjs = require("./endOfWeek.mjs");
+parcelHelpers.exportAll(_endOfWeekMjs, exports);
+var _endOfYearMjs = require("./endOfYear.mjs");
+parcelHelpers.exportAll(_endOfYearMjs, exports);
+var _endOfYesterdayMjs = require("./endOfYesterday.mjs");
+parcelHelpers.exportAll(_endOfYesterdayMjs, exports);
+var _formatMjs = require("./format.mjs");
+parcelHelpers.exportAll(_formatMjs, exports);
+var _formatDistanceMjs = require("./formatDistance.mjs");
+parcelHelpers.exportAll(_formatDistanceMjs, exports);
+var _formatDistanceStrictMjs = require("./formatDistanceStrict.mjs");
+parcelHelpers.exportAll(_formatDistanceStrictMjs, exports);
+var _formatDistanceToNowMjs = require("./formatDistanceToNow.mjs");
+parcelHelpers.exportAll(_formatDistanceToNowMjs, exports);
+var _formatDistanceToNowStrictMjs = require("./formatDistanceToNowStrict.mjs");
+parcelHelpers.exportAll(_formatDistanceToNowStrictMjs, exports);
+var _formatDurationMjs = require("./formatDuration.mjs");
+parcelHelpers.exportAll(_formatDurationMjs, exports);
+var _formatISOMjs = require("./formatISO.mjs");
+parcelHelpers.exportAll(_formatISOMjs, exports);
+var _formatISO9075Mjs = require("./formatISO9075.mjs");
+parcelHelpers.exportAll(_formatISO9075Mjs, exports);
+var _formatISODurationMjs = require("./formatISODuration.mjs");
+parcelHelpers.exportAll(_formatISODurationMjs, exports);
+var _formatRFC3339Mjs = require("./formatRFC3339.mjs");
+parcelHelpers.exportAll(_formatRFC3339Mjs, exports);
+var _formatRFC7231Mjs = require("./formatRFC7231.mjs");
+parcelHelpers.exportAll(_formatRFC7231Mjs, exports);
+var _formatRelativeMjs = require("./formatRelative.mjs");
+parcelHelpers.exportAll(_formatRelativeMjs, exports);
+var _fromUnixTimeMjs = require("./fromUnixTime.mjs");
+parcelHelpers.exportAll(_fromUnixTimeMjs, exports);
+var _getDateMjs = require("./getDate.mjs");
+parcelHelpers.exportAll(_getDateMjs, exports);
+var _getDayMjs = require("./getDay.mjs");
+parcelHelpers.exportAll(_getDayMjs, exports);
+var _getDayOfYearMjs = require("./getDayOfYear.mjs");
+parcelHelpers.exportAll(_getDayOfYearMjs, exports);
+var _getDaysInMonthMjs = require("./getDaysInMonth.mjs");
+parcelHelpers.exportAll(_getDaysInMonthMjs, exports);
+var _getDaysInYearMjs = require("./getDaysInYear.mjs");
+parcelHelpers.exportAll(_getDaysInYearMjs, exports);
+var _getDecadeMjs = require("./getDecade.mjs");
+parcelHelpers.exportAll(_getDecadeMjs, exports);
+var _getDefaultOptionsMjs = require("./getDefaultOptions.mjs");
+parcelHelpers.exportAll(_getDefaultOptionsMjs, exports);
+var _getHoursMjs = require("./getHours.mjs");
+parcelHelpers.exportAll(_getHoursMjs, exports);
+var _getISODayMjs = require("./getISODay.mjs");
+parcelHelpers.exportAll(_getISODayMjs, exports);
+var _getISOWeekMjs = require("./getISOWeek.mjs");
+parcelHelpers.exportAll(_getISOWeekMjs, exports);
+var _getISOWeekYearMjs = require("./getISOWeekYear.mjs");
+parcelHelpers.exportAll(_getISOWeekYearMjs, exports);
+var _getISOWeeksInYearMjs = require("./getISOWeeksInYear.mjs");
+parcelHelpers.exportAll(_getISOWeeksInYearMjs, exports);
+var _getMillisecondsMjs = require("./getMilliseconds.mjs");
+parcelHelpers.exportAll(_getMillisecondsMjs, exports);
+var _getMinutesMjs = require("./getMinutes.mjs");
+parcelHelpers.exportAll(_getMinutesMjs, exports);
+var _getMonthMjs = require("./getMonth.mjs");
+parcelHelpers.exportAll(_getMonthMjs, exports);
+var _getOverlappingDaysInIntervalsMjs = require("./getOverlappingDaysInIntervals.mjs");
+parcelHelpers.exportAll(_getOverlappingDaysInIntervalsMjs, exports);
+var _getQuarterMjs = require("./getQuarter.mjs");
+parcelHelpers.exportAll(_getQuarterMjs, exports);
+var _getSecondsMjs = require("./getSeconds.mjs");
+parcelHelpers.exportAll(_getSecondsMjs, exports);
+var _getTimeMjs = require("./getTime.mjs");
+parcelHelpers.exportAll(_getTimeMjs, exports);
+var _getUnixTimeMjs = require("./getUnixTime.mjs");
+parcelHelpers.exportAll(_getUnixTimeMjs, exports);
+var _getWeekMjs = require("./getWeek.mjs");
+parcelHelpers.exportAll(_getWeekMjs, exports);
+var _getWeekOfMonthMjs = require("./getWeekOfMonth.mjs");
+parcelHelpers.exportAll(_getWeekOfMonthMjs, exports);
+var _getWeekYearMjs = require("./getWeekYear.mjs");
+parcelHelpers.exportAll(_getWeekYearMjs, exports);
+var _getWeeksInMonthMjs = require("./getWeeksInMonth.mjs");
+parcelHelpers.exportAll(_getWeeksInMonthMjs, exports);
+var _getYearMjs = require("./getYear.mjs");
+parcelHelpers.exportAll(_getYearMjs, exports);
+var _hoursToMillisecondsMjs = require("./hoursToMilliseconds.mjs");
+parcelHelpers.exportAll(_hoursToMillisecondsMjs, exports);
+var _hoursToMinutesMjs = require("./hoursToMinutes.mjs");
+parcelHelpers.exportAll(_hoursToMinutesMjs, exports);
+var _hoursToSecondsMjs = require("./hoursToSeconds.mjs");
+parcelHelpers.exportAll(_hoursToSecondsMjs, exports);
+var _intervalMjs = require("./interval.mjs");
+parcelHelpers.exportAll(_intervalMjs, exports);
+var _intervalToDurationMjs = require("./intervalToDuration.mjs");
+parcelHelpers.exportAll(_intervalToDurationMjs, exports);
+var _intlFormatMjs = require("./intlFormat.mjs");
+parcelHelpers.exportAll(_intlFormatMjs, exports);
+var _intlFormatDistanceMjs = require("./intlFormatDistance.mjs");
+parcelHelpers.exportAll(_intlFormatDistanceMjs, exports);
+var _isAfterMjs = require("./isAfter.mjs");
+parcelHelpers.exportAll(_isAfterMjs, exports);
+var _isBeforeMjs = require("./isBefore.mjs");
+parcelHelpers.exportAll(_isBeforeMjs, exports);
+var _isDateMjs = require("./isDate.mjs");
+parcelHelpers.exportAll(_isDateMjs, exports);
+var _isEqualMjs = require("./isEqual.mjs");
+parcelHelpers.exportAll(_isEqualMjs, exports);
+var _isExistsMjs = require("./isExists.mjs");
+parcelHelpers.exportAll(_isExistsMjs, exports);
+var _isFirstDayOfMonthMjs = require("./isFirstDayOfMonth.mjs");
+parcelHelpers.exportAll(_isFirstDayOfMonthMjs, exports);
+var _isFridayMjs = require("./isFriday.mjs");
+parcelHelpers.exportAll(_isFridayMjs, exports);
+var _isFutureMjs = require("./isFuture.mjs");
+parcelHelpers.exportAll(_isFutureMjs, exports);
+var _isLastDayOfMonthMjs = require("./isLastDayOfMonth.mjs");
+parcelHelpers.exportAll(_isLastDayOfMonthMjs, exports);
+var _isLeapYearMjs = require("./isLeapYear.mjs");
+parcelHelpers.exportAll(_isLeapYearMjs, exports);
+var _isMatchMjs = require("./isMatch.mjs");
+parcelHelpers.exportAll(_isMatchMjs, exports);
+var _isMondayMjs = require("./isMonday.mjs");
+parcelHelpers.exportAll(_isMondayMjs, exports);
+var _isPastMjs = require("./isPast.mjs");
+parcelHelpers.exportAll(_isPastMjs, exports);
+var _isSameDayMjs = require("./isSameDay.mjs");
+parcelHelpers.exportAll(_isSameDayMjs, exports);
+var _isSameHourMjs = require("./isSameHour.mjs");
+parcelHelpers.exportAll(_isSameHourMjs, exports);
+var _isSameISOWeekMjs = require("./isSameISOWeek.mjs");
+parcelHelpers.exportAll(_isSameISOWeekMjs, exports);
+var _isSameISOWeekYearMjs = require("./isSameISOWeekYear.mjs");
+parcelHelpers.exportAll(_isSameISOWeekYearMjs, exports);
+var _isSameMinuteMjs = require("./isSameMinute.mjs");
+parcelHelpers.exportAll(_isSameMinuteMjs, exports);
+var _isSameMonthMjs = require("./isSameMonth.mjs");
+parcelHelpers.exportAll(_isSameMonthMjs, exports);
+var _isSameQuarterMjs = require("./isSameQuarter.mjs");
+parcelHelpers.exportAll(_isSameQuarterMjs, exports);
+var _isSameSecondMjs = require("./isSameSecond.mjs");
+parcelHelpers.exportAll(_isSameSecondMjs, exports);
+var _isSameWeekMjs = require("./isSameWeek.mjs");
+parcelHelpers.exportAll(_isSameWeekMjs, exports);
+var _isSameYearMjs = require("./isSameYear.mjs");
+parcelHelpers.exportAll(_isSameYearMjs, exports);
+var _isSaturdayMjs = require("./isSaturday.mjs");
+parcelHelpers.exportAll(_isSaturdayMjs, exports);
+var _isSundayMjs = require("./isSunday.mjs");
+parcelHelpers.exportAll(_isSundayMjs, exports);
+var _isThisHourMjs = require("./isThisHour.mjs");
+parcelHelpers.exportAll(_isThisHourMjs, exports);
+var _isThisISOWeekMjs = require("./isThisISOWeek.mjs");
+parcelHelpers.exportAll(_isThisISOWeekMjs, exports);
+var _isThisMinuteMjs = require("./isThisMinute.mjs");
+parcelHelpers.exportAll(_isThisMinuteMjs, exports);
+var _isThisMonthMjs = require("./isThisMonth.mjs");
+parcelHelpers.exportAll(_isThisMonthMjs, exports);
+var _isThisQuarterMjs = require("./isThisQuarter.mjs");
+parcelHelpers.exportAll(_isThisQuarterMjs, exports);
+var _isThisSecondMjs = require("./isThisSecond.mjs");
+parcelHelpers.exportAll(_isThisSecondMjs, exports);
+var _isThisWeekMjs = require("./isThisWeek.mjs");
+parcelHelpers.exportAll(_isThisWeekMjs, exports);
+var _isThisYearMjs = require("./isThisYear.mjs");
+parcelHelpers.exportAll(_isThisYearMjs, exports);
+var _isThursdayMjs = require("./isThursday.mjs");
+parcelHelpers.exportAll(_isThursdayMjs, exports);
+var _isTodayMjs = require("./isToday.mjs");
+parcelHelpers.exportAll(_isTodayMjs, exports);
+var _isTomorrowMjs = require("./isTomorrow.mjs");
+parcelHelpers.exportAll(_isTomorrowMjs, exports);
+var _isTuesdayMjs = require("./isTuesday.mjs");
+parcelHelpers.exportAll(_isTuesdayMjs, exports);
+var _isValidMjs = require("./isValid.mjs");
+parcelHelpers.exportAll(_isValidMjs, exports);
+var _isWednesdayMjs = require("./isWednesday.mjs");
+parcelHelpers.exportAll(_isWednesdayMjs, exports);
+var _isWeekendMjs = require("./isWeekend.mjs");
+parcelHelpers.exportAll(_isWeekendMjs, exports);
+var _isWithinIntervalMjs = require("./isWithinInterval.mjs");
+parcelHelpers.exportAll(_isWithinIntervalMjs, exports);
+var _isYesterdayMjs = require("./isYesterday.mjs");
+parcelHelpers.exportAll(_isYesterdayMjs, exports);
+var _lastDayOfDecadeMjs = require("./lastDayOfDecade.mjs");
+parcelHelpers.exportAll(_lastDayOfDecadeMjs, exports);
+var _lastDayOfISOWeekMjs = require("./lastDayOfISOWeek.mjs");
+parcelHelpers.exportAll(_lastDayOfISOWeekMjs, exports);
+var _lastDayOfISOWeekYearMjs = require("./lastDayOfISOWeekYear.mjs");
+parcelHelpers.exportAll(_lastDayOfISOWeekYearMjs, exports);
+var _lastDayOfMonthMjs = require("./lastDayOfMonth.mjs");
+parcelHelpers.exportAll(_lastDayOfMonthMjs, exports);
+var _lastDayOfQuarterMjs = require("./lastDayOfQuarter.mjs");
+parcelHelpers.exportAll(_lastDayOfQuarterMjs, exports);
+var _lastDayOfWeekMjs = require("./lastDayOfWeek.mjs");
+parcelHelpers.exportAll(_lastDayOfWeekMjs, exports);
+var _lastDayOfYearMjs = require("./lastDayOfYear.mjs");
+parcelHelpers.exportAll(_lastDayOfYearMjs, exports);
+var _lightFormatMjs = require("./lightFormat.mjs");
+parcelHelpers.exportAll(_lightFormatMjs, exports);
+var _maxMjs = require("./max.mjs");
+parcelHelpers.exportAll(_maxMjs, exports);
+var _millisecondsMjs = require("./milliseconds.mjs");
+parcelHelpers.exportAll(_millisecondsMjs, exports);
+var _millisecondsToHoursMjs = require("./millisecondsToHours.mjs");
+parcelHelpers.exportAll(_millisecondsToHoursMjs, exports);
+var _millisecondsToMinutesMjs = require("./millisecondsToMinutes.mjs");
+parcelHelpers.exportAll(_millisecondsToMinutesMjs, exports);
+var _millisecondsToSecondsMjs = require("./millisecondsToSeconds.mjs");
+parcelHelpers.exportAll(_millisecondsToSecondsMjs, exports);
+var _minMjs = require("./min.mjs");
+parcelHelpers.exportAll(_minMjs, exports);
+var _minutesToHoursMjs = require("./minutesToHours.mjs");
+parcelHelpers.exportAll(_minutesToHoursMjs, exports);
+var _minutesToMillisecondsMjs = require("./minutesToMilliseconds.mjs");
+parcelHelpers.exportAll(_minutesToMillisecondsMjs, exports);
+var _minutesToSecondsMjs = require("./minutesToSeconds.mjs");
+parcelHelpers.exportAll(_minutesToSecondsMjs, exports);
+var _monthsToQuartersMjs = require("./monthsToQuarters.mjs");
+parcelHelpers.exportAll(_monthsToQuartersMjs, exports);
+var _monthsToYearsMjs = require("./monthsToYears.mjs");
+parcelHelpers.exportAll(_monthsToYearsMjs, exports);
+var _nextDayMjs = require("./nextDay.mjs");
+parcelHelpers.exportAll(_nextDayMjs, exports);
+var _nextFridayMjs = require("./nextFriday.mjs");
+parcelHelpers.exportAll(_nextFridayMjs, exports);
+var _nextMondayMjs = require("./nextMonday.mjs");
+parcelHelpers.exportAll(_nextMondayMjs, exports);
+var _nextSaturdayMjs = require("./nextSaturday.mjs");
+parcelHelpers.exportAll(_nextSaturdayMjs, exports);
+var _nextSundayMjs = require("./nextSunday.mjs");
+parcelHelpers.exportAll(_nextSundayMjs, exports);
+var _nextThursdayMjs = require("./nextThursday.mjs");
+parcelHelpers.exportAll(_nextThursdayMjs, exports);
+var _nextTuesdayMjs = require("./nextTuesday.mjs");
+parcelHelpers.exportAll(_nextTuesdayMjs, exports);
+var _nextWednesdayMjs = require("./nextWednesday.mjs");
+parcelHelpers.exportAll(_nextWednesdayMjs, exports);
+var _parseMjs = require("./parse.mjs");
+parcelHelpers.exportAll(_parseMjs, exports);
+var _parseISOMjs = require("./parseISO.mjs");
+parcelHelpers.exportAll(_parseISOMjs, exports);
+var _parseJSONMjs = require("./parseJSON.mjs");
+parcelHelpers.exportAll(_parseJSONMjs, exports);
+var _previousDayMjs = require("./previousDay.mjs");
+parcelHelpers.exportAll(_previousDayMjs, exports);
+var _previousFridayMjs = require("./previousFriday.mjs");
+parcelHelpers.exportAll(_previousFridayMjs, exports);
+var _previousMondayMjs = require("./previousMonday.mjs");
+parcelHelpers.exportAll(_previousMondayMjs, exports);
+var _previousSaturdayMjs = require("./previousSaturday.mjs");
+parcelHelpers.exportAll(_previousSaturdayMjs, exports);
+var _previousSundayMjs = require("./previousSunday.mjs");
+parcelHelpers.exportAll(_previousSundayMjs, exports);
+var _previousThursdayMjs = require("./previousThursday.mjs");
+parcelHelpers.exportAll(_previousThursdayMjs, exports);
+var _previousTuesdayMjs = require("./previousTuesday.mjs");
+parcelHelpers.exportAll(_previousTuesdayMjs, exports);
+var _previousWednesdayMjs = require("./previousWednesday.mjs");
+parcelHelpers.exportAll(_previousWednesdayMjs, exports);
+var _quartersToMonthsMjs = require("./quartersToMonths.mjs");
+parcelHelpers.exportAll(_quartersToMonthsMjs, exports);
+var _quartersToYearsMjs = require("./quartersToYears.mjs");
+parcelHelpers.exportAll(_quartersToYearsMjs, exports);
+var _roundToNearestMinutesMjs = require("./roundToNearestMinutes.mjs");
+parcelHelpers.exportAll(_roundToNearestMinutesMjs, exports);
+var _secondsToHoursMjs = require("./secondsToHours.mjs");
+parcelHelpers.exportAll(_secondsToHoursMjs, exports);
+var _secondsToMillisecondsMjs = require("./secondsToMilliseconds.mjs");
+parcelHelpers.exportAll(_secondsToMillisecondsMjs, exports);
+var _secondsToMinutesMjs = require("./secondsToMinutes.mjs");
+parcelHelpers.exportAll(_secondsToMinutesMjs, exports);
+var _setMjs = require("./set.mjs");
+parcelHelpers.exportAll(_setMjs, exports);
+var _setDateMjs = require("./setDate.mjs");
+parcelHelpers.exportAll(_setDateMjs, exports);
+var _setDayMjs = require("./setDay.mjs");
+parcelHelpers.exportAll(_setDayMjs, exports);
+var _setDayOfYearMjs = require("./setDayOfYear.mjs");
+parcelHelpers.exportAll(_setDayOfYearMjs, exports);
+var _setDefaultOptionsMjs = require("./setDefaultOptions.mjs");
+parcelHelpers.exportAll(_setDefaultOptionsMjs, exports);
+var _setHoursMjs = require("./setHours.mjs");
+parcelHelpers.exportAll(_setHoursMjs, exports);
+var _setISODayMjs = require("./setISODay.mjs");
+parcelHelpers.exportAll(_setISODayMjs, exports);
+var _setISOWeekMjs = require("./setISOWeek.mjs");
+parcelHelpers.exportAll(_setISOWeekMjs, exports);
+var _setISOWeekYearMjs = require("./setISOWeekYear.mjs");
+parcelHelpers.exportAll(_setISOWeekYearMjs, exports);
+var _setMillisecondsMjs = require("./setMilliseconds.mjs");
+parcelHelpers.exportAll(_setMillisecondsMjs, exports);
+var _setMinutesMjs = require("./setMinutes.mjs");
+parcelHelpers.exportAll(_setMinutesMjs, exports);
+var _setMonthMjs = require("./setMonth.mjs");
+parcelHelpers.exportAll(_setMonthMjs, exports);
+var _setQuarterMjs = require("./setQuarter.mjs");
+parcelHelpers.exportAll(_setQuarterMjs, exports);
+var _setSecondsMjs = require("./setSeconds.mjs");
+parcelHelpers.exportAll(_setSecondsMjs, exports);
+var _setWeekMjs = require("./setWeek.mjs");
+parcelHelpers.exportAll(_setWeekMjs, exports);
+var _setWeekYearMjs = require("./setWeekYear.mjs");
+parcelHelpers.exportAll(_setWeekYearMjs, exports);
+var _setYearMjs = require("./setYear.mjs");
+parcelHelpers.exportAll(_setYearMjs, exports);
+var _startOfDayMjs = require("./startOfDay.mjs");
+parcelHelpers.exportAll(_startOfDayMjs, exports);
+var _startOfDecadeMjs = require("./startOfDecade.mjs");
+parcelHelpers.exportAll(_startOfDecadeMjs, exports);
+var _startOfHourMjs = require("./startOfHour.mjs");
+parcelHelpers.exportAll(_startOfHourMjs, exports);
+var _startOfISOWeekMjs = require("./startOfISOWeek.mjs");
+parcelHelpers.exportAll(_startOfISOWeekMjs, exports);
+var _startOfISOWeekYearMjs = require("./startOfISOWeekYear.mjs");
+parcelHelpers.exportAll(_startOfISOWeekYearMjs, exports);
+var _startOfMinuteMjs = require("./startOfMinute.mjs");
+parcelHelpers.exportAll(_startOfMinuteMjs, exports);
+var _startOfMonthMjs = require("./startOfMonth.mjs");
+parcelHelpers.exportAll(_startOfMonthMjs, exports);
+var _startOfQuarterMjs = require("./startOfQuarter.mjs");
+parcelHelpers.exportAll(_startOfQuarterMjs, exports);
+var _startOfSecondMjs = require("./startOfSecond.mjs");
+parcelHelpers.exportAll(_startOfSecondMjs, exports);
+var _startOfTodayMjs = require("./startOfToday.mjs");
+parcelHelpers.exportAll(_startOfTodayMjs, exports);
+var _startOfTomorrowMjs = require("./startOfTomorrow.mjs");
+parcelHelpers.exportAll(_startOfTomorrowMjs, exports);
+var _startOfWeekMjs = require("./startOfWeek.mjs");
+parcelHelpers.exportAll(_startOfWeekMjs, exports);
+var _startOfWeekYearMjs = require("./startOfWeekYear.mjs");
+parcelHelpers.exportAll(_startOfWeekYearMjs, exports);
+var _startOfYearMjs = require("./startOfYear.mjs");
+parcelHelpers.exportAll(_startOfYearMjs, exports);
+var _startOfYesterdayMjs = require("./startOfYesterday.mjs");
+parcelHelpers.exportAll(_startOfYesterdayMjs, exports);
+var _subMjs = require("./sub.mjs");
+parcelHelpers.exportAll(_subMjs, exports);
+var _subBusinessDaysMjs = require("./subBusinessDays.mjs");
+parcelHelpers.exportAll(_subBusinessDaysMjs, exports);
+var _subDaysMjs = require("./subDays.mjs");
+parcelHelpers.exportAll(_subDaysMjs, exports);
+var _subHoursMjs = require("./subHours.mjs");
+parcelHelpers.exportAll(_subHoursMjs, exports);
+var _subISOWeekYearsMjs = require("./subISOWeekYears.mjs");
+parcelHelpers.exportAll(_subISOWeekYearsMjs, exports);
+var _subMillisecondsMjs = require("./subMilliseconds.mjs");
+parcelHelpers.exportAll(_subMillisecondsMjs, exports);
+var _subMinutesMjs = require("./subMinutes.mjs");
+parcelHelpers.exportAll(_subMinutesMjs, exports);
+var _subMonthsMjs = require("./subMonths.mjs");
+parcelHelpers.exportAll(_subMonthsMjs, exports);
+var _subQuartersMjs = require("./subQuarters.mjs");
+parcelHelpers.exportAll(_subQuartersMjs, exports);
+var _subSecondsMjs = require("./subSeconds.mjs");
+parcelHelpers.exportAll(_subSecondsMjs, exports);
+var _subWeeksMjs = require("./subWeeks.mjs");
+parcelHelpers.exportAll(_subWeeksMjs, exports);
+var _subYearsMjs = require("./subYears.mjs");
+parcelHelpers.exportAll(_subYearsMjs, exports);
+var _toDateMjs = require("./toDate.mjs");
+parcelHelpers.exportAll(_toDateMjs, exports);
+var _transposeMjs = require("./transpose.mjs");
+parcelHelpers.exportAll(_transposeMjs, exports);
+var _weeksToDaysMjs = require("./weeksToDays.mjs");
+parcelHelpers.exportAll(_weeksToDaysMjs, exports);
+var _yearsToDaysMjs = require("./yearsToDays.mjs");
+parcelHelpers.exportAll(_yearsToDaysMjs, exports);
+var _yearsToMonthsMjs = require("./yearsToMonths.mjs");
+parcelHelpers.exportAll(_yearsToMonthsMjs, exports);
+var _yearsToQuartersMjs = require("./yearsToQuarters.mjs");
+parcelHelpers.exportAll(_yearsToQuartersMjs, exports);
+
+},{"./add.mjs":"5pZIl","./addBusinessDays.mjs":"flbco","./addDays.mjs":"4IE0s","./addHours.mjs":"f3Bhk","./addISOWeekYears.mjs":"6wjqF","./addMilliseconds.mjs":"lfi1S","./addMinutes.mjs":"gVy8g","./addMonths.mjs":"2Zag2","./addQuarters.mjs":"9gf9h","./addSeconds.mjs":"kxXPn","./addWeeks.mjs":"7YgKz","./addYears.mjs":"itTGn","./areIntervalsOverlapping.mjs":"bRuHA","./clamp.mjs":"j24zK","./closestIndexTo.mjs":"gv9nK","./closestTo.mjs":"a1y1d","./compareAsc.mjs":"gHVyQ","./compareDesc.mjs":"1rC1J","./constructFrom.mjs":"xte3t","./daysToWeeks.mjs":"28Lwg","./differenceInBusinessDays.mjs":"h7OyI","./differenceInCalendarDays.mjs":"bLx9a","./differenceInCalendarISOWeekYears.mjs":"8pVWg","./differenceInCalendarISOWeeks.mjs":"3m1gm","./differenceInCalendarMonths.mjs":"89gaI","./differenceInCalendarQuarters.mjs":"2KB3i","./differenceInCalendarWeeks.mjs":"fHTLb","./differenceInCalendarYears.mjs":"4CFta","./differenceInDays.mjs":"9juYF","./differenceInHours.mjs":"gDW2a","./differenceInISOWeekYears.mjs":"2O3K7","./differenceInMilliseconds.mjs":"aS6rf","./differenceInMinutes.mjs":"amBaR","./differenceInMonths.mjs":"8HTvw","./differenceInQuarters.mjs":"b559P","./differenceInSeconds.mjs":"a0DEp","./differenceInWeeks.mjs":"dVC3c","./differenceInYears.mjs":"koEUj","./eachDayOfInterval.mjs":"kfrWH","./eachHourOfInterval.mjs":"ix1nB","./eachMinuteOfInterval.mjs":"fDpEm","./eachMonthOfInterval.mjs":"cz2M8","./eachQuarterOfInterval.mjs":"5o8yG","./eachWeekOfInterval.mjs":"8Itjg","./eachWeekendOfInterval.mjs":"lpnmL","./eachWeekendOfMonth.mjs":"1BxFQ","./eachWeekendOfYear.mjs":"4D6Jg","./eachYearOfInterval.mjs":"eaos4","./endOfDay.mjs":"6g4Fj","./endOfDecade.mjs":"gj1GO","./endOfHour.mjs":"gZHjM","./endOfISOWeek.mjs":"fQQCE","./endOfISOWeekYear.mjs":"fJ4iH","./endOfMinute.mjs":"2MwdL","./endOfMonth.mjs":"aGMp5","./endOfQuarter.mjs":"145rS","./endOfSecond.mjs":"15XKa","./endOfToday.mjs":"eA4XW","./endOfTomorrow.mjs":"hBHV7","./endOfWeek.mjs":"x1Pre","./endOfYear.mjs":"5t5Az","./endOfYesterday.mjs":"4qdlm","./format.mjs":"4YDgA","./formatDistance.mjs":"1a1TL","./formatDistanceStrict.mjs":"757wK","./formatDistanceToNow.mjs":"lrvcb","./formatDistanceToNowStrict.mjs":"29B34","./formatDuration.mjs":"kA32O","./formatISO.mjs":"k2GxI","./formatISO9075.mjs":"3tBoi","./formatISODuration.mjs":"bv64a","./formatRFC3339.mjs":"f9qSN","./formatRFC7231.mjs":"gWN0m","./formatRelative.mjs":"bDsBL","./fromUnixTime.mjs":"l211l","./getDate.mjs":"evpyl","./getDay.mjs":"aQoyF","./getDayOfYear.mjs":"fKDga","./getDaysInMonth.mjs":"eATrW","./getDaysInYear.mjs":"9wKSp","./getDecade.mjs":"9z2mv","./getDefaultOptions.mjs":"dFo4E","./getHours.mjs":"gyNt3","./getISODay.mjs":"ir4Qk","./getISOWeek.mjs":"jExzB","./getISOWeekYear.mjs":"io5kR","./getISOWeeksInYear.mjs":"9G83a","./getMilliseconds.mjs":"enMF2","./getMinutes.mjs":"lOjEX","./getMonth.mjs":"gWX0J","./getOverlappingDaysInIntervals.mjs":"bGKYT","./getQuarter.mjs":"4DO7p","./getSeconds.mjs":"7lGyB","./getTime.mjs":"ecAib","./getUnixTime.mjs":"7OsbK","./getWeek.mjs":"81Dj9","./getWeekOfMonth.mjs":"78EH2","./getWeekYear.mjs":"4qgzW","./getWeeksInMonth.mjs":"4DybL","./getYear.mjs":"icACu","./hoursToMilliseconds.mjs":"fYh89","./hoursToMinutes.mjs":"tr7dT","./hoursToSeconds.mjs":"8uaAK","./interval.mjs":"bqLEd","./intervalToDuration.mjs":"9K5yM","./intlFormat.mjs":"iLGZ2","./intlFormatDistance.mjs":"9SLrf","./isAfter.mjs":"d0WpW","./isBefore.mjs":"gaIiK","./isDate.mjs":"7NzNE","./isEqual.mjs":"jkATJ","./isExists.mjs":"aZKGR","./isFirstDayOfMonth.mjs":"fzcMG","./isFriday.mjs":"hUjwC","./isFuture.mjs":"bM53b","./isLastDayOfMonth.mjs":"g0aXP","./isLeapYear.mjs":"dtFpm","./isMatch.mjs":"4T2FP","./isMonday.mjs":"ah6py","./isPast.mjs":"hWvpj","./isSameDay.mjs":"ivgld","./isSameHour.mjs":"eTTni","./isSameISOWeek.mjs":"9lDVb","./isSameISOWeekYear.mjs":"5qi57","./isSameMinute.mjs":"4sTlr","./isSameMonth.mjs":"hVgEo","./isSameQuarter.mjs":"83UF5","./isSameSecond.mjs":"26KaU","./isSameWeek.mjs":"dBLnf","./isSameYear.mjs":"9MtEr","./isSaturday.mjs":"lr6bn","./isSunday.mjs":"cEPEg","./isThisHour.mjs":"kfYcw","./isThisISOWeek.mjs":"a8yFj","./isThisMinute.mjs":"4JW4s","./isThisMonth.mjs":"fZRqh","./isThisQuarter.mjs":"7samY","./isThisSecond.mjs":"imZlD","./isThisWeek.mjs":"hUtNS","./isThisYear.mjs":"eH6sI","./isThursday.mjs":"iSkAB","./isToday.mjs":"1UEm8","./isTomorrow.mjs":"ecGRP","./isTuesday.mjs":"5kMBz","./isValid.mjs":"dX2Ty","./isWednesday.mjs":"lfvUC","./isWeekend.mjs":"8544Q","./isWithinInterval.mjs":"hBAF1","./isYesterday.mjs":"ZKGX1","./lastDayOfDecade.mjs":"37bx8","./lastDayOfISOWeek.mjs":"9xROz","./lastDayOfISOWeekYear.mjs":"N8MdU","./lastDayOfMonth.mjs":"gib87","./lastDayOfQuarter.mjs":"dktiQ","./lastDayOfWeek.mjs":"hMOz9","./lastDayOfYear.mjs":"a51mN","./lightFormat.mjs":"lou9c","./max.mjs":"5bK6T","./milliseconds.mjs":"dtnE7","./millisecondsToHours.mjs":"kalm1","./millisecondsToMinutes.mjs":"d6UrI","./millisecondsToSeconds.mjs":"fFwOu","./min.mjs":"8NYVR","./minutesToHours.mjs":"iGS0X","./minutesToMilliseconds.mjs":"cHyT2","./minutesToSeconds.mjs":"lBM6k","./monthsToQuarters.mjs":"eyEGw","./monthsToYears.mjs":"6wekY","./nextDay.mjs":"fBtES","./nextFriday.mjs":"f6C7g","./nextMonday.mjs":"9uwtr","./nextSaturday.mjs":"ecsvp","./nextSunday.mjs":"2nwKm","./nextThursday.mjs":"grrcG","./nextTuesday.mjs":"lJlZD","./nextWednesday.mjs":"fRKX1","./parse.mjs":"98ovL","./parseISO.mjs":"b6IGO","./parseJSON.mjs":"1iLLH","./previousDay.mjs":"aJ77j","./previousFriday.mjs":"hXbQM","./previousMonday.mjs":"5h0Fc","./previousSaturday.mjs":"dDPIS","./previousSunday.mjs":"bUhCU","./previousThursday.mjs":"e9zbM","./previousTuesday.mjs":"aCVby","./previousWednesday.mjs":"3wKvu","./quartersToMonths.mjs":"gWhoS","./quartersToYears.mjs":"ktQU6","./roundToNearestMinutes.mjs":"lRkBc","./secondsToHours.mjs":"18VdI","./secondsToMilliseconds.mjs":"5aSEL","./secondsToMinutes.mjs":"7csXy","./set.mjs":"1Giwc","./setDate.mjs":"aWiH1","./setDay.mjs":"dFWzp","./setDayOfYear.mjs":"aHMyD","./setDefaultOptions.mjs":"1hC2m","./setHours.mjs":"91uTX","./setISODay.mjs":"k5eHg","./setISOWeek.mjs":"fg4CQ","./setISOWeekYear.mjs":"fogDP","./setMilliseconds.mjs":"zOYY1","./setMinutes.mjs":"ceFiY","./setMonth.mjs":"lUfSA","./setQuarter.mjs":"kPyij","./setSeconds.mjs":"dNLfK","./setWeek.mjs":"gTSv8","./setWeekYear.mjs":"xwS0N","./setYear.mjs":"5I57g","./startOfDay.mjs":"91DPV","./startOfDecade.mjs":"fmDOQ","./startOfHour.mjs":"7NKU4","./startOfISOWeek.mjs":"jQoij","./startOfISOWeekYear.mjs":"7q0Zg","./startOfMinute.mjs":"dBcAF","./startOfMonth.mjs":"cRJeo","./startOfQuarter.mjs":"6Q8Lm","./startOfSecond.mjs":"g72cK","./startOfToday.mjs":"5Ksrk","./startOfTomorrow.mjs":"bijBY","./startOfWeek.mjs":"807UC","./startOfWeekYear.mjs":"4Wklp","./startOfYear.mjs":"3mj4e","./startOfYesterday.mjs":"70wwU","./sub.mjs":"jSnGP","./subBusinessDays.mjs":"dnQ9Q","./subDays.mjs":"bH7Da","./subHours.mjs":"jnel6","./subISOWeekYears.mjs":"7PoUI","./subMilliseconds.mjs":"3sky1","./subMinutes.mjs":"iKEGN","./subMonths.mjs":"gJugE","./subQuarters.mjs":"bNCOg","./subSeconds.mjs":"dnH92","./subWeeks.mjs":"ktmFS","./subYears.mjs":"6lxPz","./toDate.mjs":"fJykt","./transpose.mjs":"b9qB1","./weeksToDays.mjs":"7vXfd","./yearsToDays.mjs":"i0fzy","./yearsToMonths.mjs":"1vYP2","./yearsToQuarters.mjs":"k7tbI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5pZIl":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name add
+ * @category Common Helpers
+ * @summary Add the specified years, months, weeks, days, hours, minutes and seconds to the given date.
+ *
+ * @description
+ * Add the specified years, months, weeks, days, hours, minutes and seconds to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param duration - The object with years, months, weeks, days, hours, minutes and seconds to be added.
+ *
+ * | Key            | Description                        |
+ * |----------------|------------------------------------|
+ * | years          | Amount of years to be added        |
+ * | months         | Amount of months to be added       |
+ * | weeks          | Amount of weeks to be added        |
+ * | days           | Amount of days to be added         |
+ * | hours          | Amount of hours to be added        |
+ * | minutes        | Amount of minutes to be added      |
+ * | seconds        | Amount of seconds to be added      |
+ *
+ * All values default to 0
+ *
+ * @returns The new date with the seconds added
+ *
+ * @example
+ * // Add the following duration to 1 September 2014, 10:19:50
+ * const result = add(new Date(2014, 8, 1, 10, 19, 50), {
+ *   years: 2,
+ *   months: 9,
+ *   weeks: 1,
+ *   days: 7,
+ *   hours: 5,\\-7
+ *   minutes: 9,
+ *   seconds: 30,
+ * })
+ * //=> Thu Jun 15 2017 15:29:20
+ */ parcelHelpers.export(exports, "add", ()=>add);
+var _addDaysMjs = require("./addDays.mjs");
+var _addMonthsMjs = require("./addMonths.mjs");
+var _constructFromMjs = require("./constructFrom.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function add(date, duration) {
+    const { years = 0, months = 0, weeks = 0, days = 0, hours = 0, minutes = 0, seconds = 0 } = duration;
+    // Add years and months
+    const _date = (0, _toDateMjs.toDate)(date);
+    const dateWithMonths = months || years ? (0, _addMonthsMjs.addMonths)(_date, months + years * 12) : _date;
+    // Add weeks and days
+    const dateWithDays = days || weeks ? (0, _addDaysMjs.addDays)(dateWithMonths, days + weeks * 7) : dateWithMonths;
+    // Add days, hours, minutes and seconds
+    const minutesToAdd = minutes + hours * 60;
+    const secondsToAdd = seconds + minutesToAdd * 60;
+    const msToAdd = secondsToAdd * 1000;
+    const finalDate = (0, _constructFromMjs.constructFrom)(date, dateWithDays.getTime() + msToAdd);
+    return finalDate;
+}
+// Fallback for modularized imports:
+exports.default = add;
+
+},{"./addDays.mjs":"4IE0s","./addMonths.mjs":"2Zag2","./constructFrom.mjs":"xte3t","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4IE0s":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name addDays
+ * @category Day Helpers
+ * @summary Add the specified number of days to the given date.
+ *
+ * @description
+ * Add the specified number of days to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of days to be added.
+ *
+ * @returns The new date with the days added
+ *
+ * @example
+ * // Add 10 days to 1 September 2014:
+ * const result = addDays(new Date(2014, 8, 1), 10)
+ * //=> Thu Sep 11 2014 00:00:00
+ */ parcelHelpers.export(exports, "addDays", ()=>addDays);
+var _toDateMjs = require("./toDate.mjs");
+var _constructFromMjs = require("./constructFrom.mjs");
+function addDays(date, amount) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    if (isNaN(amount)) return (0, _constructFromMjs.constructFrom)(date, NaN);
+    if (!amount) // If 0 days, no-op to avoid changing times in the hour before end of DST
+    return _date;
+    _date.setDate(_date.getDate() + amount);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = addDays;
+
+},{"./toDate.mjs":"fJykt","./constructFrom.mjs":"xte3t","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fJykt":[function(require,module,exports) {
+/**
+ * @name toDate
+ * @category Common Helpers
+ * @summary Convert the given argument to an instance of Date.
+ *
+ * @description
+ * Convert the given argument to an instance of Date.
+ *
+ * If the argument is an instance of Date, the function returns its clone.
+ *
+ * If the argument is a number, it is treated as a timestamp.
+ *
+ * If the argument is none of the above, the function returns Invalid Date.
+ *
+ * **Note**: *all* Date arguments passed to any *date-fns* function is processed by `toDate`.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param argument - The value to convert
+ *
+ * @returns The parsed date in the local time zone
+ *
+ * @example
+ * // Clone the date:
+ * const result = toDate(new Date(2014, 1, 11, 11, 30, 30))
+ * //=> Tue Feb 11 2014 11:30:30
+ *
+ * @example
+ * // Convert the timestamp to date:
+ * const result = toDate(1392098430000)
+ * //=> Tue Feb 11 2014 11:30:30
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "toDate", ()=>toDate);
+function toDate(argument) {
+    const argStr = Object.prototype.toString.call(argument);
+    // Clone the date
+    if (argument instanceof Date || typeof argument === "object" && argStr === "[object Date]") // Prevent the date to lose the milliseconds when passed to new Date() in IE10
+    return new argument.constructor(+argument);
+    else if (typeof argument === "number" || argStr === "[object Number]" || typeof argument === "string" || argStr === "[object String]") // TODO: Can we get rid of as?
+    return new Date(argument);
+    else // TODO: Can we get rid of as?
+    return new Date(NaN);
+}
+// Fallback for modularized imports:
+exports.default = toDate;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"xte3t":[function(require,module,exports) {
+/**
+ * @name constructFrom
+ * @category Generic Helpers
+ * @summary Constructs a date using the reference date and the value
+ *
+ * @description
+ * The function constructs a new date using the constructor from the reference
+ * date and the given value. It helps to build generic functions that accept
+ * date extensions.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The reference date to take constructor from
+ * @param value - The value to create the date
+ *
+ * @returns Date initialized using the given date and value
+ *
+ * @example
+ * import { constructFrom } from 'date-fns'
+ *
+ * // A function that clones a date preserving the original type
+ * function cloneDate<DateType extends Date(date: DateType): DateType {
+ *   return constructFrom(
+ *     date, // Use contrustor from the given date
+ *     date.getTime() // Use the date value to create a new date
+ *   )
+ * }
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "constructFrom", ()=>constructFrom);
+function constructFrom(date, value) {
+    if (date instanceof Date) return new date.constructor(value);
+    else return new Date(value);
+}
+// Fallback for modularized imports:
+exports.default = constructFrom;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2Zag2":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name addMonths
+ * @category Month Helpers
+ * @summary Add the specified number of months to the given date.
+ *
+ * @description
+ * Add the specified number of months to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of months to be added.
+ *
+ * @returns The new date with the months added
+ *
+ * @example
+ * // Add 5 months to 1 September 2014:
+ * const result = addMonths(new Date(2014, 8, 1), 5)
+ * //=> Sun Feb 01 2015 00:00:00
+ *
+ * // Add one month to 30 January 2023:
+ * const result = addMonths(new Date(2023, 0, 30), 1)
+ * //=> Tue Feb 28 2023 00:00:00
+ */ parcelHelpers.export(exports, "addMonths", ()=>addMonths);
+var _toDateMjs = require("./toDate.mjs");
+var _constructFromMjs = require("./constructFrom.mjs");
+function addMonths(date, amount) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    if (isNaN(amount)) return (0, _constructFromMjs.constructFrom)(date, NaN);
+    if (!amount) // If 0 months, no-op to avoid changing times in the hour before end of DST
+    return _date;
+    const dayOfMonth = _date.getDate();
+    // The JS Date object supports date math by accepting out-of-bounds values for
+    // month, day, etc. For example, new Date(2020, 0, 0) returns 31 Dec 2019 and
+    // new Date(2020, 13, 1) returns 1 Feb 2021.  This is *almost* the behavior we
+    // want except that dates will wrap around the end of a month, meaning that
+    // new Date(2020, 13, 31) will return 3 Mar 2021 not 28 Feb 2021 as desired. So
+    // we'll default to the end of the desired month by adding 1 to the desired
+    // month and using a date of 0 to back up one day to the end of the desired
+    // month.
+    const endOfDesiredMonth = (0, _constructFromMjs.constructFrom)(date, _date.getTime());
+    endOfDesiredMonth.setMonth(_date.getMonth() + amount + 1, 0);
+    const daysInMonth = endOfDesiredMonth.getDate();
+    if (dayOfMonth >= daysInMonth) // If we're already at the end of the month, then this is the correct date
+    // and we're done.
+    return endOfDesiredMonth;
+    else {
+        // Otherwise, we now know that setting the original day-of-month value won't
+        // cause an overflow, so set the desired day-of-month. Note that we can't
+        // just set the date of `endOfDesiredMonth` because that object may have had
+        // its time changed in the unusual case where where a DST transition was on
+        // the last day of the month and its local time was in the hour skipped or
+        // repeated next to a DST transition.  So we use `date` instead which is
+        // guaranteed to still have the original time.
+        _date.setFullYear(endOfDesiredMonth.getFullYear(), endOfDesiredMonth.getMonth(), dayOfMonth);
+        return _date;
+    }
+}
+// Fallback for modularized imports:
+exports.default = addMonths;
+
+},{"./toDate.mjs":"fJykt","./constructFrom.mjs":"xte3t","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"flbco":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name addBusinessDays
+ * @category Date Extension Helpers
+ * @summary Add the specified number of business days (mon - fri) to the given date.
+ *
+ * @description
+ * Add the specified number of business days (mon - fri) to the given date, ignoring weekends.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of business days to be added.
+ *
+ * @returns The new date with the business days added
+ *
+ * @example
+ * // Add 10 business days to 1 September 2014:
+ * const result = addBusinessDays(new Date(2014, 8, 1), 10)
+ * //=> Mon Sep 15 2014 00:00:00 (skipped weekend days)
+ */ parcelHelpers.export(exports, "addBusinessDays", ()=>addBusinessDays);
+var _constructFromMjs = require("./constructFrom.mjs");
+var _isSaturdayMjs = require("./isSaturday.mjs");
+var _isSundayMjs = require("./isSunday.mjs");
+var _isWeekendMjs = require("./isWeekend.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function addBusinessDays(date, amount) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const startedOnWeekend = (0, _isWeekendMjs.isWeekend)(_date);
+    if (isNaN(amount)) return (0, _constructFromMjs.constructFrom)(date, NaN);
+    const hours = _date.getHours();
+    const sign = amount < 0 ? -1 : 1;
+    const fullWeeks = Math.trunc(amount / 5);
+    _date.setDate(_date.getDate() + fullWeeks * 7);
+    // Get remaining days not part of a full week
+    let restDays = Math.abs(amount % 5);
+    // Loops over remaining days
+    while(restDays > 0){
+        _date.setDate(_date.getDate() + sign);
+        if (!(0, _isWeekendMjs.isWeekend)(_date)) restDays -= 1;
+    }
+    // If the date is a weekend day and we reduce a dividable of
+    // 5 from it, we land on a weekend date.
+    // To counter this, we add days accordingly to land on the next business day
+    if (startedOnWeekend && (0, _isWeekendMjs.isWeekend)(_date) && amount !== 0) {
+        // If we're reducing days, we want to add days until we land on a weekday
+        // If we're adding days we want to reduce days until we land on a weekday
+        if ((0, _isSaturdayMjs.isSaturday)(_date)) _date.setDate(_date.getDate() + (sign < 0 ? 2 : -1));
+        if ((0, _isSundayMjs.isSunday)(_date)) _date.setDate(_date.getDate() + (sign < 0 ? 1 : -2));
+    }
+    // Restore hours to avoid DST lag
+    _date.setHours(hours);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = addBusinessDays;
+
+},{"./constructFrom.mjs":"xte3t","./isSaturday.mjs":"lr6bn","./isSunday.mjs":"cEPEg","./isWeekend.mjs":"8544Q","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lr6bn":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isSaturday
+ * @category Weekday Helpers
+ * @summary Is the given date Saturday?
+ *
+ * @description
+ * Is the given date Saturday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is Saturday
+ *
+ * @example
+ * // Is 27 September 2014 Saturday?
+ * const result = isSaturday(new Date(2014, 8, 27))
+ * //=> true
+ */ parcelHelpers.export(exports, "isSaturday", ()=>isSaturday);
+var _toDateMjs = require("./toDate.mjs");
+function isSaturday(date) {
+    return (0, _toDateMjs.toDate)(date).getDay() === 6;
+}
+// Fallback for modularized imports:
+exports.default = isSaturday;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cEPEg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isSunday
+ * @category Weekday Helpers
+ * @summary Is the given date Sunday?
+ *
+ * @description
+ * Is the given date Sunday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is Sunday
+ *
+ * @example
+ * // Is 21 September 2014 Sunday?
+ * const result = isSunday(new Date(2014, 8, 21))
+ * //=> true
+ */ parcelHelpers.export(exports, "isSunday", ()=>isSunday);
+var _toDateMjs = require("./toDate.mjs");
+function isSunday(date) {
+    return (0, _toDateMjs.toDate)(date).getDay() === 0;
+}
+// Fallback for modularized imports:
+exports.default = isSunday;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8544Q":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isWeekend
+ * @category Weekday Helpers
+ * @summary Does the given date fall on a weekend?
+ *
+ * @description
+ * Does the given date fall on a weekend?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date falls on a weekend
+ *
+ * @example
+ * // Does 5 October 2014 fall on a weekend?
+ * const result = isWeekend(new Date(2014, 9, 5))
+ * //=> true
+ */ parcelHelpers.export(exports, "isWeekend", ()=>isWeekend);
+var _toDateMjs = require("./toDate.mjs");
+function isWeekend(date) {
+    const day = (0, _toDateMjs.toDate)(date).getDay();
+    return day === 0 || day === 6;
+}
+// Fallback for modularized imports:
+exports.default = isWeekend;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f3Bhk":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name addHours
+ * @category Hour Helpers
+ * @summary Add the specified number of hours to the given date.
+ *
+ * @description
+ * Add the specified number of hours to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of hours to be added.
+ *
+ * @returns The new date with the hours added
+ *
+ * @example
+ * // Add 2 hours to 10 July 2014 23:00:00:
+ * const result = addHours(new Date(2014, 6, 10, 23, 0), 2)
+ * //=> Fri Jul 11 2014 01:00:00
+ */ parcelHelpers.export(exports, "addHours", ()=>addHours);
+var _addMillisecondsMjs = require("./addMilliseconds.mjs");
+var _constantsMjs = require("./constants.mjs");
+function addHours(date, amount) {
+    return (0, _addMillisecondsMjs.addMilliseconds)(date, amount * (0, _constantsMjs.millisecondsInHour));
+}
+// Fallback for modularized imports:
+exports.default = addHours;
+
+},{"./addMilliseconds.mjs":"lfi1S","./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lfi1S":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name addMilliseconds
+ * @category Millisecond Helpers
+ * @summary Add the specified number of milliseconds to the given date.
+ *
+ * @description
+ * Add the specified number of milliseconds to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of milliseconds to be added.
+ *
+ * @returns The new date with the milliseconds added
+ *
+ * @example
+ * // Add 750 milliseconds to 10 July 2014 12:45:30.000:
+ * const result = addMilliseconds(new Date(2014, 6, 10, 12, 45, 30, 0), 750)
+ * //=> Thu Jul 10 2014 12:45:30.750
+ */ parcelHelpers.export(exports, "addMilliseconds", ()=>addMilliseconds);
+var _toDateMjs = require("./toDate.mjs");
+var _constructFromMjs = require("./constructFrom.mjs");
+function addMilliseconds(date, amount) {
+    const timestamp = +(0, _toDateMjs.toDate)(date);
+    return (0, _constructFromMjs.constructFrom)(date, timestamp + amount);
+}
+// Fallback for modularized imports:
+exports.default = addMilliseconds;
+
+},{"./toDate.mjs":"fJykt","./constructFrom.mjs":"xte3t","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iISMq":[function(require,module,exports) {
+/**
+ * @module constants
+ * @summary Useful constants
+ * @description
+ * Collection of useful date constants.
+ *
+ * The constants could be imported from `date-fns/constants`:
+ *
+ * ```ts
+ * import { maxTime, minTime } from "./constants/date-fns/constants";
+ *
+ * function isAllowedTime(time) {
+ *   return time <= maxTime && time >= minTime;
+ * }
+ * ```
+ */ /**
+ * @constant
+ * @name daysInWeek
+ * @summary Days in 1 week.
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "daysInWeek", ()=>daysInWeek);
+parcelHelpers.export(exports, "daysInYear", ()=>daysInYear);
+parcelHelpers.export(exports, "maxTime", ()=>maxTime);
+parcelHelpers.export(exports, "minTime", ()=>minTime);
+parcelHelpers.export(exports, "millisecondsInWeek", ()=>millisecondsInWeek);
+parcelHelpers.export(exports, "millisecondsInDay", ()=>millisecondsInDay);
+parcelHelpers.export(exports, "millisecondsInMinute", ()=>millisecondsInMinute);
+parcelHelpers.export(exports, "millisecondsInHour", ()=>millisecondsInHour);
+parcelHelpers.export(exports, "millisecondsInSecond", ()=>millisecondsInSecond);
+parcelHelpers.export(exports, "minutesInYear", ()=>minutesInYear);
+parcelHelpers.export(exports, "minutesInMonth", ()=>minutesInMonth);
+parcelHelpers.export(exports, "minutesInDay", ()=>minutesInDay);
+parcelHelpers.export(exports, "minutesInHour", ()=>minutesInHour);
+parcelHelpers.export(exports, "monthsInQuarter", ()=>monthsInQuarter);
+parcelHelpers.export(exports, "monthsInYear", ()=>monthsInYear);
+parcelHelpers.export(exports, "quartersInYear", ()=>quartersInYear);
+parcelHelpers.export(exports, "secondsInHour", ()=>secondsInHour);
+parcelHelpers.export(exports, "secondsInMinute", ()=>secondsInMinute);
+parcelHelpers.export(exports, "secondsInDay", ()=>secondsInDay);
+parcelHelpers.export(exports, "secondsInWeek", ()=>secondsInWeek);
+parcelHelpers.export(exports, "secondsInYear", ()=>secondsInYear);
+parcelHelpers.export(exports, "secondsInMonth", ()=>secondsInMonth);
+parcelHelpers.export(exports, "secondsInQuarter", ()=>secondsInQuarter);
+const daysInWeek = 7;
+const daysInYear = 365.2425;
+const maxTime = Math.pow(10, 8) * 86400000;
+const minTime = -maxTime;
+const millisecondsInWeek = 604800000;
+const millisecondsInDay = 86400000;
+const millisecondsInMinute = 60000;
+const millisecondsInHour = 3600000;
+const millisecondsInSecond = 1000;
+const minutesInYear = 525600;
+const minutesInMonth = 43200;
+const minutesInDay = 1440;
+const minutesInHour = 60;
+const monthsInQuarter = 3;
+const monthsInYear = 12;
+const quartersInYear = 4;
+const secondsInHour = 3600;
+const secondsInMinute = 60;
+const secondsInDay = secondsInHour * 24;
+const secondsInWeek = secondsInDay * 7;
+const secondsInYear = secondsInDay * daysInYear;
+const secondsInMonth = secondsInYear / 12;
+const secondsInQuarter = secondsInMonth * 3;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6wjqF":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name addISOWeekYears
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Add the specified number of ISO week-numbering years to the given date.
+ *
+ * @description
+ * Add the specified number of ISO week-numbering years to the given date.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of ISO week-numbering years to be added.
+ *
+ * @returns The new date with the ISO week-numbering years added
+ *
+ * @example
+ * // Add 5 ISO week-numbering years to 2 July 2010:
+ * const result = addISOWeekYears(new Date(2010, 6, 2), 5)
+ * //=> Fri Jn 26 2015 00:00:00
+ */ parcelHelpers.export(exports, "addISOWeekYears", ()=>addISOWeekYears);
+var _getISOWeekYearMjs = require("./getISOWeekYear.mjs");
+var _setISOWeekYearMjs = require("./setISOWeekYear.mjs");
+function addISOWeekYears(date, amount) {
+    return (0, _setISOWeekYearMjs.setISOWeekYear)(date, (0, _getISOWeekYearMjs.getISOWeekYear)(date) + amount);
+}
+// Fallback for modularized imports:
+exports.default = addISOWeekYears;
+
+},{"./getISOWeekYear.mjs":"io5kR","./setISOWeekYear.mjs":"fogDP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"io5kR":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getISOWeekYear
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Get the ISO week-numbering year of the given date.
+ *
+ * @description
+ * Get the ISO week-numbering year of the given date,
+ * which always starts 3 days before the year's first Thursday.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The ISO week-numbering year
+ *
+ * @example
+ * // Which ISO-week numbering year is 2 January 2005?
+ * const result = getISOWeekYear(new Date(2005, 0, 2))
+ * //=> 2004
+ */ parcelHelpers.export(exports, "getISOWeekYear", ()=>getISOWeekYear);
+var _constructFromMjs = require("./constructFrom.mjs");
+var _startOfISOWeekMjs = require("./startOfISOWeek.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function getISOWeekYear(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const year = _date.getFullYear();
+    const fourthOfJanuaryOfNextYear = (0, _constructFromMjs.constructFrom)(date, 0);
+    fourthOfJanuaryOfNextYear.setFullYear(year + 1, 0, 4);
+    fourthOfJanuaryOfNextYear.setHours(0, 0, 0, 0);
+    const startOfNextYear = (0, _startOfISOWeekMjs.startOfISOWeek)(fourthOfJanuaryOfNextYear);
+    const fourthOfJanuaryOfThisYear = (0, _constructFromMjs.constructFrom)(date, 0);
+    fourthOfJanuaryOfThisYear.setFullYear(year, 0, 4);
+    fourthOfJanuaryOfThisYear.setHours(0, 0, 0, 0);
+    const startOfThisYear = (0, _startOfISOWeekMjs.startOfISOWeek)(fourthOfJanuaryOfThisYear);
+    if (_date.getTime() >= startOfNextYear.getTime()) return year + 1;
+    else if (_date.getTime() >= startOfThisYear.getTime()) return year;
+    else return year - 1;
+}
+// Fallback for modularized imports:
+exports.default = getISOWeekYear;
+
+},{"./constructFrom.mjs":"xte3t","./startOfISOWeek.mjs":"jQoij","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jQoij":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name startOfISOWeek
+ * @category ISO Week Helpers
+ * @summary Return the start of an ISO week for the given date.
+ *
+ * @description
+ * Return the start of an ISO week for the given date.
+ * The result will be in the local timezone.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of an ISO week
+ *
+ * @example
+ * // The start of an ISO week for 2 September 2014 11:55:00:
+ * const result = startOfISOWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Mon Sep 01 2014 00:00:00
+ */ parcelHelpers.export(exports, "startOfISOWeek", ()=>startOfISOWeek);
+var _startOfWeekMjs = require("./startOfWeek.mjs");
+function startOfISOWeek(date) {
+    return (0, _startOfWeekMjs.startOfWeek)(date, {
+        weekStartsOn: 1
+    });
+}
+// Fallback for modularized imports:
+exports.default = startOfISOWeek;
+
+},{"./startOfWeek.mjs":"807UC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"807UC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link startOfWeek} function options.
+ */ /**
+ * @name startOfWeek
+ * @category Week Helpers
+ * @summary Return the start of a week for the given date.
+ *
+ * @description
+ * Return the start of a week for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param options - An object with options
+ *
+ * @returns The start of a week
+ *
+ * @example
+ * // The start of a week for 2 September 2014 11:55:00:
+ * const result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Sun Aug 31 2014 00:00:00
+ *
+ * @example
+ * // If the week starts on Monday, the start of the week for 2 September 2014 11:55:00:
+ * const result = startOfWeek(new Date(2014, 8, 2, 11, 55, 0), { weekStartsOn: 1 })
+ * //=> Mon Sep 01 2014 00:00:00
+ */ parcelHelpers.export(exports, "startOfWeek", ()=>startOfWeek);
+var _toDateMjs = require("./toDate.mjs");
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+function startOfWeek(date, options) {
+    const defaultOptions = (0, _defaultOptionsMjs.getDefaultOptions)();
+    const weekStartsOn = options?.weekStartsOn ?? options?.locale?.options?.weekStartsOn ?? defaultOptions.weekStartsOn ?? defaultOptions.locale?.options?.weekStartsOn ?? 0;
+    const _date = (0, _toDateMjs.toDate)(date);
+    const day = _date.getDay();
+    const diff = (day < weekStartsOn ? 7 : 0) + day - weekStartsOn;
+    _date.setDate(_date.getDate() - diff);
+    _date.setHours(0, 0, 0, 0);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = startOfWeek;
+
+},{"./toDate.mjs":"fJykt","./_lib/defaultOptions.mjs":"6QlMe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6QlMe":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getDefaultOptions", ()=>getDefaultOptions);
+parcelHelpers.export(exports, "setDefaultOptions", ()=>setDefaultOptions);
+let defaultOptions = {};
+function getDefaultOptions() {
+    return defaultOptions;
+}
+function setDefaultOptions(newOptions) {
+    defaultOptions = newOptions;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fogDP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name setISOWeekYear
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Set the ISO week-numbering year to the given date.
+ *
+ * @description
+ * Set the ISO week-numbering year to the given date,
+ * saving the week number and the weekday number.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param weekYear - The ISO week-numbering year of the new date
+ *
+ * @returns The new date with the ISO week-numbering year set
+ *
+ * @example
+ * // Set ISO week-numbering year 2007 to 29 December 2008:
+ * const result = setISOWeekYear(new Date(2008, 11, 29), 2007)
+ * //=> Mon Jan 01 2007 00:00:00
+ */ parcelHelpers.export(exports, "setISOWeekYear", ()=>setISOWeekYear);
+var _constructFromMjs = require("./constructFrom.mjs");
+var _differenceInCalendarDaysMjs = require("./differenceInCalendarDays.mjs");
+var _startOfISOWeekYearMjs = require("./startOfISOWeekYear.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function setISOWeekYear(date, weekYear) {
+    let _date = (0, _toDateMjs.toDate)(date);
+    const diff = (0, _differenceInCalendarDaysMjs.differenceInCalendarDays)(_date, (0, _startOfISOWeekYearMjs.startOfISOWeekYear)(_date));
+    const fourthOfJanuary = (0, _constructFromMjs.constructFrom)(date, 0);
+    fourthOfJanuary.setFullYear(weekYear, 0, 4);
+    fourthOfJanuary.setHours(0, 0, 0, 0);
+    _date = (0, _startOfISOWeekYearMjs.startOfISOWeekYear)(fourthOfJanuary);
+    _date.setDate(_date.getDate() + diff);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = setISOWeekYear;
+
+},{"./constructFrom.mjs":"xte3t","./differenceInCalendarDays.mjs":"bLx9a","./startOfISOWeekYear.mjs":"7q0Zg","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bLx9a":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name differenceInCalendarDays
+ * @category Day Helpers
+ * @summary Get the number of calendar days between the given dates.
+ *
+ * @description
+ * Get the number of calendar days between the given dates. This means that the times are removed
+ * from the dates and then the difference in days is calculated.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ *
+ * @returns The number of calendar days
+ *
+ * @example
+ * // How many calendar days are between
+ * // 2 July 2011 23:00:00 and 2 July 2012 00:00:00?
+ * const result = differenceInCalendarDays(
+ *   new Date(2012, 6, 2, 0, 0),
+ *   new Date(2011, 6, 2, 23, 0)
+ * )
+ * //=> 366
+ * // How many calendar days are between
+ * // 2 July 2011 23:59:00 and 3 July 2011 00:01:00?
+ * const result = differenceInCalendarDays(
+ *   new Date(2011, 6, 3, 0, 1),
+ *   new Date(2011, 6, 2, 23, 59)
+ * )
+ * //=> 1
+ */ parcelHelpers.export(exports, "differenceInCalendarDays", ()=>differenceInCalendarDays);
+var _constantsMjs = require("./constants.mjs");
+var _startOfDayMjs = require("./startOfDay.mjs");
+var _getTimezoneOffsetInMillisecondsMjs = require("./_lib/getTimezoneOffsetInMilliseconds.mjs");
+function differenceInCalendarDays(dateLeft, dateRight) {
+    const startOfDayLeft = (0, _startOfDayMjs.startOfDay)(dateLeft);
+    const startOfDayRight = (0, _startOfDayMjs.startOfDay)(dateRight);
+    const timestampLeft = +startOfDayLeft - (0, _getTimezoneOffsetInMillisecondsMjs.getTimezoneOffsetInMilliseconds)(startOfDayLeft);
+    const timestampRight = +startOfDayRight - (0, _getTimezoneOffsetInMillisecondsMjs.getTimezoneOffsetInMilliseconds)(startOfDayRight);
+    // Round the number of days to the nearest integer because the number of
+    // milliseconds in a day is not constant (e.g. it's different in the week of
+    // the daylight saving time clock shift).
+    return Math.round((timestampLeft - timestampRight) / (0, _constantsMjs.millisecondsInDay));
+}
+// Fallback for modularized imports:
+exports.default = differenceInCalendarDays;
+
+},{"./constants.mjs":"iISMq","./startOfDay.mjs":"91DPV","./_lib/getTimezoneOffsetInMilliseconds.mjs":"KaqYL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"91DPV":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name startOfDay
+ * @category Day Helpers
+ * @summary Return the start of a day for the given date.
+ *
+ * @description
+ * Return the start of a day for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of a day
+ *
+ * @example
+ * // The start of a day for 2 September 2014 11:55:00:
+ * const result = startOfDay(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 02 2014 00:00:00
+ */ parcelHelpers.export(exports, "startOfDay", ()=>startOfDay);
+var _toDateMjs = require("./toDate.mjs");
+function startOfDay(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setHours(0, 0, 0, 0);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = startOfDay;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"KaqYL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * Google Chrome as of 67.0.3396.87 introduced timezones with offset that includes seconds.
+ * They usually appear for dates that denote time before the timezones were introduced
+ * (e.g. for 'Europe/Prague' timezone the offset is GMT+00:57:44 before 1 October 1891
+ * and GMT+01:00:00 after that date)
+ *
+ * Date#getTimezoneOffset returns the offset in minutes and would return 57 for the example above,
+ * which would lead to incorrect calculations.
+ *
+ * This function returns the timezone offset in milliseconds that takes seconds in account.
+ */ parcelHelpers.export(exports, "getTimezoneOffsetInMilliseconds", ()=>getTimezoneOffsetInMilliseconds);
+var _toDateMjs = require("../toDate.mjs");
+function getTimezoneOffsetInMilliseconds(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const utcDate = new Date(Date.UTC(_date.getFullYear(), _date.getMonth(), _date.getDate(), _date.getHours(), _date.getMinutes(), _date.getSeconds(), _date.getMilliseconds()));
+    utcDate.setUTCFullYear(_date.getFullYear());
+    return +date - +utcDate;
+}
+
+},{"../toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7q0Zg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name startOfISOWeekYear
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Return the start of an ISO week-numbering year for the given date.
+ *
+ * @description
+ * Return the start of an ISO week-numbering year,
+ * which always starts 3 days before the year's first Thursday.
+ * The result will be in the local timezone.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of an ISO week-numbering year
+ *
+ * @example
+ * // The start of an ISO week-numbering year for 2 July 2005:
+ * const result = startOfISOWeekYear(new Date(2005, 6, 2))
+ * //=> Mon Jan 03 2005 00:00:00
+ */ parcelHelpers.export(exports, "startOfISOWeekYear", ()=>startOfISOWeekYear);
+var _getISOWeekYearMjs = require("./getISOWeekYear.mjs");
+var _startOfISOWeekMjs = require("./startOfISOWeek.mjs");
+var _constructFromMjs = require("./constructFrom.mjs");
+function startOfISOWeekYear(date) {
+    const year = (0, _getISOWeekYearMjs.getISOWeekYear)(date);
+    const fourthOfJanuary = (0, _constructFromMjs.constructFrom)(date, 0);
+    fourthOfJanuary.setFullYear(year, 0, 4);
+    fourthOfJanuary.setHours(0, 0, 0, 0);
+    return (0, _startOfISOWeekMjs.startOfISOWeek)(fourthOfJanuary);
+}
+// Fallback for modularized imports:
+exports.default = startOfISOWeekYear;
+
+},{"./getISOWeekYear.mjs":"io5kR","./startOfISOWeek.mjs":"jQoij","./constructFrom.mjs":"xte3t","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gVy8g":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name addMinutes
+ * @category Minute Helpers
+ * @summary Add the specified number of minutes to the given date.
+ *
+ * @description
+ * Add the specified number of minutes to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of minutes to be added.
+ *
+ * @returns The new date with the minutes added
+ *
+ * @example
+ * // Add 30 minutes to 10 July 2014 12:00:00:
+ * const result = addMinutes(new Date(2014, 6, 10, 12, 0), 30)
+ * //=> Thu Jul 10 2014 12:30:00
+ */ parcelHelpers.export(exports, "addMinutes", ()=>addMinutes);
+var _addMillisecondsMjs = require("./addMilliseconds.mjs");
+var _constantsMjs = require("./constants.mjs");
+function addMinutes(date, amount) {
+    return (0, _addMillisecondsMjs.addMilliseconds)(date, amount * (0, _constantsMjs.millisecondsInMinute));
+}
+// Fallback for modularized imports:
+exports.default = addMinutes;
+
+},{"./addMilliseconds.mjs":"lfi1S","./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9gf9h":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name addQuarters
+ * @category Quarter Helpers
+ * @summary Add the specified number of year quarters to the given date.
+ *
+ * @description
+ * Add the specified number of year quarters to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of quarters to be added.
+ *
+ * @returns The new date with the quarters added
+ *
+ * @example
+ * // Add 1 quarter to 1 September 2014:
+ * const result = addQuarters(new Date(2014, 8, 1), 1)
+ * //=> Mon Dec 01 2014 00:00:00
+ */ parcelHelpers.export(exports, "addQuarters", ()=>addQuarters);
+var _addMonthsMjs = require("./addMonths.mjs");
+function addQuarters(date, amount) {
+    const months = amount * 3;
+    return (0, _addMonthsMjs.addMonths)(date, months);
+}
+// Fallback for modularized imports:
+exports.default = addQuarters;
+
+},{"./addMonths.mjs":"2Zag2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kxXPn":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name addSeconds
+ * @category Second Helpers
+ * @summary Add the specified number of seconds to the given date.
+ *
+ * @description
+ * Add the specified number of seconds to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of seconds to be added.
+ *
+ * @returns The new date with the seconds added
+ *
+ * @example
+ * // Add 30 seconds to 10 July 2014 12:45:00:
+ * const result = addSeconds(new Date(2014, 6, 10, 12, 45, 0), 30)
+ * //=> Thu Jul 10 2014 12:45:30
+ */ parcelHelpers.export(exports, "addSeconds", ()=>addSeconds);
+var _addMillisecondsMjs = require("./addMilliseconds.mjs");
+function addSeconds(date, amount) {
+    return (0, _addMillisecondsMjs.addMilliseconds)(date, amount * 1000);
+}
+// Fallback for modularized imports:
+exports.default = addSeconds;
+
+},{"./addMilliseconds.mjs":"lfi1S","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7YgKz":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name addWeeks
+ * @category Week Helpers
+ * @summary Add the specified number of weeks to the given date.
+ *
+ * @description
+ * Add the specified number of week to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of weeks to be added.
+ *
+ * @returns The new date with the weeks added
+ *
+ * @example
+ * // Add 4 weeks to 1 September 2014:
+ * const result = addWeeks(new Date(2014, 8, 1), 4)
+ * //=> Mon Sep 29 2014 00:00:00
+ */ parcelHelpers.export(exports, "addWeeks", ()=>addWeeks);
+var _addDaysMjs = require("./addDays.mjs");
+function addWeeks(date, amount) {
+    const days = amount * 7;
+    return (0, _addDaysMjs.addDays)(date, days);
+}
+// Fallback for modularized imports:
+exports.default = addWeeks;
+
+},{"./addDays.mjs":"4IE0s","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"itTGn":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name addYears
+ * @category Year Helpers
+ * @summary Add the specified number of years to the given date.
+ *
+ * @description
+ * Add the specified number of years to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of years to be added.
+ *
+ * @returns The new date with the years added
+ *
+ * @example
+ * // Add 5 years to 1 September 2014:
+ * const result = addYears(new Date(2014, 8, 1), 5)
+ * //=> Sun Sep 01 2019 00:00:00
+ */ parcelHelpers.export(exports, "addYears", ()=>addYears);
+var _addMonthsMjs = require("./addMonths.mjs");
+function addYears(date, amount) {
+    return (0, _addMonthsMjs.addMonths)(date, amount * 12);
+}
+// Fallback for modularized imports:
+exports.default = addYears;
+
+},{"./addMonths.mjs":"2Zag2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bRuHA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link areIntervalsOverlapping} function options.
+ */ /**
+ * @name areIntervalsOverlapping
+ * @category Interval Helpers
+ * @summary Is the given time interval overlapping with another time interval?
+ *
+ * @description
+ * Is the given time interval overlapping with another time interval? Adjacent intervals do not count as overlapping unless `inclusive` is set to `true`.
+ *
+ * @param intervalLeft - The first interval to compare.
+ * @param intervalRight - The second interval to compare.
+ * @param options - The object with options
+ *
+ * @returns Whether the time intervals are overlapping
+ *
+ * @example
+ * // For overlapping time intervals:
+ * areIntervalsOverlapping(
+ *   { start: new Date(2014, 0, 10), end: new Date(2014, 0, 20) },
+ *   { start: new Date(2014, 0, 17), end: new Date(2014, 0, 21) }
+ * )
+ * //=> true
+ *
+ * @example
+ * // For non-overlapping time intervals:
+ * areIntervalsOverlapping(
+ *   { start: new Date(2014, 0, 10), end: new Date(2014, 0, 20) },
+ *   { start: new Date(2014, 0, 21), end: new Date(2014, 0, 22) }
+ * )
+ * //=> false
+ *
+ * @example
+ * // For adjacent time intervals:
+ * areIntervalsOverlapping(
+ *   { start: new Date(2014, 0, 10), end: new Date(2014, 0, 20) },
+ *   { start: new Date(2014, 0, 20), end: new Date(2014, 0, 30) }
+ * )
+ * //=> false
+ *
+ * @example
+ * // Using the inclusive option:
+ * areIntervalsOverlapping(
+ *   { start: new Date(2014, 0, 10), end: new Date(2014, 0, 20) },
+ *   { start: new Date(2014, 0, 20), end: new Date(2014, 0, 24) }
+ * )
+ * //=> false
+ *
+ * @example
+ * areIntervalsOverlapping(
+ *   { start: new Date(2014, 0, 10), end: new Date(2014, 0, 20) },
+ *   { start: new Date(2014, 0, 20), end: new Date(2014, 0, 24) },
+ *   { inclusive: true }
+ * )
+ * //=> true
+ */ parcelHelpers.export(exports, "areIntervalsOverlapping", ()=>areIntervalsOverlapping);
+var _toDateMjs = require("./toDate.mjs");
+function areIntervalsOverlapping(intervalLeft, intervalRight, options) {
+    const [leftStartTime, leftEndTime] = [
+        +(0, _toDateMjs.toDate)(intervalLeft.start),
+        +(0, _toDateMjs.toDate)(intervalLeft.end)
+    ].sort((a, b)=>a - b);
+    const [rightStartTime, rightEndTime] = [
+        +(0, _toDateMjs.toDate)(intervalRight.start),
+        +(0, _toDateMjs.toDate)(intervalRight.end)
+    ].sort((a, b)=>a - b);
+    if (options?.inclusive) return leftStartTime <= rightEndTime && rightStartTime <= leftEndTime;
+    return leftStartTime < rightEndTime && rightStartTime < leftEndTime;
+}
+// Fallback for modularized imports:
+exports.default = areIntervalsOverlapping;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j24zK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name clamp
+ * @category Interval Helpers
+ * @summary Return a date bounded by the start and the end of the given interval
+ *
+ * @description
+ * Clamps a date to the lower bound with the start of the interval and the upper
+ * bound with the end of the interval.
+ *
+ * - When the date is less than the start of the interval, the start is returned.
+ * - When the date is greater than the end of the interval, the end is returned.
+ * - Otherwise the date is returned.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be bounded
+ * @param interval - The interval to bound to
+ *
+ * @returns The date bounded by the start and the end of the interval
+ *
+ * @example
+ * // What is Mar, 21, 2021 bounded to an interval starting at Mar, 22, 2021 and ending at Apr, 01, 2021
+ * const result = clamp(new Date(2021, 2, 21), {
+ *   start: new Date(2021, 2, 22),
+ *   end: new Date(2021, 3, 1),
+ * })
+ * //=> Mon Mar 22 2021 00:00:00
+ */ parcelHelpers.export(exports, "clamp", ()=>clamp);
+var _maxMjs = require("./max.mjs");
+var _minMjs = require("./min.mjs");
+function clamp(date, interval) {
+    return (0, _minMjs.min)([
+        (0, _maxMjs.max)([
+            date,
+            interval.start
+        ]),
+        interval.end
+    ]);
+}
+// Fallback for modularized imports:
+exports.default = clamp;
+
+},{"./max.mjs":"5bK6T","./min.mjs":"8NYVR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5bK6T":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name max
+ * @category Common Helpers
+ * @summary Return the latest of the given dates.
+ *
+ * @description
+ * Return the latest of the given dates.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dates - The dates to compare
+ *
+ * @returns The latest of the dates
+ *
+ * @example
+ * // Which of these dates is the latest?
+ * const result = max([
+ *   new Date(1989, 6, 10),
+ *   new Date(1987, 1, 11),
+ *   new Date(1995, 6, 2),
+ *   new Date(1990, 0, 1)
+ * ])
+ * //=> Sun Jul 02 1995 00:00:00
+ */ parcelHelpers.export(exports, "max", ()=>max);
+var _toDateMjs = require("./toDate.mjs");
+function max(dates) {
+    let result;
+    dates.forEach(function(dirtyDate) {
+        const currentDate = (0, _toDateMjs.toDate)(dirtyDate);
+        if (result === undefined || result < currentDate || isNaN(Number(currentDate))) result = currentDate;
+    });
+    return result || new Date(NaN);
+}
+// Fallback for modularized imports:
+exports.default = max;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8NYVR":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name min
+ * @category Common Helpers
+ * @summary Returns the earliest of the given dates.
+ *
+ * @description
+ * Returns the earliest of the given dates.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dates - The dates to compare
+ *
+ * @returns The earliest of the dates
+ *
+ * @example
+ * // Which of these dates is the earliest?
+ * const result = min([
+ *   new Date(1989, 6, 10),
+ *   new Date(1987, 1, 11),
+ *   new Date(1995, 6, 2),
+ *   new Date(1990, 0, 1)
+ * ])
+ * //=> Wed Feb 11 1987 00:00:00
+ */ parcelHelpers.export(exports, "min", ()=>min);
+var _toDateMjs = require("./toDate.mjs");
+function min(dates) {
+    let result;
+    dates.forEach((dirtyDate)=>{
+        const date = (0, _toDateMjs.toDate)(dirtyDate);
+        if (!result || result > date || isNaN(+date)) result = date;
+    });
+    return result || new Date(NaN);
+}
+// Fallback for modularized imports:
+exports.default = min;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gv9nK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name closestIndexTo
+ * @category Common Helpers
+ * @summary Return an index of the closest date from the array comparing to the given date.
+ *
+ * @description
+ * Return an index of the closest date from the array comparing to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateToCompare - The date to compare with
+ * @param dates - The array to search
+ *
+ * @returns An index of the date closest to the given date or undefined if no valid value is given
+ *
+ * @example
+ * // Which date is closer to 6 September 2015?
+ * const dateToCompare = new Date(2015, 8, 6)
+ * const datesArray = [
+ *   new Date(2015, 0, 1),
+ *   new Date(2016, 0, 1),
+ *   new Date(2017, 0, 1)
+ * ]
+ * const result = closestIndexTo(dateToCompare, datesArray)
+ * //=> 1
+ */ parcelHelpers.export(exports, "closestIndexTo", ()=>closestIndexTo);
+var _toDateMjs = require("./toDate.mjs");
+function closestIndexTo(dateToCompare, dates) {
+    const date = (0, _toDateMjs.toDate)(dateToCompare);
+    if (isNaN(Number(date))) return NaN;
+    const timeToCompare = date.getTime();
+    let result;
+    let minDistance;
+    dates.forEach(function(dirtyDate, index) {
+        const currentDate = (0, _toDateMjs.toDate)(dirtyDate);
+        if (isNaN(Number(currentDate))) {
+            result = NaN;
+            minDistance = NaN;
+            return;
+        }
+        const distance = Math.abs(timeToCompare - currentDate.getTime());
+        if (result == null || distance < minDistance) {
+            result = index;
+            minDistance = distance;
+        }
+    });
+    return result;
+}
+// Fallback for modularized imports:
+exports.default = closestIndexTo;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a1y1d":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name closestTo
+ * @category Common Helpers
+ * @summary Return a date from the array closest to the given date.
+ *
+ * @description
+ * Return a date from the array closest to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateToCompare - The date to compare with
+ * @param dates - The array to search
+ *
+ * @returns The date from the array closest to the given date or undefined if no valid value is given
+ *
+ * @example
+ * // Which date is closer to 6 September 2015: 1 January 2000 or 1 January 2030?
+ * const dateToCompare = new Date(2015, 8, 6)
+ * const result = closestTo(dateToCompare, [
+ *   new Date(2000, 0, 1),
+ *   new Date(2030, 0, 1)
+ * ])
+ * //=> Tue Jan 01 2030 00:00:00
+ */ parcelHelpers.export(exports, "closestTo", ()=>closestTo);
+var _constructFromMjs = require("./constructFrom.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function closestTo(dateToCompare, dates) {
+    const date = (0, _toDateMjs.toDate)(dateToCompare);
+    if (isNaN(Number(date))) return (0, _constructFromMjs.constructFrom)(dateToCompare, NaN);
+    const timeToCompare = date.getTime();
+    let result;
+    let minDistance;
+    dates.forEach((dirtyDate)=>{
+        const currentDate = (0, _toDateMjs.toDate)(dirtyDate);
+        if (isNaN(Number(currentDate))) {
+            result = (0, _constructFromMjs.constructFrom)(dateToCompare, NaN);
+            minDistance = NaN;
+            return;
+        }
+        const distance = Math.abs(timeToCompare - currentDate.getTime());
+        if (result == null || distance < minDistance) {
+            result = currentDate;
+            minDistance = distance;
+        }
+    });
+    return result;
+}
+// Fallback for modularized imports:
+exports.default = closestTo;
+
+},{"./constructFrom.mjs":"xte3t","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gHVyQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name compareAsc
+ * @category Common Helpers
+ * @summary Compare the two dates and return -1, 0 or 1.
+ *
+ * @description
+ * Compare the two dates and return 1 if the first date is after the second,
+ * -1 if the first date is before the second or 0 if dates are equal.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The first date to compare
+ * @param dateRight - The second date to compare
+ *
+ * @returns The result of the comparison
+ *
+ * @example
+ * // Compare 11 February 1987 and 10 July 1989:
+ * const result = compareAsc(new Date(1987, 1, 11), new Date(1989, 6, 10))
+ * //=> -1
+ *
+ * @example
+ * // Sort the array of dates:
+ * const result = [
+ *   new Date(1995, 6, 2),
+ *   new Date(1987, 1, 11),
+ *   new Date(1989, 6, 10)
+ * ].sort(compareAsc)
+ * //=> [
+ * //   Wed Feb 11 1987 00:00:00,
+ * //   Mon Jul 10 1989 00:00:00,
+ * //   Sun Jul 02 1995 00:00:00
+ * // ]
+ */ parcelHelpers.export(exports, "compareAsc", ()=>compareAsc);
+var _toDateMjs = require("./toDate.mjs");
+function compareAsc(dateLeft, dateRight) {
+    const _dateLeft = (0, _toDateMjs.toDate)(dateLeft);
+    const _dateRight = (0, _toDateMjs.toDate)(dateRight);
+    const diff = _dateLeft.getTime() - _dateRight.getTime();
+    if (diff < 0) return -1;
+    else if (diff > 0) return 1;
+    else return diff;
+}
+// Fallback for modularized imports:
+exports.default = compareAsc;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1rC1J":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name compareDesc
+ * @category Common Helpers
+ * @summary Compare the two dates reverse chronologically and return -1, 0 or 1.
+ *
+ * @description
+ * Compare the two dates and return -1 if the first date is after the second,
+ * 1 if the first date is before the second or 0 if dates are equal.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The first date to compare
+ * @param dateRight - The second date to compare
+ *
+ * @returns The result of the comparison
+ *
+ * @example
+ * // Compare 11 February 1987 and 10 July 1989 reverse chronologically:
+ * const result = compareDesc(new Date(1987, 1, 11), new Date(1989, 6, 10))
+ * //=> 1
+ *
+ * @example
+ * // Sort the array of dates in reverse chronological order:
+ * const result = [
+ *   new Date(1995, 6, 2),
+ *   new Date(1987, 1, 11),
+ *   new Date(1989, 6, 10)
+ * ].sort(compareDesc)
+ * //=> [
+ * //   Sun Jul 02 1995 00:00:00,
+ * //   Mon Jul 10 1989 00:00:00,
+ * //   Wed Feb 11 1987 00:00:00
+ * // ]
+ */ parcelHelpers.export(exports, "compareDesc", ()=>compareDesc);
+var _toDateMjs = require("./toDate.mjs");
+function compareDesc(dateLeft, dateRight) {
+    const _dateLeft = (0, _toDateMjs.toDate)(dateLeft);
+    const _dateRight = (0, _toDateMjs.toDate)(dateRight);
+    const diff = _dateLeft.getTime() - _dateRight.getTime();
+    if (diff > 0) return -1;
+    else if (diff < 0) return 1;
+    else return diff;
+}
+// Fallback for modularized imports:
+exports.default = compareDesc;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"28Lwg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name daysToWeeks
+ * @category Conversion Helpers
+ * @summary Convert days to weeks.
+ *
+ * @description
+ * Convert a number of days to a full number of weeks.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param days - The number of days to be converted
+ *
+ * @returns The number of days converted in weeks
+ *
+ * @example
+ * // Convert 14 days to weeks:
+ * const result = daysToWeeks(14)
+ * //=> 2
+ *
+ * @example
+ * // It uses trunc rounding:
+ * const result = daysToWeeks(13)
+ * //=> 1
+ */ parcelHelpers.export(exports, "daysToWeeks", ()=>daysToWeeks);
+var _constantsMjs = require("./constants.mjs");
+function daysToWeeks(days) {
+    const weeks = days / (0, _constantsMjs.daysInWeek);
+    return Math.trunc(weeks);
+}
+// Fallback for modularized imports:
+exports.default = daysToWeeks;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h7OyI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name differenceInBusinessDays
+ * @category Day Helpers
+ * @summary Get the number of business days between the given dates.
+ *
+ * @description
+ * Get the number of business day periods between the given dates.
+ * Business days being days that arent in the weekend.
+ * Like `differenceInCalendarDays`, the function removes the times from
+ * the dates before calculating the difference.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ *
+ * @returns The number of business days
+ *
+ * @example
+ * // How many business days are between
+ * // 10 January 2014 and 20 July 2014?
+ * const result = differenceInBusinessDays(
+ *   new Date(2014, 6, 20),
+ *   new Date(2014, 0, 10)
+ * )
+ * //=> 136
+ *
+ * // How many business days are between
+ * // 30 November 2021 and 1 November 2021?
+ * const result = differenceInBusinessDays(
+ *   new Date(2021, 10, 30),
+ *   new Date(2021, 10, 1)
+ * )
+ * //=> 21
+ *
+ * // How many business days are between
+ * // 1 November 2021 and 1 December 2021?
+ * const result = differenceInBusinessDays(
+ *   new Date(2021, 10, 1),
+ *   new Date(2021, 11, 1)
+ * )
+ * //=> -22
+ *
+ * // How many business days are between
+ * // 1 November 2021 and 1 November 2021 ?
+ * const result = differenceInBusinessDays(
+ *   new Date(2021, 10, 1),
+ *   new Date(2021, 10, 1)
+ * )
+ * //=> 0
+ */ parcelHelpers.export(exports, "differenceInBusinessDays", ()=>differenceInBusinessDays);
+var _addDaysMjs = require("./addDays.mjs");
+var _differenceInCalendarDaysMjs = require("./differenceInCalendarDays.mjs");
+var _isSameDayMjs = require("./isSameDay.mjs");
+var _isValidMjs = require("./isValid.mjs");
+var _isWeekendMjs = require("./isWeekend.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function differenceInBusinessDays(dateLeft, dateRight) {
+    const _dateLeft = (0, _toDateMjs.toDate)(dateLeft);
+    let _dateRight = (0, _toDateMjs.toDate)(dateRight);
+    if (!(0, _isValidMjs.isValid)(_dateLeft) || !(0, _isValidMjs.isValid)(_dateRight)) return NaN;
+    const calendarDifference = (0, _differenceInCalendarDaysMjs.differenceInCalendarDays)(_dateLeft, _dateRight);
+    const sign = calendarDifference < 0 ? -1 : 1;
+    const weeks = Math.trunc(calendarDifference / 7);
+    let result = weeks * 5;
+    _dateRight = (0, _addDaysMjs.addDays)(_dateRight, weeks * 7);
+    // the loop below will run at most 6 times to account for the remaining days that don't makeup a full week
+    while(!(0, _isSameDayMjs.isSameDay)(_dateLeft, _dateRight)){
+        // sign is used to account for both negative and positive differences
+        result += (0, _isWeekendMjs.isWeekend)(_dateRight) ? 0 : sign;
+        _dateRight = (0, _addDaysMjs.addDays)(_dateRight, sign);
+    }
+    // Prevent negative zero
+    return result === 0 ? 0 : result;
+}
+// Fallback for modularized imports:
+exports.default = differenceInBusinessDays;
+
+},{"./addDays.mjs":"4IE0s","./differenceInCalendarDays.mjs":"bLx9a","./isSameDay.mjs":"ivgld","./isValid.mjs":"dX2Ty","./isWeekend.mjs":"8544Q","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ivgld":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isSameDay
+ * @category Day Helpers
+ * @summary Are the given dates in the same day (and year and month)?
+ *
+ * @description
+ * Are the given dates in the same day (and year and month)?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The first date to check
+ * @param dateRight - The second date to check
+
+ * @returns The dates are in the same day (and year and month)
+ *
+ * @example
+ * // Are 4 September 06:00:00 and 4 September 18:00:00 in the same day?
+ * const result = isSameDay(new Date(2014, 8, 4, 6, 0), new Date(2014, 8, 4, 18, 0))
+ * //=> true
+ *
+ * @example
+ * // Are 4 September and 4 October in the same day?
+ * const result = isSameDay(new Date(2014, 8, 4), new Date(2014, 9, 4))
+ * //=> false
+ *
+ * @example
+ * // Are 4 September, 2014 and 4 September, 2015 in the same day?
+ * const result = isSameDay(new Date(2014, 8, 4), new Date(2015, 8, 4))
+ * //=> false
+ */ parcelHelpers.export(exports, "isSameDay", ()=>isSameDay);
+var _startOfDayMjs = require("./startOfDay.mjs");
+function isSameDay(dateLeft, dateRight) {
+    const dateLeftStartOfDay = (0, _startOfDayMjs.startOfDay)(dateLeft);
+    const dateRightStartOfDay = (0, _startOfDayMjs.startOfDay)(dateRight);
+    return +dateLeftStartOfDay === +dateRightStartOfDay;
+}
+// Fallback for modularized imports:
+exports.default = isSameDay;
+
+},{"./startOfDay.mjs":"91DPV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dX2Ty":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isValid
+ * @category Common Helpers
+ * @summary Is the given date valid?
+ *
+ * @description
+ * Returns false if argument is Invalid Date and true otherwise.
+ * Argument is converted to Date using `toDate`. See [toDate](https://date-fns.org/docs/toDate)
+ * Invalid Date is a Date, whose time value is NaN.
+ *
+ * Time value of Date: http://es5.github.io/#x15.9.1.1
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is valid
+ *
+ * @example
+ * // For the valid date:
+ * const result = isValid(new Date(2014, 1, 31))
+ * //=> true
+ *
+ * @example
+ * // For the value, convertable into a date:
+ * const result = isValid(1393804800000)
+ * //=> true
+ *
+ * @example
+ * // For the invalid date:
+ * const result = isValid(new Date(''))
+ * //=> false
+ */ parcelHelpers.export(exports, "isValid", ()=>isValid);
+var _isDateMjs = require("./isDate.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function isValid(date) {
+    if (!(0, _isDateMjs.isDate)(date) && typeof date !== "number") return false;
+    const _date = (0, _toDateMjs.toDate)(date);
+    return !isNaN(Number(_date));
+}
+// Fallback for modularized imports:
+exports.default = isValid;
+
+},{"./isDate.mjs":"7NzNE","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7NzNE":[function(require,module,exports) {
+/**
+ * @name isDate
+ * @category Common Helpers
+ * @summary Is the given value a date?
+ *
+ * @description
+ * Returns true if the given value is an instance of Date. The function works for dates transferred across iframes.
+ *
+ * @param value - The value to check
+ *
+ * @returns True if the given value is a date
+ *
+ * @example
+ * // For a valid date:
+ * const result = isDate(new Date())
+ * //=> true
+ *
+ * @example
+ * // For an invalid date:
+ * const result = isDate(new Date(NaN))
+ * //=> true
+ *
+ * @example
+ * // For some value:
+ * const result = isDate('2014-02-31')
+ * //=> false
+ *
+ * @example
+ * // For an object:
+ * const result = isDate({})
+ * //=> false
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "isDate", ()=>isDate);
+function isDate(value) {
+    return value instanceof Date || typeof value === "object" && Object.prototype.toString.call(value) === "[object Date]";
+}
+// Fallback for modularized imports:
+exports.default = isDate;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8pVWg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name differenceInCalendarISOWeekYears
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Get the number of calendar ISO week-numbering years between the given dates.
+ *
+ * @description
+ * Get the number of calendar ISO week-numbering years between the given dates.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ *
+ * @returns The number of calendar ISO week-numbering years
+ *
+ * @example
+ * // How many calendar ISO week-numbering years are 1 January 2010 and 1 January 2012?
+ * const result = differenceInCalendarISOWeekYears(
+ *   new Date(2012, 0, 1),
+ *   new Date(2010, 0, 1)
+ * )
+ * //=> 2
+ */ parcelHelpers.export(exports, "differenceInCalendarISOWeekYears", ()=>differenceInCalendarISOWeekYears);
+var _getISOWeekYearMjs = require("./getISOWeekYear.mjs");
+function differenceInCalendarISOWeekYears(dateLeft, dateRight) {
+    return (0, _getISOWeekYearMjs.getISOWeekYear)(dateLeft) - (0, _getISOWeekYearMjs.getISOWeekYear)(dateRight);
+}
+// Fallback for modularized imports:
+exports.default = differenceInCalendarISOWeekYears;
+
+},{"./getISOWeekYear.mjs":"io5kR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3m1gm":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name differenceInCalendarISOWeeks
+ * @category ISO Week Helpers
+ * @summary Get the number of calendar ISO weeks between the given dates.
+ *
+ * @description
+ * Get the number of calendar ISO weeks between the given dates.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ *
+ * @returns The number of calendar ISO weeks
+ *
+ * @example
+ * // How many calendar ISO weeks are between 6 July 2014 and 21 July 2014?
+ * const result = differenceInCalendarISOWeeks(
+ *   new Date(2014, 6, 21),
+ *   new Date(2014, 6, 6)
+ * )
+ * //=> 3
+ */ parcelHelpers.export(exports, "differenceInCalendarISOWeeks", ()=>differenceInCalendarISOWeeks);
+var _constantsMjs = require("./constants.mjs");
+var _startOfISOWeekMjs = require("./startOfISOWeek.mjs");
+var _getTimezoneOffsetInMillisecondsMjs = require("./_lib/getTimezoneOffsetInMilliseconds.mjs");
+function differenceInCalendarISOWeeks(dateLeft, dateRight) {
+    const startOfISOWeekLeft = (0, _startOfISOWeekMjs.startOfISOWeek)(dateLeft);
+    const startOfISOWeekRight = (0, _startOfISOWeekMjs.startOfISOWeek)(dateRight);
+    const timestampLeft = +startOfISOWeekLeft - (0, _getTimezoneOffsetInMillisecondsMjs.getTimezoneOffsetInMilliseconds)(startOfISOWeekLeft);
+    const timestampRight = +startOfISOWeekRight - (0, _getTimezoneOffsetInMillisecondsMjs.getTimezoneOffsetInMilliseconds)(startOfISOWeekRight);
+    // Round the number of weeks to the nearest integer because the number of
+    // milliseconds in a week is not constant (e.g. it's different in the week of
+    // the daylight saving time clock shift).
+    return Math.round((timestampLeft - timestampRight) / (0, _constantsMjs.millisecondsInWeek));
+}
+// Fallback for modularized imports:
+exports.default = differenceInCalendarISOWeeks;
+
+},{"./constants.mjs":"iISMq","./startOfISOWeek.mjs":"jQoij","./_lib/getTimezoneOffsetInMilliseconds.mjs":"KaqYL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"89gaI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name differenceInCalendarMonths
+ * @category Month Helpers
+ * @summary Get the number of calendar months between the given dates.
+ *
+ * @description
+ * Get the number of calendar months between the given dates.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ *
+ * @returns The number of calendar months
+ *
+ * @example
+ * // How many calendar months are between 31 January 2014 and 1 September 2014?
+ * const result = differenceInCalendarMonths(
+ *   new Date(2014, 8, 1),
+ *   new Date(2014, 0, 31)
+ * )
+ * //=> 8
+ */ parcelHelpers.export(exports, "differenceInCalendarMonths", ()=>differenceInCalendarMonths);
+var _toDateMjs = require("./toDate.mjs");
+function differenceInCalendarMonths(dateLeft, dateRight) {
+    const _dateLeft = (0, _toDateMjs.toDate)(dateLeft);
+    const _dateRight = (0, _toDateMjs.toDate)(dateRight);
+    const yearDiff = _dateLeft.getFullYear() - _dateRight.getFullYear();
+    const monthDiff = _dateLeft.getMonth() - _dateRight.getMonth();
+    return yearDiff * 12 + monthDiff;
+}
+// Fallback for modularized imports:
+exports.default = differenceInCalendarMonths;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2KB3i":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name differenceInCalendarQuarters
+ * @category Quarter Helpers
+ * @summary Get the number of calendar quarters between the given dates.
+ *
+ * @description
+ * Get the number of calendar quarters between the given dates.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+
+ * @returns The number of calendar quarters
+ *
+ * @example
+ * // How many calendar quarters are between 31 December 2013 and 2 July 2014?
+ * const result = differenceInCalendarQuarters(
+ *   new Date(2014, 6, 2),
+ *   new Date(2013, 11, 31)
+ * )
+ * //=> 3
+ */ parcelHelpers.export(exports, "differenceInCalendarQuarters", ()=>differenceInCalendarQuarters);
+var _getQuarterMjs = require("./getQuarter.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function differenceInCalendarQuarters(dateLeft, dateRight) {
+    const _dateLeft = (0, _toDateMjs.toDate)(dateLeft);
+    const _dateRight = (0, _toDateMjs.toDate)(dateRight);
+    const yearDiff = _dateLeft.getFullYear() - _dateRight.getFullYear();
+    const quarterDiff = (0, _getQuarterMjs.getQuarter)(_dateLeft) - (0, _getQuarterMjs.getQuarter)(_dateRight);
+    return yearDiff * 4 + quarterDiff;
+}
+// Fallback for modularized imports:
+exports.default = differenceInCalendarQuarters;
+
+},{"./getQuarter.mjs":"4DO7p","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4DO7p":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getQuarter
+ * @category Quarter Helpers
+ * @summary Get the year quarter of the given date.
+ *
+ * @description
+ * Get the year quarter of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The quarter
+ *
+ * @example
+ * // Which quarter is 2 July 2014?
+ * const result = getQuarter(new Date(2014, 6, 2))
+ * //=> 3
+ */ parcelHelpers.export(exports, "getQuarter", ()=>getQuarter);
+var _toDateMjs = require("./toDate.mjs");
+function getQuarter(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const quarter = Math.trunc(_date.getMonth() / 3) + 1;
+    return quarter;
+}
+// Fallback for modularized imports:
+exports.default = getQuarter;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fHTLb":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link differenceInCalendarWeeks} function options.
+ */ /**
+ * @name differenceInCalendarWeeks
+ * @category Week Helpers
+ * @summary Get the number of calendar weeks between the given dates.
+ *
+ * @description
+ * Get the number of calendar weeks between the given dates.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ * @param options - An object with options.
+ *
+ * @returns The number of calendar weeks
+ *
+ * @example
+ * // How many calendar weeks are between 5 July 2014 and 20 July 2014?
+ * const result = differenceInCalendarWeeks(
+ *   new Date(2014, 6, 20),
+ *   new Date(2014, 6, 5)
+ * )
+ * //=> 3
+ *
+ * @example
+ * // If the week starts on Monday,
+ * // how many calendar weeks are between 5 July 2014 and 20 July 2014?
+ * const result = differenceInCalendarWeeks(
+ *   new Date(2014, 6, 20),
+ *   new Date(2014, 6, 5),
+ *   { weekStartsOn: 1 }
+ * )
+ * //=> 2
+ */ parcelHelpers.export(exports, "differenceInCalendarWeeks", ()=>differenceInCalendarWeeks);
+var _constantsMjs = require("./constants.mjs");
+var _startOfWeekMjs = require("./startOfWeek.mjs");
+var _getTimezoneOffsetInMillisecondsMjs = require("./_lib/getTimezoneOffsetInMilliseconds.mjs");
+function differenceInCalendarWeeks(dateLeft, dateRight, options) {
+    const startOfWeekLeft = (0, _startOfWeekMjs.startOfWeek)(dateLeft, options);
+    const startOfWeekRight = (0, _startOfWeekMjs.startOfWeek)(dateRight, options);
+    const timestampLeft = +startOfWeekLeft - (0, _getTimezoneOffsetInMillisecondsMjs.getTimezoneOffsetInMilliseconds)(startOfWeekLeft);
+    const timestampRight = +startOfWeekRight - (0, _getTimezoneOffsetInMillisecondsMjs.getTimezoneOffsetInMilliseconds)(startOfWeekRight);
+    // Round the number of days to the nearest integer because the number of
+    // milliseconds in a days is not constant (e.g. it's different in the week of
+    // the daylight saving time clock shift).
+    return Math.round((timestampLeft - timestampRight) / (0, _constantsMjs.millisecondsInWeek));
+}
+// Fallback for modularized imports:
+exports.default = differenceInCalendarWeeks;
+
+},{"./constants.mjs":"iISMq","./startOfWeek.mjs":"807UC","./_lib/getTimezoneOffsetInMilliseconds.mjs":"KaqYL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4CFta":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name differenceInCalendarYears
+ * @category Year Helpers
+ * @summary Get the number of calendar years between the given dates.
+ *
+ * @description
+ * Get the number of calendar years between the given dates.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+
+ * @returns The number of calendar years
+ *
+ * @example
+ * // How many calendar years are between 31 December 2013 and 11 February 2015?
+ * const result = differenceInCalendarYears(
+ *   new Date(2015, 1, 11),
+ *   new Date(2013, 11, 31)
+ * )
+ * //=> 2
+ */ parcelHelpers.export(exports, "differenceInCalendarYears", ()=>differenceInCalendarYears);
+var _toDateMjs = require("./toDate.mjs");
+function differenceInCalendarYears(dateLeft, dateRight) {
+    const _dateLeft = (0, _toDateMjs.toDate)(dateLeft);
+    const _dateRight = (0, _toDateMjs.toDate)(dateRight);
+    return _dateLeft.getFullYear() - _dateRight.getFullYear();
+}
+// Fallback for modularized imports:
+exports.default = differenceInCalendarYears;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9juYF":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name differenceInDays
+ * @category Day Helpers
+ * @summary Get the number of full days between the given dates.
+ *
+ * @description
+ * Get the number of full day periods between two dates. Fractional days are
+ * truncated towards zero.
+ *
+ * One "full day" is the distance between a local time in one day to the same
+ * local time on the next or previous day. A full day can sometimes be less than
+ * or more than 24 hours if a daylight savings change happens between two dates.
+ *
+ * To ignore DST and only measure exact 24-hour periods, use this instead:
+ * `Math.trunc(differenceInHours(dateLeft, dateRight)/24)|0`.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ *
+ * @returns The number of full days according to the local timezone
+ *
+ * @example
+ * // How many full days are between
+ * // 2 July 2011 23:00:00 and 2 July 2012 00:00:00?
+ * const result = differenceInDays(
+ *   new Date(2012, 6, 2, 0, 0),
+ *   new Date(2011, 6, 2, 23, 0)
+ * )
+ * //=> 365
+ *
+ * @example
+ * // How many full days are between
+ * // 2 July 2011 23:59:00 and 3 July 2011 00:01:00?
+ * const result = differenceInDays(
+ *   new Date(2011, 6, 3, 0, 1),
+ *   new Date(2011, 6, 2, 23, 59)
+ * )
+ * //=> 0
+ *
+ * @example
+ * // How many full days are between
+ * // 1 March 2020 0:00 and 1 June 2020 0:00 ?
+ * // Note: because local time is used, the
+ * // result will always be 92 days, even in
+ * // time zones where DST starts and the
+ * // period has only 92*24-1 hours.
+ * const result = differenceInDays(
+ *   new Date(2020, 5, 1),
+ *   new Date(2020, 2, 1)
+ * )
+ * //=> 92
+ */ parcelHelpers.export(exports, "differenceInDays", ()=>differenceInDays);
+var _differenceInCalendarDaysMjs = require("./differenceInCalendarDays.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function differenceInDays(dateLeft, dateRight) {
+    const _dateLeft = (0, _toDateMjs.toDate)(dateLeft);
+    const _dateRight = (0, _toDateMjs.toDate)(dateRight);
+    const sign = compareLocalAsc(_dateLeft, _dateRight);
+    const difference = Math.abs((0, _differenceInCalendarDaysMjs.differenceInCalendarDays)(_dateLeft, _dateRight));
+    _dateLeft.setDate(_dateLeft.getDate() - sign * difference);
+    // Math.abs(diff in full days - diff in calendar days) === 1 if last calendar day is not full
+    // If so, result must be decreased by 1 in absolute value
+    const isLastDayNotFull = Number(compareLocalAsc(_dateLeft, _dateRight) === -sign);
+    const result = sign * (difference - isLastDayNotFull);
+    // Prevent negative zero
+    return result === 0 ? 0 : result;
+}
+// Like `compareAsc` but uses local time not UTC, which is needed
+// for accurate equality comparisons of UTC timestamps that end up
+// having the same representation in local time, e.g. one hour before
+// DST ends vs. the instant that DST ends.
+function compareLocalAsc(dateLeft, dateRight) {
+    const diff = dateLeft.getFullYear() - dateRight.getFullYear() || dateLeft.getMonth() - dateRight.getMonth() || dateLeft.getDate() - dateRight.getDate() || dateLeft.getHours() - dateRight.getHours() || dateLeft.getMinutes() - dateRight.getMinutes() || dateLeft.getSeconds() - dateRight.getSeconds() || dateLeft.getMilliseconds() - dateRight.getMilliseconds();
+    if (diff < 0) return -1;
+    else if (diff > 0) return 1;
+    else return diff;
+}
+// Fallback for modularized imports:
+exports.default = differenceInDays;
+
+},{"./differenceInCalendarDays.mjs":"bLx9a","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gDW2a":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link differenceInHours} function options.
+ */ /**
+ * @name differenceInHours
+ * @category Hour Helpers
+ * @summary Get the number of hours between the given dates.
+ *
+ * @description
+ * Get the number of hours between the given dates.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ * @param options - An object with options.
+ *
+ * @returns The number of hours
+ *
+ * @example
+ * // How many hours are between 2 July 2014 06:50:00 and 2 July 2014 19:00:00?
+ * const result = differenceInHours(
+ *   new Date(2014, 6, 2, 19, 0),
+ *   new Date(2014, 6, 2, 6, 50)
+ * )
+ * //=> 12
+ */ parcelHelpers.export(exports, "differenceInHours", ()=>differenceInHours);
+var _getRoundingMethodMjs = require("./_lib/getRoundingMethod.mjs");
+var _constantsMjs = require("./constants.mjs");
+var _differenceInMillisecondsMjs = require("./differenceInMilliseconds.mjs");
+function differenceInHours(dateLeft, dateRight, options) {
+    const diff = (0, _differenceInMillisecondsMjs.differenceInMilliseconds)(dateLeft, dateRight) / (0, _constantsMjs.millisecondsInHour);
+    return (0, _getRoundingMethodMjs.getRoundingMethod)(options?.roundingMethod)(diff);
+}
+// Fallback for modularized imports:
+exports.default = differenceInHours;
+
+},{"./_lib/getRoundingMethod.mjs":"ccMm0","./constants.mjs":"iISMq","./differenceInMilliseconds.mjs":"aS6rf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ccMm0":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getRoundingMethod", ()=>getRoundingMethod);
+function getRoundingMethod(method) {
+    return (number)=>{
+        const round = method ? Math[method] : Math.trunc;
+        const result = round(number);
+        // Prevent negative zero
+        return result === 0 ? 0 : result;
+    };
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aS6rf":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name differenceInMilliseconds
+ * @category Millisecond Helpers
+ * @summary Get the number of milliseconds between the given dates.
+ *
+ * @description
+ * Get the number of milliseconds between the given dates.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ *
+ * @returns The number of milliseconds
+ *
+ * @example
+ * // How many milliseconds are between
+ * // 2 July 2014 12:30:20.600 and 2 July 2014 12:30:21.700?
+ * const result = differenceInMilliseconds(
+ *   new Date(2014, 6, 2, 12, 30, 21, 700),
+ *   new Date(2014, 6, 2, 12, 30, 20, 600)
+ * )
+ * //=> 1100
+ */ parcelHelpers.export(exports, "differenceInMilliseconds", ()=>differenceInMilliseconds);
+var _toDateMjs = require("./toDate.mjs");
+function differenceInMilliseconds(dateLeft, dateRight) {
+    return +(0, _toDateMjs.toDate)(dateLeft) - +(0, _toDateMjs.toDate)(dateRight);
+}
+// Fallback for modularized imports:
+exports.default = differenceInMilliseconds;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2O3K7":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name differenceInISOWeekYears
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Get the number of full ISO week-numbering years between the given dates.
+ *
+ * @description
+ * Get the number of full ISO week-numbering years between the given dates.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ *
+ * @returns The number of full ISO week-numbering years
+ *
+ * @example
+ * // How many full ISO week-numbering years are between 1 January 2010 and 1 January 2012?
+ * const result = differenceInISOWeekYears(
+ *   new Date(2012, 0, 1),
+ *   new Date(2010, 0, 1)
+ * )
+ * //=> 1
+ */ parcelHelpers.export(exports, "differenceInISOWeekYears", ()=>differenceInISOWeekYears);
+var _compareAscMjs = require("./compareAsc.mjs");
+var _differenceInCalendarISOWeekYearsMjs = require("./differenceInCalendarISOWeekYears.mjs");
+var _subISOWeekYearsMjs = require("./subISOWeekYears.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function differenceInISOWeekYears(dateLeft, dateRight) {
+    let _dateLeft = (0, _toDateMjs.toDate)(dateLeft);
+    const _dateRight = (0, _toDateMjs.toDate)(dateRight);
+    const sign = (0, _compareAscMjs.compareAsc)(_dateLeft, _dateRight);
+    const difference = Math.abs((0, _differenceInCalendarISOWeekYearsMjs.differenceInCalendarISOWeekYears)(_dateLeft, _dateRight));
+    _dateLeft = (0, _subISOWeekYearsMjs.subISOWeekYears)(_dateLeft, sign * difference);
+    // Math.abs(diff in full ISO years - diff in calendar ISO years) === 1
+    // if last calendar ISO year is not full
+    // If so, result must be decreased by 1 in absolute value
+    const isLastISOWeekYearNotFull = Number((0, _compareAscMjs.compareAsc)(_dateLeft, _dateRight) === -sign);
+    const result = sign * (difference - isLastISOWeekYearNotFull);
+    // Prevent negative zero
+    return result === 0 ? 0 : result;
+}
+// Fallback for modularized imports:
+exports.default = differenceInISOWeekYears;
+
+},{"./compareAsc.mjs":"gHVyQ","./differenceInCalendarISOWeekYears.mjs":"8pVWg","./subISOWeekYears.mjs":"7PoUI","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7PoUI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name subISOWeekYears
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Subtract the specified number of ISO week-numbering years from the given date.
+ *
+ * @description
+ * Subtract the specified number of ISO week-numbering years from the given date.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of ISO week-numbering years to be subtracted.
+ *
+ * @returns The new date with the ISO week-numbering years subtracted
+ *
+ * @example
+ * // Subtract 5 ISO week-numbering years from 1 September 2014:
+ * const result = subISOWeekYears(new Date(2014, 8, 1), 5)
+ * //=> Mon Aug 31 2009 00:00:00
+ */ parcelHelpers.export(exports, "subISOWeekYears", ()=>subISOWeekYears);
+var _addISOWeekYearsMjs = require("./addISOWeekYears.mjs");
+function subISOWeekYears(date, amount) {
+    return (0, _addISOWeekYearsMjs.addISOWeekYears)(date, -amount);
+}
+// Fallback for modularized imports:
+exports.default = subISOWeekYears;
+
+},{"./addISOWeekYears.mjs":"6wjqF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"amBaR":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link differenceInMinutes} function options.
+ */ /**
+ * @name differenceInMinutes
+ * @category Minute Helpers
+ * @summary Get the number of minutes between the given dates.
+ *
+ * @description
+ * Get the signed number of full (rounded towards 0) minutes between the given dates.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ * @param options - An object with options.
+ *
+ * @returns The number of minutes
+ *
+ * @example
+ * // How many minutes are between 2 July 2014 12:07:59 and 2 July 2014 12:20:00?
+ * const result = differenceInMinutes(
+ *   new Date(2014, 6, 2, 12, 20, 0),
+ *   new Date(2014, 6, 2, 12, 7, 59)
+ * )
+ * //=> 12
+ *
+ * @example
+ * // How many minutes are between 10:01:59 and 10:00:00
+ * const result = differenceInMinutes(
+ *   new Date(2000, 0, 1, 10, 0, 0),
+ *   new Date(2000, 0, 1, 10, 1, 59)
+ * )
+ * //=> -1
+ */ parcelHelpers.export(exports, "differenceInMinutes", ()=>differenceInMinutes);
+var _getRoundingMethodMjs = require("./_lib/getRoundingMethod.mjs");
+var _constantsMjs = require("./constants.mjs");
+var _differenceInMillisecondsMjs = require("./differenceInMilliseconds.mjs");
+function differenceInMinutes(dateLeft, dateRight, options) {
+    const diff = (0, _differenceInMillisecondsMjs.differenceInMilliseconds)(dateLeft, dateRight) / (0, _constantsMjs.millisecondsInMinute);
+    return (0, _getRoundingMethodMjs.getRoundingMethod)(options?.roundingMethod)(diff);
+}
+// Fallback for modularized imports:
+exports.default = differenceInMinutes;
+
+},{"./_lib/getRoundingMethod.mjs":"ccMm0","./constants.mjs":"iISMq","./differenceInMilliseconds.mjs":"aS6rf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8HTvw":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name differenceInMonths
+ * @category Month Helpers
+ * @summary Get the number of full months between the given dates.
+ *
+ * @description
+ * Get the number of full months between the given dates using trunc as a default rounding method.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ *
+ * @returns The number of full months
+ *
+ * @example
+ * // How many full months are between 31 January 2014 and 1 September 2014?
+ * const result = differenceInMonths(new Date(2014, 8, 1), new Date(2014, 0, 31))
+ * //=> 7
+ */ parcelHelpers.export(exports, "differenceInMonths", ()=>differenceInMonths);
+var _compareAscMjs = require("./compareAsc.mjs");
+var _differenceInCalendarMonthsMjs = require("./differenceInCalendarMonths.mjs");
+var _isLastDayOfMonthMjs = require("./isLastDayOfMonth.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function differenceInMonths(dateLeft, dateRight) {
+    const _dateLeft = (0, _toDateMjs.toDate)(dateLeft);
+    const _dateRight = (0, _toDateMjs.toDate)(dateRight);
+    const sign = (0, _compareAscMjs.compareAsc)(_dateLeft, _dateRight);
+    const difference = Math.abs((0, _differenceInCalendarMonthsMjs.differenceInCalendarMonths)(_dateLeft, _dateRight));
+    let result;
+    // Check for the difference of less than month
+    if (difference < 1) result = 0;
+    else {
+        if (_dateLeft.getMonth() === 1 && _dateLeft.getDate() > 27) // This will check if the date is end of Feb and assign a higher end of month date
+        // to compare it with Jan
+        _dateLeft.setDate(30);
+        _dateLeft.setMonth(_dateLeft.getMonth() - sign * difference);
+        // Math.abs(diff in full months - diff in calendar months) === 1 if last calendar month is not full
+        // If so, result must be decreased by 1 in absolute value
+        let isLastMonthNotFull = (0, _compareAscMjs.compareAsc)(_dateLeft, _dateRight) === -sign;
+        // Check for cases of one full calendar month
+        if ((0, _isLastDayOfMonthMjs.isLastDayOfMonth)((0, _toDateMjs.toDate)(dateLeft)) && difference === 1 && (0, _compareAscMjs.compareAsc)(dateLeft, _dateRight) === 1) isLastMonthNotFull = false;
+        result = sign * (difference - Number(isLastMonthNotFull));
+    }
+    // Prevent negative zero
+    return result === 0 ? 0 : result;
+}
+// Fallback for modularized imports:
+exports.default = differenceInMonths;
+
+},{"./compareAsc.mjs":"gHVyQ","./differenceInCalendarMonths.mjs":"89gaI","./isLastDayOfMonth.mjs":"g0aXP","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g0aXP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isLastDayOfMonth
+ * @category Month Helpers
+ * @summary Is the given date the last day of a month?
+ *
+ * @description
+ * Is the given date the last day of a month?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+
+ * @returns The date is the last day of a month
+ *
+ * @example
+ * // Is 28 February 2014 the last day of a month?
+ * const result = isLastDayOfMonth(new Date(2014, 1, 28))
+ * //=> true
+ */ parcelHelpers.export(exports, "isLastDayOfMonth", ()=>isLastDayOfMonth);
+var _endOfDayMjs = require("./endOfDay.mjs");
+var _endOfMonthMjs = require("./endOfMonth.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function isLastDayOfMonth(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    return +(0, _endOfDayMjs.endOfDay)(_date) === +(0, _endOfMonthMjs.endOfMonth)(_date);
+}
+// Fallback for modularized imports:
+exports.default = isLastDayOfMonth;
+
+},{"./endOfDay.mjs":"6g4Fj","./endOfMonth.mjs":"aGMp5","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6g4Fj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name endOfDay
+ * @category Day Helpers
+ * @summary Return the end of a day for the given date.
+ *
+ * @description
+ * Return the end of a day for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The end of a day
+ *
+ * @example
+ * // The end of a day for 2 September 2014 11:55:00:
+ * const result = endOfDay(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 02 2014 23:59:59.999
+ */ parcelHelpers.export(exports, "endOfDay", ()=>endOfDay);
+var _toDateMjs = require("./toDate.mjs");
+function endOfDay(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setHours(23, 59, 59, 999);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = endOfDay;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aGMp5":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name endOfMonth
+ * @category Month Helpers
+ * @summary Return the end of a month for the given date.
+ *
+ * @description
+ * Return the end of a month for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The end of a month
+ *
+ * @example
+ * // The end of a month for 2 September 2014 11:55:00:
+ * const result = endOfMonth(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 30 2014 23:59:59.999
+ */ parcelHelpers.export(exports, "endOfMonth", ()=>endOfMonth);
+var _toDateMjs = require("./toDate.mjs");
+function endOfMonth(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const month = _date.getMonth();
+    _date.setFullYear(_date.getFullYear(), month + 1, 0);
+    _date.setHours(23, 59, 59, 999);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = endOfMonth;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"b559P":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link differenceInQuarters} function options.
+ */ /**
+ * @name differenceInQuarters
+ * @category Quarter Helpers
+ * @summary Get the number of quarters between the given dates.
+ *
+ * @description
+ * Get the number of quarters between the given dates.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ * @param options - An object with options.
+ *
+ * @returns The number of full quarters
+ *
+ * @example
+ * // How many full quarters are between 31 December 2013 and 2 July 2014?
+ * const result = differenceInQuarters(new Date(2014, 6, 2), new Date(2013, 11, 31))
+ * //=> 2
+ */ parcelHelpers.export(exports, "differenceInQuarters", ()=>differenceInQuarters);
+var _getRoundingMethodMjs = require("./_lib/getRoundingMethod.mjs");
+var _differenceInMonthsMjs = require("./differenceInMonths.mjs");
+function differenceInQuarters(dateLeft, dateRight, options) {
+    const diff = (0, _differenceInMonthsMjs.differenceInMonths)(dateLeft, dateRight) / 3;
+    return (0, _getRoundingMethodMjs.getRoundingMethod)(options?.roundingMethod)(diff);
+}
+// Fallback for modularized imports:
+exports.default = differenceInQuarters;
+
+},{"./_lib/getRoundingMethod.mjs":"ccMm0","./differenceInMonths.mjs":"8HTvw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a0DEp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link differenceInSeconds} function options.
+ */ /**
+ * @name differenceInSeconds
+ * @category Second Helpers
+ * @summary Get the number of seconds between the given dates.
+ *
+ * @description
+ * Get the number of seconds between the given dates.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ * @param options - An object with options.
+ *
+ * @returns The number of seconds
+ *
+ * @example
+ * // How many seconds are between
+ * // 2 July 2014 12:30:07.999 and 2 July 2014 12:30:20.000?
+ * const result = differenceInSeconds(
+ *   new Date(2014, 6, 2, 12, 30, 20, 0),
+ *   new Date(2014, 6, 2, 12, 30, 7, 999)
+ * )
+ * //=> 12
+ */ parcelHelpers.export(exports, "differenceInSeconds", ()=>differenceInSeconds);
+var _getRoundingMethodMjs = require("./_lib/getRoundingMethod.mjs");
+var _differenceInMillisecondsMjs = require("./differenceInMilliseconds.mjs");
+function differenceInSeconds(dateLeft, dateRight, options) {
+    const diff = (0, _differenceInMillisecondsMjs.differenceInMilliseconds)(dateLeft, dateRight) / 1000;
+    return (0, _getRoundingMethodMjs.getRoundingMethod)(options?.roundingMethod)(diff);
+}
+// Fallback for modularized imports:
+exports.default = differenceInSeconds;
+
+},{"./_lib/getRoundingMethod.mjs":"ccMm0","./differenceInMilliseconds.mjs":"aS6rf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dVC3c":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link differenceInWeeks} function options.
+ */ /**
+ * @name differenceInWeeks
+ * @category Week Helpers
+ * @summary Get the number of full weeks between the given dates.
+ *
+ * @description
+ * Get the number of full weeks between two dates. Fractional weeks are
+ * truncated towards zero by default.
+ *
+ * One "full week" is the distance between a local time in one day to the same
+ * local time 7 days earlier or later. A full week can sometimes be less than
+ * or more than 7*24 hours if a daylight savings change happens between two dates.
+ *
+ * To ignore DST and only measure exact 7*24-hour periods, use this instead:
+ * `Math.trunc(differenceInHours(dateLeft, dateRight)/(7*24))|0`.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ * @param options - An object with options
+ *
+ * @returns The number of full weeks
+ *
+ * @example
+ * // How many full weeks are between 5 July 2014 and 20 July 2014?
+ * const result = differenceInWeeks(new Date(2014, 6, 20), new Date(2014, 6, 5))
+ * //=> 2
+ *
+ * @example
+ * // How many full weeks are between
+ * // 1 March 2020 0:00 and 6 June 2020 0:00 ?
+ * // Note: because local time is used, the
+ * // result will always be 8 weeks (54 days),
+ * // even if DST starts and the period has
+ * // only 54*24-1 hours.
+ * const result = differenceInWeeks(
+ *   new Date(2020, 5, 1),
+ *   new Date(2020, 2, 6)
+ * )
+ * //=> 8
+ */ parcelHelpers.export(exports, "differenceInWeeks", ()=>differenceInWeeks);
+var _getRoundingMethodMjs = require("./_lib/getRoundingMethod.mjs");
+var _differenceInDaysMjs = require("./differenceInDays.mjs");
+function differenceInWeeks(dateLeft, dateRight, options) {
+    const diff = (0, _differenceInDaysMjs.differenceInDays)(dateLeft, dateRight) / 7;
+    return (0, _getRoundingMethodMjs.getRoundingMethod)(options?.roundingMethod)(diff);
+}
+// Fallback for modularized imports:
+exports.default = differenceInWeeks;
+
+},{"./_lib/getRoundingMethod.mjs":"ccMm0","./differenceInDays.mjs":"9juYF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"koEUj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name differenceInYears
+ * @category Year Helpers
+ * @summary Get the number of full years between the given dates.
+ *
+ * @description
+ * Get the number of full years between the given dates.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The later date
+ * @param dateRight - The earlier date
+ *
+ * @returns The number of full years
+ *
+ * @example
+ * // How many full years are between 31 December 2013 and 11 February 2015?
+ * const result = differenceInYears(new Date(2015, 1, 11), new Date(2013, 11, 31))
+ * //=> 1
+ */ parcelHelpers.export(exports, "differenceInYears", ()=>differenceInYears);
+var _compareAscMjs = require("./compareAsc.mjs");
+var _differenceInCalendarYearsMjs = require("./differenceInCalendarYears.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function differenceInYears(dateLeft, dateRight) {
+    const _dateLeft = (0, _toDateMjs.toDate)(dateLeft);
+    const _dateRight = (0, _toDateMjs.toDate)(dateRight);
+    const sign = (0, _compareAscMjs.compareAsc)(_dateLeft, _dateRight);
+    const difference = Math.abs((0, _differenceInCalendarYearsMjs.differenceInCalendarYears)(_dateLeft, _dateRight));
+    // Set both dates to a valid leap year for accurate comparison when dealing
+    // with leap days
+    _dateLeft.setFullYear(1584);
+    _dateRight.setFullYear(1584);
+    // Math.abs(diff in full years - diff in calendar years) === 1 if last calendar year is not full
+    // If so, result must be decreased by 1 in absolute value
+    const isLastYearNotFull = (0, _compareAscMjs.compareAsc)(_dateLeft, _dateRight) === -sign;
+    const result = sign * (difference - +isLastYearNotFull);
+    // Prevent negative zero
+    return result === 0 ? 0 : result;
+}
+// Fallback for modularized imports:
+exports.default = differenceInYears;
+
+},{"./compareAsc.mjs":"gHVyQ","./differenceInCalendarYears.mjs":"4CFta","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kfrWH":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link eachDayOfInterval} function options.
+ */ /**
+ * @name eachDayOfInterval
+ * @category Interval Helpers
+ * @summary Return the array of dates within the specified time interval.
+ *
+ * @description
+ * Return the array of dates within the specified time interval.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param interval - The interval.
+ * @param options - An object with options.
+ *
+ * @returns The array with starts of days from the day of the interval start to the day of the interval end
+ *
+ * @example
+ * // Each day between 6 October 2014 and 10 October 2014:
+ * const result = eachDayOfInterval({
+ *   start: new Date(2014, 9, 6),
+ *   end: new Date(2014, 9, 10)
+ * })
+ * //=> [
+ * //   Mon Oct 06 2014 00:00:00,
+ * //   Tue Oct 07 2014 00:00:00,
+ * //   Wed Oct 08 2014 00:00:00,
+ * //   Thu Oct 09 2014 00:00:00,
+ * //   Fri Oct 10 2014 00:00:00
+ * // ]
+ */ parcelHelpers.export(exports, "eachDayOfInterval", ()=>eachDayOfInterval);
+var _toDateMjs = require("./toDate.mjs");
+function eachDayOfInterval(interval, options) {
+    const startDate = (0, _toDateMjs.toDate)(interval.start);
+    const endDate = (0, _toDateMjs.toDate)(interval.end);
+    let reversed = +startDate > +endDate;
+    const endTime = reversed ? +startDate : +endDate;
+    const currentDate = reversed ? endDate : startDate;
+    currentDate.setHours(0, 0, 0, 0);
+    let step = options?.step ?? 1;
+    if (!step) return [];
+    if (step < 0) {
+        step = -step;
+        reversed = !reversed;
+    }
+    const dates = [];
+    while(+currentDate <= endTime){
+        dates.push((0, _toDateMjs.toDate)(currentDate));
+        currentDate.setDate(currentDate.getDate() + step);
+        currentDate.setHours(0, 0, 0, 0);
+    }
+    return reversed ? dates.reverse() : dates;
+}
+// Fallback for modularized imports:
+exports.default = eachDayOfInterval;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ix1nB":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link eachHourOfInterval} function options.
+ */ /**
+ * @name eachHourOfInterval
+ * @category Interval Helpers
+ * @summary Return the array of hours within the specified time interval.
+ *
+ * @description
+ * Return the array of hours within the specified time interval.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param interval - The interval.
+ * @param options - An object with options.
+ *
+ * @returns The array with starts of hours from the hour of the interval start to the hour of the interval end
+ *
+ * @example
+ * // Each hour between 6 October 2014, 12:00 and 6 October 2014, 15:00
+ * const result = eachHourOfInterval({
+ *   start: new Date(2014, 9, 6, 12),
+ *   end: new Date(2014, 9, 6, 15)
+ * })
+ * //=> [
+ * //   Mon Oct 06 2014 12:00:00,
+ * //   Mon Oct 06 2014 13:00:00,
+ * //   Mon Oct 06 2014 14:00:00,
+ * //   Mon Oct 06 2014 15:00:00
+ * // ]
+ */ parcelHelpers.export(exports, "eachHourOfInterval", ()=>eachHourOfInterval);
+var _addHoursMjs = require("./addHours.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function eachHourOfInterval(interval, options) {
+    const startDate = (0, _toDateMjs.toDate)(interval.start);
+    const endDate = (0, _toDateMjs.toDate)(interval.end);
+    let reversed = +startDate > +endDate;
+    const endTime = reversed ? +startDate : +endDate;
+    let currentDate = reversed ? endDate : startDate;
+    currentDate.setMinutes(0, 0, 0);
+    let step = options?.step ?? 1;
+    if (!step) return [];
+    if (step < 0) {
+        step = -step;
+        reversed = !reversed;
+    }
+    const dates = [];
+    while(+currentDate <= endTime){
+        dates.push((0, _toDateMjs.toDate)(currentDate));
+        currentDate = (0, _addHoursMjs.addHours)(currentDate, step);
+    }
+    return reversed ? dates.reverse() : dates;
+}
+// Fallback for modularized imports:
+exports.default = eachHourOfInterval;
+
+},{"./addHours.mjs":"f3Bhk","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fDpEm":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link eachMinuteOfInterval} function options.
+ */ /**
+ * @name eachMinuteOfInterval
+ * @category Interval Helpers
+ * @summary Return the array of minutes within the specified time interval.
+ *
+ * @description
+ * Returns the array of minutes within the specified time interval.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param interval - The interval.
+ * @param options - An object with options.
+ *
+ * @returns The array with starts of minutes from the minute of the interval start to the minute of the interval end
+ *
+ * @example
+ * // Each minute between 14 October 2020, 13:00 and 14 October 2020, 13:03
+ * const result = eachMinuteOfInterval({
+ *   start: new Date(2014, 9, 14, 13),
+ *   end: new Date(2014, 9, 14, 13, 3)
+ * })
+ * //=> [
+ * //   Wed Oct 14 2014 13:00:00,
+ * //   Wed Oct 14 2014 13:01:00,
+ * //   Wed Oct 14 2014 13:02:00,
+ * //   Wed Oct 14 2014 13:03:00
+ * // ]
+ */ parcelHelpers.export(exports, "eachMinuteOfInterval", ()=>eachMinuteOfInterval);
+var _addMinutesMjs = require("./addMinutes.mjs");
+var _startOfMinuteMjs = require("./startOfMinute.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function eachMinuteOfInterval(interval, options) {
+    const startDate = (0, _startOfMinuteMjs.startOfMinute)((0, _toDateMjs.toDate)(interval.start));
+    const endDate = (0, _toDateMjs.toDate)(interval.end);
+    let reversed = +startDate > +endDate;
+    const endTime = reversed ? +startDate : +endDate;
+    let currentDate = reversed ? endDate : startDate;
+    let step = options?.step ?? 1;
+    if (!step) return [];
+    if (step < 0) {
+        step = -step;
+        reversed = !reversed;
+    }
+    const dates = [];
+    while(+currentDate <= endTime){
+        dates.push((0, _toDateMjs.toDate)(currentDate));
+        currentDate = (0, _addMinutesMjs.addMinutes)(currentDate, step);
+    }
+    return reversed ? dates.reverse() : dates;
+}
+// Fallback for modularized imports:
+exports.default = eachMinuteOfInterval;
+
+},{"./addMinutes.mjs":"gVy8g","./startOfMinute.mjs":"dBcAF","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dBcAF":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name startOfMinute
+ * @category Minute Helpers
+ * @summary Return the start of a minute for the given date.
+ *
+ * @description
+ * Return the start of a minute for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of a minute
+ *
+ * @example
+ * // The start of a minute for 1 December 2014 22:15:45.400:
+ * const result = startOfMinute(new Date(2014, 11, 1, 22, 15, 45, 400))
+ * //=> Mon Dec 01 2014 22:15:00
+ */ parcelHelpers.export(exports, "startOfMinute", ()=>startOfMinute);
+var _toDateMjs = require("./toDate.mjs");
+function startOfMinute(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setSeconds(0, 0);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = startOfMinute;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cz2M8":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link eachMonthOfInterval} function options.
+ */ /**
+ * @name eachMonthOfInterval
+ * @category Interval Helpers
+ * @summary Return the array of months within the specified time interval.
+ *
+ * @description
+ * Return the array of months within the specified time interval.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param interval - The interval
+ *
+ * @returns The array with starts of months from the month of the interval start to the month of the interval end
+ *
+ * @example
+ * // Each month between 6 February 2014 and 10 August 2014:
+ * const result = eachMonthOfInterval({
+ *   start: new Date(2014, 1, 6),
+ *   end: new Date(2014, 7, 10)
+ * })
+ * //=> [
+ * //   Sat Feb 01 2014 00:00:00,
+ * //   Sat Mar 01 2014 00:00:00,
+ * //   Tue Apr 01 2014 00:00:00,
+ * //   Thu May 01 2014 00:00:00,
+ * //   Sun Jun 01 2014 00:00:00,
+ * //   Tue Jul 01 2014 00:00:00,
+ * //   Fri Aug 01 2014 00:00:00
+ * // ]
+ */ parcelHelpers.export(exports, "eachMonthOfInterval", ()=>eachMonthOfInterval);
+var _toDateMjs = require("./toDate.mjs");
+function eachMonthOfInterval(interval, options) {
+    const startDate = (0, _toDateMjs.toDate)(interval.start);
+    const endDate = (0, _toDateMjs.toDate)(interval.end);
+    let reversed = +startDate > +endDate;
+    const endTime = reversed ? +startDate : +endDate;
+    const currentDate = reversed ? endDate : startDate;
+    currentDate.setHours(0, 0, 0, 0);
+    currentDate.setDate(1);
+    let step = options?.step ?? 1;
+    if (!step) return [];
+    if (step < 0) {
+        step = -step;
+        reversed = !reversed;
+    }
+    const dates = [];
+    while(+currentDate <= endTime){
+        dates.push((0, _toDateMjs.toDate)(currentDate));
+        currentDate.setMonth(currentDate.getMonth() + step);
+    }
+    return reversed ? dates.reverse() : dates;
+}
+// Fallback for modularized imports:
+exports.default = eachMonthOfInterval;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5o8yG":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link eachQuarterOfInterval} function options.
+ */ /**
+ * @name eachQuarterOfInterval
+ * @category Interval Helpers
+ * @summary Return the array of quarters within the specified time interval.
+ *
+ * @description
+ * Return the array of quarters within the specified time interval.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param interval - The interval
+ *
+ * @returns The array with starts of quarters from the quarter of the interval start to the quarter of the interval end
+ *
+ * @example
+ * // Each quarter within interval 6 February 2014 - 10 August 2014:
+ * const result = eachQuarterOfInterval({
+ *   start: new Date(2014, 1, 6),
+ *   end: new Date(2014, 7, 10)
+ * })
+ * //=> [
+ * //   Wed Jan 01 2014 00:00:00,
+ * //   Tue Apr 01 2014 00:00:00,
+ * //   Tue Jul 01 2014 00:00:00,
+ * // ]
+ */ parcelHelpers.export(exports, "eachQuarterOfInterval", ()=>eachQuarterOfInterval);
+var _addQuartersMjs = require("./addQuarters.mjs");
+var _startOfQuarterMjs = require("./startOfQuarter.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function eachQuarterOfInterval(interval, options) {
+    const startDate = (0, _toDateMjs.toDate)(interval.start);
+    const endDate = (0, _toDateMjs.toDate)(interval.end);
+    let reversed = +startDate > +endDate;
+    const endTime = reversed ? +(0, _startOfQuarterMjs.startOfQuarter)(startDate) : +(0, _startOfQuarterMjs.startOfQuarter)(endDate);
+    let currentDate = reversed ? (0, _startOfQuarterMjs.startOfQuarter)(endDate) : (0, _startOfQuarterMjs.startOfQuarter)(startDate);
+    let step = options?.step ?? 1;
+    if (!step) return [];
+    if (step < 0) {
+        step = -step;
+        reversed = !reversed;
+    }
+    const dates = [];
+    while(+currentDate <= endTime){
+        dates.push((0, _toDateMjs.toDate)(currentDate));
+        currentDate = (0, _addQuartersMjs.addQuarters)(currentDate, step);
+    }
+    return reversed ? dates.reverse() : dates;
+}
+// Fallback for modularized imports:
+exports.default = eachQuarterOfInterval;
+
+},{"./addQuarters.mjs":"9gf9h","./startOfQuarter.mjs":"6Q8Lm","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6Q8Lm":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name startOfQuarter
+ * @category Quarter Helpers
+ * @summary Return the start of a year quarter for the given date.
+ *
+ * @description
+ * Return the start of a year quarter for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of a quarter
+ *
+ * @example
+ * // The start of a quarter for 2 September 2014 11:55:00:
+ * const result = startOfQuarter(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Jul 01 2014 00:00:00
+ */ parcelHelpers.export(exports, "startOfQuarter", ()=>startOfQuarter);
+var _toDateMjs = require("./toDate.mjs");
+function startOfQuarter(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const currentMonth = _date.getMonth();
+    const month = currentMonth - currentMonth % 3;
+    _date.setMonth(month, 1);
+    _date.setHours(0, 0, 0, 0);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = startOfQuarter;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8Itjg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link eachWeekOfInterval} function options.
+ */ /**
+ * @name eachWeekOfInterval
+ * @category Interval Helpers
+ * @summary Return the array of weeks within the specified time interval.
+ *
+ * @description
+ * Return the array of weeks within the specified time interval.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param interval - The interval.
+ * @param options - An object with options.
+ *
+ * @returns The array with starts of weeks from the week of the interval start to the week of the interval end
+ *
+ * @example
+ * // Each week within interval 6 October 2014 - 23 November 2014:
+ * const result = eachWeekOfInterval({
+ *   start: new Date(2014, 9, 6),
+ *   end: new Date(2014, 10, 23)
+ * })
+ * //=> [
+ * //   Sun Oct 05 2014 00:00:00,
+ * //   Sun Oct 12 2014 00:00:00,
+ * //   Sun Oct 19 2014 00:00:00,
+ * //   Sun Oct 26 2014 00:00:00,
+ * //   Sun Nov 02 2014 00:00:00,
+ * //   Sun Nov 09 2014 00:00:00,
+ * //   Sun Nov 16 2014 00:00:00,
+ * //   Sun Nov 23 2014 00:00:00
+ * // ]
+ */ parcelHelpers.export(exports, "eachWeekOfInterval", ()=>eachWeekOfInterval);
+var _addWeeksMjs = require("./addWeeks.mjs");
+var _startOfWeekMjs = require("./startOfWeek.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function eachWeekOfInterval(interval, options) {
+    const startDate = (0, _toDateMjs.toDate)(interval.start);
+    const endDate = (0, _toDateMjs.toDate)(interval.end);
+    let reversed = +startDate > +endDate;
+    const startDateWeek = reversed ? (0, _startOfWeekMjs.startOfWeek)(endDate, options) : (0, _startOfWeekMjs.startOfWeek)(startDate, options);
+    const endDateWeek = reversed ? (0, _startOfWeekMjs.startOfWeek)(startDate, options) : (0, _startOfWeekMjs.startOfWeek)(endDate, options);
+    // Some timezones switch DST at midnight, making start of day unreliable in these timezones, 3pm is a safe bet
+    startDateWeek.setHours(15);
+    endDateWeek.setHours(15);
+    const endTime = +endDateWeek.getTime();
+    let currentDate = startDateWeek;
+    let step = options?.step ?? 1;
+    if (!step) return [];
+    if (step < 0) {
+        step = -step;
+        reversed = !reversed;
+    }
+    const dates = [];
+    while(+currentDate <= endTime){
+        currentDate.setHours(0);
+        dates.push((0, _toDateMjs.toDate)(currentDate));
+        currentDate = (0, _addWeeksMjs.addWeeks)(currentDate, step);
+        currentDate.setHours(15);
+    }
+    return reversed ? dates.reverse() : dates;
+}
+// Fallback for modularized imports:
+exports.default = eachWeekOfInterval;
+
+},{"./addWeeks.mjs":"7YgKz","./startOfWeek.mjs":"807UC","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lpnmL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name eachWeekendOfInterval
+ * @category Interval Helpers
+ * @summary List all the Saturdays and Sundays in the given date interval.
+ *
+ * @description
+ * Get all the Saturdays and Sundays in the given date interval.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param interval - The given interval
+ *
+ * @returns An array containing all the Saturdays and Sundays
+ *
+ * @example
+ * // Lists all Saturdays and Sundays in the given date interval
+ * const result = eachWeekendOfInterval({
+ *   start: new Date(2018, 8, 17),
+ *   end: new Date(2018, 8, 30)
+ * })
+ * //=> [
+ * //   Sat Sep 22 2018 00:00:00,
+ * //   Sun Sep 23 2018 00:00:00,
+ * //   Sat Sep 29 2018 00:00:00,
+ * //   Sun Sep 30 2018 00:00:00
+ * // ]
+ */ parcelHelpers.export(exports, "eachWeekendOfInterval", ()=>eachWeekendOfInterval);
+var _eachDayOfIntervalMjs = require("./eachDayOfInterval.mjs");
+var _isWeekendMjs = require("./isWeekend.mjs");
+function eachWeekendOfInterval(interval) {
+    const dateInterval = (0, _eachDayOfIntervalMjs.eachDayOfInterval)(interval);
+    const weekends = [];
+    let index = 0;
+    while(index < dateInterval.length){
+        const date = dateInterval[index++];
+        if ((0, _isWeekendMjs.isWeekend)(date)) weekends.push(date);
+    }
+    return weekends;
+}
+// Fallback for modularized imports:
+exports.default = eachWeekendOfInterval;
+
+},{"./eachDayOfInterval.mjs":"kfrWH","./isWeekend.mjs":"8544Q","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1BxFQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name eachWeekendOfMonth
+ * @category Month Helpers
+ * @summary List all the Saturdays and Sundays in the given month.
+ *
+ * @description
+ * Get all the Saturdays and Sundays in the given month.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given month
+ *
+ * @returns An array containing all the Saturdays and Sundays
+ *
+ * @example
+ * // Lists all Saturdays and Sundays in the given month
+ * const result = eachWeekendOfMonth(new Date(2022, 1, 1))
+ * //=> [
+ * //   Sat Feb 05 2022 00:00:00,
+ * //   Sun Feb 06 2022 00:00:00,
+ * //   Sat Feb 12 2022 00:00:00,
+ * //   Sun Feb 13 2022 00:00:00,
+ * //   Sat Feb 19 2022 00:00:00,
+ * //   Sun Feb 20 2022 00:00:00,
+ * //   Sat Feb 26 2022 00:00:00,
+ * //   Sun Feb 27 2022 00:00:00
+ * // ]
+ */ parcelHelpers.export(exports, "eachWeekendOfMonth", ()=>eachWeekendOfMonth);
+var _eachWeekendOfIntervalMjs = require("./eachWeekendOfInterval.mjs");
+var _endOfMonthMjs = require("./endOfMonth.mjs");
+var _startOfMonthMjs = require("./startOfMonth.mjs");
+function eachWeekendOfMonth(date) {
+    const start = (0, _startOfMonthMjs.startOfMonth)(date);
+    const end = (0, _endOfMonthMjs.endOfMonth)(date);
+    return (0, _eachWeekendOfIntervalMjs.eachWeekendOfInterval)({
+        start,
+        end
+    });
+}
+// Fallback for modularized imports:
+exports.default = eachWeekendOfMonth;
+
+},{"./eachWeekendOfInterval.mjs":"lpnmL","./endOfMonth.mjs":"aGMp5","./startOfMonth.mjs":"cRJeo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cRJeo":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name startOfMonth
+ * @category Month Helpers
+ * @summary Return the start of a month for the given date.
+ *
+ * @description
+ * Return the start of a month for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of a month
+ *
+ * @example
+ * // The start of a month for 2 September 2014 11:55:00:
+ * const result = startOfMonth(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Mon Sep 01 2014 00:00:00
+ */ parcelHelpers.export(exports, "startOfMonth", ()=>startOfMonth);
+var _toDateMjs = require("./toDate.mjs");
+function startOfMonth(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setDate(1);
+    _date.setHours(0, 0, 0, 0);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = startOfMonth;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4D6Jg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name eachWeekendOfYear
+ * @category Year Helpers
+ * @summary List all the Saturdays and Sundays in the year.
+ *
+ * @description
+ * Get all the Saturdays and Sundays in the year.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given year
+ *
+ * @returns An array containing all the Saturdays and Sundays
+ *
+ * @example
+ * // Lists all Saturdays and Sundays in the year
+ * const result = eachWeekendOfYear(new Date(2020, 1, 1))
+ * //=> [
+ * //   Sat Jan 03 2020 00:00:00,
+ * //   Sun Jan 04 2020 00:00:00,
+ * //   ...
+ * //   Sun Dec 27 2020 00:00:00
+ * // ]
+ * ]
+ */ parcelHelpers.export(exports, "eachWeekendOfYear", ()=>eachWeekendOfYear);
+var _eachWeekendOfIntervalMjs = require("./eachWeekendOfInterval.mjs");
+var _endOfYearMjs = require("./endOfYear.mjs");
+var _startOfYearMjs = require("./startOfYear.mjs");
+function eachWeekendOfYear(date) {
+    const start = (0, _startOfYearMjs.startOfYear)(date);
+    const end = (0, _endOfYearMjs.endOfYear)(date);
+    return (0, _eachWeekendOfIntervalMjs.eachWeekendOfInterval)({
+        start,
+        end
+    });
+}
+// Fallback for modularized imports:
+exports.default = eachWeekendOfYear;
+
+},{"./eachWeekendOfInterval.mjs":"lpnmL","./endOfYear.mjs":"5t5Az","./startOfYear.mjs":"3mj4e","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5t5Az":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name endOfYear
+ * @category Year Helpers
+ * @summary Return the end of a year for the given date.
+ *
+ * @description
+ * Return the end of a year for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The end of a year
+ *
+ * @example
+ * // The end of a year for 2 September 2014 11:55:00:
+ * const result = endOfYear(new Date(2014, 8, 2, 11, 55, 00))
+ * //=> Wed Dec 31 2014 23:59:59.999
+ */ parcelHelpers.export(exports, "endOfYear", ()=>endOfYear);
+var _toDateMjs = require("./toDate.mjs");
+function endOfYear(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const year = _date.getFullYear();
+    _date.setFullYear(year + 1, 0, 0);
+    _date.setHours(23, 59, 59, 999);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = endOfYear;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3mj4e":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name startOfYear
+ * @category Year Helpers
+ * @summary Return the start of a year for the given date.
+ *
+ * @description
+ * Return the start of a year for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of a year
+ *
+ * @example
+ * // The start of a year for 2 September 2014 11:55:00:
+ * const result = startOfYear(new Date(2014, 8, 2, 11, 55, 00))
+ * //=> Wed Jan 01 2014 00:00:00
+ */ parcelHelpers.export(exports, "startOfYear", ()=>startOfYear);
+var _toDateMjs = require("./toDate.mjs");
+var _constructFromMjs = require("./constructFrom.mjs");
+function startOfYear(date) {
+    const cleanDate = (0, _toDateMjs.toDate)(date);
+    const _date = (0, _constructFromMjs.constructFrom)(date, 0);
+    _date.setFullYear(cleanDate.getFullYear(), 0, 1);
+    _date.setHours(0, 0, 0, 0);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = startOfYear;
+
+},{"./toDate.mjs":"fJykt","./constructFrom.mjs":"xte3t","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eaos4":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link eachYearOfInterval} function options.
+ */ /**
+ * @name eachYearOfInterval
+ * @category Interval Helpers
+ * @summary Return the array of yearly timestamps within the specified time interval.
+ *
+ * @description
+ * Return the array of yearly timestamps within the specified time interval.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param interval - The interval.
+ *
+ * @returns The array with starts of yearly timestamps from the month of the interval start to the month of the interval end
+ *
+ * @example
+ * // Each year between 6 February 2014 and 10 August 2017:
+ * const result = eachYearOfInterval({
+ *   start: new Date(2014, 1, 6),
+ *   end: new Date(2017, 7, 10)
+ * })
+ * //=> [
+ * //   Wed Jan 01 2014 00:00:00,
+ * //   Thu Jan 01 2015 00:00:00,
+ * //   Fri Jan 01 2016 00:00:00,
+ * //   Sun Jan 01 2017 00:00:00
+ * // ]
+ */ parcelHelpers.export(exports, "eachYearOfInterval", ()=>eachYearOfInterval);
+var _toDateMjs = require("./toDate.mjs");
+function eachYearOfInterval(interval, options) {
+    const startDate = (0, _toDateMjs.toDate)(interval.start);
+    const endDate = (0, _toDateMjs.toDate)(interval.end);
+    let reversed = +startDate > +endDate;
+    const endTime = reversed ? +startDate : +endDate;
+    const currentDate = reversed ? endDate : startDate;
+    currentDate.setHours(0, 0, 0, 0);
+    currentDate.setMonth(0, 1);
+    let step = options?.step ?? 1;
+    if (!step) return [];
+    if (step < 0) {
+        step = -step;
+        reversed = !reversed;
+    }
+    const dates = [];
+    while(+currentDate <= endTime){
+        dates.push((0, _toDateMjs.toDate)(currentDate));
+        currentDate.setFullYear(currentDate.getFullYear() + step);
+    }
+    return reversed ? dates.reverse() : dates;
+}
+// Fallback for modularized imports:
+exports.default = eachYearOfInterval;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gj1GO":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name endOfDecade
+ * @category Decade Helpers
+ * @summary Return the end of a decade for the given date.
+ *
+ * @description
+ * Return the end of a decade for the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The end of a decade
+ *
+ * @example
+ * // The end of a decade for 12 May 1984 00:00:00:
+ * const result = endOfDecade(new Date(1984, 4, 12, 00, 00, 00))
+ * //=> Dec 31 1989 23:59:59.999
+ */ parcelHelpers.export(exports, "endOfDecade", ()=>endOfDecade);
+var _toDateMjs = require("./toDate.mjs");
+function endOfDecade(date) {
+    // TODO: Switch to more technical definition in of decades that start with 1
+    // end with 0. I.e. 2001-2010 instead of current 2000-2009. It's a breaking
+    // change, so it can only be done in 4.0.
+    const _date = (0, _toDateMjs.toDate)(date);
+    const year = _date.getFullYear();
+    const decade = 9 + Math.floor(year / 10) * 10;
+    _date.setFullYear(decade, 11, 31);
+    _date.setHours(23, 59, 59, 999);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = endOfDecade;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gZHjM":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name endOfHour
+ * @category Hour Helpers
+ * @summary Return the end of an hour for the given date.
+ *
+ * @description
+ * Return the end of an hour for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The end of an hour
+ *
+ * @example
+ * // The end of an hour for 2 September 2014 11:55:00:
+ * const result = endOfHour(new Date(2014, 8, 2, 11, 55))
+ * //=> Tue Sep 02 2014 11:59:59.999
+ */ parcelHelpers.export(exports, "endOfHour", ()=>endOfHour);
+var _toDateMjs = require("./toDate.mjs");
+function endOfHour(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setMinutes(59, 59, 999);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = endOfHour;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fQQCE":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name endOfISOWeek
+ * @category ISO Week Helpers
+ * @summary Return the end of an ISO week for the given date.
+ *
+ * @description
+ * Return the end of an ISO week for the given date.
+ * The result will be in the local timezone.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The end of an ISO week
+ *
+ * @example
+ * // The end of an ISO week for 2 September 2014 11:55:00:
+ * const result = endOfISOWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Sun Sep 07 2014 23:59:59.999
+ */ parcelHelpers.export(exports, "endOfISOWeek", ()=>endOfISOWeek);
+var _endOfWeekMjs = require("./endOfWeek.mjs");
+function endOfISOWeek(date) {
+    return (0, _endOfWeekMjs.endOfWeek)(date, {
+        weekStartsOn: 1
+    });
+}
+// Fallback for modularized imports:
+exports.default = endOfISOWeek;
+
+},{"./endOfWeek.mjs":"x1Pre","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"x1Pre":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link endOfWeek} function options.
+ */ /**
+ * @name endOfWeek
+ * @category Week Helpers
+ * @summary Return the end of a week for the given date.
+ *
+ * @description
+ * Return the end of a week for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param options - An object with options
+ *
+ * @returns The end of a week
+ *
+ * @example
+ * // The end of a week for 2 September 2014 11:55:00:
+ * const result = endOfWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Sat Sep 06 2014 23:59:59.999
+ *
+ * @example
+ * // If the week starts on Monday, the end of the week for 2 September 2014 11:55:00:
+ * const result = endOfWeek(new Date(2014, 8, 2, 11, 55, 0), { weekStartsOn: 1 })
+ * //=> Sun Sep 07 2014 23:59:59.999
+ */ parcelHelpers.export(exports, "endOfWeek", ()=>endOfWeek);
+var _toDateMjs = require("./toDate.mjs");
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+function endOfWeek(date, options) {
+    const defaultOptions = (0, _defaultOptionsMjs.getDefaultOptions)();
+    const weekStartsOn = options?.weekStartsOn ?? options?.locale?.options?.weekStartsOn ?? defaultOptions.weekStartsOn ?? defaultOptions.locale?.options?.weekStartsOn ?? 0;
+    const _date = (0, _toDateMjs.toDate)(date);
+    const day = _date.getDay();
+    const diff = (day < weekStartsOn ? -7 : 0) + 6 - (day - weekStartsOn);
+    _date.setDate(_date.getDate() + diff);
+    _date.setHours(23, 59, 59, 999);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = endOfWeek;
+
+},{"./toDate.mjs":"fJykt","./_lib/defaultOptions.mjs":"6QlMe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fJ4iH":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name endOfISOWeekYear
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Return the end of an ISO week-numbering year for the given date.
+ *
+ * @description
+ * Return the end of an ISO week-numbering year,
+ * which always starts 3 days before the year's first Thursday.
+ * The result will be in the local timezone.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The end of an ISO week-numbering year
+ *
+ * @example
+ * // The end of an ISO week-numbering year for 2 July 2005:
+ * const result = endOfISOWeekYear(new Date(2005, 6, 2))
+ * //=> Sun Jan 01 2006 23:59:59.999
+ */ parcelHelpers.export(exports, "endOfISOWeekYear", ()=>endOfISOWeekYear);
+var _getISOWeekYearMjs = require("./getISOWeekYear.mjs");
+var _startOfISOWeekMjs = require("./startOfISOWeek.mjs");
+var _constructFromMjs = require("./constructFrom.mjs");
+function endOfISOWeekYear(date) {
+    const year = (0, _getISOWeekYearMjs.getISOWeekYear)(date);
+    const fourthOfJanuaryOfNextYear = (0, _constructFromMjs.constructFrom)(date, 0);
+    fourthOfJanuaryOfNextYear.setFullYear(year + 1, 0, 4);
+    fourthOfJanuaryOfNextYear.setHours(0, 0, 0, 0);
+    const _date = (0, _startOfISOWeekMjs.startOfISOWeek)(fourthOfJanuaryOfNextYear);
+    _date.setMilliseconds(_date.getMilliseconds() - 1);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = endOfISOWeekYear;
+
+},{"./getISOWeekYear.mjs":"io5kR","./startOfISOWeek.mjs":"jQoij","./constructFrom.mjs":"xte3t","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2MwdL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name endOfMinute
+ * @category Minute Helpers
+ * @summary Return the end of a minute for the given date.
+ *
+ * @description
+ * Return the end of a minute for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The end of a minute
+ *
+ * @example
+ * // The end of a minute for 1 December 2014 22:15:45.400:
+ * const result = endOfMinute(new Date(2014, 11, 1, 22, 15, 45, 400))
+ * //=> Mon Dec 01 2014 22:15:59.999
+ */ parcelHelpers.export(exports, "endOfMinute", ()=>endOfMinute);
+var _toDateMjs = require("./toDate.mjs");
+function endOfMinute(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setSeconds(59, 999);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = endOfMinute;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"145rS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name endOfQuarter
+ * @category Quarter Helpers
+ * @summary Return the end of a year quarter for the given date.
+ *
+ * @description
+ * Return the end of a year quarter for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The end of a quarter
+ *
+ * @example
+ * // The end of a quarter for 2 September 2014 11:55:00:
+ * const result = endOfQuarter(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 30 2014 23:59:59.999
+ */ parcelHelpers.export(exports, "endOfQuarter", ()=>endOfQuarter);
+var _toDateMjs = require("./toDate.mjs");
+function endOfQuarter(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const currentMonth = _date.getMonth();
+    const month = currentMonth - currentMonth % 3 + 3;
+    _date.setMonth(month, 0);
+    _date.setHours(23, 59, 59, 999);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = endOfQuarter;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"15XKa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name endOfSecond
+ * @category Second Helpers
+ * @summary Return the end of a second for the given date.
+ *
+ * @description
+ * Return the end of a second for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The end of a second
+ *
+ * @example
+ * // The end of a second for 1 December 2014 22:15:45.400:
+ * const result = endOfSecond(new Date(2014, 11, 1, 22, 15, 45, 400))
+ * //=> Mon Dec 01 2014 22:15:45.999
+ */ parcelHelpers.export(exports, "endOfSecond", ()=>endOfSecond);
+var _toDateMjs = require("./toDate.mjs");
+function endOfSecond(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setMilliseconds(999);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = endOfSecond;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eA4XW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name endOfToday
+ * @category Day Helpers
+ * @summary Return the end of today.
+ * @pure false
+ *
+ * @description
+ * Return the end of today.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @returns The end of today
+ *
+ * @example
+ * // If today is 6 October 2014:
+ * const result = endOfToday()
+ * //=> Mon Oct 6 2014 23:59:59.999
+ */ parcelHelpers.export(exports, "endOfToday", ()=>endOfToday);
+var _endOfDayMjs = require("./endOfDay.mjs");
+function endOfToday() {
+    return (0, _endOfDayMjs.endOfDay)(Date.now());
+}
+// Fallback for modularized imports:
+exports.default = endOfToday;
+
+},{"./endOfDay.mjs":"6g4Fj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hBHV7":[function(require,module,exports) {
+/**
+ * @name endOfTomorrow
+ * @category Day Helpers
+ * @summary Return the end of tomorrow.
+ * @pure false
+ *
+ * @description
+ * Return the end of tomorrow.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @returns The end of tomorrow
+ *
+ * @example
+ * // If today is 6 October 2014:
+ * const result = endOfTomorrow()
+ * //=> Tue Oct 7 2014 23:59:59.999
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "endOfTomorrow", ()=>endOfTomorrow);
+function endOfTomorrow() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const day = now.getDate();
+    const date = new Date(0);
+    date.setFullYear(year, month, day + 1);
+    date.setHours(23, 59, 59, 999);
+    return date;
+}
+// Fallback for modularized imports:
+exports.default = endOfTomorrow;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4qdlm":[function(require,module,exports) {
+/**
+ * @name endOfYesterday
+ * @category Day Helpers
+ * @summary Return the end of yesterday.
+ * @pure false
+ *
+ * @description
+ * Return the end of yesterday.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @returns The end of yesterday
+ *
+ * @example
+ * // If today is 6 October 2014:
+ * const result = endOfYesterday()
+ * //=> Sun Oct 5 2014 23:59:59.999
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "endOfYesterday", ()=>endOfYesterday);
+function endOfYesterday() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const day = now.getDate();
+    const date = new Date(0);
+    date.setFullYear(year, month, day - 1);
+    date.setHours(23, 59, 59, 999);
+    return date;
+}
+// Fallback for modularized imports:
+exports.default = endOfYesterday;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4YDgA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// Rexports of internal for libraries to use.
+// See: https://github.com/date-fns/date-fns/issues/3638#issuecomment-1877082874
+parcelHelpers.export(exports, "formatters", ()=>(0, _formattersMjs.formatters));
+parcelHelpers.export(exports, "longFormatters", ()=>(0, _longFormattersMjs.longFormatters));
+parcelHelpers.export(exports, "formatDate", ()=>format);
+/**
+ * The {@link format} function options.
+ */ /**
+ * @name format
+ * @alias formatDate
+ * @category Common Helpers
+ * @summary Format the date.
+ *
+ * @description
+ * Return the formatted date string in the given format. The result may vary by locale.
+ *
+ * > ⚠️ Please note that the `format` tokens differ from Moment.js and other libraries.
+ * > See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * The characters wrapped between two single quotes characters (') are escaped.
+ * Two single quotes in a row, whether inside or outside a quoted sequence, represent a 'real' single quote.
+ * (see the last example)
+ *
+ * Format of the string is based on Unicode Technical Standard #35:
+ * https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * with a few additions (see note 7 below the table).
+ *
+ * Accepted patterns:
+ * | Unit                            | Pattern | Result examples                   | Notes |
+ * |---------------------------------|---------|-----------------------------------|-------|
+ * | Era                             | G..GGG  | AD, BC                            |       |
+ * |                                 | GGGG    | Anno Domini, Before Christ        | 2     |
+ * |                                 | GGGGG   | A, B                              |       |
+ * | Calendar year                   | y       | 44, 1, 1900, 2017                 | 5     |
+ * |                                 | yo      | 44th, 1st, 0th, 17th              | 5,7   |
+ * |                                 | yy      | 44, 01, 00, 17                    | 5     |
+ * |                                 | yyy     | 044, 001, 1900, 2017              | 5     |
+ * |                                 | yyyy    | 0044, 0001, 1900, 2017            | 5     |
+ * |                                 | yyyyy   | ...                               | 3,5   |
+ * | Local week-numbering year       | Y       | 44, 1, 1900, 2017                 | 5     |
+ * |                                 | Yo      | 44th, 1st, 1900th, 2017th         | 5,7   |
+ * |                                 | YY      | 44, 01, 00, 17                    | 5,8   |
+ * |                                 | YYY     | 044, 001, 1900, 2017              | 5     |
+ * |                                 | YYYY    | 0044, 0001, 1900, 2017            | 5,8   |
+ * |                                 | YYYYY   | ...                               | 3,5   |
+ * | ISO week-numbering year         | R       | -43, 0, 1, 1900, 2017             | 5,7   |
+ * |                                 | RR      | -43, 00, 01, 1900, 2017           | 5,7   |
+ * |                                 | RRR     | -043, 000, 001, 1900, 2017        | 5,7   |
+ * |                                 | RRRR    | -0043, 0000, 0001, 1900, 2017     | 5,7   |
+ * |                                 | RRRRR   | ...                               | 3,5,7 |
+ * | Extended year                   | u       | -43, 0, 1, 1900, 2017             | 5     |
+ * |                                 | uu      | -43, 01, 1900, 2017               | 5     |
+ * |                                 | uuu     | -043, 001, 1900, 2017             | 5     |
+ * |                                 | uuuu    | -0043, 0001, 1900, 2017           | 5     |
+ * |                                 | uuuuu   | ...                               | 3,5   |
+ * | Quarter (formatting)            | Q       | 1, 2, 3, 4                        |       |
+ * |                                 | Qo      | 1st, 2nd, 3rd, 4th                | 7     |
+ * |                                 | QQ      | 01, 02, 03, 04                    |       |
+ * |                                 | QQQ     | Q1, Q2, Q3, Q4                    |       |
+ * |                                 | QQQQ    | 1st quarter, 2nd quarter, ...     | 2     |
+ * |                                 | QQQQQ   | 1, 2, 3, 4                        | 4     |
+ * | Quarter (stand-alone)           | q       | 1, 2, 3, 4                        |       |
+ * |                                 | qo      | 1st, 2nd, 3rd, 4th                | 7     |
+ * |                                 | qq      | 01, 02, 03, 04                    |       |
+ * |                                 | qqq     | Q1, Q2, Q3, Q4                    |       |
+ * |                                 | qqqq    | 1st quarter, 2nd quarter, ...     | 2     |
+ * |                                 | qqqqq   | 1, 2, 3, 4                        | 4     |
+ * | Month (formatting)              | M       | 1, 2, ..., 12                     |       |
+ * |                                 | Mo      | 1st, 2nd, ..., 12th               | 7     |
+ * |                                 | MM      | 01, 02, ..., 12                   |       |
+ * |                                 | MMM     | Jan, Feb, ..., Dec                |       |
+ * |                                 | MMMM    | January, February, ..., December  | 2     |
+ * |                                 | MMMMM   | J, F, ..., D                      |       |
+ * | Month (stand-alone)             | L       | 1, 2, ..., 12                     |       |
+ * |                                 | Lo      | 1st, 2nd, ..., 12th               | 7     |
+ * |                                 | LL      | 01, 02, ..., 12                   |       |
+ * |                                 | LLL     | Jan, Feb, ..., Dec                |       |
+ * |                                 | LLLL    | January, February, ..., December  | 2     |
+ * |                                 | LLLLL   | J, F, ..., D                      |       |
+ * | Local week of year              | w       | 1, 2, ..., 53                     |       |
+ * |                                 | wo      | 1st, 2nd, ..., 53th               | 7     |
+ * |                                 | ww      | 01, 02, ..., 53                   |       |
+ * | ISO week of year                | I       | 1, 2, ..., 53                     | 7     |
+ * |                                 | Io      | 1st, 2nd, ..., 53th               | 7     |
+ * |                                 | II      | 01, 02, ..., 53                   | 7     |
+ * | Day of month                    | d       | 1, 2, ..., 31                     |       |
+ * |                                 | do      | 1st, 2nd, ..., 31st               | 7     |
+ * |                                 | dd      | 01, 02, ..., 31                   |       |
+ * | Day of year                     | D       | 1, 2, ..., 365, 366               | 9     |
+ * |                                 | Do      | 1st, 2nd, ..., 365th, 366th       | 7     |
+ * |                                 | DD      | 01, 02, ..., 365, 366             | 9     |
+ * |                                 | DDD     | 001, 002, ..., 365, 366           |       |
+ * |                                 | DDDD    | ...                               | 3     |
+ * | Day of week (formatting)        | E..EEE  | Mon, Tue, Wed, ..., Sun           |       |
+ * |                                 | EEEE    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 | EEEEE   | M, T, W, T, F, S, S               |       |
+ * |                                 | EEEEEE  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | ISO day of week (formatting)    | i       | 1, 2, 3, ..., 7                   | 7     |
+ * |                                 | io      | 1st, 2nd, ..., 7th                | 7     |
+ * |                                 | ii      | 01, 02, ..., 07                   | 7     |
+ * |                                 | iii     | Mon, Tue, Wed, ..., Sun           | 7     |
+ * |                                 | iiii    | Monday, Tuesday, ..., Sunday      | 2,7   |
+ * |                                 | iiiii   | M, T, W, T, F, S, S               | 7     |
+ * |                                 | iiiiii  | Mo, Tu, We, Th, Fr, Sa, Su        | 7     |
+ * | Local day of week (formatting)  | e       | 2, 3, 4, ..., 1                   |       |
+ * |                                 | eo      | 2nd, 3rd, ..., 1st                | 7     |
+ * |                                 | ee      | 02, 03, ..., 01                   |       |
+ * |                                 | eee     | Mon, Tue, Wed, ..., Sun           |       |
+ * |                                 | eeee    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 | eeeee   | M, T, W, T, F, S, S               |       |
+ * |                                 | eeeeee  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | Local day of week (stand-alone) | c       | 2, 3, 4, ..., 1                   |       |
+ * |                                 | co      | 2nd, 3rd, ..., 1st                | 7     |
+ * |                                 | cc      | 02, 03, ..., 01                   |       |
+ * |                                 | ccc     | Mon, Tue, Wed, ..., Sun           |       |
+ * |                                 | cccc    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 | ccccc   | M, T, W, T, F, S, S               |       |
+ * |                                 | cccccc  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | AM, PM                          | a..aa   | AM, PM                            |       |
+ * |                                 | aaa     | am, pm                            |       |
+ * |                                 | aaaa    | a.m., p.m.                        | 2     |
+ * |                                 | aaaaa   | a, p                              |       |
+ * | AM, PM, noon, midnight          | b..bb   | AM, PM, noon, midnight            |       |
+ * |                                 | bbb     | am, pm, noon, midnight            |       |
+ * |                                 | bbbb    | a.m., p.m., noon, midnight        | 2     |
+ * |                                 | bbbbb   | a, p, n, mi                       |       |
+ * | Flexible day period             | B..BBB  | at night, in the morning, ...     |       |
+ * |                                 | BBBB    | at night, in the morning, ...     | 2     |
+ * |                                 | BBBBB   | at night, in the morning, ...     |       |
+ * | Hour [1-12]                     | h       | 1, 2, ..., 11, 12                 |       |
+ * |                                 | ho      | 1st, 2nd, ..., 11th, 12th         | 7     |
+ * |                                 | hh      | 01, 02, ..., 11, 12               |       |
+ * | Hour [0-23]                     | H       | 0, 1, 2, ..., 23                  |       |
+ * |                                 | Ho      | 0th, 1st, 2nd, ..., 23rd          | 7     |
+ * |                                 | HH      | 00, 01, 02, ..., 23               |       |
+ * | Hour [0-11]                     | K       | 1, 2, ..., 11, 0                  |       |
+ * |                                 | Ko      | 1st, 2nd, ..., 11th, 0th          | 7     |
+ * |                                 | KK      | 01, 02, ..., 11, 00               |       |
+ * | Hour [1-24]                     | k       | 24, 1, 2, ..., 23                 |       |
+ * |                                 | ko      | 24th, 1st, 2nd, ..., 23rd         | 7     |
+ * |                                 | kk      | 24, 01, 02, ..., 23               |       |
+ * | Minute                          | m       | 0, 1, ..., 59                     |       |
+ * |                                 | mo      | 0th, 1st, ..., 59th               | 7     |
+ * |                                 | mm      | 00, 01, ..., 59                   |       |
+ * | Second                          | s       | 0, 1, ..., 59                     |       |
+ * |                                 | so      | 0th, 1st, ..., 59th               | 7     |
+ * |                                 | ss      | 00, 01, ..., 59                   |       |
+ * | Fraction of second              | S       | 0, 1, ..., 9                      |       |
+ * |                                 | SS      | 00, 01, ..., 99                   |       |
+ * |                                 | SSS     | 000, 001, ..., 999                |       |
+ * |                                 | SSSS    | ...                               | 3     |
+ * | Timezone (ISO-8601 w/ Z)        | X       | -08, +0530, Z                     |       |
+ * |                                 | XX      | -0800, +0530, Z                   |       |
+ * |                                 | XXX     | -08:00, +05:30, Z                 |       |
+ * |                                 | XXXX    | -0800, +0530, Z, +123456          | 2     |
+ * |                                 | XXXXX   | -08:00, +05:30, Z, +12:34:56      |       |
+ * | Timezone (ISO-8601 w/o Z)       | x       | -08, +0530, +00                   |       |
+ * |                                 | xx      | -0800, +0530, +0000               |       |
+ * |                                 | xxx     | -08:00, +05:30, +00:00            | 2     |
+ * |                                 | xxxx    | -0800, +0530, +0000, +123456      |       |
+ * |                                 | xxxxx   | -08:00, +05:30, +00:00, +12:34:56 |       |
+ * | Timezone (GMT)                  | O...OOO | GMT-8, GMT+5:30, GMT+0            |       |
+ * |                                 | OOOO    | GMT-08:00, GMT+05:30, GMT+00:00   | 2     |
+ * | Timezone (specific non-locat.)  | z...zzz | GMT-8, GMT+5:30, GMT+0            | 6     |
+ * |                                 | zzzz    | GMT-08:00, GMT+05:30, GMT+00:00   | 2,6   |
+ * | Seconds timestamp               | t       | 512969520                         | 7     |
+ * |                                 | tt      | ...                               | 3,7   |
+ * | Milliseconds timestamp          | T       | 512969520900                      | 7     |
+ * |                                 | TT      | ...                               | 3,7   |
+ * | Long localized date             | P       | 04/29/1453                        | 7     |
+ * |                                 | PP      | Apr 29, 1453                      | 7     |
+ * |                                 | PPP     | April 29th, 1453                  | 7     |
+ * |                                 | PPPP    | Friday, April 29th, 1453          | 2,7   |
+ * | Long localized time             | p       | 12:00 AM                          | 7     |
+ * |                                 | pp      | 12:00:00 AM                       | 7     |
+ * |                                 | ppp     | 12:00:00 AM GMT+2                 | 7     |
+ * |                                 | pppp    | 12:00:00 AM GMT+02:00             | 2,7   |
+ * | Combination of date and time    | Pp      | 04/29/1453, 12:00 AM              | 7     |
+ * |                                 | PPpp    | Apr 29, 1453, 12:00:00 AM         | 7     |
+ * |                                 | PPPppp  | April 29th, 1453 at ...           | 7     |
+ * |                                 | PPPPpppp| Friday, April 29th, 1453 at ...   | 2,7   |
+ * Notes:
+ * 1. "Formatting" units (e.g. formatting quarter) in the default en-US locale
+ *    are the same as "stand-alone" units, but are different in some languages.
+ *    "Formatting" units are declined according to the rules of the language
+ *    in the context of a date. "Stand-alone" units are always nominative singular:
+ *
+ *    `format(new Date(2017, 10, 6), 'do LLLL', {locale: cs}) //=> '6. listopad'`
+ *
+ *    `format(new Date(2017, 10, 6), 'do MMMM', {locale: cs}) //=> '6. listopadu'`
+ *
+ * 2. Any sequence of the identical letters is a pattern, unless it is escaped by
+ *    the single quote characters (see below).
+ *    If the sequence is longer than listed in table (e.g. `EEEEEEEEEEE`)
+ *    the output will be the same as default pattern for this unit, usually
+ *    the longest one (in case of ISO weekdays, `EEEE`). Default patterns for units
+ *    are marked with "2" in the last column of the table.
+ *
+ *    `format(new Date(2017, 10, 6), 'MMM') //=> 'Nov'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMM') //=> 'November'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMMM') //=> 'N'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMMMM') //=> 'November'`
+ *
+ *    `format(new Date(2017, 10, 6), 'MMMMMMM') //=> 'November'`
+ *
+ * 3. Some patterns could be unlimited length (such as `yyyyyyyy`).
+ *    The output will be padded with zeros to match the length of the pattern.
+ *
+ *    `format(new Date(2017, 10, 6), 'yyyyyyyy') //=> '00002017'`
+ *
+ * 4. `QQQQQ` and `qqqqq` could be not strictly numerical in some locales.
+ *    These tokens represent the shortest form of the quarter.
+ *
+ * 5. The main difference between `y` and `u` patterns are B.C. years:
+ *
+ *    | Year | `y` | `u` |
+ *    |------|-----|-----|
+ *    | AC 1 |   1 |   1 |
+ *    | BC 1 |   1 |   0 |
+ *    | BC 2 |   2 |  -1 |
+ *
+ *    Also `yy` always returns the last two digits of a year,
+ *    while `uu` pads single digit years to 2 characters and returns other years unchanged:
+ *
+ *    | Year | `yy` | `uu` |
+ *    |------|------|------|
+ *    | 1    |   01 |   01 |
+ *    | 14   |   14 |   14 |
+ *    | 376  |   76 |  376 |
+ *    | 1453 |   53 | 1453 |
+ *
+ *    The same difference is true for local and ISO week-numbering years (`Y` and `R`),
+ *    except local week-numbering years are dependent on `options.weekStartsOn`
+ *    and `options.firstWeekContainsDate` (compare [getISOWeekYear](https://date-fns.org/docs/getISOWeekYear)
+ *    and [getWeekYear](https://date-fns.org/docs/getWeekYear)).
+ *
+ * 6. Specific non-location timezones are currently unavailable in `date-fns`,
+ *    so right now these tokens fall back to GMT timezones.
+ *
+ * 7. These patterns are not in the Unicode Technical Standard #35:
+ *    - `i`: ISO day of week
+ *    - `I`: ISO week of year
+ *    - `R`: ISO week-numbering year
+ *    - `t`: seconds timestamp
+ *    - `T`: milliseconds timestamp
+ *    - `o`: ordinal number modifier
+ *    - `P`: long localized date
+ *    - `p`: long localized time
+ *
+ * 8. `YY` and `YYYY` tokens represent week-numbering years but they are often confused with years.
+ *    You should enable `options.useAdditionalWeekYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * 9. `D` and `DD` tokens represent days of the year but they are often confused with days of the month.
+ *    You should enable `options.useAdditionalDayOfYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param format - The string of tokens
+ * @param options - An object with options
+ *
+ * @returns The formatted date string
+ *
+ * @throws `date` must not be Invalid Date
+ * @throws `options.locale` must contain `localize` property
+ * @throws `options.locale` must contain `formatLong` property
+ * @throws use `yyyy` instead of `YYYY` for formatting years using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `yy` instead of `YY` for formatting years using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `d` instead of `D` for formatting days of the month using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `dd` instead of `DD` for formatting days of the month using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws format string contains an unescaped latin alphabet character
+ *
+ * @example
+ * // Represent 11 February 2014 in middle-endian format:
+ * const result = format(new Date(2014, 1, 11), 'MM/dd/yyyy')
+ * //=> '02/11/2014'
+ *
+ * @example
+ * // Represent 2 July 2014 in Esperanto:
+ * import { eoLocale } from 'date-fns/locale/eo'
+ * const result = format(new Date(2014, 6, 2), "do 'de' MMMM yyyy", {
+ *   locale: eoLocale
+ * })
+ * //=> '2-a de julio 2014'
+ *
+ * @example
+ * // Escape string by single quote characters:
+ * const result = format(new Date(2014, 6, 2, 15), "h 'o''clock'")
+ * //=> "3 o'clock"
+ */ parcelHelpers.export(exports, "format", ()=>format);
+var _defaultLocaleMjs = require("./_lib/defaultLocale.mjs");
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+var _formattersMjs = require("./_lib/format/formatters.mjs");
+var _longFormattersMjs = require("./_lib/format/longFormatters.mjs");
+var _protectedTokensMjs = require("./_lib/protectedTokens.mjs");
+var _isValidMjs = require("./isValid.mjs");
+var _toDateMjs = require("./toDate.mjs");
+// This RegExp consists of three parts separated by `|`:
+// - [yYQqMLwIdDecihHKkms]o matches any available ordinal number token
+//   (one of the certain letters followed by `o`)
+// - (\w)\1* matches any sequences of the same letter
+// - '' matches two quote characters in a row
+// - '(''|[^'])+('|$) matches anything surrounded by two quote characters ('),
+//   except a single quote symbol, which ends the sequence.
+//   Two quote characters do not end the sequence.
+//   If there is no matching single quote
+//   then the sequence will continue until the end of the string.
+// - . matches any single character unmatched by previous parts of the RegExps
+const formattingTokensRegExp = /[yYQqMLwIdDecihHKkms]o|(\w)\1*|''|'(''|[^'])+('|$)|./g;
+// This RegExp catches symbols escaped by quotes, and also
+// sequences of symbols P, p, and the combinations like `PPPPPPPppppp`
+const longFormattingTokensRegExp = /P+p+|P+|p+|''|'(''|[^'])+('|$)|./g;
+const escapedStringRegExp = /^'([^]*?)'?$/;
+const doubleQuoteRegExp = /''/g;
+const unescapedLatinCharacterRegExp = /[a-zA-Z]/;
+function format(date, formatStr, options) {
+    const defaultOptions = (0, _defaultOptionsMjs.getDefaultOptions)();
+    const locale = options?.locale ?? defaultOptions.locale ?? (0, _defaultLocaleMjs.defaultLocale);
+    const firstWeekContainsDate = options?.firstWeekContainsDate ?? options?.locale?.options?.firstWeekContainsDate ?? defaultOptions.firstWeekContainsDate ?? defaultOptions.locale?.options?.firstWeekContainsDate ?? 1;
+    const weekStartsOn = options?.weekStartsOn ?? options?.locale?.options?.weekStartsOn ?? defaultOptions.weekStartsOn ?? defaultOptions.locale?.options?.weekStartsOn ?? 0;
+    const originalDate = (0, _toDateMjs.toDate)(date);
+    if (!(0, _isValidMjs.isValid)(originalDate)) throw new RangeError("Invalid time value");
+    let parts = formatStr.match(longFormattingTokensRegExp).map((substring)=>{
+        const firstCharacter = substring[0];
+        if (firstCharacter === "p" || firstCharacter === "P") {
+            const longFormatter = (0, _longFormattersMjs.longFormatters)[firstCharacter];
+            return longFormatter(substring, locale.formatLong);
+        }
+        return substring;
+    }).join("").match(formattingTokensRegExp).map((substring)=>{
+        // Replace two single quote characters with one single quote character
+        if (substring === "''") return {
+            isToken: false,
+            value: "'"
+        };
+        const firstCharacter = substring[0];
+        if (firstCharacter === "'") return {
+            isToken: false,
+            value: cleanEscapedString(substring)
+        };
+        if ((0, _formattersMjs.formatters)[firstCharacter]) return {
+            isToken: true,
+            value: substring
+        };
+        if (firstCharacter.match(unescapedLatinCharacterRegExp)) throw new RangeError("Format string contains an unescaped latin alphabet character `" + firstCharacter + "`");
+        return {
+            isToken: false,
+            value: substring
+        };
+    });
+    // invoke localize preprocessor (only for french locales at the moment)
+    if (locale.localize.preprocessor) parts = locale.localize.preprocessor(originalDate, parts);
+    const formatterOptions = {
+        firstWeekContainsDate,
+        weekStartsOn,
+        locale
+    };
+    return parts.map((part)=>{
+        if (!part.isToken) return part.value;
+        const token = part.value;
+        if (!options?.useAdditionalWeekYearTokens && (0, _protectedTokensMjs.isProtectedWeekYearToken)(token) || !options?.useAdditionalDayOfYearTokens && (0, _protectedTokensMjs.isProtectedDayOfYearToken)(token)) (0, _protectedTokensMjs.warnOrThrowProtectedError)(token, formatStr, String(date));
+        const formatter = (0, _formattersMjs.formatters)[token[0]];
+        return formatter(originalDate, token, locale.localize, formatterOptions);
+    }).join("");
+}
+function cleanEscapedString(input) {
+    const matched = input.match(escapedStringRegExp);
+    if (!matched) return input;
+    return matched[1].replace(doubleQuoteRegExp, "'");
+}
+// Fallback for modularized imports:
+exports.default = format;
+
+},{"./_lib/defaultLocale.mjs":"fV6Yh","./_lib/defaultOptions.mjs":"6QlMe","./_lib/format/formatters.mjs":"dTvBa","./_lib/format/longFormatters.mjs":"fV2Dr","./_lib/protectedTokens.mjs":"1PCHg","./isValid.mjs":"dX2Ty","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fV6Yh":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "defaultLocale", ()=>(0, _enUSMjs.enUS));
+var _enUSMjs = require("../locale/en-US.mjs");
+
+},{"../locale/en-US.mjs":"dbAFb","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dbAFb":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "enUS", ()=>enUS);
+var _formatDistanceMjs = require("./en-US/_lib/formatDistance.mjs");
+var _formatLongMjs = require("./en-US/_lib/formatLong.mjs");
+var _formatRelativeMjs = require("./en-US/_lib/formatRelative.mjs");
+var _localizeMjs = require("./en-US/_lib/localize.mjs");
+var _matchMjs = require("./en-US/_lib/match.mjs");
+const enUS = {
+    code: "en-US",
+    formatDistance: (0, _formatDistanceMjs.formatDistance),
+    formatLong: (0, _formatLongMjs.formatLong),
+    formatRelative: (0, _formatRelativeMjs.formatRelative),
+    localize: (0, _localizeMjs.localize),
+    match: (0, _matchMjs.match),
+    options: {
+        weekStartsOn: 0 /* Sunday */ ,
+        firstWeekContainsDate: 1
+    }
+};
+// Fallback for modularized imports:
+exports.default = enUS;
+
+},{"./en-US/_lib/formatDistance.mjs":"7b1NB","./en-US/_lib/formatLong.mjs":"b1q8C","./en-US/_lib/formatRelative.mjs":"2Dcwp","./en-US/_lib/localize.mjs":"amX3i","./en-US/_lib/match.mjs":"kkWhX","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7b1NB":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "formatDistance", ()=>formatDistance);
+const formatDistanceLocale = {
+    lessThanXSeconds: {
+        one: "less than a second",
+        other: "less than {{count}} seconds"
+    },
+    xSeconds: {
+        one: "1 second",
+        other: "{{count}} seconds"
+    },
+    halfAMinute: "half a minute",
+    lessThanXMinutes: {
+        one: "less than a minute",
+        other: "less than {{count}} minutes"
+    },
+    xMinutes: {
+        one: "1 minute",
+        other: "{{count}} minutes"
+    },
+    aboutXHours: {
+        one: "about 1 hour",
+        other: "about {{count}} hours"
+    },
+    xHours: {
+        one: "1 hour",
+        other: "{{count}} hours"
+    },
+    xDays: {
+        one: "1 day",
+        other: "{{count}} days"
+    },
+    aboutXWeeks: {
+        one: "about 1 week",
+        other: "about {{count}} weeks"
+    },
+    xWeeks: {
+        one: "1 week",
+        other: "{{count}} weeks"
+    },
+    aboutXMonths: {
+        one: "about 1 month",
+        other: "about {{count}} months"
+    },
+    xMonths: {
+        one: "1 month",
+        other: "{{count}} months"
+    },
+    aboutXYears: {
+        one: "about 1 year",
+        other: "about {{count}} years"
+    },
+    xYears: {
+        one: "1 year",
+        other: "{{count}} years"
+    },
+    overXYears: {
+        one: "over 1 year",
+        other: "over {{count}} years"
+    },
+    almostXYears: {
+        one: "almost 1 year",
+        other: "almost {{count}} years"
+    }
+};
+const formatDistance = (token, count, options)=>{
+    let result;
+    const tokenValue = formatDistanceLocale[token];
+    if (typeof tokenValue === "string") result = tokenValue;
+    else if (count === 1) result = tokenValue.one;
+    else result = tokenValue.other.replace("{{count}}", count.toString());
+    if (options?.addSuffix) {
+        if (options.comparison && options.comparison > 0) return "in " + result;
+        else return result + " ago";
+    }
+    return result;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"b1q8C":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "formatLong", ()=>formatLong);
+var _buildFormatLongFnMjs = require("../../_lib/buildFormatLongFn.mjs");
+const dateFormats = {
+    full: "EEEE, MMMM do, y",
+    long: "MMMM do, y",
+    medium: "MMM d, y",
+    short: "MM/dd/yyyy"
+};
+const timeFormats = {
+    full: "h:mm:ss a zzzz",
+    long: "h:mm:ss a z",
+    medium: "h:mm:ss a",
+    short: "h:mm a"
+};
+const dateTimeFormats = {
+    full: "{{date}} 'at' {{time}}",
+    long: "{{date}} 'at' {{time}}",
+    medium: "{{date}}, {{time}}",
+    short: "{{date}}, {{time}}"
+};
+const formatLong = {
+    date: (0, _buildFormatLongFnMjs.buildFormatLongFn)({
+        formats: dateFormats,
+        defaultWidth: "full"
+    }),
+    time: (0, _buildFormatLongFnMjs.buildFormatLongFn)({
+        formats: timeFormats,
+        defaultWidth: "full"
+    }),
+    dateTime: (0, _buildFormatLongFnMjs.buildFormatLongFn)({
+        formats: dateTimeFormats,
+        defaultWidth: "full"
+    })
+};
+
+},{"../../_lib/buildFormatLongFn.mjs":"2Lzj0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2Lzj0":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "buildFormatLongFn", ()=>buildFormatLongFn);
+function buildFormatLongFn(args) {
+    return (options = {})=>{
+        // TODO: Remove String()
+        const width = options.width ? String(options.width) : args.defaultWidth;
+        const format = args.formats[width] || args.formats[args.defaultWidth];
+        return format;
+    };
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2Dcwp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "formatRelative", ()=>formatRelative);
+const formatRelativeLocale = {
+    lastWeek: "'last' eeee 'at' p",
+    yesterday: "'yesterday at' p",
+    today: "'today at' p",
+    tomorrow: "'tomorrow at' p",
+    nextWeek: "eeee 'at' p",
+    other: "P"
+};
+const formatRelative = (token, _date, _baseDate, _options)=>formatRelativeLocale[token];
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"amX3i":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "localize", ()=>localize);
+var _buildLocalizeFnMjs = require("../../_lib/buildLocalizeFn.mjs");
+const eraValues = {
+    narrow: [
+        "B",
+        "A"
+    ],
+    abbreviated: [
+        "BC",
+        "AD"
+    ],
+    wide: [
+        "Before Christ",
+        "Anno Domini"
+    ]
+};
+const quarterValues = {
+    narrow: [
+        "1",
+        "2",
+        "3",
+        "4"
+    ],
+    abbreviated: [
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4"
+    ],
+    wide: [
+        "1st quarter",
+        "2nd quarter",
+        "3rd quarter",
+        "4th quarter"
+    ]
+};
+// Note: in English, the names of days of the week and months are capitalized.
+// If you are making a new locale based on this one, check if the same is true for the language you're working on.
+// Generally, formatted dates should look like they are in the middle of a sentence,
+// e.g. in Spanish language the weekdays and months should be in the lowercase.
+const monthValues = {
+    narrow: [
+        "J",
+        "F",
+        "M",
+        "A",
+        "M",
+        "J",
+        "J",
+        "A",
+        "S",
+        "O",
+        "N",
+        "D"
+    ],
+    abbreviated: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+    ],
+    wide: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    ]
+};
+const dayValues = {
+    narrow: [
+        "S",
+        "M",
+        "T",
+        "W",
+        "T",
+        "F",
+        "S"
+    ],
+    short: [
+        "Su",
+        "Mo",
+        "Tu",
+        "We",
+        "Th",
+        "Fr",
+        "Sa"
+    ],
+    abbreviated: [
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"
+    ],
+    wide: [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+    ]
+};
+const dayPeriodValues = {
+    narrow: {
+        am: "a",
+        pm: "p",
+        midnight: "mi",
+        noon: "n",
+        morning: "morning",
+        afternoon: "afternoon",
+        evening: "evening",
+        night: "night"
+    },
+    abbreviated: {
+        am: "AM",
+        pm: "PM",
+        midnight: "midnight",
+        noon: "noon",
+        morning: "morning",
+        afternoon: "afternoon",
+        evening: "evening",
+        night: "night"
+    },
+    wide: {
+        am: "a.m.",
+        pm: "p.m.",
+        midnight: "midnight",
+        noon: "noon",
+        morning: "morning",
+        afternoon: "afternoon",
+        evening: "evening",
+        night: "night"
+    }
+};
+const formattingDayPeriodValues = {
+    narrow: {
+        am: "a",
+        pm: "p",
+        midnight: "mi",
+        noon: "n",
+        morning: "in the morning",
+        afternoon: "in the afternoon",
+        evening: "in the evening",
+        night: "at night"
+    },
+    abbreviated: {
+        am: "AM",
+        pm: "PM",
+        midnight: "midnight",
+        noon: "noon",
+        morning: "in the morning",
+        afternoon: "in the afternoon",
+        evening: "in the evening",
+        night: "at night"
+    },
+    wide: {
+        am: "a.m.",
+        pm: "p.m.",
+        midnight: "midnight",
+        noon: "noon",
+        morning: "in the morning",
+        afternoon: "in the afternoon",
+        evening: "in the evening",
+        night: "at night"
+    }
+};
+const ordinalNumber = (dirtyNumber, _options)=>{
+    const number = Number(dirtyNumber);
+    // If ordinal numbers depend on context, for example,
+    // if they are different for different grammatical genders,
+    // use `options.unit`.
+    //
+    // `unit` can be 'year', 'quarter', 'month', 'week', 'date', 'dayOfYear',
+    // 'day', 'hour', 'minute', 'second'.
+    const rem100 = number % 100;
+    if (rem100 > 20 || rem100 < 10) switch(rem100 % 10){
+        case 1:
+            return number + "st";
+        case 2:
+            return number + "nd";
+        case 3:
+            return number + "rd";
+    }
+    return number + "th";
+};
+const localize = {
+    ordinalNumber,
+    era: (0, _buildLocalizeFnMjs.buildLocalizeFn)({
+        values: eraValues,
+        defaultWidth: "wide"
+    }),
+    quarter: (0, _buildLocalizeFnMjs.buildLocalizeFn)({
+        values: quarterValues,
+        defaultWidth: "wide",
+        argumentCallback: (quarter)=>quarter - 1
+    }),
+    month: (0, _buildLocalizeFnMjs.buildLocalizeFn)({
+        values: monthValues,
+        defaultWidth: "wide"
+    }),
+    day: (0, _buildLocalizeFnMjs.buildLocalizeFn)({
+        values: dayValues,
+        defaultWidth: "wide"
+    }),
+    dayPeriod: (0, _buildLocalizeFnMjs.buildLocalizeFn)({
+        values: dayPeriodValues,
+        defaultWidth: "wide",
+        formattingValues: formattingDayPeriodValues,
+        defaultFormattingWidth: "wide"
+    })
+};
+
+},{"../../_lib/buildLocalizeFn.mjs":"1HmTL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1HmTL":[function(require,module,exports) {
+/* eslint-disable no-unused-vars */ /**
+ * The localize function argument callback which allows to convert raw value to
+ * the actual type.
+ *
+ * @param value - The value to convert
+ *
+ * @returns The converted value
+ */ /**
+ * The map of localized values for each width.
+ */ /**
+ * The index type of the locale unit value. It types conversion of units of
+ * values that don't start at 0 (i.e. quarters).
+ */ /**
+ * Converts the unit value to the tuple of values.
+ */ /**
+ * The tuple of localized era values. The first element represents BC,
+ * the second element represents AD.
+ */ /**
+ * The tuple of localized quarter values. The first element represents Q1.
+ */ /**
+ * The tuple of localized day values. The first element represents Sunday.
+ */ /**
+ * The tuple of localized month values. The first element represents January.
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "buildLocalizeFn", ()=>buildLocalizeFn);
+function buildLocalizeFn(args) {
+    return (value, options)=>{
+        const context = options?.context ? String(options.context) : "standalone";
+        let valuesArray;
+        if (context === "formatting" && args.formattingValues) {
+            const defaultWidth = args.defaultFormattingWidth || args.defaultWidth;
+            const width = options?.width ? String(options.width) : defaultWidth;
+            valuesArray = args.formattingValues[width] || args.formattingValues[defaultWidth];
+        } else {
+            const defaultWidth = args.defaultWidth;
+            const width = options?.width ? String(options.width) : args.defaultWidth;
+            valuesArray = args.values[width] || args.values[defaultWidth];
+        }
+        const index = args.argumentCallback ? args.argumentCallback(value) : value;
+        // @ts-expect-error - For some reason TypeScript just don't want to match it, no matter how hard we try. I challenge you to try to remove it!
+        return valuesArray[index];
+    };
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kkWhX":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "match", ()=>match);
+var _buildMatchFnMjs = require("../../_lib/buildMatchFn.mjs");
+var _buildMatchPatternFnMjs = require("../../_lib/buildMatchPatternFn.mjs");
+const matchOrdinalNumberPattern = /^(\d+)(th|st|nd|rd)?/i;
+const parseOrdinalNumberPattern = /\d+/i;
+const matchEraPatterns = {
+    narrow: /^(b|a)/i,
+    abbreviated: /^(b\.?\s?c\.?|b\.?\s?c\.?\s?e\.?|a\.?\s?d\.?|c\.?\s?e\.?)/i,
+    wide: /^(before christ|before common era|anno domini|common era)/i
+};
+const parseEraPatterns = {
+    any: [
+        /^b/i,
+        /^(a|c)/i
+    ]
+};
+const matchQuarterPatterns = {
+    narrow: /^[1234]/i,
+    abbreviated: /^q[1234]/i,
+    wide: /^[1234](th|st|nd|rd)? quarter/i
+};
+const parseQuarterPatterns = {
+    any: [
+        /1/i,
+        /2/i,
+        /3/i,
+        /4/i
+    ]
+};
+const matchMonthPatterns = {
+    narrow: /^[jfmasond]/i,
+    abbreviated: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i,
+    wide: /^(january|february|march|april|may|june|july|august|september|october|november|december)/i
+};
+const parseMonthPatterns = {
+    narrow: [
+        /^j/i,
+        /^f/i,
+        /^m/i,
+        /^a/i,
+        /^m/i,
+        /^j/i,
+        /^j/i,
+        /^a/i,
+        /^s/i,
+        /^o/i,
+        /^n/i,
+        /^d/i
+    ],
+    any: [
+        /^ja/i,
+        /^f/i,
+        /^mar/i,
+        /^ap/i,
+        /^may/i,
+        /^jun/i,
+        /^jul/i,
+        /^au/i,
+        /^s/i,
+        /^o/i,
+        /^n/i,
+        /^d/i
+    ]
+};
+const matchDayPatterns = {
+    narrow: /^[smtwf]/i,
+    short: /^(su|mo|tu|we|th|fr|sa)/i,
+    abbreviated: /^(sun|mon|tue|wed|thu|fri|sat)/i,
+    wide: /^(sunday|monday|tuesday|wednesday|thursday|friday|saturday)/i
+};
+const parseDayPatterns = {
+    narrow: [
+        /^s/i,
+        /^m/i,
+        /^t/i,
+        /^w/i,
+        /^t/i,
+        /^f/i,
+        /^s/i
+    ],
+    any: [
+        /^su/i,
+        /^m/i,
+        /^tu/i,
+        /^w/i,
+        /^th/i,
+        /^f/i,
+        /^sa/i
+    ]
+};
+const matchDayPeriodPatterns = {
+    narrow: /^(a|p|mi|n|(in the|at) (morning|afternoon|evening|night))/i,
+    any: /^([ap]\.?\s?m\.?|midnight|noon|(in the|at) (morning|afternoon|evening|night))/i
+};
+const parseDayPeriodPatterns = {
+    any: {
+        am: /^a/i,
+        pm: /^p/i,
+        midnight: /^mi/i,
+        noon: /^no/i,
+        morning: /morning/i,
+        afternoon: /afternoon/i,
+        evening: /evening/i,
+        night: /night/i
+    }
+};
+const match = {
+    ordinalNumber: (0, _buildMatchPatternFnMjs.buildMatchPatternFn)({
+        matchPattern: matchOrdinalNumberPattern,
+        parsePattern: parseOrdinalNumberPattern,
+        valueCallback: (value)=>parseInt(value, 10)
+    }),
+    era: (0, _buildMatchFnMjs.buildMatchFn)({
+        matchPatterns: matchEraPatterns,
+        defaultMatchWidth: "wide",
+        parsePatterns: parseEraPatterns,
+        defaultParseWidth: "any"
+    }),
+    quarter: (0, _buildMatchFnMjs.buildMatchFn)({
+        matchPatterns: matchQuarterPatterns,
+        defaultMatchWidth: "wide",
+        parsePatterns: parseQuarterPatterns,
+        defaultParseWidth: "any",
+        valueCallback: (index)=>index + 1
+    }),
+    month: (0, _buildMatchFnMjs.buildMatchFn)({
+        matchPatterns: matchMonthPatterns,
+        defaultMatchWidth: "wide",
+        parsePatterns: parseMonthPatterns,
+        defaultParseWidth: "any"
+    }),
+    day: (0, _buildMatchFnMjs.buildMatchFn)({
+        matchPatterns: matchDayPatterns,
+        defaultMatchWidth: "wide",
+        parsePatterns: parseDayPatterns,
+        defaultParseWidth: "any"
+    }),
+    dayPeriod: (0, _buildMatchFnMjs.buildMatchFn)({
+        matchPatterns: matchDayPeriodPatterns,
+        defaultMatchWidth: "any",
+        parsePatterns: parseDayPeriodPatterns,
+        defaultParseWidth: "any"
+    })
+};
+
+},{"../../_lib/buildMatchFn.mjs":"6GJUl","../../_lib/buildMatchPatternFn.mjs":"iouxf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6GJUl":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "buildMatchFn", ()=>buildMatchFn);
+function buildMatchFn(args) {
+    return (string, options = {})=>{
+        const width = options.width;
+        const matchPattern = width && args.matchPatterns[width] || args.matchPatterns[args.defaultMatchWidth];
+        const matchResult = string.match(matchPattern);
+        if (!matchResult) return null;
+        const matchedString = matchResult[0];
+        const parsePatterns = width && args.parsePatterns[width] || args.parsePatterns[args.defaultParseWidth];
+        const key = Array.isArray(parsePatterns) ? findIndex(parsePatterns, (pattern)=>pattern.test(matchedString)) : findKey(parsePatterns, (pattern)=>pattern.test(matchedString));
+        let value;
+        value = args.valueCallback ? args.valueCallback(key) : key;
+        value = options.valueCallback ? options.valueCallback(value) : value;
+        const rest = string.slice(matchedString.length);
+        return {
+            value,
+            rest
+        };
+    };
+}
+function findKey(object, predicate) {
+    for(const key in object){
+        if (Object.prototype.hasOwnProperty.call(object, key) && predicate(object[key])) return key;
+    }
+    return undefined;
+}
+function findIndex(array, predicate) {
+    for(let key = 0; key < array.length; key++){
+        if (predicate(array[key])) return key;
+    }
+    return undefined;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iouxf":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "buildMatchPatternFn", ()=>buildMatchPatternFn);
+function buildMatchPatternFn(args) {
+    return (string, options = {})=>{
+        const matchResult = string.match(args.matchPattern);
+        if (!matchResult) return null;
+        const matchedString = matchResult[0];
+        const parseResult = string.match(args.parsePattern);
+        if (!parseResult) return null;
+        let value = args.valueCallback ? args.valueCallback(parseResult[0]) : parseResult[0];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- I challange you to fix the type
+        value = options.valueCallback ? options.valueCallback(value) : value;
+        const rest = string.slice(matchedString.length);
+        return {
+            value,
+            rest
+        };
+    };
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dTvBa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "formatters", ()=>formatters);
+var _getDayOfYearMjs = require("../../getDayOfYear.mjs");
+var _getISOWeekMjs = require("../../getISOWeek.mjs");
+var _getISOWeekYearMjs = require("../../getISOWeekYear.mjs");
+var _getWeekMjs = require("../../getWeek.mjs");
+var _getWeekYearMjs = require("../../getWeekYear.mjs");
+var _addLeadingZerosMjs = require("../addLeadingZeros.mjs");
+var _lightFormattersMjs = require("./lightFormatters.mjs");
+const dayPeriodEnum = {
+    am: "am",
+    pm: "pm",
+    midnight: "midnight",
+    noon: "noon",
+    morning: "morning",
+    afternoon: "afternoon",
+    evening: "evening",
+    night: "night"
+};
+const formatters = {
+    // Era
+    G: function(date, token, localize) {
+        const era = date.getFullYear() > 0 ? 1 : 0;
+        switch(token){
+            // AD, BC
+            case "G":
+            case "GG":
+            case "GGG":
+                return localize.era(era, {
+                    width: "abbreviated"
+                });
+            // A, B
+            case "GGGGG":
+                return localize.era(era, {
+                    width: "narrow"
+                });
+            // Anno Domini, Before Christ
+            case "GGGG":
+            default:
+                return localize.era(era, {
+                    width: "wide"
+                });
+        }
+    },
+    // Year
+    y: function(date, token, localize) {
+        // Ordinal number
+        if (token === "yo") {
+            const signedYear = date.getFullYear();
+            // Returns 1 for 1 BC (which is year 0 in JavaScript)
+            const year = signedYear > 0 ? signedYear : 1 - signedYear;
+            return localize.ordinalNumber(year, {
+                unit: "year"
+            });
+        }
+        return (0, _lightFormattersMjs.lightFormatters).y(date, token);
+    },
+    // Local week-numbering year
+    Y: function(date, token, localize, options) {
+        const signedWeekYear = (0, _getWeekYearMjs.getWeekYear)(date, options);
+        // Returns 1 for 1 BC (which is year 0 in JavaScript)
+        const weekYear = signedWeekYear > 0 ? signedWeekYear : 1 - signedWeekYear;
+        // Two digit year
+        if (token === "YY") {
+            const twoDigitYear = weekYear % 100;
+            return (0, _addLeadingZerosMjs.addLeadingZeros)(twoDigitYear, 2);
+        }
+        // Ordinal number
+        if (token === "Yo") return localize.ordinalNumber(weekYear, {
+            unit: "year"
+        });
+        // Padding
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(weekYear, token.length);
+    },
+    // ISO week-numbering year
+    R: function(date, token) {
+        const isoWeekYear = (0, _getISOWeekYearMjs.getISOWeekYear)(date);
+        // Padding
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(isoWeekYear, token.length);
+    },
+    // Extended year. This is a single number designating the year of this calendar system.
+    // The main difference between `y` and `u` localizers are B.C. years:
+    // | Year | `y` | `u` |
+    // |------|-----|-----|
+    // | AC 1 |   1 |   1 |
+    // | BC 1 |   1 |   0 |
+    // | BC 2 |   2 |  -1 |
+    // Also `yy` always returns the last two digits of a year,
+    // while `uu` pads single digit years to 2 characters and returns other years unchanged.
+    u: function(date, token) {
+        const year = date.getFullYear();
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(year, token.length);
+    },
+    // Quarter
+    Q: function(date, token, localize) {
+        const quarter = Math.ceil((date.getMonth() + 1) / 3);
+        switch(token){
+            // 1, 2, 3, 4
+            case "Q":
+                return String(quarter);
+            // 01, 02, 03, 04
+            case "QQ":
+                return (0, _addLeadingZerosMjs.addLeadingZeros)(quarter, 2);
+            // 1st, 2nd, 3rd, 4th
+            case "Qo":
+                return localize.ordinalNumber(quarter, {
+                    unit: "quarter"
+                });
+            // Q1, Q2, Q3, Q4
+            case "QQQ":
+                return localize.quarter(quarter, {
+                    width: "abbreviated",
+                    context: "formatting"
+                });
+            // 1, 2, 3, 4 (narrow quarter; could be not numerical)
+            case "QQQQQ":
+                return localize.quarter(quarter, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // 1st quarter, 2nd quarter, ...
+            case "QQQQ":
+            default:
+                return localize.quarter(quarter, {
+                    width: "wide",
+                    context: "formatting"
+                });
+        }
+    },
+    // Stand-alone quarter
+    q: function(date, token, localize) {
+        const quarter = Math.ceil((date.getMonth() + 1) / 3);
+        switch(token){
+            // 1, 2, 3, 4
+            case "q":
+                return String(quarter);
+            // 01, 02, 03, 04
+            case "qq":
+                return (0, _addLeadingZerosMjs.addLeadingZeros)(quarter, 2);
+            // 1st, 2nd, 3rd, 4th
+            case "qo":
+                return localize.ordinalNumber(quarter, {
+                    unit: "quarter"
+                });
+            // Q1, Q2, Q3, Q4
+            case "qqq":
+                return localize.quarter(quarter, {
+                    width: "abbreviated",
+                    context: "standalone"
+                });
+            // 1, 2, 3, 4 (narrow quarter; could be not numerical)
+            case "qqqqq":
+                return localize.quarter(quarter, {
+                    width: "narrow",
+                    context: "standalone"
+                });
+            // 1st quarter, 2nd quarter, ...
+            case "qqqq":
+            default:
+                return localize.quarter(quarter, {
+                    width: "wide",
+                    context: "standalone"
+                });
+        }
+    },
+    // Month
+    M: function(date, token, localize) {
+        const month = date.getMonth();
+        switch(token){
+            case "M":
+            case "MM":
+                return (0, _lightFormattersMjs.lightFormatters).M(date, token);
+            // 1st, 2nd, ..., 12th
+            case "Mo":
+                return localize.ordinalNumber(month + 1, {
+                    unit: "month"
+                });
+            // Jan, Feb, ..., Dec
+            case "MMM":
+                return localize.month(month, {
+                    width: "abbreviated",
+                    context: "formatting"
+                });
+            // J, F, ..., D
+            case "MMMMM":
+                return localize.month(month, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // January, February, ..., December
+            case "MMMM":
+            default:
+                return localize.month(month, {
+                    width: "wide",
+                    context: "formatting"
+                });
+        }
+    },
+    // Stand-alone month
+    L: function(date, token, localize) {
+        const month = date.getMonth();
+        switch(token){
+            // 1, 2, ..., 12
+            case "L":
+                return String(month + 1);
+            // 01, 02, ..., 12
+            case "LL":
+                return (0, _addLeadingZerosMjs.addLeadingZeros)(month + 1, 2);
+            // 1st, 2nd, ..., 12th
+            case "Lo":
+                return localize.ordinalNumber(month + 1, {
+                    unit: "month"
+                });
+            // Jan, Feb, ..., Dec
+            case "LLL":
+                return localize.month(month, {
+                    width: "abbreviated",
+                    context: "standalone"
+                });
+            // J, F, ..., D
+            case "LLLLL":
+                return localize.month(month, {
+                    width: "narrow",
+                    context: "standalone"
+                });
+            // January, February, ..., December
+            case "LLLL":
+            default:
+                return localize.month(month, {
+                    width: "wide",
+                    context: "standalone"
+                });
+        }
+    },
+    // Local week of year
+    w: function(date, token, localize, options) {
+        const week = (0, _getWeekMjs.getWeek)(date, options);
+        if (token === "wo") return localize.ordinalNumber(week, {
+            unit: "week"
+        });
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(week, token.length);
+    },
+    // ISO week of year
+    I: function(date, token, localize) {
+        const isoWeek = (0, _getISOWeekMjs.getISOWeek)(date);
+        if (token === "Io") return localize.ordinalNumber(isoWeek, {
+            unit: "week"
+        });
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(isoWeek, token.length);
+    },
+    // Day of the month
+    d: function(date, token, localize) {
+        if (token === "do") return localize.ordinalNumber(date.getDate(), {
+            unit: "date"
+        });
+        return (0, _lightFormattersMjs.lightFormatters).d(date, token);
+    },
+    // Day of year
+    D: function(date, token, localize) {
+        const dayOfYear = (0, _getDayOfYearMjs.getDayOfYear)(date);
+        if (token === "Do") return localize.ordinalNumber(dayOfYear, {
+            unit: "dayOfYear"
+        });
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(dayOfYear, token.length);
+    },
+    // Day of week
+    E: function(date, token, localize) {
+        const dayOfWeek = date.getDay();
+        switch(token){
+            // Tue
+            case "E":
+            case "EE":
+            case "EEE":
+                return localize.day(dayOfWeek, {
+                    width: "abbreviated",
+                    context: "formatting"
+                });
+            // T
+            case "EEEEE":
+                return localize.day(dayOfWeek, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // Tu
+            case "EEEEEE":
+                return localize.day(dayOfWeek, {
+                    width: "short",
+                    context: "formatting"
+                });
+            // Tuesday
+            case "EEEE":
+            default:
+                return localize.day(dayOfWeek, {
+                    width: "wide",
+                    context: "formatting"
+                });
+        }
+    },
+    // Local day of week
+    e: function(date, token, localize, options) {
+        const dayOfWeek = date.getDay();
+        const localDayOfWeek = (dayOfWeek - options.weekStartsOn + 8) % 7 || 7;
+        switch(token){
+            // Numerical value (Nth day of week with current locale or weekStartsOn)
+            case "e":
+                return String(localDayOfWeek);
+            // Padded numerical value
+            case "ee":
+                return (0, _addLeadingZerosMjs.addLeadingZeros)(localDayOfWeek, 2);
+            // 1st, 2nd, ..., 7th
+            case "eo":
+                return localize.ordinalNumber(localDayOfWeek, {
+                    unit: "day"
+                });
+            case "eee":
+                return localize.day(dayOfWeek, {
+                    width: "abbreviated",
+                    context: "formatting"
+                });
+            // T
+            case "eeeee":
+                return localize.day(dayOfWeek, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // Tu
+            case "eeeeee":
+                return localize.day(dayOfWeek, {
+                    width: "short",
+                    context: "formatting"
+                });
+            // Tuesday
+            case "eeee":
+            default:
+                return localize.day(dayOfWeek, {
+                    width: "wide",
+                    context: "formatting"
+                });
+        }
+    },
+    // Stand-alone local day of week
+    c: function(date, token, localize, options) {
+        const dayOfWeek = date.getDay();
+        const localDayOfWeek = (dayOfWeek - options.weekStartsOn + 8) % 7 || 7;
+        switch(token){
+            // Numerical value (same as in `e`)
+            case "c":
+                return String(localDayOfWeek);
+            // Padded numerical value
+            case "cc":
+                return (0, _addLeadingZerosMjs.addLeadingZeros)(localDayOfWeek, token.length);
+            // 1st, 2nd, ..., 7th
+            case "co":
+                return localize.ordinalNumber(localDayOfWeek, {
+                    unit: "day"
+                });
+            case "ccc":
+                return localize.day(dayOfWeek, {
+                    width: "abbreviated",
+                    context: "standalone"
+                });
+            // T
+            case "ccccc":
+                return localize.day(dayOfWeek, {
+                    width: "narrow",
+                    context: "standalone"
+                });
+            // Tu
+            case "cccccc":
+                return localize.day(dayOfWeek, {
+                    width: "short",
+                    context: "standalone"
+                });
+            // Tuesday
+            case "cccc":
+            default:
+                return localize.day(dayOfWeek, {
+                    width: "wide",
+                    context: "standalone"
+                });
+        }
+    },
+    // ISO day of week
+    i: function(date, token, localize) {
+        const dayOfWeek = date.getDay();
+        const isoDayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek;
+        switch(token){
+            // 2
+            case "i":
+                return String(isoDayOfWeek);
+            // 02
+            case "ii":
+                return (0, _addLeadingZerosMjs.addLeadingZeros)(isoDayOfWeek, token.length);
+            // 2nd
+            case "io":
+                return localize.ordinalNumber(isoDayOfWeek, {
+                    unit: "day"
+                });
+            // Tue
+            case "iii":
+                return localize.day(dayOfWeek, {
+                    width: "abbreviated",
+                    context: "formatting"
+                });
+            // T
+            case "iiiii":
+                return localize.day(dayOfWeek, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // Tu
+            case "iiiiii":
+                return localize.day(dayOfWeek, {
+                    width: "short",
+                    context: "formatting"
+                });
+            // Tuesday
+            case "iiii":
+            default:
+                return localize.day(dayOfWeek, {
+                    width: "wide",
+                    context: "formatting"
+                });
+        }
+    },
+    // AM or PM
+    a: function(date, token, localize) {
+        const hours = date.getHours();
+        const dayPeriodEnumValue = hours / 12 >= 1 ? "pm" : "am";
+        switch(token){
+            case "a":
+            case "aa":
+                return localize.dayPeriod(dayPeriodEnumValue, {
+                    width: "abbreviated",
+                    context: "formatting"
+                });
+            case "aaa":
+                return localize.dayPeriod(dayPeriodEnumValue, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }).toLowerCase();
+            case "aaaaa":
+                return localize.dayPeriod(dayPeriodEnumValue, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            case "aaaa":
+            default:
+                return localize.dayPeriod(dayPeriodEnumValue, {
+                    width: "wide",
+                    context: "formatting"
+                });
+        }
+    },
+    // AM, PM, midnight, noon
+    b: function(date, token, localize) {
+        const hours = date.getHours();
+        let dayPeriodEnumValue;
+        if (hours === 12) dayPeriodEnumValue = dayPeriodEnum.noon;
+        else if (hours === 0) dayPeriodEnumValue = dayPeriodEnum.midnight;
+        else dayPeriodEnumValue = hours / 12 >= 1 ? "pm" : "am";
+        switch(token){
+            case "b":
+            case "bb":
+                return localize.dayPeriod(dayPeriodEnumValue, {
+                    width: "abbreviated",
+                    context: "formatting"
+                });
+            case "bbb":
+                return localize.dayPeriod(dayPeriodEnumValue, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }).toLowerCase();
+            case "bbbbb":
+                return localize.dayPeriod(dayPeriodEnumValue, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            case "bbbb":
+            default:
+                return localize.dayPeriod(dayPeriodEnumValue, {
+                    width: "wide",
+                    context: "formatting"
+                });
+        }
+    },
+    // in the morning, in the afternoon, in the evening, at night
+    B: function(date, token, localize) {
+        const hours = date.getHours();
+        let dayPeriodEnumValue;
+        if (hours >= 17) dayPeriodEnumValue = dayPeriodEnum.evening;
+        else if (hours >= 12) dayPeriodEnumValue = dayPeriodEnum.afternoon;
+        else if (hours >= 4) dayPeriodEnumValue = dayPeriodEnum.morning;
+        else dayPeriodEnumValue = dayPeriodEnum.night;
+        switch(token){
+            case "B":
+            case "BB":
+            case "BBB":
+                return localize.dayPeriod(dayPeriodEnumValue, {
+                    width: "abbreviated",
+                    context: "formatting"
+                });
+            case "BBBBB":
+                return localize.dayPeriod(dayPeriodEnumValue, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            case "BBBB":
+            default:
+                return localize.dayPeriod(dayPeriodEnumValue, {
+                    width: "wide",
+                    context: "formatting"
+                });
+        }
+    },
+    // Hour [1-12]
+    h: function(date, token, localize) {
+        if (token === "ho") {
+            let hours = date.getHours() % 12;
+            if (hours === 0) hours = 12;
+            return localize.ordinalNumber(hours, {
+                unit: "hour"
+            });
+        }
+        return (0, _lightFormattersMjs.lightFormatters).h(date, token);
+    },
+    // Hour [0-23]
+    H: function(date, token, localize) {
+        if (token === "Ho") return localize.ordinalNumber(date.getHours(), {
+            unit: "hour"
+        });
+        return (0, _lightFormattersMjs.lightFormatters).H(date, token);
+    },
+    // Hour [0-11]
+    K: function(date, token, localize) {
+        const hours = date.getHours() % 12;
+        if (token === "Ko") return localize.ordinalNumber(hours, {
+            unit: "hour"
+        });
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(hours, token.length);
+    },
+    // Hour [1-24]
+    k: function(date, token, localize) {
+        let hours = date.getHours();
+        if (hours === 0) hours = 24;
+        if (token === "ko") return localize.ordinalNumber(hours, {
+            unit: "hour"
+        });
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(hours, token.length);
+    },
+    // Minute
+    m: function(date, token, localize) {
+        if (token === "mo") return localize.ordinalNumber(date.getMinutes(), {
+            unit: "minute"
+        });
+        return (0, _lightFormattersMjs.lightFormatters).m(date, token);
+    },
+    // Second
+    s: function(date, token, localize) {
+        if (token === "so") return localize.ordinalNumber(date.getSeconds(), {
+            unit: "second"
+        });
+        return (0, _lightFormattersMjs.lightFormatters).s(date, token);
+    },
+    // Fraction of second
+    S: function(date, token) {
+        return (0, _lightFormattersMjs.lightFormatters).S(date, token);
+    },
+    // Timezone (ISO-8601. If offset is 0, output is always `'Z'`)
+    X: function(date, token, _localize) {
+        const timezoneOffset = date.getTimezoneOffset();
+        if (timezoneOffset === 0) return "Z";
+        switch(token){
+            // Hours and optional minutes
+            case "X":
+                return formatTimezoneWithOptionalMinutes(timezoneOffset);
+            // Hours, minutes and optional seconds without `:` delimiter
+            // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+            // so this token always has the same output as `XX`
+            case "XXXX":
+            case "XX":
+                return formatTimezone(timezoneOffset);
+            // Hours, minutes and optional seconds with `:` delimiter
+            // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+            // so this token always has the same output as `XXX`
+            case "XXXXX":
+            case "XXX":
+            default:
+                return formatTimezone(timezoneOffset, ":");
+        }
+    },
+    // Timezone (ISO-8601. If offset is 0, output is `'+00:00'` or equivalent)
+    x: function(date, token, _localize) {
+        const timezoneOffset = date.getTimezoneOffset();
+        switch(token){
+            // Hours and optional minutes
+            case "x":
+                return formatTimezoneWithOptionalMinutes(timezoneOffset);
+            // Hours, minutes and optional seconds without `:` delimiter
+            // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+            // so this token always has the same output as `xx`
+            case "xxxx":
+            case "xx":
+                return formatTimezone(timezoneOffset);
+            // Hours, minutes and optional seconds with `:` delimiter
+            // Note: neither ISO-8601 nor JavaScript supports seconds in timezone offsets
+            // so this token always has the same output as `xxx`
+            case "xxxxx":
+            case "xxx":
+            default:
+                return formatTimezone(timezoneOffset, ":");
+        }
+    },
+    // Timezone (GMT)
+    O: function(date, token, _localize) {
+        const timezoneOffset = date.getTimezoneOffset();
+        switch(token){
+            // Short
+            case "O":
+            case "OO":
+            case "OOO":
+                return "GMT" + formatTimezoneShort(timezoneOffset, ":");
+            // Long
+            case "OOOO":
+            default:
+                return "GMT" + formatTimezone(timezoneOffset, ":");
+        }
+    },
+    // Timezone (specific non-location)
+    z: function(date, token, _localize) {
+        const timezoneOffset = date.getTimezoneOffset();
+        switch(token){
+            // Short
+            case "z":
+            case "zz":
+            case "zzz":
+                return "GMT" + formatTimezoneShort(timezoneOffset, ":");
+            // Long
+            case "zzzz":
+            default:
+                return "GMT" + formatTimezone(timezoneOffset, ":");
+        }
+    },
+    // Seconds timestamp
+    t: function(date, token, _localize) {
+        const timestamp = Math.trunc(date.getTime() / 1000);
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(timestamp, token.length);
+    },
+    // Milliseconds timestamp
+    T: function(date, token, _localize) {
+        const timestamp = date.getTime();
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(timestamp, token.length);
+    }
+};
+function formatTimezoneShort(offset, delimiter = "") {
+    const sign = offset > 0 ? "-" : "+";
+    const absOffset = Math.abs(offset);
+    const hours = Math.trunc(absOffset / 60);
+    const minutes = absOffset % 60;
+    if (minutes === 0) return sign + String(hours);
+    return sign + String(hours) + delimiter + (0, _addLeadingZerosMjs.addLeadingZeros)(minutes, 2);
+}
+function formatTimezoneWithOptionalMinutes(offset, delimiter) {
+    if (offset % 60 === 0) {
+        const sign = offset > 0 ? "-" : "+";
+        return sign + (0, _addLeadingZerosMjs.addLeadingZeros)(Math.abs(offset) / 60, 2);
+    }
+    return formatTimezone(offset, delimiter);
+}
+function formatTimezone(offset, delimiter = "") {
+    const sign = offset > 0 ? "-" : "+";
+    const absOffset = Math.abs(offset);
+    const hours = (0, _addLeadingZerosMjs.addLeadingZeros)(Math.trunc(absOffset / 60), 2);
+    const minutes = (0, _addLeadingZerosMjs.addLeadingZeros)(absOffset % 60, 2);
+    return sign + hours + delimiter + minutes;
+}
+
+},{"../../getDayOfYear.mjs":"fKDga","../../getISOWeek.mjs":"jExzB","../../getISOWeekYear.mjs":"io5kR","../../getWeek.mjs":"81Dj9","../../getWeekYear.mjs":"4qgzW","../addLeadingZeros.mjs":"k9VpK","./lightFormatters.mjs":"fyEW6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fKDga":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getDayOfYear
+ * @category Day Helpers
+ * @summary Get the day of the year of the given date.
+ *
+ * @description
+ * Get the day of the year of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The day of year
+ *
+ * @example
+ * // Which day of the year is 2 July 2014?
+ * const result = getDayOfYear(new Date(2014, 6, 2))
+ * //=> 183
+ */ parcelHelpers.export(exports, "getDayOfYear", ()=>getDayOfYear);
+var _differenceInCalendarDaysMjs = require("./differenceInCalendarDays.mjs");
+var _startOfYearMjs = require("./startOfYear.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function getDayOfYear(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const diff = (0, _differenceInCalendarDaysMjs.differenceInCalendarDays)(_date, (0, _startOfYearMjs.startOfYear)(_date));
+    const dayOfYear = diff + 1;
+    return dayOfYear;
+}
+// Fallback for modularized imports:
+exports.default = getDayOfYear;
+
+},{"./differenceInCalendarDays.mjs":"bLx9a","./startOfYear.mjs":"3mj4e","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jExzB":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getISOWeek
+ * @category ISO Week Helpers
+ * @summary Get the ISO week of the given date.
+ *
+ * @description
+ * Get the ISO week of the given date.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The ISO week
+ *
+ * @example
+ * // Which week of the ISO-week numbering year is 2 January 2005?
+ * const result = getISOWeek(new Date(2005, 0, 2))
+ * //=> 53
+ */ parcelHelpers.export(exports, "getISOWeek", ()=>getISOWeek);
+var _constantsMjs = require("./constants.mjs");
+var _startOfISOWeekMjs = require("./startOfISOWeek.mjs");
+var _startOfISOWeekYearMjs = require("./startOfISOWeekYear.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function getISOWeek(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const diff = +(0, _startOfISOWeekMjs.startOfISOWeek)(_date) - +(0, _startOfISOWeekYearMjs.startOfISOWeekYear)(_date);
+    // Round the number of weeks to the nearest integer because the number of
+    // milliseconds in a week is not constant (e.g. it's different in the week of
+    // the daylight saving time clock shift).
+    return Math.round(diff / (0, _constantsMjs.millisecondsInWeek)) + 1;
+}
+// Fallback for modularized imports:
+exports.default = getISOWeek;
+
+},{"./constants.mjs":"iISMq","./startOfISOWeek.mjs":"jQoij","./startOfISOWeekYear.mjs":"7q0Zg","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"81Dj9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link getWeek} function options.
+ */ /**
+ * @name getWeek
+ * @category Week Helpers
+ * @summary Get the local week index of the given date.
+ *
+ * @description
+ * Get the local week index of the given date.
+ * The exact calculation depends on the values of
+ * `options.weekStartsOn` (which is the index of the first day of the week)
+ * and `options.firstWeekContainsDate` (which is the day of January, which is always in
+ * the first week of the week-numbering year)
+ *
+ * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ * @param options - An object with options
+ *
+ * @returns The week
+ *
+ * @example
+ * // Which week of the local week numbering year is 2 January 2005 with default options?
+ * const result = getWeek(new Date(2005, 0, 2))
+ * //=> 2
+ *
+ * @example
+ * // Which week of the local week numbering year is 2 January 2005,
+ * // if Monday is the first day of the week,
+ * // and the first week of the year always contains 4 January?
+ * const result = getWeek(new Date(2005, 0, 2), {
+ *   weekStartsOn: 1,
+ *   firstWeekContainsDate: 4
+ * })
+ * //=> 53
+ */ parcelHelpers.export(exports, "getWeek", ()=>getWeek);
+var _constantsMjs = require("./constants.mjs");
+var _startOfWeekMjs = require("./startOfWeek.mjs");
+var _startOfWeekYearMjs = require("./startOfWeekYear.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function getWeek(date, options) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const diff = +(0, _startOfWeekMjs.startOfWeek)(_date, options) - +(0, _startOfWeekYearMjs.startOfWeekYear)(_date, options);
+    // Round the number of weeks to the nearest integer because the number of
+    // milliseconds in a week is not constant (e.g. it's different in the week of
+    // the daylight saving time clock shift).
+    return Math.round(diff / (0, _constantsMjs.millisecondsInWeek)) + 1;
+}
+// Fallback for modularized imports:
+exports.default = getWeek;
+
+},{"./constants.mjs":"iISMq","./startOfWeek.mjs":"807UC","./startOfWeekYear.mjs":"4Wklp","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4Wklp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link startOfWeekYear} function options.
+ */ /**
+ * @name startOfWeekYear
+ * @category Week-Numbering Year Helpers
+ * @summary Return the start of a local week-numbering year for the given date.
+ *
+ * @description
+ * Return the start of a local week-numbering year.
+ * The exact calculation depends on the values of
+ * `options.weekStartsOn` (which is the index of the first day of the week)
+ * and `options.firstWeekContainsDate` (which is the day of January, which is always in
+ * the first week of the week-numbering year)
+ *
+ * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param options - An object with options
+ *
+ * @returns The start of a week-numbering year
+ *
+ * @example
+ * // The start of an a week-numbering year for 2 July 2005 with default settings:
+ * const result = startOfWeekYear(new Date(2005, 6, 2))
+ * //=> Sun Dec 26 2004 00:00:00
+ *
+ * @example
+ * // The start of a week-numbering year for 2 July 2005
+ * // if Monday is the first day of week
+ * // and 4 January is always in the first week of the year:
+ * const result = startOfWeekYear(new Date(2005, 6, 2), {
+ *   weekStartsOn: 1,
+ *   firstWeekContainsDate: 4
+ * })
+ * //=> Mon Jan 03 2005 00:00:00
+ */ parcelHelpers.export(exports, "startOfWeekYear", ()=>startOfWeekYear);
+var _constructFromMjs = require("./constructFrom.mjs");
+var _getWeekYearMjs = require("./getWeekYear.mjs");
+var _startOfWeekMjs = require("./startOfWeek.mjs");
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+function startOfWeekYear(date, options) {
+    const defaultOptions = (0, _defaultOptionsMjs.getDefaultOptions)();
+    const firstWeekContainsDate = options?.firstWeekContainsDate ?? options?.locale?.options?.firstWeekContainsDate ?? defaultOptions.firstWeekContainsDate ?? defaultOptions.locale?.options?.firstWeekContainsDate ?? 1;
+    const year = (0, _getWeekYearMjs.getWeekYear)(date, options);
+    const firstWeek = (0, _constructFromMjs.constructFrom)(date, 0);
+    firstWeek.setFullYear(year, 0, firstWeekContainsDate);
+    firstWeek.setHours(0, 0, 0, 0);
+    const _date = (0, _startOfWeekMjs.startOfWeek)(firstWeek, options);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = startOfWeekYear;
+
+},{"./constructFrom.mjs":"xte3t","./getWeekYear.mjs":"4qgzW","./startOfWeek.mjs":"807UC","./_lib/defaultOptions.mjs":"6QlMe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4qgzW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link getWeekYear} function options.
+ */ /**
+ * @name getWeekYear
+ * @category Week-Numbering Year Helpers
+ * @summary Get the local week-numbering year of the given date.
+ *
+ * @description
+ * Get the local week-numbering year of the given date.
+ * The exact calculation depends on the values of
+ * `options.weekStartsOn` (which is the index of the first day of the week)
+ * and `options.firstWeekContainsDate` (which is the day of January, which is always in
+ * the first week of the week-numbering year)
+ *
+ * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ * @param options - An object with options.
+ *
+ * @returns The local week-numbering year
+ *
+ * @example
+ * // Which week numbering year is 26 December 2004 with the default settings?
+ * const result = getWeekYear(new Date(2004, 11, 26))
+ * //=> 2005
+ *
+ * @example
+ * // Which week numbering year is 26 December 2004 if week starts on Saturday?
+ * const result = getWeekYear(new Date(2004, 11, 26), { weekStartsOn: 6 })
+ * //=> 2004
+ *
+ * @example
+ * // Which week numbering year is 26 December 2004 if the first week contains 4 January?
+ * const result = getWeekYear(new Date(2004, 11, 26), { firstWeekContainsDate: 4 })
+ * //=> 2004
+ */ parcelHelpers.export(exports, "getWeekYear", ()=>getWeekYear);
+var _constructFromMjs = require("./constructFrom.mjs");
+var _startOfWeekMjs = require("./startOfWeek.mjs");
+var _toDateMjs = require("./toDate.mjs");
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+function getWeekYear(date, options) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const year = _date.getFullYear();
+    const defaultOptions = (0, _defaultOptionsMjs.getDefaultOptions)();
+    const firstWeekContainsDate = options?.firstWeekContainsDate ?? options?.locale?.options?.firstWeekContainsDate ?? defaultOptions.firstWeekContainsDate ?? defaultOptions.locale?.options?.firstWeekContainsDate ?? 1;
+    const firstWeekOfNextYear = (0, _constructFromMjs.constructFrom)(date, 0);
+    firstWeekOfNextYear.setFullYear(year + 1, 0, firstWeekContainsDate);
+    firstWeekOfNextYear.setHours(0, 0, 0, 0);
+    const startOfNextYear = (0, _startOfWeekMjs.startOfWeek)(firstWeekOfNextYear, options);
+    const firstWeekOfThisYear = (0, _constructFromMjs.constructFrom)(date, 0);
+    firstWeekOfThisYear.setFullYear(year, 0, firstWeekContainsDate);
+    firstWeekOfThisYear.setHours(0, 0, 0, 0);
+    const startOfThisYear = (0, _startOfWeekMjs.startOfWeek)(firstWeekOfThisYear, options);
+    if (_date.getTime() >= startOfNextYear.getTime()) return year + 1;
+    else if (_date.getTime() >= startOfThisYear.getTime()) return year;
+    else return year - 1;
+}
+// Fallback for modularized imports:
+exports.default = getWeekYear;
+
+},{"./constructFrom.mjs":"xte3t","./startOfWeek.mjs":"807UC","./toDate.mjs":"fJykt","./_lib/defaultOptions.mjs":"6QlMe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k9VpK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "addLeadingZeros", ()=>addLeadingZeros);
+function addLeadingZeros(number, targetLength) {
+    const sign = number < 0 ? "-" : "";
+    const output = Math.abs(number).toString().padStart(targetLength, "0");
+    return sign + output;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fyEW6":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "lightFormatters", ()=>lightFormatters);
+var _addLeadingZerosMjs = require("../addLeadingZeros.mjs");
+const lightFormatters = {
+    // Year
+    y (date, token) {
+        // From http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_tokens
+        // | Year     |     y | yy |   yyy |  yyyy | yyyyy |
+        // |----------|-------|----|-------|-------|-------|
+        // | AD 1     |     1 | 01 |   001 |  0001 | 00001 |
+        // | AD 12    |    12 | 12 |   012 |  0012 | 00012 |
+        // | AD 123   |   123 | 23 |   123 |  0123 | 00123 |
+        // | AD 1234  |  1234 | 34 |  1234 |  1234 | 01234 |
+        // | AD 12345 | 12345 | 45 | 12345 | 12345 | 12345 |
+        const signedYear = date.getFullYear();
+        // Returns 1 for 1 BC (which is year 0 in JavaScript)
+        const year = signedYear > 0 ? signedYear : 1 - signedYear;
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(token === "yy" ? year % 100 : year, token.length);
+    },
+    // Month
+    M (date, token) {
+        const month = date.getMonth();
+        return token === "M" ? String(month + 1) : (0, _addLeadingZerosMjs.addLeadingZeros)(month + 1, 2);
+    },
+    // Day of the month
+    d (date, token) {
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(date.getDate(), token.length);
+    },
+    // AM or PM
+    a (date, token) {
+        const dayPeriodEnumValue = date.getHours() / 12 >= 1 ? "pm" : "am";
+        switch(token){
+            case "a":
+            case "aa":
+                return dayPeriodEnumValue.toUpperCase();
+            case "aaa":
+                return dayPeriodEnumValue;
+            case "aaaaa":
+                return dayPeriodEnumValue[0];
+            case "aaaa":
+            default:
+                return dayPeriodEnumValue === "am" ? "a.m." : "p.m.";
+        }
+    },
+    // Hour [1-12]
+    h (date, token) {
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(date.getHours() % 12 || 12, token.length);
+    },
+    // Hour [0-23]
+    H (date, token) {
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(date.getHours(), token.length);
+    },
+    // Minute
+    m (date, token) {
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(date.getMinutes(), token.length);
+    },
+    // Second
+    s (date, token) {
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(date.getSeconds(), token.length);
+    },
+    // Fraction of second
+    S (date, token) {
+        const numberOfDigits = token.length;
+        const milliseconds = date.getMilliseconds();
+        const fractionalSeconds = Math.trunc(milliseconds * Math.pow(10, numberOfDigits - 3));
+        return (0, _addLeadingZerosMjs.addLeadingZeros)(fractionalSeconds, token.length);
+    }
+};
+
+},{"../addLeadingZeros.mjs":"k9VpK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fV2Dr":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "longFormatters", ()=>longFormatters);
+const dateLongFormatter = (pattern, formatLong)=>{
+    switch(pattern){
+        case "P":
+            return formatLong.date({
+                width: "short"
+            });
+        case "PP":
+            return formatLong.date({
+                width: "medium"
+            });
+        case "PPP":
+            return formatLong.date({
+                width: "long"
+            });
+        case "PPPP":
+        default:
+            return formatLong.date({
+                width: "full"
+            });
+    }
+};
+const timeLongFormatter = (pattern, formatLong)=>{
+    switch(pattern){
+        case "p":
+            return formatLong.time({
+                width: "short"
+            });
+        case "pp":
+            return formatLong.time({
+                width: "medium"
+            });
+        case "ppp":
+            return formatLong.time({
+                width: "long"
+            });
+        case "pppp":
+        default:
+            return formatLong.time({
+                width: "full"
+            });
+    }
+};
+const dateTimeLongFormatter = (pattern, formatLong)=>{
+    const matchResult = pattern.match(/(P+)(p+)?/) || [];
+    const datePattern = matchResult[1];
+    const timePattern = matchResult[2];
+    if (!timePattern) return dateLongFormatter(pattern, formatLong);
+    let dateTimeFormat;
+    switch(datePattern){
+        case "P":
+            dateTimeFormat = formatLong.dateTime({
+                width: "short"
+            });
+            break;
+        case "PP":
+            dateTimeFormat = formatLong.dateTime({
+                width: "medium"
+            });
+            break;
+        case "PPP":
+            dateTimeFormat = formatLong.dateTime({
+                width: "long"
+            });
+            break;
+        case "PPPP":
+        default:
+            dateTimeFormat = formatLong.dateTime({
+                width: "full"
+            });
+            break;
+    }
+    return dateTimeFormat.replace("{{date}}", dateLongFormatter(datePattern, formatLong)).replace("{{time}}", timeLongFormatter(timePattern, formatLong));
+};
+const longFormatters = {
+    p: timeLongFormatter,
+    P: dateTimeLongFormatter
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1PCHg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "isProtectedDayOfYearToken", ()=>isProtectedDayOfYearToken);
+parcelHelpers.export(exports, "isProtectedWeekYearToken", ()=>isProtectedWeekYearToken);
+parcelHelpers.export(exports, "warnOrThrowProtectedError", ()=>warnOrThrowProtectedError);
+const dayOfYearTokenRE = /^D+$/;
+const weekYearTokenRE = /^Y+$/;
+const throwTokens = [
+    "D",
+    "DD",
+    "YY",
+    "YYYY"
+];
+function isProtectedDayOfYearToken(token) {
+    return dayOfYearTokenRE.test(token);
+}
+function isProtectedWeekYearToken(token) {
+    return weekYearTokenRE.test(token);
+}
+function warnOrThrowProtectedError(token, format, input) {
+    const _message = message(token, format, input);
+    console.warn(_message);
+    if (throwTokens.includes(token)) throw new RangeError(_message);
+}
+function message(token, format, input) {
+    const subject = token[0] === "Y" ? "years" : "days of the month";
+    return `Use \`${token.toLowerCase()}\` instead of \`${token}\` (in \`${format}\`) for formatting ${subject} to the input \`${input}\`; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md`;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1a1TL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link formatDistance} function options.
+ */ /**
+ * @name formatDistance
+ * @category Common Helpers
+ * @summary Return the distance between the given dates in words.
+ *
+ * @description
+ * Return the distance between the given dates in words.
+ *
+ * | Distance between dates                                            | Result              |
+ * |-------------------------------------------------------------------|---------------------|
+ * | 0 ... 30 secs                                                     | less than a minute  |
+ * | 30 secs ... 1 min 30 secs                                         | 1 minute            |
+ * | 1 min 30 secs ... 44 mins 30 secs                                 | [2..44] minutes     |
+ * | 44 mins ... 30 secs ... 89 mins 30 secs                           | about 1 hour        |
+ * | 89 mins 30 secs ... 23 hrs 59 mins 30 secs                        | about [2..24] hours |
+ * | 23 hrs 59 mins 30 secs ... 41 hrs 59 mins 30 secs                 | 1 day               |
+ * | 41 hrs 59 mins 30 secs ... 29 days 23 hrs 59 mins 30 secs         | [2..30] days        |
+ * | 29 days 23 hrs 59 mins 30 secs ... 44 days 23 hrs 59 mins 30 secs | about 1 month       |
+ * | 44 days 23 hrs 59 mins 30 secs ... 59 days 23 hrs 59 mins 30 secs | about 2 months      |
+ * | 59 days 23 hrs 59 mins 30 secs ... 1 yr                           | [2..12] months      |
+ * | 1 yr ... 1 yr 3 months                                            | about 1 year        |
+ * | 1 yr 3 months ... 1 yr 9 month s                                  | over 1 year         |
+ * | 1 yr 9 months ... 2 yrs                                           | almost 2 years      |
+ * | N yrs ... N yrs 3 months                                          | about N years       |
+ * | N yrs 3 months ... N yrs 9 months                                 | over N years        |
+ * | N yrs 9 months ... N+1 yrs                                        | almost N+1 years    |
+ *
+ * With `options.includeSeconds == true`:
+ * | Distance between dates | Result               |
+ * |------------------------|----------------------|
+ * | 0 secs ... 5 secs      | less than 5 seconds  |
+ * | 5 secs ... 10 secs     | less than 10 seconds |
+ * | 10 secs ... 20 secs    | less than 20 seconds |
+ * | 20 secs ... 40 secs    | half a minute        |
+ * | 40 secs ... 60 secs    | less than a minute   |
+ * | 60 secs ... 90 secs    | 1 minute             |
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date
+ * @param baseDate - The date to compare with
+ * @param options - An object with options
+ *
+ * @returns The distance in words
+ *
+ * @throws `date` must not be Invalid Date
+ * @throws `baseDate` must not be Invalid Date
+ * @throws `options.locale` must contain `formatDistance` property
+ *
+ * @example
+ * // What is the distance between 2 July 2014 and 1 January 2015?
+ * const result = formatDistance(new Date(2014, 6, 2), new Date(2015, 0, 1))
+ * //=> '6 months'
+ *
+ * @example
+ * // What is the distance between 1 January 2015 00:00:15
+ * // and 1 January 2015 00:00:00, including seconds?
+ * const result = formatDistance(
+ *   new Date(2015, 0, 1, 0, 0, 15),
+ *   new Date(2015, 0, 1, 0, 0, 0),
+ *   { includeSeconds: true }
+ * )
+ * //=> 'less than 20 seconds'
+ *
+ * @example
+ * // What is the distance from 1 January 2016
+ * // to 1 January 2015, with a suffix?
+ * const result = formatDistance(new Date(2015, 0, 1), new Date(2016, 0, 1), {
+ *   addSuffix: true
+ * })
+ * //=> 'about 1 year ago'
+ *
+ * @example
+ * // What is the distance between 1 August 2016 and 1 January 2015 in Esperanto?
+ * import { eoLocale } from 'date-fns/locale/eo'
+ * const result = formatDistance(new Date(2016, 7, 1), new Date(2015, 0, 1), {
+ *   locale: eoLocale
+ * })
+ * //=> 'pli ol 1 jaro'
+ */ parcelHelpers.export(exports, "formatDistance", ()=>formatDistance);
+var _compareAscMjs = require("./compareAsc.mjs");
+var _constantsMjs = require("./constants.mjs");
+var _differenceInMonthsMjs = require("./differenceInMonths.mjs");
+var _differenceInSecondsMjs = require("./differenceInSeconds.mjs");
+var _toDateMjs = require("./toDate.mjs");
+var _defaultLocaleMjs = require("./_lib/defaultLocale.mjs");
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+var _getTimezoneOffsetInMillisecondsMjs = require("./_lib/getTimezoneOffsetInMilliseconds.mjs");
+function formatDistance(date, baseDate, options) {
+    const defaultOptions = (0, _defaultOptionsMjs.getDefaultOptions)();
+    const locale = options?.locale ?? defaultOptions.locale ?? (0, _defaultLocaleMjs.defaultLocale);
+    const minutesInAlmostTwoDays = 2520;
+    const comparison = (0, _compareAscMjs.compareAsc)(date, baseDate);
+    if (isNaN(comparison)) throw new RangeError("Invalid time value");
+    const localizeOptions = Object.assign({}, options, {
+        addSuffix: options?.addSuffix,
+        comparison: comparison
+    });
+    let dateLeft;
+    let dateRight;
+    if (comparison > 0) {
+        dateLeft = (0, _toDateMjs.toDate)(baseDate);
+        dateRight = (0, _toDateMjs.toDate)(date);
+    } else {
+        dateLeft = (0, _toDateMjs.toDate)(date);
+        dateRight = (0, _toDateMjs.toDate)(baseDate);
+    }
+    const seconds = (0, _differenceInSecondsMjs.differenceInSeconds)(dateRight, dateLeft);
+    const offsetInSeconds = ((0, _getTimezoneOffsetInMillisecondsMjs.getTimezoneOffsetInMilliseconds)(dateRight) - (0, _getTimezoneOffsetInMillisecondsMjs.getTimezoneOffsetInMilliseconds)(dateLeft)) / 1000;
+    const minutes = Math.round((seconds - offsetInSeconds) / 60);
+    let months;
+    // 0 up to 2 mins
+    if (minutes < 2) {
+        if (options?.includeSeconds) {
+            if (seconds < 5) return locale.formatDistance("lessThanXSeconds", 5, localizeOptions);
+            else if (seconds < 10) return locale.formatDistance("lessThanXSeconds", 10, localizeOptions);
+            else if (seconds < 20) return locale.formatDistance("lessThanXSeconds", 20, localizeOptions);
+            else if (seconds < 40) return locale.formatDistance("halfAMinute", 0, localizeOptions);
+            else if (seconds < 60) return locale.formatDistance("lessThanXMinutes", 1, localizeOptions);
+            else return locale.formatDistance("xMinutes", 1, localizeOptions);
+        } else {
+            if (minutes === 0) return locale.formatDistance("lessThanXMinutes", 1, localizeOptions);
+            else return locale.formatDistance("xMinutes", minutes, localizeOptions);
+        }
+    } else if (minutes < 45) return locale.formatDistance("xMinutes", minutes, localizeOptions);
+    else if (minutes < 90) return locale.formatDistance("aboutXHours", 1, localizeOptions);
+    else if (minutes < (0, _constantsMjs.minutesInDay)) {
+        const hours = Math.round(minutes / 60);
+        return locale.formatDistance("aboutXHours", hours, localizeOptions);
+    // 1 day up to 1.75 days
+    } else if (minutes < minutesInAlmostTwoDays) return locale.formatDistance("xDays", 1, localizeOptions);
+    else if (minutes < (0, _constantsMjs.minutesInMonth)) {
+        const days = Math.round(minutes / (0, _constantsMjs.minutesInDay));
+        return locale.formatDistance("xDays", days, localizeOptions);
+    // 1 month up to 2 months
+    } else if (minutes < (0, _constantsMjs.minutesInMonth) * 2) {
+        months = Math.round(minutes / (0, _constantsMjs.minutesInMonth));
+        return locale.formatDistance("aboutXMonths", months, localizeOptions);
+    }
+    months = (0, _differenceInMonthsMjs.differenceInMonths)(dateRight, dateLeft);
+    // 2 months up to 12 months
+    if (months < 12) {
+        const nearestMonth = Math.round(minutes / (0, _constantsMjs.minutesInMonth));
+        return locale.formatDistance("xMonths", nearestMonth, localizeOptions);
+    // 1 year up to max Date
+    } else {
+        const monthsSinceStartOfYear = months % 12;
+        const years = Math.trunc(months / 12);
+        // N years up to 1 years 3 months
+        if (monthsSinceStartOfYear < 3) return locale.formatDistance("aboutXYears", years, localizeOptions);
+        else if (monthsSinceStartOfYear < 9) return locale.formatDistance("overXYears", years, localizeOptions);
+        else return locale.formatDistance("almostXYears", years + 1, localizeOptions);
+    }
+}
+// Fallback for modularized imports:
+exports.default = formatDistance;
+
+},{"./compareAsc.mjs":"gHVyQ","./constants.mjs":"iISMq","./differenceInMonths.mjs":"8HTvw","./differenceInSeconds.mjs":"a0DEp","./toDate.mjs":"fJykt","./_lib/defaultLocale.mjs":"fV6Yh","./_lib/defaultOptions.mjs":"6QlMe","./_lib/getTimezoneOffsetInMilliseconds.mjs":"KaqYL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"757wK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link formatDistanceStrict} function options.
+ */ /**
+ * The unit used to format the distance in {@link formatDistanceStrict}.
+ */ /**
+ * @name formatDistanceStrict
+ * @category Common Helpers
+ * @summary Return the distance between the given dates in words.
+ *
+ * @description
+ * Return the distance between the given dates in words, using strict units.
+ * This is like `formatDistance`, but does not use helpers like 'almost', 'over',
+ * 'less than' and the like.
+ *
+ * | Distance between dates | Result              |
+ * |------------------------|---------------------|
+ * | 0 ... 59 secs          | [0..59] seconds     |
+ * | 1 ... 59 mins          | [1..59] minutes     |
+ * | 1 ... 23 hrs           | [1..23] hours       |
+ * | 1 ... 29 days          | [1..29] days        |
+ * | 1 ... 11 months        | [1..11] months      |
+ * | 1 ... N years          | [1..N]  years       |
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date
+ * @param baseDate - The date to compare with
+ * @param options - An object with options
+ *
+ * @returns The distance in words
+ *
+ * @throws `date` must not be Invalid Date
+ * @throws `baseDate` must not be Invalid Date
+ * @throws `options.unit` must be 'second', 'minute', 'hour', 'day', 'month' or 'year'
+ * @throws `options.locale` must contain `formatDistance` property
+ *
+ * @example
+ * // What is the distance between 2 July 2014 and 1 January 2015?
+ * const result = formatDistanceStrict(new Date(2014, 6, 2), new Date(2015, 0, 2))
+ * //=> '6 months'
+ *
+ * @example
+ * // What is the distance between 1 January 2015 00:00:15
+ * // and 1 January 2015 00:00:00?
+ * const result = formatDistanceStrict(
+ *   new Date(2015, 0, 1, 0, 0, 15),
+ *   new Date(2015, 0, 1, 0, 0, 0)
+ * )
+ * //=> '15 seconds'
+ *
+ * @example
+ * // What is the distance from 1 January 2016
+ * // to 1 January 2015, with a suffix?
+ * const result = formatDistanceStrict(new Date(2015, 0, 1), new Date(2016, 0, 1), {
+ *   addSuffix: true
+ * })
+ * //=> '1 year ago'
+ *
+ * @example
+ * // What is the distance from 1 January 2016
+ * // to 1 January 2015, in minutes?
+ * const result = formatDistanceStrict(new Date(2016, 0, 1), new Date(2015, 0, 1), {
+ *   unit: 'minute'
+ * })
+ * //=> '525600 minutes'
+ *
+ * @example
+ * // What is the distance from 1 January 2015
+ * // to 28 January 2015, in months, rounded up?
+ * const result = formatDistanceStrict(new Date(2015, 0, 28), new Date(2015, 0, 1), {
+ *   unit: 'month',
+ *   roundingMethod: 'ceil'
+ * })
+ * //=> '1 month'
+ *
+ * @example
+ * // What is the distance between 1 August 2016 and 1 January 2015 in Esperanto?
+ * import { eoLocale } from 'date-fns/locale/eo'
+ * const result = formatDistanceStrict(new Date(2016, 7, 1), new Date(2015, 0, 1), {
+ *   locale: eoLocale
+ * })
+ * //=> '1 jaro'
+ */ parcelHelpers.export(exports, "formatDistanceStrict", ()=>formatDistanceStrict);
+var _defaultLocaleMjs = require("./_lib/defaultLocale.mjs");
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+var _getRoundingMethodMjs = require("./_lib/getRoundingMethod.mjs");
+var _getTimezoneOffsetInMillisecondsMjs = require("./_lib/getTimezoneOffsetInMilliseconds.mjs");
+var _compareAscMjs = require("./compareAsc.mjs");
+var _constantsMjs = require("./constants.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function formatDistanceStrict(date, baseDate, options) {
+    const defaultOptions = (0, _defaultOptionsMjs.getDefaultOptions)();
+    const locale = options?.locale ?? defaultOptions.locale ?? (0, _defaultLocaleMjs.defaultLocale);
+    const comparison = (0, _compareAscMjs.compareAsc)(date, baseDate);
+    if (isNaN(comparison)) throw new RangeError("Invalid time value");
+    const localizeOptions = Object.assign({}, options, {
+        addSuffix: options?.addSuffix,
+        comparison: comparison
+    });
+    let dateLeft;
+    let dateRight;
+    if (comparison > 0) {
+        dateLeft = (0, _toDateMjs.toDate)(baseDate);
+        dateRight = (0, _toDateMjs.toDate)(date);
+    } else {
+        dateLeft = (0, _toDateMjs.toDate)(date);
+        dateRight = (0, _toDateMjs.toDate)(baseDate);
+    }
+    const roundingMethod = (0, _getRoundingMethodMjs.getRoundingMethod)(options?.roundingMethod ?? "round");
+    const milliseconds = dateRight.getTime() - dateLeft.getTime();
+    const minutes = milliseconds / (0, _constantsMjs.millisecondsInMinute);
+    const timezoneOffset = (0, _getTimezoneOffsetInMillisecondsMjs.getTimezoneOffsetInMilliseconds)(dateRight) - (0, _getTimezoneOffsetInMillisecondsMjs.getTimezoneOffsetInMilliseconds)(dateLeft);
+    // Use DST-normalized difference in minutes for years, months and days;
+    // use regular difference in minutes for hours, minutes and seconds.
+    const dstNormalizedMinutes = (milliseconds - timezoneOffset) / (0, _constantsMjs.millisecondsInMinute);
+    const defaultUnit = options?.unit;
+    let unit;
+    if (!defaultUnit) {
+        if (minutes < 1) unit = "second";
+        else if (minutes < 60) unit = "minute";
+        else if (minutes < (0, _constantsMjs.minutesInDay)) unit = "hour";
+        else if (dstNormalizedMinutes < (0, _constantsMjs.minutesInMonth)) unit = "day";
+        else if (dstNormalizedMinutes < (0, _constantsMjs.minutesInYear)) unit = "month";
+        else unit = "year";
+    } else unit = defaultUnit;
+    // 0 up to 60 seconds
+    if (unit === "second") {
+        const seconds = roundingMethod(milliseconds / 1000);
+        return locale.formatDistance("xSeconds", seconds, localizeOptions);
+    // 1 up to 60 mins
+    } else if (unit === "minute") {
+        const roundedMinutes = roundingMethod(minutes);
+        return locale.formatDistance("xMinutes", roundedMinutes, localizeOptions);
+    // 1 up to 24 hours
+    } else if (unit === "hour") {
+        const hours = roundingMethod(minutes / 60);
+        return locale.formatDistance("xHours", hours, localizeOptions);
+    // 1 up to 30 days
+    } else if (unit === "day") {
+        const days = roundingMethod(dstNormalizedMinutes / (0, _constantsMjs.minutesInDay));
+        return locale.formatDistance("xDays", days, localizeOptions);
+    // 1 up to 12 months
+    } else if (unit === "month") {
+        const months = roundingMethod(dstNormalizedMinutes / (0, _constantsMjs.minutesInMonth));
+        return months === 12 && defaultUnit !== "month" ? locale.formatDistance("xYears", 1, localizeOptions) : locale.formatDistance("xMonths", months, localizeOptions);
+    // 1 year up to max Date
+    } else {
+        const years = roundingMethod(dstNormalizedMinutes / (0, _constantsMjs.minutesInYear));
+        return locale.formatDistance("xYears", years, localizeOptions);
+    }
+}
+// Fallback for modularized imports:
+exports.default = formatDistanceStrict;
+
+},{"./_lib/defaultLocale.mjs":"fV6Yh","./_lib/defaultOptions.mjs":"6QlMe","./_lib/getRoundingMethod.mjs":"ccMm0","./_lib/getTimezoneOffsetInMilliseconds.mjs":"KaqYL","./compareAsc.mjs":"gHVyQ","./constants.mjs":"iISMq","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lrvcb":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link formatDistanceToNow} function options.
+ */ /**
+ * @name formatDistanceToNow
+ * @category Common Helpers
+ * @summary Return the distance between the given date and now in words.
+ * @pure false
+ *
+ * @description
+ * Return the distance between the given date and now in words.
+ *
+ * | Distance to now                                                   | Result              |
+ * |-------------------------------------------------------------------|---------------------|
+ * | 0 ... 30 secs                                                     | less than a minute  |
+ * | 30 secs ... 1 min 30 secs                                         | 1 minute            |
+ * | 1 min 30 secs ... 44 mins 30 secs                                 | [2..44] minutes     |
+ * | 44 mins ... 30 secs ... 89 mins 30 secs                           | about 1 hour        |
+ * | 89 mins 30 secs ... 23 hrs 59 mins 30 secs                        | about [2..24] hours |
+ * | 23 hrs 59 mins 30 secs ... 41 hrs 59 mins 30 secs                 | 1 day               |
+ * | 41 hrs 59 mins 30 secs ... 29 days 23 hrs 59 mins 30 secs         | [2..30] days        |
+ * | 29 days 23 hrs 59 mins 30 secs ... 44 days 23 hrs 59 mins 30 secs | about 1 month       |
+ * | 44 days 23 hrs 59 mins 30 secs ... 59 days 23 hrs 59 mins 30 secs | about 2 months      |
+ * | 59 days 23 hrs 59 mins 30 secs ... 1 yr                           | [2..12] months      |
+ * | 1 yr ... 1 yr 3 months                                            | about 1 year        |
+ * | 1 yr 3 months ... 1 yr 9 month s                                  | over 1 year         |
+ * | 1 yr 9 months ... 2 yrs                                           | almost 2 years      |
+ * | N yrs ... N yrs 3 months                                          | about N years       |
+ * | N yrs 3 months ... N yrs 9 months                                 | over N years        |
+ * | N yrs 9 months ... N+1 yrs                                        | almost N+1 years    |
+ *
+ * With `options.includeSeconds == true`:
+ * | Distance to now     | Result               |
+ * |---------------------|----------------------|
+ * | 0 secs ... 5 secs   | less than 5 seconds  |
+ * | 5 secs ... 10 secs  | less than 10 seconds |
+ * | 10 secs ... 20 secs | less than 20 seconds |
+ * | 20 secs ... 40 secs | half a minute        |
+ * | 40 secs ... 60 secs | less than a minute   |
+ * | 60 secs ... 90 secs | 1 minute             |
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ * @param options - The object with options
+ *
+ * @returns The distance in words
+ *
+ * @throws `date` must not be Invalid Date
+ * @throws `options.locale` must contain `formatDistance` property
+ *
+ * @example
+ * // If today is 1 January 2015, what is the distance to 2 July 2014?
+ * const result = formatDistanceToNow(
+ *   new Date(2014, 6, 2)
+ * )
+ * //=> '6 months'
+ *
+ * @example
+ * // If now is 1 January 2015 00:00:00,
+ * // what is the distance to 1 January 2015 00:00:15, including seconds?
+ * const result = formatDistanceToNow(
+ *   new Date(2015, 0, 1, 0, 0, 15),
+ *   {includeSeconds: true}
+ * )
+ * //=> 'less than 20 seconds'
+ *
+ * @example
+ * // If today is 1 January 2015,
+ * // what is the distance to 1 January 2016, with a suffix?
+ * const result = formatDistanceToNow(
+ *   new Date(2016, 0, 1),
+ *   {addSuffix: true}
+ * )
+ * //=> 'in about 1 year'
+ *
+ * @example
+ * // If today is 1 January 2015,
+ * // what is the distance to 1 August 2016 in Esperanto?
+ * const eoLocale = require('date-fns/locale/eo')
+ * const result = formatDistanceToNow(
+ *   new Date(2016, 7, 1),
+ *   {locale: eoLocale}
+ * )
+ * //=> 'pli ol 1 jaro'
+ */ parcelHelpers.export(exports, "formatDistanceToNow", ()=>formatDistanceToNow);
+var _formatDistanceMjs = require("./formatDistance.mjs");
+function formatDistanceToNow(date, options) {
+    return (0, _formatDistanceMjs.formatDistance)(date, Date.now(), options);
+}
+// Fallback for modularized imports:
+exports.default = formatDistanceToNow;
+
+},{"./formatDistance.mjs":"1a1TL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"29B34":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link formatDistanceToNowStrict} function options.
+ */ /**
+ * @name formatDistanceToNowStrict
+ * @category Common Helpers
+ * @summary Return the distance between the given date and now in words.
+ * @pure false
+ *
+ * @description
+ * Return the distance between the given dates in words, using strict units.
+ * This is like `formatDistance`, but does not use helpers like 'almost', 'over',
+ * 'less than' and the like.
+ *
+ * | Distance between dates | Result              |
+ * |------------------------|---------------------|
+ * | 0 ... 59 secs          | [0..59] seconds     |
+ * | 1 ... 59 mins          | [1..59] minutes     |
+ * | 1 ... 23 hrs           | [1..23] hours       |
+ * | 1 ... 29 days          | [1..29] days        |
+ * | 1 ... 11 months        | [1..11] months      |
+ * | 1 ... N years          | [1..N]  years       |
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ * @param options - An object with options.
+ *
+ * @returns The distance in words
+ *
+ * @throws `date` must not be Invalid Date
+ * @throws `options.locale` must contain `formatDistance` property
+ *
+ * @example
+ * // If today is 1 January 2015, what is the distance to 2 July 2014?
+ * const result = formatDistanceToNowStrict(
+ *   new Date(2014, 6, 2)
+ * )
+ * //=> '6 months'
+ *
+ * @example
+ * // If now is 1 January 2015 00:00:00,
+ * // what is the distance to 1 January 2015 00:00:15, including seconds?
+ * const result = formatDistanceToNowStrict(
+ *   new Date(2015, 0, 1, 0, 0, 15)
+ * )
+ * //=> '15 seconds'
+ *
+ * @example
+ * // If today is 1 January 2015,
+ * // what is the distance to 1 January 2016, with a suffix?
+ * const result = formatDistanceToNowStrict(
+ *   new Date(2016, 0, 1),
+ *   {addSuffix: true}
+ * )
+ * //=> 'in 1 year'
+ *
+ * @example
+ * // If today is 28 January 2015,
+ * // what is the distance to 1 January 2015, in months, rounded up??
+ * const result = formatDistanceToNowStrict(new Date(2015, 0, 1), {
+ *   unit: 'month',
+ *   roundingMethod: 'ceil'
+ * })
+ * //=> '1 month'
+ *
+ * @example
+ * // If today is 1 January 2015,
+ * // what is the distance to 1 January 2016 in Esperanto?
+ * const eoLocale = require('date-fns/locale/eo')
+ * const result = formatDistanceToNowStrict(
+ *   new Date(2016, 0, 1),
+ *   {locale: eoLocale}
+ * )
+ * //=> '1 jaro'
+ */ parcelHelpers.export(exports, "formatDistanceToNowStrict", ()=>formatDistanceToNowStrict);
+var _formatDistanceStrictMjs = require("./formatDistanceStrict.mjs");
+function formatDistanceToNowStrict(date, options) {
+    return (0, _formatDistanceStrictMjs.formatDistanceStrict)(date, Date.now(), options);
+}
+// Fallback for modularized imports:
+exports.default = formatDistanceToNowStrict;
+
+},{"./formatDistanceStrict.mjs":"757wK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kA32O":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name formatDuration
+ * @category Common Helpers
+ * @summary Formats a duration in human-readable format
+ *
+ * @description
+ * Return human-readable duration string i.e. "9 months 2 days"
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param duration - The duration to format
+ * @param options - An object with options.
+ *
+ * @returns The formatted date string
+ *
+ * @example
+ * // Format full duration
+ * formatDuration({
+ *   years: 2,
+ *   months: 9,
+ *   weeks: 1,
+ *   days: 7,
+ *   hours: 5,
+ *   minutes: 9,
+ *   seconds: 30
+ * })
+ * //=> '2 years 9 months 1 week 7 days 5 hours 9 minutes 30 seconds'
+ *
+ * @example
+ * // Format partial duration
+ * formatDuration({ months: 9, days: 2 })
+ * //=> '9 months 2 days'
+ *
+ * @example
+ * // Customize the format
+ * formatDuration(
+ *   {
+ *     years: 2,
+ *     months: 9,
+ *     weeks: 1,
+ *     days: 7,
+ *     hours: 5,
+ *     minutes: 9,
+ *     seconds: 30
+ *   },
+ *   { format: ['months', 'weeks'] }
+ * ) === '9 months 1 week'
+ *
+ * @example
+ * // Customize the zeros presence
+ * formatDuration({ years: 0, months: 9 })
+ * //=> '9 months'
+ * formatDuration({ years: 0, months: 9 }, { zero: true })
+ * //=> '0 years 9 months'
+ *
+ * @example
+ * // Customize the delimiter
+ * formatDuration({ years: 2, months: 9, weeks: 3 }, { delimiter: ', ' })
+ * //=> '2 years, 9 months, 3 weeks'
+ */ parcelHelpers.export(exports, "formatDuration", ()=>formatDuration);
+var _defaultLocaleMjs = require("./_lib/defaultLocale.mjs");
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+/**
+ * The {@link formatDuration} function options.
+ */ const defaultFormat = [
+    "years",
+    "months",
+    "weeks",
+    "days",
+    "hours",
+    "minutes",
+    "seconds"
+];
+function formatDuration(duration, options) {
+    const defaultOptions = (0, _defaultOptionsMjs.getDefaultOptions)();
+    const locale = options?.locale ?? defaultOptions.locale ?? (0, _defaultLocaleMjs.defaultLocale);
+    const format = options?.format ?? defaultFormat;
+    const zero = options?.zero ?? false;
+    const delimiter = options?.delimiter ?? " ";
+    if (!locale.formatDistance) return "";
+    const result = format.reduce((acc, unit)=>{
+        const token = `x${unit.replace(/(^.)/, (m)=>m.toUpperCase())}`;
+        const value = duration[unit];
+        if (value !== undefined && (zero || duration[unit])) return acc.concat(locale.formatDistance(token, value));
+        return acc;
+    }, []).join(delimiter);
+    return result;
+}
+// Fallback for modularized imports:
+exports.default = formatDuration;
+
+},{"./_lib/defaultLocale.mjs":"fV6Yh","./_lib/defaultOptions.mjs":"6QlMe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k2GxI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link formatISO} function options.
+ */ /**
+ * @name formatISO
+ * @category Common Helpers
+ * @summary Format the date according to the ISO 8601 standard (https://support.sas.com/documentation/cdl/en/lrdict/64316/HTML/default/viewer.htm#a003169814.htm).
+ *
+ * @description
+ * Return the formatted date string in ISO 8601 format. Options may be passed to control the parts and notations of the date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param options - An object with options.
+ *
+ * @returns The formatted date string (in loca.l time zone)
+ *
+ * @throws `date` must not be Invalid Date
+ *
+ * @example
+ * // Represent 18 September 2019 in ISO 8601 format (local time zone is UTC):
+ * const result = formatISO(new Date(2019, 8, 18, 19, 0, 52))
+ * //=> '2019-09-18T19:00:52Z'
+ *
+ * @example
+ * // Represent 18 September 2019 in ISO 8601, short format (local time zone is UTC):
+ * const result = formatISO(new Date(2019, 8, 18, 19, 0, 52), { format: 'basic' })
+ * //=> '20190918T190052'
+ *
+ * @example
+ * // Represent 18 September 2019 in ISO 8601 format, date only:
+ * const result = formatISO(new Date(2019, 8, 18, 19, 0, 52), { representation: 'date' })
+ * //=> '2019-09-18'
+ *
+ * @example
+ * // Represent 18 September 2019 in ISO 8601 format, time only (local time zone is UTC):
+ * const result = formatISO(new Date(2019, 8, 18, 19, 0, 52), { representation: 'time' })
+ * //=> '19:00:52Z'
+ */ parcelHelpers.export(exports, "formatISO", ()=>formatISO);
+var _toDateMjs = require("./toDate.mjs");
+var _addLeadingZerosMjs = require("./_lib/addLeadingZeros.mjs");
+function formatISO(date, options) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    if (isNaN(_date.getTime())) throw new RangeError("Invalid time value");
+    const format = options?.format ?? "extended";
+    const representation = options?.representation ?? "complete";
+    let result = "";
+    let tzOffset = "";
+    const dateDelimiter = format === "extended" ? "-" : "";
+    const timeDelimiter = format === "extended" ? ":" : "";
+    // Representation is either 'date' or 'complete'
+    if (representation !== "time") {
+        const day = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getDate(), 2);
+        const month = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getMonth() + 1, 2);
+        const year = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getFullYear(), 4);
+        // yyyyMMdd or yyyy-MM-dd.
+        result = `${year}${dateDelimiter}${month}${dateDelimiter}${day}`;
+    }
+    // Representation is either 'time' or 'complete'
+    if (representation !== "date") {
+        // Add the timezone.
+        const offset = _date.getTimezoneOffset();
+        if (offset !== 0) {
+            const absoluteOffset = Math.abs(offset);
+            const hourOffset = (0, _addLeadingZerosMjs.addLeadingZeros)(Math.trunc(absoluteOffset / 60), 2);
+            const minuteOffset = (0, _addLeadingZerosMjs.addLeadingZeros)(absoluteOffset % 60, 2);
+            // If less than 0, the sign is +, because it is ahead of time.
+            const sign = offset < 0 ? "+" : "-";
+            tzOffset = `${sign}${hourOffset}:${minuteOffset}`;
+        } else tzOffset = "Z";
+        const hour = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getHours(), 2);
+        const minute = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getMinutes(), 2);
+        const second = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getSeconds(), 2);
+        // If there's also date, separate it with time with 'T'
+        const separator = result === "" ? "" : "T";
+        // Creates a time string consisting of hour, minute, and second, separated by delimiters, if defined.
+        const time = [
+            hour,
+            minute,
+            second
+        ].join(timeDelimiter);
+        // HHmmss or HH:mm:ss.
+        result = `${result}${separator}${time}${tzOffset}`;
+    }
+    return result;
+}
+// Fallback for modularized imports:
+exports.default = formatISO;
+
+},{"./toDate.mjs":"fJykt","./_lib/addLeadingZeros.mjs":"k9VpK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3tBoi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link formatISO9075} function options.
+ */ /**
+ * @name formatISO9075
+ * @category Common Helpers
+ * @summary Format the date according to the ISO 9075 standard (https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_get-format).
+ *
+ * @description
+ * Return the formatted date string in ISO 9075 format. Options may be passed to control the parts and notations of the date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param options - An object with options.
+ *
+ * @returns The formatted date string
+ *
+ * @throws `date` must not be Invalid Date
+ *
+ * @example
+ * // Represent 18 September 2019 in ISO 9075 format:
+ * const result = formatISO9075(new Date(2019, 8, 18, 19, 0, 52))
+ * //=> '2019-09-18 19:00:52'
+ *
+ * @example
+ * // Represent 18 September 2019 in ISO 9075, short format:
+ * const result = formatISO9075(new Date(2019, 8, 18, 19, 0, 52), { format: 'basic' })
+ * //=> '20190918 190052'
+ *
+ * @example
+ * // Represent 18 September 2019 in ISO 9075 format, date only:
+ * const result = formatISO9075(new Date(2019, 8, 18, 19, 0, 52), { representation: 'date' })
+ * //=> '2019-09-18'
+ *
+ * @example
+ * // Represent 18 September 2019 in ISO 9075 format, time only:
+ * const result = formatISO9075(new Date(2019, 8, 18, 19, 0, 52), { representation: 'time' })
+ * //=> '19:00:52'
+ */ parcelHelpers.export(exports, "formatISO9075", ()=>formatISO9075);
+var _isValidMjs = require("./isValid.mjs");
+var _toDateMjs = require("./toDate.mjs");
+var _addLeadingZerosMjs = require("./_lib/addLeadingZeros.mjs");
+function formatISO9075(date, options) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    if (!(0, _isValidMjs.isValid)(_date)) throw new RangeError("Invalid time value");
+    const format = options?.format ?? "extended";
+    const representation = options?.representation ?? "complete";
+    let result = "";
+    const dateDelimiter = format === "extended" ? "-" : "";
+    const timeDelimiter = format === "extended" ? ":" : "";
+    // Representation is either 'date' or 'complete'
+    if (representation !== "time") {
+        const day = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getDate(), 2);
+        const month = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getMonth() + 1, 2);
+        const year = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getFullYear(), 4);
+        // yyyyMMdd or yyyy-MM-dd.
+        result = `${year}${dateDelimiter}${month}${dateDelimiter}${day}`;
+    }
+    // Representation is either 'time' or 'complete'
+    if (representation !== "date") {
+        const hour = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getHours(), 2);
+        const minute = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getMinutes(), 2);
+        const second = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getSeconds(), 2);
+        // If there's also date, separate it with time with a space
+        const separator = result === "" ? "" : " ";
+        // HHmmss or HH:mm:ss.
+        result = `${result}${separator}${hour}${timeDelimiter}${minute}${timeDelimiter}${second}`;
+    }
+    return result;
+}
+// Fallback for modularized imports:
+exports.default = formatISO9075;
+
+},{"./isValid.mjs":"dX2Ty","./toDate.mjs":"fJykt","./_lib/addLeadingZeros.mjs":"k9VpK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bv64a":[function(require,module,exports) {
+/**
+ * @name formatISODuration
+ * @category Common Helpers
+ * @summary Format a duration object according as ISO 8601 duration string
+ *
+ * @description
+ * Format a duration object according to the ISO 8601 duration standard (https://www.digi.com/resources/documentation/digidocs//90001488-13/reference/r_iso_8601_duration_format.htm)
+ *
+ * @param duration - The duration to format
+ *
+ * @returns The ISO 8601 duration string
+ *
+ * @example
+ * // Format the given duration as ISO 8601 string
+ * const result = formatISODuration({
+ *   years: 39,
+ *   months: 2,
+ *   days: 20,
+ *   hours: 7,
+ *   minutes: 5,
+ *   seconds: 0
+ * })
+ * //=> 'P39Y2M20DT0H0M0S'
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "formatISODuration", ()=>formatISODuration);
+function formatISODuration(duration) {
+    const { years = 0, months = 0, days = 0, hours = 0, minutes = 0, seconds = 0 } = duration;
+    return `P${years}Y${months}M${days}DT${hours}H${minutes}M${seconds}S`;
+}
+// Fallback for modularized imports:
+exports.default = formatISODuration;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f9qSN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link formatRFC3339} function options.
+ */ /**
+ * @name formatRFC3339
+ * @category Common Helpers
+ * @summary Format the date according to the RFC 3339 standard (https://tools.ietf.org/html/rfc3339#section-5.6).
+ *
+ * @description
+ * Return the formatted date string in RFC 3339 format. Options may be passed to control the parts and notations of the date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param options - An object with options.
+ *
+ * @returns The formatted date string
+ *
+ * @throws `date` must not be Invalid Date
+ *
+ * @example
+ * // Represent 18 September 2019 in RFC 3339 format:
+ * formatRFC3339(new Date(2019, 8, 18, 19, 0, 52))
+ * //=> '2019-09-18T19:00:52Z'
+ *
+ * @example
+ * // Represent 18 September 2019 in RFC 3339 format, 3 digits of second fraction
+ * formatRFC3339(new Date(2019, 8, 18, 19, 0, 52, 234), {
+ *   fractionDigits: 3
+ * })
+ * //=> '2019-09-18T19:00:52.234Z'
+ */ parcelHelpers.export(exports, "formatRFC3339", ()=>formatRFC3339);
+var _isValidMjs = require("./isValid.mjs");
+var _toDateMjs = require("./toDate.mjs");
+var _addLeadingZerosMjs = require("./_lib/addLeadingZeros.mjs");
+function formatRFC3339(date, options) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    if (!(0, _isValidMjs.isValid)(_date)) throw new RangeError("Invalid time value");
+    const fractionDigits = options?.fractionDigits ?? 0;
+    const day = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getDate(), 2);
+    const month = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getMonth() + 1, 2);
+    const year = _date.getFullYear();
+    const hour = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getHours(), 2);
+    const minute = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getMinutes(), 2);
+    const second = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getSeconds(), 2);
+    let fractionalSecond = "";
+    if (fractionDigits > 0) {
+        const milliseconds = _date.getMilliseconds();
+        const fractionalSeconds = Math.trunc(milliseconds * Math.pow(10, fractionDigits - 3));
+        fractionalSecond = "." + (0, _addLeadingZerosMjs.addLeadingZeros)(fractionalSeconds, fractionDigits);
+    }
+    let offset = "";
+    const tzOffset = _date.getTimezoneOffset();
+    if (tzOffset !== 0) {
+        const absoluteOffset = Math.abs(tzOffset);
+        const hourOffset = (0, _addLeadingZerosMjs.addLeadingZeros)(Math.trunc(absoluteOffset / 60), 2);
+        const minuteOffset = (0, _addLeadingZerosMjs.addLeadingZeros)(absoluteOffset % 60, 2);
+        // If less than 0, the sign is +, because it is ahead of time.
+        const sign = tzOffset < 0 ? "+" : "-";
+        offset = `${sign}${hourOffset}:${minuteOffset}`;
+    } else offset = "Z";
+    return `${year}-${month}-${day}T${hour}:${minute}:${second}${fractionalSecond}${offset}`;
+}
+// Fallback for modularized imports:
+exports.default = formatRFC3339;
+
+},{"./isValid.mjs":"dX2Ty","./toDate.mjs":"fJykt","./_lib/addLeadingZeros.mjs":"k9VpK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gWN0m":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name formatRFC7231
+ * @category Common Helpers
+ * @summary Format the date according to the RFC 7231 standard (https://tools.ietf.org/html/rfc7231#section-7.1.1.1).
+ *
+ * @description
+ * Return the formatted date string in RFC 7231 format.
+ * The result will always be in UTC timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The formatted date string
+ *
+ * @throws `date` must not be Invalid Date
+ *
+ * @example
+ * // Represent 18 September 2019 in RFC 7231 format:
+ * const result = formatRFC7231(new Date(2019, 8, 18, 19, 0, 52))
+ * //=> 'Wed, 18 Sep 2019 19:00:52 GMT'
+ */ parcelHelpers.export(exports, "formatRFC7231", ()=>formatRFC7231);
+var _isValidMjs = require("./isValid.mjs");
+var _toDateMjs = require("./toDate.mjs");
+var _addLeadingZerosMjs = require("./_lib/addLeadingZeros.mjs");
+const days = [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat"
+];
+const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+];
+function formatRFC7231(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    if (!(0, _isValidMjs.isValid)(_date)) throw new RangeError("Invalid time value");
+    const dayName = days[_date.getUTCDay()];
+    const dayOfMonth = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getUTCDate(), 2);
+    const monthName = months[_date.getUTCMonth()];
+    const year = _date.getUTCFullYear();
+    const hour = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getUTCHours(), 2);
+    const minute = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getUTCMinutes(), 2);
+    const second = (0, _addLeadingZerosMjs.addLeadingZeros)(_date.getUTCSeconds(), 2);
+    // Result variables.
+    return `${dayName}, ${dayOfMonth} ${monthName} ${year} ${hour}:${minute}:${second} GMT`;
+}
+// Fallback for modularized imports:
+exports.default = formatRFC7231;
+
+},{"./isValid.mjs":"dX2Ty","./toDate.mjs":"fJykt","./_lib/addLeadingZeros.mjs":"k9VpK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bDsBL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link formatRelative} function options.
+ */ /**
+ * @name formatRelative
+ * @category Common Helpers
+ * @summary Represent the date in words relative to the given base date.
+ *
+ * @description
+ * Represent the date in words relative to the given base date.
+ *
+ * | Distance to the base date | Result                    |
+ * |---------------------------|---------------------------|
+ * | Previous 6 days           | last Sunday at 04:30 AM   |
+ * | Last day                  | yesterday at 04:30 AM     |
+ * | Same day                  | today at 04:30 AM         |
+ * | Next day                  | tomorrow at 04:30 AM      |
+ * | Next 6 days               | Sunday at 04:30 AM        |
+ * | Other                     | 12/31/2017                |
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to format
+ * @param baseDate - The date to compare with
+ * @param options - An object with options
+ *
+ * @returns The date in words
+ *
+ * @throws `date` must not be Invalid Date
+ * @throws `baseDate` must not be Invalid Date
+ * @throws `options.locale` must contain `localize` property
+ * @throws `options.locale` must contain `formatLong` property
+ * @throws `options.locale` must contain `formatRelative` property
+ *
+ * @example
+ * // Represent the date of 6 days ago in words relative to the given base date. In this example, today is Wednesday
+ * const result = formatRelative(subDays(new Date(), 6), new Date())
+ * //=> "last Thursday at 12:45 AM"
+ */ parcelHelpers.export(exports, "formatRelative", ()=>formatRelative);
+var _differenceInCalendarDaysMjs = require("./differenceInCalendarDays.mjs");
+var _formatMjs = require("./format.mjs");
+var _toDateMjs = require("./toDate.mjs");
+var _defaultLocaleMjs = require("./_lib/defaultLocale.mjs");
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+function formatRelative(date, baseDate, options) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const _baseDate = (0, _toDateMjs.toDate)(baseDate);
+    const defaultOptions = (0, _defaultOptionsMjs.getDefaultOptions)();
+    const locale = options?.locale ?? defaultOptions.locale ?? (0, _defaultLocaleMjs.defaultLocale);
+    const weekStartsOn = options?.weekStartsOn ?? options?.locale?.options?.weekStartsOn ?? defaultOptions.weekStartsOn ?? defaultOptions.locale?.options?.weekStartsOn ?? 0;
+    const diff = (0, _differenceInCalendarDaysMjs.differenceInCalendarDays)(_date, _baseDate);
+    if (isNaN(diff)) throw new RangeError("Invalid time value");
+    let token;
+    if (diff < -6) token = "other";
+    else if (diff < -1) token = "lastWeek";
+    else if (diff < 0) token = "yesterday";
+    else if (diff < 1) token = "today";
+    else if (diff < 2) token = "tomorrow";
+    else if (diff < 7) token = "nextWeek";
+    else token = "other";
+    const formatStr = locale.formatRelative(token, _date, _baseDate, {
+        locale,
+        weekStartsOn
+    });
+    return (0, _formatMjs.format)(_date, formatStr, {
+        locale,
+        weekStartsOn
+    });
+}
+// Fallback for modularized imports:
+exports.default = formatRelative;
+
+},{"./differenceInCalendarDays.mjs":"bLx9a","./format.mjs":"4YDgA","./toDate.mjs":"fJykt","./_lib/defaultLocale.mjs":"fV6Yh","./_lib/defaultOptions.mjs":"6QlMe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l211l":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name fromUnixTime
+ * @category Timestamp Helpers
+ * @summary Create a date from a Unix timestamp.
+ *
+ * @description
+ * Create a date from a Unix timestamp (in seconds). Decimal values will be discarded.
+ *
+ * @param unixTime - The given Unix timestamp (in seconds)
+ *
+ * @returns The date
+ *
+ * @example
+ * // Create the date 29 February 2012 11:45:05:
+ * const result = fromUnixTime(1330515905)
+ * //=> Wed Feb 29 2012 11:45:05
+ */ parcelHelpers.export(exports, "fromUnixTime", ()=>fromUnixTime);
+var _toDateMjs = require("./toDate.mjs");
+function fromUnixTime(unixTime) {
+    return (0, _toDateMjs.toDate)(unixTime * 1000);
+}
+// Fallback for modularized imports:
+exports.default = fromUnixTime;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"evpyl":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getDate
+ * @category Day Helpers
+ * @summary Get the day of the month of the given date.
+ *
+ * @description
+ * Get the day of the month of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The day of month
+ *
+ * @example
+ * // Which day of the month is 29 February 2012?
+ * const result = getDate(new Date(2012, 1, 29))
+ * //=> 29
+ */ parcelHelpers.export(exports, "getDate", ()=>getDate);
+var _toDateMjs = require("./toDate.mjs");
+function getDate(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const dayOfMonth = _date.getDate();
+    return dayOfMonth;
+}
+// Fallback for modularized imports:
+exports.default = getDate;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aQoyF":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getDay
+ * @category Weekday Helpers
+ * @summary Get the day of the week of the given date.
+ *
+ * @description
+ * Get the day of the week of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The day of week, 0 represents Sunday
+ *
+ * @example
+ * // Which day of the week is 29 February 2012?
+ * const result = getDay(new Date(2012, 1, 29))
+ * //=> 3
+ */ parcelHelpers.export(exports, "getDay", ()=>getDay);
+var _toDateMjs = require("./toDate.mjs");
+function getDay(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const day = _date.getDay();
+    return day;
+}
+// Fallback for modularized imports:
+exports.default = getDay;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eATrW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getDaysInMonth
+ * @category Month Helpers
+ * @summary Get the number of days in a month of the given date.
+ *
+ * @description
+ * Get the number of days in a month of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The number of days in a month
+ *
+ * @example
+ * // How many days are in February 2000?
+ * const result = getDaysInMonth(new Date(2000, 1))
+ * //=> 29
+ */ parcelHelpers.export(exports, "getDaysInMonth", ()=>getDaysInMonth);
+var _toDateMjs = require("./toDate.mjs");
+var _constructFromMjs = require("./constructFrom.mjs");
+function getDaysInMonth(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const year = _date.getFullYear();
+    const monthIndex = _date.getMonth();
+    const lastDayOfMonth = (0, _constructFromMjs.constructFrom)(date, 0);
+    lastDayOfMonth.setFullYear(year, monthIndex + 1, 0);
+    lastDayOfMonth.setHours(0, 0, 0, 0);
+    return lastDayOfMonth.getDate();
+}
+// Fallback for modularized imports:
+exports.default = getDaysInMonth;
+
+},{"./toDate.mjs":"fJykt","./constructFrom.mjs":"xte3t","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9wKSp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getDaysInYear
+ * @category Year Helpers
+ * @summary Get the number of days in a year of the given date.
+ *
+ * @description
+ * Get the number of days in a year of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The number of days in a year
+ *
+ * @example
+ * // How many days are in 2012?
+ * const result = getDaysInYear(new Date(2012, 0, 1))
+ * //=> 366
+ */ parcelHelpers.export(exports, "getDaysInYear", ()=>getDaysInYear);
+var _isLeapYearMjs = require("./isLeapYear.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function getDaysInYear(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    if (String(new Date(_date)) === "Invalid Date") return NaN;
+    return (0, _isLeapYearMjs.isLeapYear)(_date) ? 366 : 365;
+}
+// Fallback for modularized imports:
+exports.default = getDaysInYear;
+
+},{"./isLeapYear.mjs":"dtFpm","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dtFpm":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isLeapYear
+ * @category Year Helpers
+ * @summary Is the given date in the leap year?
+ *
+ * @description
+ * Is the given date in the leap year?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is in the leap year
+ *
+ * @example
+ * // Is 1 September 2012 in the leap year?
+ * const result = isLeapYear(new Date(2012, 8, 1))
+ * //=> true
+ */ parcelHelpers.export(exports, "isLeapYear", ()=>isLeapYear);
+var _toDateMjs = require("./toDate.mjs");
+function isLeapYear(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const year = _date.getFullYear();
+    return year % 400 === 0 || year % 4 === 0 && year % 100 !== 0;
+}
+// Fallback for modularized imports:
+exports.default = isLeapYear;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9z2mv":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getDecade
+ * @category Decade Helpers
+ * @summary Get the decade of the given date.
+ *
+ * @description
+ * Get the decade of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The year of decade
+ *
+ * @example
+ * // Which decade belongs 27 November 1942?
+ * const result = getDecade(new Date(1942, 10, 27))
+ * //=> 1940
+ */ parcelHelpers.export(exports, "getDecade", ()=>getDecade);
+var _toDateMjs = require("./toDate.mjs");
+function getDecade(date) {
+    // TODO: Switch to more technical definition in of decades that start with 1
+    // end with 0. I.e. 2001-2010 instead of current 2000-2009. It's a breaking
+    // change, so it can only be done in 4.0.
+    const _date = (0, _toDateMjs.toDate)(date);
+    const year = _date.getFullYear();
+    const decade = Math.floor(year / 10) * 10;
+    return decade;
+}
+// Fallback for modularized imports:
+exports.default = getDecade;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dFo4E":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getDefaultOptions
+ * @category Common Helpers
+ * @summary Get default options.
+ * @pure false
+ *
+ * @description
+ * Returns an object that contains defaults for
+ * `options.locale`, `options.weekStartsOn` and `options.firstWeekContainsDate`
+ * arguments for all functions.
+ *
+ * You can change these with [setDefaultOptions](https://date-fns.org/docs/setDefaultOptions).
+ *
+ * @returns The default options
+ *
+ * @example
+ * const result = getDefaultOptions()
+ * //=> {}
+ *
+ * @example
+ * setDefaultOptions({ weekStarsOn: 1, firstWeekContainsDate: 4 })
+ * const result = getDefaultOptions()
+ * //=> { weekStarsOn: 1, firstWeekContainsDate: 4 }
+ */ parcelHelpers.export(exports, "getDefaultOptions", ()=>getDefaultOptions);
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+function getDefaultOptions() {
+    return Object.assign({}, (0, _defaultOptionsMjs.getDefaultOptions)());
+}
+// Fallback for modularized imports:
+exports.default = getDefaultOptions;
+
+},{"./_lib/defaultOptions.mjs":"6QlMe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gyNt3":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getHours
+ * @category Hour Helpers
+ * @summary Get the hours of the given date.
+ *
+ * @description
+ * Get the hours of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The hours
+ *
+ * @example
+ * // Get the hours of 29 February 2012 11:45:00:
+ * const result = getHours(new Date(2012, 1, 29, 11, 45))
+ * //=> 11
+ */ parcelHelpers.export(exports, "getHours", ()=>getHours);
+var _toDateMjs = require("./toDate.mjs");
+function getHours(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const hours = _date.getHours();
+    return hours;
+}
+// Fallback for modularized imports:
+exports.default = getHours;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ir4Qk":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getISODay
+ * @category Weekday Helpers
+ * @summary Get the day of the ISO week of the given date.
+ *
+ * @description
+ * Get the day of the ISO week of the given date,
+ * which is 7 for Sunday, 1 for Monday etc.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The day of ISO week
+ *
+ * @example
+ * // Which day of the ISO week is 26 February 2012?
+ * const result = getISODay(new Date(2012, 1, 26))
+ * //=> 7
+ */ parcelHelpers.export(exports, "getISODay", ()=>getISODay);
+var _toDateMjs = require("./toDate.mjs");
+function getISODay(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    let day = _date.getDay();
+    if (day === 0) day = 7;
+    return day;
+}
+// Fallback for modularized imports:
+exports.default = getISODay;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9G83a":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getISOWeeksInYear
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Get the number of weeks in an ISO week-numbering year of the given date.
+ *
+ * @description
+ * Get the number of weeks in an ISO week-numbering year of the given date.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The number of ISO weeks in a year
+ *
+ * @example
+ * // How many weeks are in ISO week-numbering year 2015?
+ * const result = getISOWeeksInYear(new Date(2015, 1, 11))
+ * //=> 53
+ */ parcelHelpers.export(exports, "getISOWeeksInYear", ()=>getISOWeeksInYear);
+var _addWeeksMjs = require("./addWeeks.mjs");
+var _constantsMjs = require("./constants.mjs");
+var _startOfISOWeekYearMjs = require("./startOfISOWeekYear.mjs");
+function getISOWeeksInYear(date) {
+    const thisYear = (0, _startOfISOWeekYearMjs.startOfISOWeekYear)(date);
+    const nextYear = (0, _startOfISOWeekYearMjs.startOfISOWeekYear)((0, _addWeeksMjs.addWeeks)(thisYear, 60));
+    const diff = +nextYear - +thisYear;
+    // Round the number of weeks to the nearest integer because the number of
+    // milliseconds in a week is not constant (e.g. it's different in the week of
+    // the daylight saving time clock shift).
+    return Math.round(diff / (0, _constantsMjs.millisecondsInWeek));
+}
+// Fallback for modularized imports:
+exports.default = getISOWeeksInYear;
+
+},{"./addWeeks.mjs":"7YgKz","./constants.mjs":"iISMq","./startOfISOWeekYear.mjs":"7q0Zg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"enMF2":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getMilliseconds
+ * @category Millisecond Helpers
+ * @summary Get the milliseconds of the given date.
+ *
+ * @description
+ * Get the milliseconds of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The milliseconds
+ *
+ * @example
+ * // Get the milliseconds of 29 February 2012 11:45:05.123:
+ * const result = getMilliseconds(new Date(2012, 1, 29, 11, 45, 5, 123))
+ * //=> 123
+ */ parcelHelpers.export(exports, "getMilliseconds", ()=>getMilliseconds);
+var _toDateMjs = require("./toDate.mjs");
+function getMilliseconds(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const milliseconds = _date.getMilliseconds();
+    return milliseconds;
+}
+// Fallback for modularized imports:
+exports.default = getMilliseconds;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lOjEX":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getMinutes
+ * @category Minute Helpers
+ * @summary Get the minutes of the given date.
+ *
+ * @description
+ * Get the minutes of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The minutes
+ *
+ * @example
+ * // Get the minutes of 29 February 2012 11:45:05:
+ * const result = getMinutes(new Date(2012, 1, 29, 11, 45, 5))
+ * //=> 45
+ */ parcelHelpers.export(exports, "getMinutes", ()=>getMinutes);
+var _toDateMjs = require("./toDate.mjs");
+function getMinutes(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const minutes = _date.getMinutes();
+    return minutes;
+}
+// Fallback for modularized imports:
+exports.default = getMinutes;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gWX0J":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getMonth
+ * @category Month Helpers
+ * @summary Get the month of the given date.
+ *
+ * @description
+ * Get the month of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The month
+ *
+ * @example
+ * // Which month is 29 February 2012?
+ * const result = getMonth(new Date(2012, 1, 29))
+ * //=> 1
+ */ parcelHelpers.export(exports, "getMonth", ()=>getMonth);
+var _toDateMjs = require("./toDate.mjs");
+function getMonth(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const month = _date.getMonth();
+    return month;
+}
+// Fallback for modularized imports:
+exports.default = getMonth;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bGKYT":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getOverlappingDaysInIntervals
+ * @category Interval Helpers
+ * @summary Get the number of days that overlap in two time intervals
+ *
+ * @description
+ * Get the number of days that overlap in two time intervals. It uses the time
+ * between dates to calculate the number of days, rounding it up to include
+ * partial days.
+ *
+ * Two equal 0-length intervals will result in 0. Two equal 1ms intervals will
+ * result in 1.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param intervalLeft - The first interval to compare.
+ * @param intervalRight - The second interval to compare.
+ *
+ * @returns The number of days that overlap in two time intervals
+ *
+ * @example
+ * // For overlapping time intervals adds 1 for each started overlapping day:
+ * getOverlappingDaysInIntervals(
+ *   { start: new Date(2014, 0, 10), end: new Date(2014, 0, 20) },
+ *   { start: new Date(2014, 0, 17), end: new Date(2014, 0, 21) }
+ * )
+ * //=> 3
+ *
+ * @example
+ * // For non-overlapping time intervals returns 0:
+ * getOverlappingDaysInIntervals(
+ *   { start: new Date(2014, 0, 10), end: new Date(2014, 0, 20) },
+ *   { start: new Date(2014, 0, 21), end: new Date(2014, 0, 22) }
+ * )
+ * //=> 0
+ */ parcelHelpers.export(exports, "getOverlappingDaysInIntervals", ()=>getOverlappingDaysInIntervals);
+var _getTimezoneOffsetInMillisecondsMjs = require("./_lib/getTimezoneOffsetInMilliseconds.mjs");
+var _constantsMjs = require("./constants.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function getOverlappingDaysInIntervals(intervalLeft, intervalRight) {
+    const [leftStart, leftEnd] = [
+        +(0, _toDateMjs.toDate)(intervalLeft.start),
+        +(0, _toDateMjs.toDate)(intervalLeft.end)
+    ].sort((a, b)=>a - b);
+    const [rightStart, rightEnd] = [
+        +(0, _toDateMjs.toDate)(intervalRight.start),
+        +(0, _toDateMjs.toDate)(intervalRight.end)
+    ].sort((a, b)=>a - b);
+    // Prevent NaN result if intervals don't overlap at all.
+    const isOverlapping = leftStart < rightEnd && rightStart < leftEnd;
+    if (!isOverlapping) return 0;
+    // Remove the timezone offset to negate the DST effect on calculations.
+    const overlapLeft = rightStart < leftStart ? leftStart : rightStart;
+    const left = overlapLeft - (0, _getTimezoneOffsetInMillisecondsMjs.getTimezoneOffsetInMilliseconds)(overlapLeft);
+    const overlapRight = rightEnd > leftEnd ? leftEnd : rightEnd;
+    const right = overlapRight - (0, _getTimezoneOffsetInMillisecondsMjs.getTimezoneOffsetInMilliseconds)(overlapRight);
+    // Ceil the number to include partial days too.
+    return Math.ceil((right - left) / (0, _constantsMjs.millisecondsInDay));
+}
+// Fallback for modularized imports:
+exports.default = getOverlappingDaysInIntervals;
+
+},{"./_lib/getTimezoneOffsetInMilliseconds.mjs":"KaqYL","./constants.mjs":"iISMq","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7lGyB":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getSeconds
+ * @category Second Helpers
+ * @summary Get the seconds of the given date.
+ *
+ * @description
+ * Get the seconds of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The seconds
+ *
+ * @example
+ * // Get the seconds of 29 February 2012 11:45:05.123:
+ * const result = getSeconds(new Date(2012, 1, 29, 11, 45, 5, 123))
+ * //=> 5
+ */ parcelHelpers.export(exports, "getSeconds", ()=>getSeconds);
+var _toDateMjs = require("./toDate.mjs");
+function getSeconds(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const seconds = _date.getSeconds();
+    return seconds;
+}
+// Fallback for modularized imports:
+exports.default = getSeconds;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ecAib":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getTime
+ * @category Timestamp Helpers
+ * @summary Get the milliseconds timestamp of the given date.
+ *
+ * @description
+ * Get the milliseconds timestamp of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The timestamp
+ *
+ * @example
+ * // Get the timestamp of 29 February 2012 11:45:05.123:
+ * const result = getTime(new Date(2012, 1, 29, 11, 45, 5, 123))
+ * //=> 1330515905123
+ */ parcelHelpers.export(exports, "getTime", ()=>getTime);
+var _toDateMjs = require("./toDate.mjs");
+function getTime(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const timestamp = _date.getTime();
+    return timestamp;
+}
+// Fallback for modularized imports:
+exports.default = getTime;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7OsbK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getUnixTime
+ * @category Timestamp Helpers
+ * @summary Get the seconds timestamp of the given date.
+ *
+ * @description
+ * Get the seconds timestamp of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The timestamp
+ *
+ * @example
+ * // Get the timestamp of 29 February 2012 11:45:05 CET:
+ * const result = getUnixTime(new Date(2012, 1, 29, 11, 45, 5))
+ * //=> 1330512305
+ */ parcelHelpers.export(exports, "getUnixTime", ()=>getUnixTime);
+var _toDateMjs = require("./toDate.mjs");
+function getUnixTime(date) {
+    return Math.trunc(+(0, _toDateMjs.toDate)(date) / 1000);
+}
+// Fallback for modularized imports:
+exports.default = getUnixTime;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"78EH2":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link getWeekOfMonth} function options.
+ */ /**
+ * @name getWeekOfMonth
+ * @category Week Helpers
+ * @summary Get the week of the month of the given date.
+ *
+ * @description
+ * Get the week of the month of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ * @param options - An object with options.
+ *
+ * @returns The week of month
+ *
+ * @example
+ * // Which week of the month is 9 November 2017?
+ * const result = getWeekOfMonth(new Date(2017, 10, 9))
+ * //=> 2
+ */ parcelHelpers.export(exports, "getWeekOfMonth", ()=>getWeekOfMonth);
+var _getDateMjs = require("./getDate.mjs");
+var _getDayMjs = require("./getDay.mjs");
+var _startOfMonthMjs = require("./startOfMonth.mjs");
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+function getWeekOfMonth(date, options) {
+    const defaultOptions = (0, _defaultOptionsMjs.getDefaultOptions)();
+    const weekStartsOn = options?.weekStartsOn ?? options?.locale?.options?.weekStartsOn ?? defaultOptions.weekStartsOn ?? defaultOptions.locale?.options?.weekStartsOn ?? 0;
+    const currentDayOfMonth = (0, _getDateMjs.getDate)(date);
+    if (isNaN(currentDayOfMonth)) return NaN;
+    const startWeekDay = (0, _getDayMjs.getDay)((0, _startOfMonthMjs.startOfMonth)(date));
+    let lastDayOfFirstWeek = weekStartsOn - startWeekDay;
+    if (lastDayOfFirstWeek <= 0) lastDayOfFirstWeek += 7;
+    const remainingDaysAfterFirstWeek = currentDayOfMonth - lastDayOfFirstWeek;
+    return Math.ceil(remainingDaysAfterFirstWeek / 7) + 1;
+}
+// Fallback for modularized imports:
+exports.default = getWeekOfMonth;
+
+},{"./getDate.mjs":"evpyl","./getDay.mjs":"aQoyF","./startOfMonth.mjs":"cRJeo","./_lib/defaultOptions.mjs":"6QlMe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4DybL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link getWeeksInMonth} function options.
+ */ /**
+ * @name getWeeksInMonth
+ * @category Week Helpers
+ * @summary Get the number of calendar weeks a month spans.
+ *
+ * @description
+ * Get the number of calendar weeks the month in the given date spans.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ * @param options - An object with options.
+ *
+ * @returns The number of calendar weeks
+ *
+ * @example
+ * // How many calendar weeks does February 2015 span?
+ * const result = getWeeksInMonth(new Date(2015, 1, 8))
+ * //=> 4
+ *
+ * @example
+ * // If the week starts on Monday,
+ * // how many calendar weeks does July 2017 span?
+ * const result = getWeeksInMonth(new Date(2017, 6, 5), { weekStartsOn: 1 })
+ * //=> 6
+ */ parcelHelpers.export(exports, "getWeeksInMonth", ()=>getWeeksInMonth);
+var _differenceInCalendarWeeksMjs = require("./differenceInCalendarWeeks.mjs");
+var _lastDayOfMonthMjs = require("./lastDayOfMonth.mjs");
+var _startOfMonthMjs = require("./startOfMonth.mjs");
+function getWeeksInMonth(date, options) {
+    return (0, _differenceInCalendarWeeksMjs.differenceInCalendarWeeks)((0, _lastDayOfMonthMjs.lastDayOfMonth)(date), (0, _startOfMonthMjs.startOfMonth)(date), options) + 1;
+}
+// Fallback for modularized imports:
+exports.default = getWeeksInMonth;
+
+},{"./differenceInCalendarWeeks.mjs":"fHTLb","./lastDayOfMonth.mjs":"gib87","./startOfMonth.mjs":"cRJeo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gib87":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name lastDayOfMonth
+ * @category Month Helpers
+ * @summary Return the last day of a month for the given date.
+ *
+ * @description
+ * Return the last day of a month for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The last day of a month
+ *
+ * @example
+ * // The last day of a month for 2 September 2014 11:55:00:
+ * const result = lastDayOfMonth(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 30 2014 00:00:00
+ */ parcelHelpers.export(exports, "lastDayOfMonth", ()=>lastDayOfMonth);
+var _toDateMjs = require("./toDate.mjs");
+function lastDayOfMonth(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const month = _date.getMonth();
+    _date.setFullYear(_date.getFullYear(), month + 1, 0);
+    _date.setHours(0, 0, 0, 0);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = lastDayOfMonth;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"icACu":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name getYear
+ * @category Year Helpers
+ * @summary Get the year of the given date.
+ *
+ * @description
+ * Get the year of the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The given date
+ *
+ * @returns The year
+ *
+ * @example
+ * // Which year is 2 July 2014?
+ * const result = getYear(new Date(2014, 6, 2))
+ * //=> 2014
+ */ parcelHelpers.export(exports, "getYear", ()=>getYear);
+var _toDateMjs = require("./toDate.mjs");
+function getYear(date) {
+    return (0, _toDateMjs.toDate)(date).getFullYear();
+}
+// Fallback for modularized imports:
+exports.default = getYear;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fYh89":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name hoursToMilliseconds
+ * @category  Conversion Helpers
+ * @summary Convert hours to milliseconds.
+ *
+ * @description
+ * Convert a number of hours to a full number of milliseconds.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param hours - number of hours to be converted
+ *
+ * @returns The number of hours converted to milliseconds
+ *
+ * @example
+ * // Convert 2 hours to milliseconds:
+ * const result = hoursToMilliseconds(2)
+ * //=> 7200000
+ */ parcelHelpers.export(exports, "hoursToMilliseconds", ()=>hoursToMilliseconds);
+var _constantsMjs = require("./constants.mjs");
+function hoursToMilliseconds(hours) {
+    return Math.trunc(hours * (0, _constantsMjs.millisecondsInHour));
+}
+// Fallback for modularized imports:
+exports.default = hoursToMilliseconds;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"tr7dT":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name hoursToMinutes
+ * @category Conversion Helpers
+ * @summary Convert hours to minutes.
+ *
+ * @description
+ * Convert a number of hours to a full number of minutes.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param hours - number of hours to be converted
+ *
+ * @returns The number of hours converted in minutes
+ *
+ * @example
+ * // Convert 2 hours to minutes:
+ * const result = hoursToMinutes(2)
+ * //=> 120
+ */ parcelHelpers.export(exports, "hoursToMinutes", ()=>hoursToMinutes);
+var _constantsMjs = require("./constants.mjs");
+function hoursToMinutes(hours) {
+    return Math.trunc(hours * (0, _constantsMjs.minutesInHour));
+}
+// Fallback for modularized imports:
+exports.default = hoursToMinutes;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8uaAK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name hoursToSeconds
+ * @category Conversion Helpers
+ * @summary Convert hours to seconds.
+ *
+ * @description
+ * Convert a number of hours to a full number of seconds.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param hours - The number of hours to be converted
+ *
+ * @returns The number of hours converted in seconds
+ *
+ * @example
+ * // Convert 2 hours to seconds:
+ * const result = hoursToSeconds(2)
+ * //=> 7200
+ */ parcelHelpers.export(exports, "hoursToSeconds", ()=>hoursToSeconds);
+var _constantsMjs = require("./constants.mjs");
+function hoursToSeconds(hours) {
+    return Math.trunc(hours * (0, _constantsMjs.secondsInHour));
+}
+// Fallback for modularized imports:
+exports.default = hoursToSeconds;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bqLEd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link interval} function options.
+ */ /**
+ * @name interval
+ * @category Interval Helpers
+ * @summary Creates an interval object and validates its values.
+ *
+ * @description
+ * Creates a normalized interval object and validates its values. If the interval is invalid, an exception is thrown.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param start - The start of the interval.
+ * @param end - The end of the interval.
+ * @param options - The options object.
+ *
+ * @throws `Start date is invalid` when `start` is invalid.
+ * @throws `End date is invalid` when `end` is invalid.
+ * @throws `End date must be after start date` when end is before `start` and `options.assertPositive` is true.
+ *
+ * @returns The normalized and validated interval object.
+ */ parcelHelpers.export(exports, "interval", ()=>interval);
+var _toDateMjs = require("./toDate.mjs");
+function interval(start, end, options) {
+    const _start = (0, _toDateMjs.toDate)(start);
+    if (isNaN(+_start)) throw new TypeError("Start date is invalid");
+    const _end = (0, _toDateMjs.toDate)(end);
+    if (isNaN(+_end)) throw new TypeError("End date is invalid");
+    if (options?.assertPositive && +_start > +_end) throw new TypeError("End date must be after start date");
+    return {
+        start: _start,
+        end: _end
+    };
+}
+// Fallback for modularized imports:
+exports.default = interval;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9K5yM":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name intervalToDuration
+ * @category Common Helpers
+ * @summary Convert interval to duration
+ *
+ * @description
+ * Convert a interval object to a duration object.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param interval - The interval to convert to duration
+ *
+ * @returns The duration object
+ *
+ * @example
+ * // Get the duration between January 15, 1929 and April 4, 1968.
+ * intervalToDuration({
+ *   start: new Date(1929, 0, 15, 12, 0, 0),
+ *   end: new Date(1968, 3, 4, 19, 5, 0)
+ * })
+ * // => { years: 39, months: 2, days: 20, hours: 7, minutes: 5, seconds: 0 }
+ */ parcelHelpers.export(exports, "intervalToDuration", ()=>intervalToDuration);
+var _addMjs = require("./add.mjs");
+var _differenceInDaysMjs = require("./differenceInDays.mjs");
+var _differenceInHoursMjs = require("./differenceInHours.mjs");
+var _differenceInMinutesMjs = require("./differenceInMinutes.mjs");
+var _differenceInMonthsMjs = require("./differenceInMonths.mjs");
+var _differenceInSecondsMjs = require("./differenceInSeconds.mjs");
+var _differenceInYearsMjs = require("./differenceInYears.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function intervalToDuration(interval) {
+    const start = (0, _toDateMjs.toDate)(interval.start);
+    const end = (0, _toDateMjs.toDate)(interval.end);
+    const duration = {};
+    const years = (0, _differenceInYearsMjs.differenceInYears)(end, start);
+    if (years) duration.years = years;
+    const remainingMonths = (0, _addMjs.add)(start, {
+        years: duration.years
+    });
+    const months = (0, _differenceInMonthsMjs.differenceInMonths)(end, remainingMonths);
+    if (months) duration.months = months;
+    const remainingDays = (0, _addMjs.add)(remainingMonths, {
+        months: duration.months
+    });
+    const days = (0, _differenceInDaysMjs.differenceInDays)(end, remainingDays);
+    if (days) duration.days = days;
+    const remainingHours = (0, _addMjs.add)(remainingDays, {
+        days: duration.days
+    });
+    const hours = (0, _differenceInHoursMjs.differenceInHours)(end, remainingHours);
+    if (hours) duration.hours = hours;
+    const remainingMinutes = (0, _addMjs.add)(remainingHours, {
+        hours: duration.hours
+    });
+    const minutes = (0, _differenceInMinutesMjs.differenceInMinutes)(end, remainingMinutes);
+    if (minutes) duration.minutes = minutes;
+    const remainingSeconds = (0, _addMjs.add)(remainingMinutes, {
+        minutes: duration.minutes
+    });
+    const seconds = (0, _differenceInSecondsMjs.differenceInSeconds)(end, remainingSeconds);
+    if (seconds) duration.seconds = seconds;
+    return duration;
+}
+// Fallback for modularized imports:
+exports.default = intervalToDuration;
+
+},{"./add.mjs":"5pZIl","./differenceInDays.mjs":"9juYF","./differenceInHours.mjs":"gDW2a","./differenceInMinutes.mjs":"amBaR","./differenceInMonths.mjs":"8HTvw","./differenceInSeconds.mjs":"a0DEp","./differenceInYears.mjs":"koEUj","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iLGZ2":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The locale string (see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument).
+ */ /**
+ * The format options (see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#options)
+ */ /**
+ * The locale options.
+ */ /**
+ * @name intlFormat
+ * @category Common Helpers
+ * @summary Format the date with Intl.DateTimeFormat (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat).
+ *
+ * @description
+ * Return the formatted date string in the given format.
+ * The method uses [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) inside.
+ * formatOptions are the same as [`Intl.DateTimeFormat` options](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options)
+ *
+ * > ⚠️ Please note that before Node version 13.0.0, only the locale data for en-US is available by default.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to format
+ *
+ * @returns The formatted date string
+ *
+ * @throws `date` must not be Invalid Date
+ *
+ * @example
+ * // Represent 10 October 2019 in middle-endian format:
+ * const result = intlFormat(new Date(2019, 9, 4, 12, 30, 13, 456))
+ * //=> 10/4/2019
+ */ /**
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to format
+ * @param localeOptions - An object with locale
+ *
+ * @returns The formatted date string
+ *
+ * @throws `date` must not be Invalid Date
+ *
+ * @example
+ * // Represent 10 October 2019 in Korean.
+ * // Convert the date with locale's options.
+ * const result = intlFormat(new Date(2019, 9, 4, 12, 30, 13, 456), {
+ *   locale: 'ko-KR',
+ * })
+ * //=> 2019. 10. 4.
+ */ /**
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to format
+ * @param formatOptions - The format options
+ *
+ * @returns The formatted date string
+ *
+ * @throws `date` must not be Invalid Date
+ *
+ * @example
+ * // Represent 10 October 2019.
+ * // Convert the date with format's options.
+ * const result = intlFormat.default(new Date(2019, 9, 4, 12, 30, 13, 456), {
+ *   year: 'numeric',
+ *   month: 'numeric',
+ *   day: 'numeric',
+ *   hour: 'numeric',
+ * })
+ * //=> 10/4/2019, 12 PM
+ */ /**
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to format
+ * @param formatOptions - The format options
+ * @param localeOptions - An object with locale
+ *
+ * @returns The formatted date string
+ *
+ * @throws `date` must not be Invalid Date
+ *
+ * @example
+ * // Represent 10 October 2019 in German.
+ * // Convert the date with format's options and locale's options.
+ * const result = intlFormat(new Date(2019, 9, 4, 12, 30, 13, 456), {
+ *   weekday: 'long',
+ *   year: 'numeric',
+ *   month: 'long',
+ *   day: 'numeric',
+ * }, {
+ *   locale: 'de-DE',
+ * })
+ * //=> Freitag, 4. Oktober 2019
+ */ parcelHelpers.export(exports, "intlFormat", ()=>intlFormat);
+var _toDateMjs = require("./toDate.mjs");
+function intlFormat(date, formatOrLocale, localeOptions) {
+    let formatOptions;
+    if (isFormatOptions(formatOrLocale)) formatOptions = formatOrLocale;
+    else localeOptions = formatOrLocale;
+    return new Intl.DateTimeFormat(localeOptions?.locale, formatOptions).format((0, _toDateMjs.toDate)(date));
+}
+function isFormatOptions(opts) {
+    return opts !== undefined && !("locale" in opts);
+}
+// Fallback for modularized imports:
+exports.default = intlFormat;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9SLrf":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link intlFormatDistance} function options.
+ */ /**
+ * The unit used to format the distance in {@link intlFormatDistance}.
+ */ /**
+ * @name intlFormatDistance
+ * @category Common Helpers
+ * @summary Formats distance between two dates in a human-readable format
+ * @description
+ * The function calculates the difference between two dates and formats it as a human-readable string.
+ *
+ * The function will pick the most appropriate unit depending on the distance between dates. For example, if the distance is a few hours, it might return `x hours`. If the distance is a few months, it might return `x months`.
+ *
+ * You can also specify a unit to force using it regardless of the distance to get a result like `123456 hours`.
+ *
+ * See the table below for the unit picking logic:
+ *
+ * | Distance between dates | Result (past)  | Result (future) |
+ * | ---------------------- | -------------- | --------------- |
+ * | 0 seconds              | now            | now             |
+ * | 1-59 seconds           | X seconds ago  | in X seconds    |
+ * | 1-59 minutes           | X minutes ago  | in X minutes    |
+ * | 1-23 hours             | X hours ago    | in X hours      |
+ * | 1 day                  | yesterday      | tomorrow        |
+ * | 2-6 days               | X days ago     | in X days       |
+ * | 7 days                 | last week      | next week       |
+ * | 8 days-1 month         | X weeks ago    | in X weeks      |
+ * | 1 month                | last month     | next month      |
+ * | 2-3 months             | X months ago   | in X months     |
+ * | 1 quarter              | last quarter   | next quarter    |
+ * | 2-3 quarters           | X quarters ago | in X quarters   |
+ * | 1 year                 | last year      | next year       |
+ * | 2+ years               | X years ago    | in X years      |
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date
+ * @param baseDate - The date to compare with.
+ * @param options - An object with options.
+ * See MDN for details [Locale identification and negotiation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locale_identification_and_negotiation)
+ * The narrow one could be similar to the short one for some locales.
+ *
+ * @returns The distance in words according to language-sensitive relative time formatting.
+ *
+ * @throws `date` must not be Invalid Date
+ * @throws `baseDate` must not be Invalid Date
+ * @throws `options.unit` must not be invalid Unit
+ * @throws `options.locale` must not be invalid locale
+ * @throws `options.localeMatcher` must not be invalid localeMatcher
+ * @throws `options.numeric` must not be invalid numeric
+ * @throws `options.style` must not be invalid style
+ *
+ * @example
+ * // What is the distance between the dates when the fist date is after the second?
+ * intlFormatDistance(
+ *   new Date(1986, 3, 4, 11, 30, 0),
+ *   new Date(1986, 3, 4, 10, 30, 0)
+ * )
+ * //=> 'in 1 hour'
+ *
+ * // What is the distance between the dates when the fist date is before the second?
+ * intlFormatDistance(
+ *   new Date(1986, 3, 4, 10, 30, 0),
+ *   new Date(1986, 3, 4, 11, 30, 0)
+ * )
+ * //=> '1 hour ago'
+ *
+ * @example
+ * // Use the unit option to force the function to output the result in quarters. Without setting it, the example would return "next year"
+ * intlFormatDistance(
+ *   new Date(1987, 6, 4, 10, 30, 0),
+ *   new Date(1986, 3, 4, 10, 30, 0),
+ *   { unit: 'quarter' }
+ * )
+ * //=> 'in 5 quarters'
+ *
+ * @example
+ * // Use the locale option to get the result in Spanish. Without setting it, the example would return "in 1 hour".
+ * intlFormatDistance(
+ *   new Date(1986, 3, 4, 11, 30, 0),
+ *   new Date(1986, 3, 4, 10, 30, 0),
+ *   { locale: 'es' }
+ * )
+ * //=> 'dentro de 1 hora'
+ *
+ * @example
+ * // Use the numeric option to force the function to use numeric values. Without setting it, the example would return "tomorrow".
+ * intlFormatDistance(
+ *   new Date(1986, 3, 5, 11, 30, 0),
+ *   new Date(1986, 3, 4, 11, 30, 0),
+ *   { numeric: 'always' }
+ * )
+ * //=> 'in 1 day'
+ *
+ * @example
+ * // Use the style option to force the function to use short values. Without setting it, the example would return "in 2 years".
+ * intlFormatDistance(
+ *   new Date(1988, 3, 4, 11, 30, 0),
+ *   new Date(1986, 3, 4, 11, 30, 0),
+ *   { style: 'short' }
+ * )
+ * //=> 'in 2 yr'
+ */ parcelHelpers.export(exports, "intlFormatDistance", ()=>intlFormatDistance);
+var _constantsMjs = require("./constants.mjs");
+var _differenceInCalendarDaysMjs = require("./differenceInCalendarDays.mjs");
+var _differenceInCalendarMonthsMjs = require("./differenceInCalendarMonths.mjs");
+var _differenceInCalendarQuartersMjs = require("./differenceInCalendarQuarters.mjs");
+var _differenceInCalendarWeeksMjs = require("./differenceInCalendarWeeks.mjs");
+var _differenceInCalendarYearsMjs = require("./differenceInCalendarYears.mjs");
+var _differenceInHoursMjs = require("./differenceInHours.mjs");
+var _differenceInMinutesMjs = require("./differenceInMinutes.mjs");
+var _differenceInSecondsMjs = require("./differenceInSeconds.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function intlFormatDistance(date, baseDate, options) {
+    let value = 0;
+    let unit;
+    const dateLeft = (0, _toDateMjs.toDate)(date);
+    const dateRight = (0, _toDateMjs.toDate)(baseDate);
+    if (!options?.unit) {
+        // Get the unit based on diffInSeconds calculations if no unit is specified
+        const diffInSeconds = (0, _differenceInSecondsMjs.differenceInSeconds)(dateLeft, dateRight); // The smallest unit
+        if (Math.abs(diffInSeconds) < (0, _constantsMjs.secondsInMinute)) {
+            value = (0, _differenceInSecondsMjs.differenceInSeconds)(dateLeft, dateRight);
+            unit = "second";
+        } else if (Math.abs(diffInSeconds) < (0, _constantsMjs.secondsInHour)) {
+            value = (0, _differenceInMinutesMjs.differenceInMinutes)(dateLeft, dateRight);
+            unit = "minute";
+        } else if (Math.abs(diffInSeconds) < (0, _constantsMjs.secondsInDay) && Math.abs((0, _differenceInCalendarDaysMjs.differenceInCalendarDays)(dateLeft, dateRight)) < 1) {
+            value = (0, _differenceInHoursMjs.differenceInHours)(dateLeft, dateRight);
+            unit = "hour";
+        } else if (Math.abs(diffInSeconds) < (0, _constantsMjs.secondsInWeek) && (value = (0, _differenceInCalendarDaysMjs.differenceInCalendarDays)(dateLeft, dateRight)) && Math.abs(value) < 7) unit = "day";
+        else if (Math.abs(diffInSeconds) < (0, _constantsMjs.secondsInMonth)) {
+            value = (0, _differenceInCalendarWeeksMjs.differenceInCalendarWeeks)(dateLeft, dateRight);
+            unit = "week";
+        } else if (Math.abs(diffInSeconds) < (0, _constantsMjs.secondsInQuarter)) {
+            value = (0, _differenceInCalendarMonthsMjs.differenceInCalendarMonths)(dateLeft, dateRight);
+            unit = "month";
+        } else if (Math.abs(diffInSeconds) < (0, _constantsMjs.secondsInYear)) {
+            if ((0, _differenceInCalendarQuartersMjs.differenceInCalendarQuarters)(dateLeft, dateRight) < 4) {
+                // To filter out cases that are less than a year but match 4 quarters
+                value = (0, _differenceInCalendarQuartersMjs.differenceInCalendarQuarters)(dateLeft, dateRight);
+                unit = "quarter";
+            } else {
+                value = (0, _differenceInCalendarYearsMjs.differenceInCalendarYears)(dateLeft, dateRight);
+                unit = "year";
+            }
+        } else {
+            value = (0, _differenceInCalendarYearsMjs.differenceInCalendarYears)(dateLeft, dateRight);
+            unit = "year";
+        }
+    } else {
+        // Get the value if unit is specified
+        unit = options?.unit;
+        if (unit === "second") value = (0, _differenceInSecondsMjs.differenceInSeconds)(dateLeft, dateRight);
+        else if (unit === "minute") value = (0, _differenceInMinutesMjs.differenceInMinutes)(dateLeft, dateRight);
+        else if (unit === "hour") value = (0, _differenceInHoursMjs.differenceInHours)(dateLeft, dateRight);
+        else if (unit === "day") value = (0, _differenceInCalendarDaysMjs.differenceInCalendarDays)(dateLeft, dateRight);
+        else if (unit === "week") value = (0, _differenceInCalendarWeeksMjs.differenceInCalendarWeeks)(dateLeft, dateRight);
+        else if (unit === "month") value = (0, _differenceInCalendarMonthsMjs.differenceInCalendarMonths)(dateLeft, dateRight);
+        else if (unit === "quarter") value = (0, _differenceInCalendarQuartersMjs.differenceInCalendarQuarters)(dateLeft, dateRight);
+        else if (unit === "year") value = (0, _differenceInCalendarYearsMjs.differenceInCalendarYears)(dateLeft, dateRight);
+    }
+    const rtf = new Intl.RelativeTimeFormat(options?.locale, {
+        localeMatcher: options?.localeMatcher,
+        numeric: options?.numeric || "auto",
+        style: options?.style
+    });
+    return rtf.format(value, unit);
+}
+// Fallback for modularized imports:
+exports.default = intlFormatDistance;
+
+},{"./constants.mjs":"iISMq","./differenceInCalendarDays.mjs":"bLx9a","./differenceInCalendarMonths.mjs":"89gaI","./differenceInCalendarQuarters.mjs":"2KB3i","./differenceInCalendarWeeks.mjs":"fHTLb","./differenceInCalendarYears.mjs":"4CFta","./differenceInHours.mjs":"gDW2a","./differenceInMinutes.mjs":"amBaR","./differenceInSeconds.mjs":"a0DEp","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d0WpW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isAfter
+ * @category Common Helpers
+ * @summary Is the first date after the second one?
+ *
+ * @description
+ * Is the first date after the second one?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date that should be after the other one to return true
+ * @param dateToCompare - The date to compare with
+ *
+ * @returns The first date is after the second date
+ *
+ * @example
+ * // Is 10 July 1989 after 11 February 1987?
+ * const result = isAfter(new Date(1989, 6, 10), new Date(1987, 1, 11))
+ * //=> true
+ */ parcelHelpers.export(exports, "isAfter", ()=>isAfter);
+var _toDateMjs = require("./toDate.mjs");
+function isAfter(date, dateToCompare) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const _dateToCompare = (0, _toDateMjs.toDate)(dateToCompare);
+    return _date.getTime() > _dateToCompare.getTime();
+}
+// Fallback for modularized imports:
+exports.default = isAfter;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gaIiK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isBefore
+ * @category Common Helpers
+ * @summary Is the first date before the second one?
+ *
+ * @description
+ * Is the first date before the second one?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date that should be before the other one to return true
+ * @param dateToCompare - The date to compare with
+ *
+ * @returns The first date is before the second date
+ *
+ * @example
+ * // Is 10 July 1989 before 11 February 1987?
+ * const result = isBefore(new Date(1989, 6, 10), new Date(1987, 1, 11))
+ * //=> false
+ */ parcelHelpers.export(exports, "isBefore", ()=>isBefore);
+var _toDateMjs = require("./toDate.mjs");
+function isBefore(date, dateToCompare) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const _dateToCompare = (0, _toDateMjs.toDate)(dateToCompare);
+    return +_date < +_dateToCompare;
+}
+// Fallback for modularized imports:
+exports.default = isBefore;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jkATJ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isEqual
+ * @category Common Helpers
+ * @summary Are the given dates equal?
+ *
+ * @description
+ * Are the given dates equal?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The first date to compare
+ * @param dateRight - The second date to compare
+ *
+ * @returns The dates are equal
+ *
+ * @example
+ * // Are 2 July 2014 06:30:45.000 and 2 July 2014 06:30:45.500 equal?
+ * const result = isEqual(
+ *   new Date(2014, 6, 2, 6, 30, 45, 0),
+ *   new Date(2014, 6, 2, 6, 30, 45, 500)
+ * )
+ * //=> false
+ */ parcelHelpers.export(exports, "isEqual", ()=>isEqual);
+var _toDateMjs = require("./toDate.mjs");
+function isEqual(leftDate, rightDate) {
+    const _dateLeft = (0, _toDateMjs.toDate)(leftDate);
+    const _dateRight = (0, _toDateMjs.toDate)(rightDate);
+    return +_dateLeft === +_dateRight;
+}
+// Fallback for modularized imports:
+exports.default = isEqual;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aZKGR":[function(require,module,exports) {
+/**
+ * @name isExists
+ * @category Common Helpers
+ * @summary Is the given date exists?
+ *
+ * @description
+ * Checks if the given arguments convert to an existing date.
+ *
+ * @param year - The year of the date to check
+ * @param month - The month of the date to check
+ * @param day - The day of the date to check
+ *
+ * @returns `true` if the date exists
+ *
+ * @example
+ * // For the valid date:
+ * const result = isExists(2018, 0, 31)
+ * //=> true
+ *
+ * @example
+ * // For the invalid date:
+ * const result = isExists(2018, 1, 31)
+ * //=> false
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "isExists", ()=>isExists);
+function isExists(year, month, day) {
+    const date = new Date(year, month, day);
+    return date.getFullYear() === year && date.getMonth() === month && date.getDate() === day;
+}
+// Fallback for modularized imports:
+exports.default = isExists;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fzcMG":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isFirstDayOfMonth
+ * @category Month Helpers
+ * @summary Is the given date the first day of a month?
+ *
+ * @description
+ * Is the given date the first day of a month?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+
+ * @returns The date is the first day of a month
+ *
+ * @example
+ * // Is 1 September 2014 the first day of a month?
+ * const result = isFirstDayOfMonth(new Date(2014, 8, 1))
+ * //=> true
+ */ parcelHelpers.export(exports, "isFirstDayOfMonth", ()=>isFirstDayOfMonth);
+var _toDateMjs = require("./toDate.mjs");
+function isFirstDayOfMonth(date) {
+    return (0, _toDateMjs.toDate)(date).getDate() === 1;
+}
+// Fallback for modularized imports:
+exports.default = isFirstDayOfMonth;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hUjwC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isFriday
+ * @category Weekday Helpers
+ * @summary Is the given date Friday?
+ *
+ * @description
+ * Is the given date Friday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is Friday
+ *
+ * @example
+ * // Is 26 September 2014 Friday?
+ * const result = isFriday(new Date(2014, 8, 26))
+ * //=> true
+ */ parcelHelpers.export(exports, "isFriday", ()=>isFriday);
+var _toDateMjs = require("./toDate.mjs");
+function isFriday(date) {
+    return (0, _toDateMjs.toDate)(date).getDay() === 5;
+}
+// Fallback for modularized imports:
+exports.default = isFriday;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bM53b":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isFuture
+ * @category Common Helpers
+ * @summary Is the given date in the future?
+ * @pure false
+ *
+ * @description
+ * Is the given date in the future?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is in the future
+ *
+ * @example
+ * // If today is 6 October 2014, is 31 December 2014 in the future?
+ * const result = isFuture(new Date(2014, 11, 31))
+ * //=> true
+ */ parcelHelpers.export(exports, "isFuture", ()=>isFuture);
+var _toDateMjs = require("./toDate.mjs");
+function isFuture(date) {
+    return +(0, _toDateMjs.toDate)(date) > Date.now();
+}
+// Fallback for modularized imports:
+exports.default = isFuture;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4T2FP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link isMatch} function options.
+ */ /**
+ * @name isMatch
+ * @category Common Helpers
+ * @summary validates the date string against given formats
+ *
+ * @description
+ * Return the true if given date is string correct against the given format else
+ * will return false.
+ *
+ * > ⚠️ Please note that the `format` tokens differ from Moment.js and other libraries.
+ * > See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * The characters in the format string wrapped between two single quotes characters (') are escaped.
+ * Two single quotes in a row, whether inside or outside a quoted sequence, represent a 'real' single quote.
+ *
+ * Format of the format string is based on Unicode Technical Standard #35:
+ * https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * with a few additions (see note 5 below the table).
+ *
+ * Not all tokens are compatible. Combinations that don't make sense or could lead to bugs are prohibited
+ * and will throw `RangeError`. For example usage of 24-hour format token with AM/PM token will throw an exception:
+ *
+ * ```javascript
+ * isMatch('23 AM', 'HH a')
+ * //=> RangeError: The format string mustn't contain `HH` and `a` at the same time
+ * ```
+ *
+ * See the compatibility table: https://docs.google.com/spreadsheets/d/e/2PACX-1vQOPU3xUhplll6dyoMmVUXHKl_8CRDs6_ueLmex3SoqwhuolkuN3O05l4rqx5h1dKX8eb46Ul-CCSrq/pubhtml?gid=0&single=true
+ *
+ * Accepted format string patterns:
+ * | Unit                            |Prior| Pattern | Result examples                   | Notes |
+ * |---------------------------------|-----|---------|-----------------------------------|-------|
+ * | Era                             | 140 | G..GGG  | AD, BC                            |       |
+ * |                                 |     | GGGG    | Anno Domini, Before Christ        | 2     |
+ * |                                 |     | GGGGG   | A, B                              |       |
+ * | Calendar year                   | 130 | y       | 44, 1, 1900, 2017, 9999           | 4     |
+ * |                                 |     | yo      | 44th, 1st, 1900th, 9999999th      | 4,5   |
+ * |                                 |     | yy      | 44, 01, 00, 17                    | 4     |
+ * |                                 |     | yyy     | 044, 001, 123, 999                | 4     |
+ * |                                 |     | yyyy    | 0044, 0001, 1900, 2017            | 4     |
+ * |                                 |     | yyyyy   | ...                               | 2,4   |
+ * | Local week-numbering year       | 130 | Y       | 44, 1, 1900, 2017, 9000           | 4     |
+ * |                                 |     | Yo      | 44th, 1st, 1900th, 9999999th      | 4,5   |
+ * |                                 |     | YY      | 44, 01, 00, 17                    | 4,6   |
+ * |                                 |     | YYY     | 044, 001, 123, 999                | 4     |
+ * |                                 |     | YYYY    | 0044, 0001, 1900, 2017            | 4,6   |
+ * |                                 |     | YYYYY   | ...                               | 2,4   |
+ * | ISO week-numbering year         | 130 | R       | -43, 1, 1900, 2017, 9999, -9999   | 4,5   |
+ * |                                 |     | RR      | -43, 01, 00, 17                   | 4,5   |
+ * |                                 |     | RRR     | -043, 001, 123, 999, -999         | 4,5   |
+ * |                                 |     | RRRR    | -0043, 0001, 2017, 9999, -9999    | 4,5   |
+ * |                                 |     | RRRRR   | ...                               | 2,4,5 |
+ * | Extended year                   | 130 | u       | -43, 1, 1900, 2017, 9999, -999    | 4     |
+ * |                                 |     | uu      | -43, 01, 99, -99                  | 4     |
+ * |                                 |     | uuu     | -043, 001, 123, 999, -999         | 4     |
+ * |                                 |     | uuuu    | -0043, 0001, 2017, 9999, -9999    | 4     |
+ * |                                 |     | uuuuu   | ...                               | 2,4   |
+ * | Quarter (formatting)            | 120 | Q       | 1, 2, 3, 4                        |       |
+ * |                                 |     | Qo      | 1st, 2nd, 3rd, 4th                | 5     |
+ * |                                 |     | QQ      | 01, 02, 03, 04                    |       |
+ * |                                 |     | QQQ     | Q1, Q2, Q3, Q4                    |       |
+ * |                                 |     | QQQQ    | 1st quarter, 2nd quarter, ...     | 2     |
+ * |                                 |     | QQQQQ   | 1, 2, 3, 4                        | 4     |
+ * | Quarter (stand-alone)           | 120 | q       | 1, 2, 3, 4                        |       |
+ * |                                 |     | qo      | 1st, 2nd, 3rd, 4th                | 5     |
+ * |                                 |     | qq      | 01, 02, 03, 04                    |       |
+ * |                                 |     | qqq     | Q1, Q2, Q3, Q4                    |       |
+ * |                                 |     | qqqq    | 1st quarter, 2nd quarter, ...     | 2     |
+ * |                                 |     | qqqqq   | 1, 2, 3, 4                        | 3     |
+ * | Month (formatting)              | 110 | M       | 1, 2, ..., 12                     |       |
+ * |                                 |     | Mo      | 1st, 2nd, ..., 12th               | 5     |
+ * |                                 |     | MM      | 01, 02, ..., 12                   |       |
+ * |                                 |     | MMM     | Jan, Feb, ..., Dec                |       |
+ * |                                 |     | MMMM    | January, February, ..., December  | 2     |
+ * |                                 |     | MMMMM   | J, F, ..., D                      |       |
+ * | Month (stand-alone)             | 110 | L       | 1, 2, ..., 12                     |       |
+ * |                                 |     | Lo      | 1st, 2nd, ..., 12th               | 5     |
+ * |                                 |     | LL      | 01, 02, ..., 12                   |       |
+ * |                                 |     | LLL     | Jan, Feb, ..., Dec                |       |
+ * |                                 |     | LLLL    | January, February, ..., December  | 2     |
+ * |                                 |     | LLLLL   | J, F, ..., D                      |       |
+ * | Local week of year              | 100 | w       | 1, 2, ..., 53                     |       |
+ * |                                 |     | wo      | 1st, 2nd, ..., 53th               | 5     |
+ * |                                 |     | ww      | 01, 02, ..., 53                   |       |
+ * | ISO week of year                | 100 | I       | 1, 2, ..., 53                     | 5     |
+ * |                                 |     | Io      | 1st, 2nd, ..., 53th               | 5     |
+ * |                                 |     | II      | 01, 02, ..., 53                   | 5     |
+ * | Day of month                    |  90 | d       | 1, 2, ..., 31                     |       |
+ * |                                 |     | do      | 1st, 2nd, ..., 31st               | 5     |
+ * |                                 |     | dd      | 01, 02, ..., 31                   |       |
+ * | Day of year                     |  90 | D       | 1, 2, ..., 365, 366               | 7     |
+ * |                                 |     | Do      | 1st, 2nd, ..., 365th, 366th       | 5     |
+ * |                                 |     | DD      | 01, 02, ..., 365, 366             | 7     |
+ * |                                 |     | DDD     | 001, 002, ..., 365, 366           |       |
+ * |                                 |     | DDDD    | ...                               | 2     |
+ * | Day of week (formatting)        |  90 | E..EEE  | Mon, Tue, Wed, ..., Su            |       |
+ * |                                 |     | EEEE    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 |     | EEEEE   | M, T, W, T, F, S, S               |       |
+ * |                                 |     | EEEEEE  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | ISO day of week (formatting)    |  90 | i       | 1, 2, 3, ..., 7                   | 5     |
+ * |                                 |     | io      | 1st, 2nd, ..., 7th                | 5     |
+ * |                                 |     | ii      | 01, 02, ..., 07                   | 5     |
+ * |                                 |     | iii     | Mon, Tue, Wed, ..., Su            | 5     |
+ * |                                 |     | iiii    | Monday, Tuesday, ..., Sunday      | 2,5   |
+ * |                                 |     | iiiii   | M, T, W, T, F, S, S               | 5     |
+ * |                                 |     | iiiiii  | Mo, Tu, We, Th, Fr, Sa, Su        | 5     |
+ * | Local day of week (formatting)  |  90 | e       | 2, 3, 4, ..., 1                   |       |
+ * |                                 |     | eo      | 2nd, 3rd, ..., 1st                | 5     |
+ * |                                 |     | ee      | 02, 03, ..., 01                   |       |
+ * |                                 |     | eee     | Mon, Tue, Wed, ..., Su            |       |
+ * |                                 |     | eeee    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 |     | eeeee   | M, T, W, T, F, S, S               |       |
+ * |                                 |     | eeeeee  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | Local day of week (stand-alone) |  90 | c       | 2, 3, 4, ..., 1                   |       |
+ * |                                 |     | co      | 2nd, 3rd, ..., 1st                | 5     |
+ * |                                 |     | cc      | 02, 03, ..., 01                   |       |
+ * |                                 |     | ccc     | Mon, Tue, Wed, ..., Su            |       |
+ * |                                 |     | cccc    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 |     | ccccc   | M, T, W, T, F, S, S               |       |
+ * |                                 |     | cccccc  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | AM, PM                          |  80 | a..aaa  | AM, PM                            |       |
+ * |                                 |     | aaaa    | a.m., p.m.                        | 2     |
+ * |                                 |     | aaaaa   | a, p                              |       |
+ * | AM, PM, noon, midnight          |  80 | b..bbb  | AM, PM, noon, midnight            |       |
+ * |                                 |     | bbbb    | a.m., p.m., noon, midnight        | 2     |
+ * |                                 |     | bbbbb   | a, p, n, mi                       |       |
+ * | Flexible day period             |  80 | B..BBB  | at night, in the morning, ...     |       |
+ * |                                 |     | BBBB    | at night, in the morning, ...     | 2     |
+ * |                                 |     | BBBBB   | at night, in the morning, ...     |       |
+ * | Hour [1-12]                     |  70 | h       | 1, 2, ..., 11, 12                 |       |
+ * |                                 |     | ho      | 1st, 2nd, ..., 11th, 12th         | 5     |
+ * |                                 |     | hh      | 01, 02, ..., 11, 12               |       |
+ * | Hour [0-23]                     |  70 | H       | 0, 1, 2, ..., 23                  |       |
+ * |                                 |     | Ho      | 0th, 1st, 2nd, ..., 23rd          | 5     |
+ * |                                 |     | HH      | 00, 01, 02, ..., 23               |       |
+ * | Hour [0-11]                     |  70 | K       | 1, 2, ..., 11, 0                  |       |
+ * |                                 |     | Ko      | 1st, 2nd, ..., 11th, 0th          | 5     |
+ * |                                 |     | KK      | 01, 02, ..., 11, 00               |       |
+ * | Hour [1-24]                     |  70 | k       | 24, 1, 2, ..., 23                 |       |
+ * |                                 |     | ko      | 24th, 1st, 2nd, ..., 23rd         | 5     |
+ * |                                 |     | kk      | 24, 01, 02, ..., 23               |       |
+ * | Minute                          |  60 | m       | 0, 1, ..., 59                     |       |
+ * |                                 |     | mo      | 0th, 1st, ..., 59th               | 5     |
+ * |                                 |     | mm      | 00, 01, ..., 59                   |       |
+ * | Second                          |  50 | s       | 0, 1, ..., 59                     |       |
+ * |                                 |     | so      | 0th, 1st, ..., 59th               | 5     |
+ * |                                 |     | ss      | 00, 01, ..., 59                   |       |
+ * | Seconds timestamp               |  40 | t       | 512969520                         |       |
+ * |                                 |     | tt      | ...                               | 2     |
+ * | Fraction of second              |  30 | S       | 0, 1, ..., 9                      |       |
+ * |                                 |     | SS      | 00, 01, ..., 99                   |       |
+ * |                                 |     | SSS     | 000, 001, ..., 999                |       |
+ * |                                 |     | SSSS    | ...                               | 2     |
+ * | Milliseconds timestamp          |  20 | T       | 512969520900                      |       |
+ * |                                 |     | TT      | ...                               | 2     |
+ * | Timezone (ISO-8601 w/ Z)        |  10 | X       | -08, +0530, Z                     |       |
+ * |                                 |     | XX      | -0800, +0530, Z                   |       |
+ * |                                 |     | XXX     | -08:00, +05:30, Z                 |       |
+ * |                                 |     | XXXX    | -0800, +0530, Z, +123456          | 2     |
+ * |                                 |     | XXXXX   | -08:00, +05:30, Z, +12:34:56      |       |
+ * | Timezone (ISO-8601 w/o Z)       |  10 | x       | -08, +0530, +00                   |       |
+ * |                                 |     | xx      | -0800, +0530, +0000               |       |
+ * |                                 |     | xxx     | -08:00, +05:30, +00:00            | 2     |
+ * |                                 |     | xxxx    | -0800, +0530, +0000, +123456      |       |
+ * |                                 |     | xxxxx   | -08:00, +05:30, +00:00, +12:34:56 |       |
+ * | Long localized date             |  NA | P       | 05/29/1453                        | 5,8   |
+ * |                                 |     | PP      | May 29, 1453                      |       |
+ * |                                 |     | PPP     | May 29th, 1453                    |       |
+ * |                                 |     | PPPP    | Sunday, May 29th, 1453            | 2,5,8 |
+ * | Long localized time             |  NA | p       | 12:00 AM                          | 5,8   |
+ * |                                 |     | pp      | 12:00:00 AM                       |       |
+ * | Combination of date and time    |  NA | Pp      | 05/29/1453, 12:00 AM              |       |
+ * |                                 |     | PPpp    | May 29, 1453, 12:00:00 AM         |       |
+ * |                                 |     | PPPpp   | May 29th, 1453 at ...             |       |
+ * |                                 |     | PPPPpp  | Sunday, May 29th, 1453 at ...     | 2,5,8 |
+ * Notes:
+ * 1. "Formatting" units (e.g. formatting quarter) in the default en-US locale
+ *    are the same as "stand-alone" units, but are different in some languages.
+ *    "Formatting" units are declined according to the rules of the language
+ *    in the context of a date. "Stand-alone" units are always nominative singular.
+ *    In `format` function, they will produce different result:
+ *
+ *    `format(new Date(2017, 10, 6), 'do LLLL', {locale: cs}) //=> '6. listopad'`
+ *
+ *    `format(new Date(2017, 10, 6), 'do MMMM', {locale: cs}) //=> '6. listopadu'`
+ *
+ *    `isMatch` will try to match both formatting and stand-alone units interchangably.
+ *
+ * 2. Any sequence of the identical letters is a pattern, unless it is escaped by
+ *    the single quote characters (see below).
+ *    If the sequence is longer than listed in table:
+ *    - for numerical units (`yyyyyyyy`) `isMatch` will try to match a number
+ *      as wide as the sequence
+ *    - for text units (`MMMMMMMM`) `isMatch` will try to match the widest variation of the unit.
+ *      These variations are marked with "2" in the last column of the table.
+ *
+ * 3. `QQQQQ` and `qqqqq` could be not strictly numerical in some locales.
+ *    These tokens represent the shortest form of the quarter.
+ *
+ * 4. The main difference between `y` and `u` patterns are B.C. years:
+ *
+ *    | Year | `y` | `u` |
+ *    |------|-----|-----|
+ *    | AC 1 |   1 |   1 |
+ *    | BC 1 |   1 |   0 |
+ *    | BC 2 |   2 |  -1 |
+ *
+ *    Also `yy` will try to guess the century of two digit year by proximity with `referenceDate`:
+ *
+ *    `isMatch('50', 'yy') //=> true`
+ *
+ *    `isMatch('75', 'yy') //=> true`
+ *
+ *    while `uu` will use the year as is:
+ *
+ *    `isMatch('50', 'uu') //=> true`
+ *
+ *    `isMatch('75', 'uu') //=> true`
+ *
+ *    The same difference is true for local and ISO week-numbering years (`Y` and `R`),
+ *    except local week-numbering years are dependent on `options.weekStartsOn`
+ *    and `options.firstWeekContainsDate` (compare [setISOWeekYear](https://date-fns.org/docs/setISOWeekYear)
+ *    and [setWeekYear](https://date-fns.org/docs/setWeekYear)).
+ *
+ * 5. These patterns are not in the Unicode Technical Standard #35:
+ *    - `i`: ISO day of week
+ *    - `I`: ISO week of year
+ *    - `R`: ISO week-numbering year
+ *    - `o`: ordinal number modifier
+ *    - `P`: long localized date
+ *    - `p`: long localized time
+ *
+ * 6. `YY` and `YYYY` tokens represent week-numbering years but they are often confused with years.
+ *    You should enable `options.useAdditionalWeekYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * 7. `D` and `DD` tokens represent days of the year but they are ofthen confused with days of the month.
+ *    You should enable `options.useAdditionalDayOfYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * 8. `P+` tokens do not have a defined priority since they are merely aliases to other tokens based
+ *    on the given locale.
+ *
+ *    using `en-US` locale: `P` => `MM/dd/yyyy`
+ *    using `en-US` locale: `p` => `hh:mm a`
+ *    using `pt-BR` locale: `P` => `dd/MM/yyyy`
+ *    using `pt-BR` locale: `p` => `HH:mm`
+ *
+ * Values will be checked in the descending order of its unit's priority.
+ * Units of an equal priority overwrite each other in the order of appearance.
+ *
+ * If no values of higher priority are matched (e.g. when matching string 'January 1st' without a year),
+ * the values will be taken from today's using `new Date()` date which works as a context of parsing.
+ *
+ * The result may vary by locale.
+ *
+ * If `formatString` matches with `dateString` but does not provides tokens, `referenceDate` will be returned.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateStr - The date string to verify
+ * @param format - The string of tokens
+ * @param options - An object with options.
+ *   see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *   see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * @returns Is format string a match for date string?
+ *
+ * @throws `options.locale` must contain `match` property
+ * @throws use `yyyy` instead of `YYYY` for formatting years; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `yy` instead of `YY` for formatting years; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `d` instead of `D` for formatting days of the month; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `dd` instead of `DD` for formatting days of the month; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws format string contains an unescaped latin alphabet character
+ *
+ * @example
+ * // Match 11 February 2014 from middle-endian format:
+ * const result = isMatch('02/11/2014', 'MM/dd/yyyy')
+ * //=> true
+ *
+ * @example
+ * // Match 28th of February in Esperanto locale in the context of 2010 year:
+ * import eo from 'date-fns/locale/eo'
+ * const result = isMatch('28-a de februaro', "do 'de' MMMM", {
+ *   locale: eo
+ * })
+ * //=> true
+ */ parcelHelpers.export(exports, "isMatch", ()=>isMatch);
+var _isValidMjs = require("./isValid.mjs");
+var _parseMjs = require("./parse.mjs");
+function isMatch(dateStr, formatStr, options) {
+    return (0, _isValidMjs.isValid)((0, _parseMjs.parse)(dateStr, formatStr, new Date(), options));
+}
+// Fallback for modularized imports:
+exports.default = isMatch;
+
+},{"./isValid.mjs":"dX2Ty","./parse.mjs":"98ovL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"98ovL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// Rexports of internal for libraries to use.
+// See: https://github.com/date-fns/date-fns/issues/3638#issuecomment-1877082874
+parcelHelpers.export(exports, "longFormatters", ()=>(0, _longFormattersMjs.longFormatters));
+parcelHelpers.export(exports, "parsers", ()=>(0, _parsersMjs.parsers));
+/**
+ * @name parse
+ * @category Common Helpers
+ * @summary Parse the date.
+ *
+ * @description
+ * Return the date parsed from string using the given format string.
+ *
+ * > ⚠️ Please note that the `format` tokens differ from Moment.js and other libraries.
+ * > See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * The characters in the format string wrapped between two single quotes characters (') are escaped.
+ * Two single quotes in a row, whether inside or outside a quoted sequence, represent a 'real' single quote.
+ *
+ * Format of the format string is based on Unicode Technical Standard #35:
+ * https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * with a few additions (see note 5 below the table).
+ *
+ * Not all tokens are compatible. Combinations that don't make sense or could lead to bugs are prohibited
+ * and will throw `RangeError`. For example usage of 24-hour format token with AM/PM token will throw an exception:
+ *
+ * ```javascript
+ * parse('23 AM', 'HH a', new Date())
+ * //=> RangeError: The format string mustn't contain `HH` and `a` at the same time
+ * ```
+ *
+ * See the compatibility table: https://docs.google.com/spreadsheets/d/e/2PACX-1vQOPU3xUhplll6dyoMmVUXHKl_8CRDs6_ueLmex3SoqwhuolkuN3O05l4rqx5h1dKX8eb46Ul-CCSrq/pubhtml?gid=0&single=true
+ *
+ * Accepted format string patterns:
+ * | Unit                            |Prior| Pattern | Result examples                   | Notes |
+ * |---------------------------------|-----|---------|-----------------------------------|-------|
+ * | Era                             | 140 | G..GGG  | AD, BC                            |       |
+ * |                                 |     | GGGG    | Anno Domini, Before Christ        | 2     |
+ * |                                 |     | GGGGG   | A, B                              |       |
+ * | Calendar year                   | 130 | y       | 44, 1, 1900, 2017, 9999           | 4     |
+ * |                                 |     | yo      | 44th, 1st, 1900th, 9999999th      | 4,5   |
+ * |                                 |     | yy      | 44, 01, 00, 17                    | 4     |
+ * |                                 |     | yyy     | 044, 001, 123, 999                | 4     |
+ * |                                 |     | yyyy    | 0044, 0001, 1900, 2017            | 4     |
+ * |                                 |     | yyyyy   | ...                               | 2,4   |
+ * | Local week-numbering year       | 130 | Y       | 44, 1, 1900, 2017, 9000           | 4     |
+ * |                                 |     | Yo      | 44th, 1st, 1900th, 9999999th      | 4,5   |
+ * |                                 |     | YY      | 44, 01, 00, 17                    | 4,6   |
+ * |                                 |     | YYY     | 044, 001, 123, 999                | 4     |
+ * |                                 |     | YYYY    | 0044, 0001, 1900, 2017            | 4,6   |
+ * |                                 |     | YYYYY   | ...                               | 2,4   |
+ * | ISO week-numbering year         | 130 | R       | -43, 1, 1900, 2017, 9999, -9999   | 4,5   |
+ * |                                 |     | RR      | -43, 01, 00, 17                   | 4,5   |
+ * |                                 |     | RRR     | -043, 001, 123, 999, -999         | 4,5   |
+ * |                                 |     | RRRR    | -0043, 0001, 2017, 9999, -9999    | 4,5   |
+ * |                                 |     | RRRRR   | ...                               | 2,4,5 |
+ * | Extended year                   | 130 | u       | -43, 1, 1900, 2017, 9999, -999    | 4     |
+ * |                                 |     | uu      | -43, 01, 99, -99                  | 4     |
+ * |                                 |     | uuu     | -043, 001, 123, 999, -999         | 4     |
+ * |                                 |     | uuuu    | -0043, 0001, 2017, 9999, -9999    | 4     |
+ * |                                 |     | uuuuu   | ...                               | 2,4   |
+ * | Quarter (formatting)            | 120 | Q       | 1, 2, 3, 4                        |       |
+ * |                                 |     | Qo      | 1st, 2nd, 3rd, 4th                | 5     |
+ * |                                 |     | QQ      | 01, 02, 03, 04                    |       |
+ * |                                 |     | QQQ     | Q1, Q2, Q3, Q4                    |       |
+ * |                                 |     | QQQQ    | 1st quarter, 2nd quarter, ...     | 2     |
+ * |                                 |     | QQQQQ   | 1, 2, 3, 4                        | 4     |
+ * | Quarter (stand-alone)           | 120 | q       | 1, 2, 3, 4                        |       |
+ * |                                 |     | qo      | 1st, 2nd, 3rd, 4th                | 5     |
+ * |                                 |     | qq      | 01, 02, 03, 04                    |       |
+ * |                                 |     | qqq     | Q1, Q2, Q3, Q4                    |       |
+ * |                                 |     | qqqq    | 1st quarter, 2nd quarter, ...     | 2     |
+ * |                                 |     | qqqqq   | 1, 2, 3, 4                        | 3     |
+ * | Month (formatting)              | 110 | M       | 1, 2, ..., 12                     |       |
+ * |                                 |     | Mo      | 1st, 2nd, ..., 12th               | 5     |
+ * |                                 |     | MM      | 01, 02, ..., 12                   |       |
+ * |                                 |     | MMM     | Jan, Feb, ..., Dec                |       |
+ * |                                 |     | MMMM    | January, February, ..., December  | 2     |
+ * |                                 |     | MMMMM   | J, F, ..., D                      |       |
+ * | Month (stand-alone)             | 110 | L       | 1, 2, ..., 12                     |       |
+ * |                                 |     | Lo      | 1st, 2nd, ..., 12th               | 5     |
+ * |                                 |     | LL      | 01, 02, ..., 12                   |       |
+ * |                                 |     | LLL     | Jan, Feb, ..., Dec                |       |
+ * |                                 |     | LLLL    | January, February, ..., December  | 2     |
+ * |                                 |     | LLLLL   | J, F, ..., D                      |       |
+ * | Local week of year              | 100 | w       | 1, 2, ..., 53                     |       |
+ * |                                 |     | wo      | 1st, 2nd, ..., 53th               | 5     |
+ * |                                 |     | ww      | 01, 02, ..., 53                   |       |
+ * | ISO week of year                | 100 | I       | 1, 2, ..., 53                     | 5     |
+ * |                                 |     | Io      | 1st, 2nd, ..., 53th               | 5     |
+ * |                                 |     | II      | 01, 02, ..., 53                   | 5     |
+ * | Day of month                    |  90 | d       | 1, 2, ..., 31                     |       |
+ * |                                 |     | do      | 1st, 2nd, ..., 31st               | 5     |
+ * |                                 |     | dd      | 01, 02, ..., 31                   |       |
+ * | Day of year                     |  90 | D       | 1, 2, ..., 365, 366               | 7     |
+ * |                                 |     | Do      | 1st, 2nd, ..., 365th, 366th       | 5     |
+ * |                                 |     | DD      | 01, 02, ..., 365, 366             | 7     |
+ * |                                 |     | DDD     | 001, 002, ..., 365, 366           |       |
+ * |                                 |     | DDDD    | ...                               | 2     |
+ * | Day of week (formatting)        |  90 | E..EEE  | Mon, Tue, Wed, ..., Sun           |       |
+ * |                                 |     | EEEE    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 |     | EEEEE   | M, T, W, T, F, S, S               |       |
+ * |                                 |     | EEEEEE  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | ISO day of week (formatting)    |  90 | i       | 1, 2, 3, ..., 7                   | 5     |
+ * |                                 |     | io      | 1st, 2nd, ..., 7th                | 5     |
+ * |                                 |     | ii      | 01, 02, ..., 07                   | 5     |
+ * |                                 |     | iii     | Mon, Tue, Wed, ..., Sun           | 5     |
+ * |                                 |     | iiii    | Monday, Tuesday, ..., Sunday      | 2,5   |
+ * |                                 |     | iiiii   | M, T, W, T, F, S, S               | 5     |
+ * |                                 |     | iiiiii  | Mo, Tu, We, Th, Fr, Sa, Su        | 5     |
+ * | Local day of week (formatting)  |  90 | e       | 2, 3, 4, ..., 1                   |       |
+ * |                                 |     | eo      | 2nd, 3rd, ..., 1st                | 5     |
+ * |                                 |     | ee      | 02, 03, ..., 01                   |       |
+ * |                                 |     | eee     | Mon, Tue, Wed, ..., Sun           |       |
+ * |                                 |     | eeee    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 |     | eeeee   | M, T, W, T, F, S, S               |       |
+ * |                                 |     | eeeeee  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | Local day of week (stand-alone) |  90 | c       | 2, 3, 4, ..., 1                   |       |
+ * |                                 |     | co      | 2nd, 3rd, ..., 1st                | 5     |
+ * |                                 |     | cc      | 02, 03, ..., 01                   |       |
+ * |                                 |     | ccc     | Mon, Tue, Wed, ..., Sun           |       |
+ * |                                 |     | cccc    | Monday, Tuesday, ..., Sunday      | 2     |
+ * |                                 |     | ccccc   | M, T, W, T, F, S, S               |       |
+ * |                                 |     | cccccc  | Mo, Tu, We, Th, Fr, Sa, Su        |       |
+ * | AM, PM                          |  80 | a..aaa  | AM, PM                            |       |
+ * |                                 |     | aaaa    | a.m., p.m.                        | 2     |
+ * |                                 |     | aaaaa   | a, p                              |       |
+ * | AM, PM, noon, midnight          |  80 | b..bbb  | AM, PM, noon, midnight            |       |
+ * |                                 |     | bbbb    | a.m., p.m., noon, midnight        | 2     |
+ * |                                 |     | bbbbb   | a, p, n, mi                       |       |
+ * | Flexible day period             |  80 | B..BBB  | at night, in the morning, ...     |       |
+ * |                                 |     | BBBB    | at night, in the morning, ...     | 2     |
+ * |                                 |     | BBBBB   | at night, in the morning, ...     |       |
+ * | Hour [1-12]                     |  70 | h       | 1, 2, ..., 11, 12                 |       |
+ * |                                 |     | ho      | 1st, 2nd, ..., 11th, 12th         | 5     |
+ * |                                 |     | hh      | 01, 02, ..., 11, 12               |       |
+ * | Hour [0-23]                     |  70 | H       | 0, 1, 2, ..., 23                  |       |
+ * |                                 |     | Ho      | 0th, 1st, 2nd, ..., 23rd          | 5     |
+ * |                                 |     | HH      | 00, 01, 02, ..., 23               |       |
+ * | Hour [0-11]                     |  70 | K       | 1, 2, ..., 11, 0                  |       |
+ * |                                 |     | Ko      | 1st, 2nd, ..., 11th, 0th          | 5     |
+ * |                                 |     | KK      | 01, 02, ..., 11, 00               |       |
+ * | Hour [1-24]                     |  70 | k       | 24, 1, 2, ..., 23                 |       |
+ * |                                 |     | ko      | 24th, 1st, 2nd, ..., 23rd         | 5     |
+ * |                                 |     | kk      | 24, 01, 02, ..., 23               |       |
+ * | Minute                          |  60 | m       | 0, 1, ..., 59                     |       |
+ * |                                 |     | mo      | 0th, 1st, ..., 59th               | 5     |
+ * |                                 |     | mm      | 00, 01, ..., 59                   |       |
+ * | Second                          |  50 | s       | 0, 1, ..., 59                     |       |
+ * |                                 |     | so      | 0th, 1st, ..., 59th               | 5     |
+ * |                                 |     | ss      | 00, 01, ..., 59                   |       |
+ * | Seconds timestamp               |  40 | t       | 512969520                         |       |
+ * |                                 |     | tt      | ...                               | 2     |
+ * | Fraction of second              |  30 | S       | 0, 1, ..., 9                      |       |
+ * |                                 |     | SS      | 00, 01, ..., 99                   |       |
+ * |                                 |     | SSS     | 000, 001, ..., 999                |       |
+ * |                                 |     | SSSS    | ...                               | 2     |
+ * | Milliseconds timestamp          |  20 | T       | 512969520900                      |       |
+ * |                                 |     | TT      | ...                               | 2     |
+ * | Timezone (ISO-8601 w/ Z)        |  10 | X       | -08, +0530, Z                     |       |
+ * |                                 |     | XX      | -0800, +0530, Z                   |       |
+ * |                                 |     | XXX     | -08:00, +05:30, Z                 |       |
+ * |                                 |     | XXXX    | -0800, +0530, Z, +123456          | 2     |
+ * |                                 |     | XXXXX   | -08:00, +05:30, Z, +12:34:56      |       |
+ * | Timezone (ISO-8601 w/o Z)       |  10 | x       | -08, +0530, +00                   |       |
+ * |                                 |     | xx      | -0800, +0530, +0000               |       |
+ * |                                 |     | xxx     | -08:00, +05:30, +00:00            | 2     |
+ * |                                 |     | xxxx    | -0800, +0530, +0000, +123456      |       |
+ * |                                 |     | xxxxx   | -08:00, +05:30, +00:00, +12:34:56 |       |
+ * | Long localized date             |  NA | P       | 05/29/1453                        | 5,8   |
+ * |                                 |     | PP      | May 29, 1453                      |       |
+ * |                                 |     | PPP     | May 29th, 1453                    |       |
+ * |                                 |     | PPPP    | Sunday, May 29th, 1453            | 2,5,8 |
+ * | Long localized time             |  NA | p       | 12:00 AM                          | 5,8   |
+ * |                                 |     | pp      | 12:00:00 AM                       |       |
+ * | Combination of date and time    |  NA | Pp      | 05/29/1453, 12:00 AM              |       |
+ * |                                 |     | PPpp    | May 29, 1453, 12:00:00 AM         |       |
+ * |                                 |     | PPPpp   | May 29th, 1453 at ...             |       |
+ * |                                 |     | PPPPpp  | Sunday, May 29th, 1453 at ...     | 2,5,8 |
+ * Notes:
+ * 1. "Formatting" units (e.g. formatting quarter) in the default en-US locale
+ *    are the same as "stand-alone" units, but are different in some languages.
+ *    "Formatting" units are declined according to the rules of the language
+ *    in the context of a date. "Stand-alone" units are always nominative singular.
+ *    In `format` function, they will produce different result:
+ *
+ *    `format(new Date(2017, 10, 6), 'do LLLL', {locale: cs}) //=> '6. listopad'`
+ *
+ *    `format(new Date(2017, 10, 6), 'do MMMM', {locale: cs}) //=> '6. listopadu'`
+ *
+ *    `parse` will try to match both formatting and stand-alone units interchangably.
+ *
+ * 2. Any sequence of the identical letters is a pattern, unless it is escaped by
+ *    the single quote characters (see below).
+ *    If the sequence is longer than listed in table:
+ *    - for numerical units (`yyyyyyyy`) `parse` will try to match a number
+ *      as wide as the sequence
+ *    - for text units (`MMMMMMMM`) `parse` will try to match the widest variation of the unit.
+ *      These variations are marked with "2" in the last column of the table.
+ *
+ * 3. `QQQQQ` and `qqqqq` could be not strictly numerical in some locales.
+ *    These tokens represent the shortest form of the quarter.
+ *
+ * 4. The main difference between `y` and `u` patterns are B.C. years:
+ *
+ *    | Year | `y` | `u` |
+ *    |------|-----|-----|
+ *    | AC 1 |   1 |   1 |
+ *    | BC 1 |   1 |   0 |
+ *    | BC 2 |   2 |  -1 |
+ *
+ *    Also `yy` will try to guess the century of two digit year by proximity with `referenceDate`:
+ *
+ *    `parse('50', 'yy', new Date(2018, 0, 1)) //=> Sat Jan 01 2050 00:00:00`
+ *
+ *    `parse('75', 'yy', new Date(2018, 0, 1)) //=> Wed Jan 01 1975 00:00:00`
+ *
+ *    while `uu` will just assign the year as is:
+ *
+ *    `parse('50', 'uu', new Date(2018, 0, 1)) //=> Sat Jan 01 0050 00:00:00`
+ *
+ *    `parse('75', 'uu', new Date(2018, 0, 1)) //=> Tue Jan 01 0075 00:00:00`
+ *
+ *    The same difference is true for local and ISO week-numbering years (`Y` and `R`),
+ *    except local week-numbering years are dependent on `options.weekStartsOn`
+ *    and `options.firstWeekContainsDate` (compare [setISOWeekYear](https://date-fns.org/docs/setISOWeekYear)
+ *    and [setWeekYear](https://date-fns.org/docs/setWeekYear)).
+ *
+ * 5. These patterns are not in the Unicode Technical Standard #35:
+ *    - `i`: ISO day of week
+ *    - `I`: ISO week of year
+ *    - `R`: ISO week-numbering year
+ *    - `o`: ordinal number modifier
+ *    - `P`: long localized date
+ *    - `p`: long localized time
+ *
+ * 6. `YY` and `YYYY` tokens represent week-numbering years but they are often confused with years.
+ *    You should enable `options.useAdditionalWeekYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * 7. `D` and `DD` tokens represent days of the year but they are ofthen confused with days of the month.
+ *    You should enable `options.useAdditionalDayOfYearTokens` to use them. See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * 8. `P+` tokens do not have a defined priority since they are merely aliases to other tokens based
+ *    on the given locale.
+ *
+ *    using `en-US` locale: `P` => `MM/dd/yyyy`
+ *    using `en-US` locale: `p` => `hh:mm a`
+ *    using `pt-BR` locale: `P` => `dd/MM/yyyy`
+ *    using `pt-BR` locale: `p` => `HH:mm`
+ *
+ * Values will be assigned to the date in the descending order of its unit's priority.
+ * Units of an equal priority overwrite each other in the order of appearance.
+ *
+ * If no values of higher priority are parsed (e.g. when parsing string 'January 1st' without a year),
+ * the values will be taken from 3rd argument `referenceDate` which works as a context of parsing.
+ *
+ * `referenceDate` must be passed for correct work of the function.
+ * If you're not sure which `referenceDate` to supply, create a new instance of Date:
+ * `parse('02/11/2014', 'MM/dd/yyyy', new Date())`
+ * In this case parsing will be done in the context of the current date.
+ * If `referenceDate` is `Invalid Date` or a value not convertible to valid `Date`,
+ * then `Invalid Date` will be returned.
+ *
+ * The result may vary by locale.
+ *
+ * If `formatString` matches with `dateString` but does not provides tokens, `referenceDate` will be returned.
+ *
+ * If parsing failed, `Invalid Date` will be returned.
+ * Invalid Date is a Date, whose time value is NaN.
+ * Time value of Date: http://es5.github.io/#x15.9.1.1
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateStr - The string to parse
+ * @param formatStr - The string of tokens
+ * @param referenceDate - defines values missing from the parsed dateString
+ * @param options - An object with options.
+ *   see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *   see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * @returns The parsed date
+ *
+ * @throws `options.locale` must contain `match` property
+ * @throws use `yyyy` instead of `YYYY` for formatting years using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `yy` instead of `YY` for formatting years using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `d` instead of `D` for formatting days of the month using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws use `dd` instead of `DD` for formatting days of the month using [format provided] to the input [input provided]; see: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ * @throws format string contains an unescaped latin alphabet character
+ *
+ * @example
+ * // Parse 11 February 2014 from middle-endian format:
+ * var result = parse('02/11/2014', 'MM/dd/yyyy', new Date())
+ * //=> Tue Feb 11 2014 00:00:00
+ *
+ * @example
+ * // Parse 28th of February in Esperanto locale in the context of 2010 year:
+ * import eo from 'date-fns/locale/eo'
+ * var result = parse('28-a de februaro', "do 'de' MMMM", new Date(2010, 0, 1), {
+ *   locale: eo
+ * })
+ * //=> Sun Feb 28 2010 00:00:00
+ */ parcelHelpers.export(exports, "parse", ()=>parse);
+var _constructFromMjs = require("./constructFrom.mjs");
+var _getDefaultOptionsMjs = require("./getDefaultOptions.mjs");
+var _enUSMjs = require("./locale/en-US.mjs");
+var _toDateMjs = require("./toDate.mjs");
+var _longFormattersMjs = require("./_lib/format/longFormatters.mjs");
+var _protectedTokensMjs = require("./_lib/protectedTokens.mjs");
+var _parsersMjs = require("./parse/_lib/parsers.mjs");
+var _setterMjs = require("./parse/_lib/Setter.mjs");
+/**
+ * The {@link parse} function options.
+ */ // This RegExp consists of three parts separated by `|`:
+// - [yYQqMLwIdDecihHKkms]o matches any available ordinal number token
+//   (one of the certain letters followed by `o`)
+// - (\w)\1* matches any sequences of the same letter
+// - '' matches two quote characters in a row
+// - '(''|[^'])+('|$) matches anything surrounded by two quote characters ('),
+//   except a single quote symbol, which ends the sequence.
+//   Two quote characters do not end the sequence.
+//   If there is no matching single quote
+//   then the sequence will continue until the end of the string.
+// - . matches any single character unmatched by previous parts of the RegExps
+const formattingTokensRegExp = /[yYQqMLwIdDecihHKkms]o|(\w)\1*|''|'(''|[^'])+('|$)|./g;
+// This RegExp catches symbols escaped by quotes, and also
+// sequences of symbols P, p, and the combinations like `PPPPPPPppppp`
+const longFormattingTokensRegExp = /P+p+|P+|p+|''|'(''|[^'])+('|$)|./g;
+const escapedStringRegExp = /^'([^]*?)'?$/;
+const doubleQuoteRegExp = /''/g;
+const notWhitespaceRegExp = /\S/;
+const unescapedLatinCharacterRegExp = /[a-zA-Z]/;
+function parse(dateStr, formatStr, referenceDate, options) {
+    const defaultOptions = (0, _getDefaultOptionsMjs.getDefaultOptions)();
+    const locale = options?.locale ?? defaultOptions.locale ?? (0, _enUSMjs.enUS);
+    const firstWeekContainsDate = options?.firstWeekContainsDate ?? options?.locale?.options?.firstWeekContainsDate ?? defaultOptions.firstWeekContainsDate ?? defaultOptions.locale?.options?.firstWeekContainsDate ?? 1;
+    const weekStartsOn = options?.weekStartsOn ?? options?.locale?.options?.weekStartsOn ?? defaultOptions.weekStartsOn ?? defaultOptions.locale?.options?.weekStartsOn ?? 0;
+    if (formatStr === "") {
+        if (dateStr === "") return (0, _toDateMjs.toDate)(referenceDate);
+        else return (0, _constructFromMjs.constructFrom)(referenceDate, NaN);
+    }
+    const subFnOptions = {
+        firstWeekContainsDate,
+        weekStartsOn,
+        locale
+    };
+    // If timezone isn't specified, it will be set to the system timezone
+    const setters = [
+        new (0, _setterMjs.DateToSystemTimezoneSetter)()
+    ];
+    const tokens = formatStr.match(longFormattingTokensRegExp).map((substring)=>{
+        const firstCharacter = substring[0];
+        if (firstCharacter in (0, _longFormattersMjs.longFormatters)) {
+            const longFormatter = (0, _longFormattersMjs.longFormatters)[firstCharacter];
+            return longFormatter(substring, locale.formatLong);
+        }
+        return substring;
+    }).join("").match(formattingTokensRegExp);
+    const usedTokens = [];
+    for (let token of tokens){
+        if (!options?.useAdditionalWeekYearTokens && (0, _protectedTokensMjs.isProtectedWeekYearToken)(token)) (0, _protectedTokensMjs.warnOrThrowProtectedError)(token, formatStr, dateStr);
+        if (!options?.useAdditionalDayOfYearTokens && (0, _protectedTokensMjs.isProtectedDayOfYearToken)(token)) (0, _protectedTokensMjs.warnOrThrowProtectedError)(token, formatStr, dateStr);
+        const firstCharacter = token[0];
+        const parser = (0, _parsersMjs.parsers)[firstCharacter];
+        if (parser) {
+            const { incompatibleTokens } = parser;
+            if (Array.isArray(incompatibleTokens)) {
+                const incompatibleToken = usedTokens.find((usedToken)=>incompatibleTokens.includes(usedToken.token) || usedToken.token === firstCharacter);
+                if (incompatibleToken) throw new RangeError(`The format string mustn't contain \`${incompatibleToken.fullToken}\` and \`${token}\` at the same time`);
+            } else if (parser.incompatibleTokens === "*" && usedTokens.length > 0) throw new RangeError(`The format string mustn't contain \`${token}\` and any other token at the same time`);
+            usedTokens.push({
+                token: firstCharacter,
+                fullToken: token
+            });
+            const parseResult = parser.run(dateStr, token, locale.match, subFnOptions);
+            if (!parseResult) return (0, _constructFromMjs.constructFrom)(referenceDate, NaN);
+            setters.push(parseResult.setter);
+            dateStr = parseResult.rest;
+        } else {
+            if (firstCharacter.match(unescapedLatinCharacterRegExp)) throw new RangeError("Format string contains an unescaped latin alphabet character `" + firstCharacter + "`");
+            // Replace two single quote characters with one single quote character
+            if (token === "''") token = "'";
+            else if (firstCharacter === "'") token = cleanEscapedString(token);
+            // Cut token from string, or, if string doesn't match the token, return Invalid Date
+            if (dateStr.indexOf(token) === 0) dateStr = dateStr.slice(token.length);
+            else return (0, _constructFromMjs.constructFrom)(referenceDate, NaN);
+        }
+    }
+    // Check if the remaining input contains something other than whitespace
+    if (dateStr.length > 0 && notWhitespaceRegExp.test(dateStr)) return (0, _constructFromMjs.constructFrom)(referenceDate, NaN);
+    const uniquePrioritySetters = setters.map((setter)=>setter.priority).sort((a, b)=>b - a).filter((priority, index, array)=>array.indexOf(priority) === index).map((priority)=>setters.filter((setter)=>setter.priority === priority).sort((a, b)=>b.subPriority - a.subPriority)).map((setterArray)=>setterArray[0]);
+    let date = (0, _toDateMjs.toDate)(referenceDate);
+    if (isNaN(date.getTime())) return (0, _constructFromMjs.constructFrom)(referenceDate, NaN);
+    const flags = {};
+    for (const setter of uniquePrioritySetters){
+        if (!setter.validate(date, subFnOptions)) return (0, _constructFromMjs.constructFrom)(referenceDate, NaN);
+        const result = setter.set(date, flags, subFnOptions);
+        // Result is tuple (date, flags)
+        if (Array.isArray(result)) {
+            date = result[0];
+            Object.assign(flags, result[1]);
+        // Result is date
+        } else date = result;
+    }
+    return (0, _constructFromMjs.constructFrom)(referenceDate, date);
+}
+function cleanEscapedString(input) {
+    return input.match(escapedStringRegExp)[1].replace(doubleQuoteRegExp, "'");
+}
+// Fallback for modularized imports:
+exports.default = parse;
+
+},{"./constructFrom.mjs":"xte3t","./getDefaultOptions.mjs":"dFo4E","./locale/en-US.mjs":"dbAFb","./toDate.mjs":"fJykt","./_lib/format/longFormatters.mjs":"fV2Dr","./_lib/protectedTokens.mjs":"1PCHg","./parse/_lib/parsers.mjs":"dOv9U","./parse/_lib/Setter.mjs":"8lcPC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dOv9U":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "parsers", ()=>parsers);
+var _eraParserMjs = require("./parsers/EraParser.mjs");
+var _yearParserMjs = require("./parsers/YearParser.mjs");
+var _localWeekYearParserMjs = require("./parsers/LocalWeekYearParser.mjs");
+var _isoweekYearParserMjs = require("./parsers/ISOWeekYearParser.mjs");
+var _extendedYearParserMjs = require("./parsers/ExtendedYearParser.mjs");
+var _quarterParserMjs = require("./parsers/QuarterParser.mjs");
+var _standAloneQuarterParserMjs = require("./parsers/StandAloneQuarterParser.mjs");
+var _monthParserMjs = require("./parsers/MonthParser.mjs");
+var _standAloneMonthParserMjs = require("./parsers/StandAloneMonthParser.mjs");
+var _localWeekParserMjs = require("./parsers/LocalWeekParser.mjs");
+var _isoweekParserMjs = require("./parsers/ISOWeekParser.mjs");
+var _dateParserMjs = require("./parsers/DateParser.mjs");
+var _dayOfYearParserMjs = require("./parsers/DayOfYearParser.mjs");
+var _dayParserMjs = require("./parsers/DayParser.mjs");
+var _localDayParserMjs = require("./parsers/LocalDayParser.mjs");
+var _standAloneLocalDayParserMjs = require("./parsers/StandAloneLocalDayParser.mjs");
+var _isodayParserMjs = require("./parsers/ISODayParser.mjs");
+var _ampmparserMjs = require("./parsers/AMPMParser.mjs");
+var _ampmmidnightParserMjs = require("./parsers/AMPMMidnightParser.mjs");
+var _dayPeriodParserMjs = require("./parsers/DayPeriodParser.mjs");
+var _hour1To12ParserMjs = require("./parsers/Hour1to12Parser.mjs");
+var _hour0To23ParserMjs = require("./parsers/Hour0to23Parser.mjs");
+var _hour0To11ParserMjs = require("./parsers/Hour0To11Parser.mjs");
+var _hour1To24ParserMjs = require("./parsers/Hour1To24Parser.mjs");
+var _minuteParserMjs = require("./parsers/MinuteParser.mjs");
+var _secondParserMjs = require("./parsers/SecondParser.mjs");
+var _fractionOfSecondParserMjs = require("./parsers/FractionOfSecondParser.mjs");
+var _isotimezoneWithZParserMjs = require("./parsers/ISOTimezoneWithZParser.mjs");
+var _isotimezoneParserMjs = require("./parsers/ISOTimezoneParser.mjs");
+var _timestampSecondsParserMjs = require("./parsers/TimestampSecondsParser.mjs");
+var _timestampMillisecondsParserMjs = require("./parsers/TimestampMillisecondsParser.mjs");
+const parsers = {
+    G: new (0, _eraParserMjs.EraParser)(),
+    y: new (0, _yearParserMjs.YearParser)(),
+    Y: new (0, _localWeekYearParserMjs.LocalWeekYearParser)(),
+    R: new (0, _isoweekYearParserMjs.ISOWeekYearParser)(),
+    u: new (0, _extendedYearParserMjs.ExtendedYearParser)(),
+    Q: new (0, _quarterParserMjs.QuarterParser)(),
+    q: new (0, _standAloneQuarterParserMjs.StandAloneQuarterParser)(),
+    M: new (0, _monthParserMjs.MonthParser)(),
+    L: new (0, _standAloneMonthParserMjs.StandAloneMonthParser)(),
+    w: new (0, _localWeekParserMjs.LocalWeekParser)(),
+    I: new (0, _isoweekParserMjs.ISOWeekParser)(),
+    d: new (0, _dateParserMjs.DateParser)(),
+    D: new (0, _dayOfYearParserMjs.DayOfYearParser)(),
+    E: new (0, _dayParserMjs.DayParser)(),
+    e: new (0, _localDayParserMjs.LocalDayParser)(),
+    c: new (0, _standAloneLocalDayParserMjs.StandAloneLocalDayParser)(),
+    i: new (0, _isodayParserMjs.ISODayParser)(),
+    a: new (0, _ampmparserMjs.AMPMParser)(),
+    b: new (0, _ampmmidnightParserMjs.AMPMMidnightParser)(),
+    B: new (0, _dayPeriodParserMjs.DayPeriodParser)(),
+    h: new (0, _hour1To12ParserMjs.Hour1to12Parser)(),
+    H: new (0, _hour0To23ParserMjs.Hour0to23Parser)(),
+    K: new (0, _hour0To11ParserMjs.Hour0To11Parser)(),
+    k: new (0, _hour1To24ParserMjs.Hour1To24Parser)(),
+    m: new (0, _minuteParserMjs.MinuteParser)(),
+    s: new (0, _secondParserMjs.SecondParser)(),
+    S: new (0, _fractionOfSecondParserMjs.FractionOfSecondParser)(),
+    X: new (0, _isotimezoneWithZParserMjs.ISOTimezoneWithZParser)(),
+    x: new (0, _isotimezoneParserMjs.ISOTimezoneParser)(),
+    t: new (0, _timestampSecondsParserMjs.TimestampSecondsParser)(),
+    T: new (0, _timestampMillisecondsParserMjs.TimestampMillisecondsParser)()
+};
+
+},{"./parsers/EraParser.mjs":"8AU1E","./parsers/YearParser.mjs":"cCO4M","./parsers/LocalWeekYearParser.mjs":"4nBpf","./parsers/ISOWeekYearParser.mjs":"10vHV","./parsers/ExtendedYearParser.mjs":"fflXY","./parsers/QuarterParser.mjs":"37BuX","./parsers/StandAloneQuarterParser.mjs":"aNEce","./parsers/MonthParser.mjs":"aYUFs","./parsers/StandAloneMonthParser.mjs":"3PH3y","./parsers/LocalWeekParser.mjs":"cu7h9","./parsers/ISOWeekParser.mjs":"JNWxY","./parsers/DateParser.mjs":"eI6Wt","./parsers/DayOfYearParser.mjs":"i659t","./parsers/DayParser.mjs":"6XLdp","./parsers/LocalDayParser.mjs":"53HKF","./parsers/StandAloneLocalDayParser.mjs":"1NqHQ","./parsers/ISODayParser.mjs":"lwvu5","./parsers/AMPMParser.mjs":"g6Zoj","./parsers/AMPMMidnightParser.mjs":"a1Vq2","./parsers/DayPeriodParser.mjs":"i8lzl","./parsers/Hour1to12Parser.mjs":"8TuZm","./parsers/Hour0to23Parser.mjs":"ePfRx","./parsers/Hour0To11Parser.mjs":"hYJ77","./parsers/Hour1To24Parser.mjs":"2Z5cw","./parsers/MinuteParser.mjs":"7rpRE","./parsers/SecondParser.mjs":"40xPZ","./parsers/FractionOfSecondParser.mjs":"hfWPq","./parsers/ISOTimezoneWithZParser.mjs":"aLEus","./parsers/ISOTimezoneParser.mjs":"g9g0U","./parsers/TimestampSecondsParser.mjs":"bTuT2","./parsers/TimestampMillisecondsParser.mjs":"5UNar","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8AU1E":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "EraParser", ()=>EraParser);
+var _parserMjs = require("../Parser.mjs");
+class EraParser extends (0, _parserMjs.Parser) {
+    priority = 140;
+    parse(dateString, token, match) {
+        switch(token){
+            // AD, BC
+            case "G":
+            case "GG":
+            case "GGG":
+                return match.era(dateString, {
+                    width: "abbreviated"
+                }) || match.era(dateString, {
+                    width: "narrow"
+                });
+            // A, B
+            case "GGGGG":
+                return match.era(dateString, {
+                    width: "narrow"
+                });
+            // Anno Domini, Before Christ
+            case "GGGG":
+            default:
+                return match.era(dateString, {
+                    width: "wide"
+                }) || match.era(dateString, {
+                    width: "abbreviated"
+                }) || match.era(dateString, {
+                    width: "narrow"
+                });
+        }
+    }
+    set(date, flags, value) {
+        flags.era = value;
+        date.setFullYear(value, 0, 1);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "R",
+        "u",
+        "t",
+        "T"
+    ];
+}
+
+},{"../Parser.mjs":"1vYos","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1vYos":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Parser", ()=>Parser);
+var _setterMjs = require("./Setter.mjs");
+class Parser {
+    run(dateString, token, match, options) {
+        const result = this.parse(dateString, token, match, options);
+        if (!result) return null;
+        return {
+            setter: new (0, _setterMjs.ValueSetter)(result.value, this.validate, this.set, this.priority, this.subPriority),
+            rest: result.rest
+        };
+    }
+    validate(_utcDate, _value, _options) {
+        return true;
+    }
+}
+
+},{"./Setter.mjs":"8lcPC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8lcPC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Setter", ()=>Setter);
+parcelHelpers.export(exports, "ValueSetter", ()=>ValueSetter);
+parcelHelpers.export(exports, "DateToSystemTimezoneSetter", ()=>DateToSystemTimezoneSetter);
+var _transposeMjs = require("../../transpose.mjs");
+var _constructFromMjs = require("../../constructFrom.mjs");
+const TIMEZONE_UNIT_PRIORITY = 10;
+class Setter {
+    subPriority = 0;
+    validate(_utcDate, _options) {
+        return true;
+    }
+}
+class ValueSetter extends Setter {
+    constructor(value, validateValue, setValue, priority, subPriority){
+        super();
+        this.value = value;
+        this.validateValue = validateValue;
+        this.setValue = setValue;
+        this.priority = priority;
+        if (subPriority) this.subPriority = subPriority;
+    }
+    validate(date, options) {
+        return this.validateValue(date, this.value, options);
+    }
+    set(date, flags, options) {
+        return this.setValue(date, flags, this.value, options);
+    }
+}
+class DateToSystemTimezoneSetter extends Setter {
+    priority = TIMEZONE_UNIT_PRIORITY;
+    subPriority = -1;
+    set(date, flags) {
+        if (flags.timestampIsSet) return date;
+        return (0, _constructFromMjs.constructFrom)(date, (0, _transposeMjs.transpose)(date, Date));
+    }
+}
+
+},{"../../transpose.mjs":"b9qB1","../../constructFrom.mjs":"xte3t","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"b9qB1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name transpose
+ * @category Generic Helpers
+ * @summary Transpose the date to the given constructor.
+ *
+ * @description
+ * The function transposes the date to the given constructor. It helps you
+ * to transpose the date in the system time zone to say `UTCDate` or any other
+ * date extension.
+ *
+ * @typeParam DateInputType - The input `Date` type derived from the passed argument.
+ * @typeParam DateOutputType - The output `Date` type derived from the passed constructor.
+ *
+ * @param fromDate - The date to use values from
+ * @param constructor - The date constructor to use
+ *
+ * @returns Date transposed to the given constructor
+ *
+ * @example
+ * // Create July 10, 2022 00:00 in locale time zone
+ * const date = new Date(2022, 6, 10)
+ * //=> 'Sun Jul 10 2022 00:00:00 GMT+0800 (Singapore Standard Time)'
+ *
+ * @example
+ * // Transpose the date to July 10, 2022 00:00 in UTC
+ * transpose(date, UTCDate)
+ * //=> 'Sun Jul 10 2022 00:00:00 GMT+0000 (Coordinated Universal Time)'
+ */ parcelHelpers.export(exports, "transpose", ()=>transpose);
+var _constructFromMjs = require("./constructFrom.mjs");
+function transpose(fromDate, constructor) {
+    const date = constructor instanceof Date ? (0, _constructFromMjs.constructFrom)(constructor, 0) : new constructor(0);
+    date.setFullYear(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
+    date.setHours(fromDate.getHours(), fromDate.getMinutes(), fromDate.getSeconds(), fromDate.getMilliseconds());
+    return date;
+}
+// Fallback for modularized imports:
+exports.default = transpose;
+
+},{"./constructFrom.mjs":"xte3t","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cCO4M":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// From http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_Patterns
+// | Year     |     y | yy |   yyy |  yyyy | yyyyy |
+// |----------|-------|----|-------|-------|-------|
+// | AD 1     |     1 | 01 |   001 |  0001 | 00001 |
+// | AD 12    |    12 | 12 |   012 |  0012 | 00012 |
+// | AD 123   |   123 | 23 |   123 |  0123 | 00123 |
+// | AD 1234  |  1234 | 34 |  1234 |  1234 | 01234 |
+// | AD 12345 | 12345 | 45 | 12345 | 12345 | 12345 |
+parcelHelpers.export(exports, "YearParser", ()=>YearParser);
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class YearParser extends (0, _parserMjs.Parser) {
+    priority = 130;
+    incompatibleTokens = [
+        "Y",
+        "R",
+        "u",
+        "w",
+        "I",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+    ];
+    parse(dateString, token, match) {
+        const valueCallback = (year)=>({
+                year,
+                isTwoDigitYear: token === "yy"
+            });
+        switch(token){
+            case "y":
+                return (0, _utilsMjs.mapValue)((0, _utilsMjs.parseNDigits)(4, dateString), valueCallback);
+            case "yo":
+                return (0, _utilsMjs.mapValue)(match.ordinalNumber(dateString, {
+                    unit: "year"
+                }), valueCallback);
+            default:
+                return (0, _utilsMjs.mapValue)((0, _utilsMjs.parseNDigits)(token.length, dateString), valueCallback);
+        }
+    }
+    validate(_date, value) {
+        return value.isTwoDigitYear || value.year > 0;
+    }
+    set(date, flags, value) {
+        const currentYear = date.getFullYear();
+        if (value.isTwoDigitYear) {
+            const normalizedTwoDigitYear = (0, _utilsMjs.normalizeTwoDigitYear)(value.year, currentYear);
+            date.setFullYear(normalizedTwoDigitYear, 0, 1);
+            date.setHours(0, 0, 0, 0);
+            return date;
+        }
+        const year = !("era" in flags) || flags.era === 1 ? value.year : 1 - value.year;
+        date.setFullYear(year, 0, 1);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
+}
+
+},{"../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jEONO":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "mapValue", ()=>mapValue);
+parcelHelpers.export(exports, "parseNumericPattern", ()=>parseNumericPattern);
+parcelHelpers.export(exports, "parseTimezonePattern", ()=>parseTimezonePattern);
+parcelHelpers.export(exports, "parseAnyDigitsSigned", ()=>parseAnyDigitsSigned);
+parcelHelpers.export(exports, "parseNDigits", ()=>parseNDigits);
+parcelHelpers.export(exports, "parseNDigitsSigned", ()=>parseNDigitsSigned);
+parcelHelpers.export(exports, "dayPeriodEnumToHours", ()=>dayPeriodEnumToHours);
+parcelHelpers.export(exports, "normalizeTwoDigitYear", ()=>normalizeTwoDigitYear);
+parcelHelpers.export(exports, "isLeapYearIndex", ()=>isLeapYearIndex);
+var _constantsMjs = require("../../constants.mjs");
+var _constantsMjs1 = require("./constants.mjs");
+function mapValue(parseFnResult, mapFn) {
+    if (!parseFnResult) return parseFnResult;
+    return {
+        value: mapFn(parseFnResult.value),
+        rest: parseFnResult.rest
+    };
+}
+function parseNumericPattern(pattern, dateString) {
+    const matchResult = dateString.match(pattern);
+    if (!matchResult) return null;
+    return {
+        value: parseInt(matchResult[0], 10),
+        rest: dateString.slice(matchResult[0].length)
+    };
+}
+function parseTimezonePattern(pattern, dateString) {
+    const matchResult = dateString.match(pattern);
+    if (!matchResult) return null;
+    // Input is 'Z'
+    if (matchResult[0] === "Z") return {
+        value: 0,
+        rest: dateString.slice(1)
+    };
+    const sign = matchResult[1] === "+" ? 1 : -1;
+    const hours = matchResult[2] ? parseInt(matchResult[2], 10) : 0;
+    const minutes = matchResult[3] ? parseInt(matchResult[3], 10) : 0;
+    const seconds = matchResult[5] ? parseInt(matchResult[5], 10) : 0;
+    return {
+        value: sign * (hours * (0, _constantsMjs.millisecondsInHour) + minutes * (0, _constantsMjs.millisecondsInMinute) + seconds * (0, _constantsMjs.millisecondsInSecond)),
+        rest: dateString.slice(matchResult[0].length)
+    };
+}
+function parseAnyDigitsSigned(dateString) {
+    return parseNumericPattern((0, _constantsMjs1.numericPatterns).anyDigitsSigned, dateString);
+}
+function parseNDigits(n, dateString) {
+    switch(n){
+        case 1:
+            return parseNumericPattern((0, _constantsMjs1.numericPatterns).singleDigit, dateString);
+        case 2:
+            return parseNumericPattern((0, _constantsMjs1.numericPatterns).twoDigits, dateString);
+        case 3:
+            return parseNumericPattern((0, _constantsMjs1.numericPatterns).threeDigits, dateString);
+        case 4:
+            return parseNumericPattern((0, _constantsMjs1.numericPatterns).fourDigits, dateString);
+        default:
+            return parseNumericPattern(new RegExp("^\\d{1," + n + "}"), dateString);
+    }
+}
+function parseNDigitsSigned(n, dateString) {
+    switch(n){
+        case 1:
+            return parseNumericPattern((0, _constantsMjs1.numericPatterns).singleDigitSigned, dateString);
+        case 2:
+            return parseNumericPattern((0, _constantsMjs1.numericPatterns).twoDigitsSigned, dateString);
+        case 3:
+            return parseNumericPattern((0, _constantsMjs1.numericPatterns).threeDigitsSigned, dateString);
+        case 4:
+            return parseNumericPattern((0, _constantsMjs1.numericPatterns).fourDigitsSigned, dateString);
+        default:
+            return parseNumericPattern(new RegExp("^-?\\d{1," + n + "}"), dateString);
+    }
+}
+function dayPeriodEnumToHours(dayPeriod) {
+    switch(dayPeriod){
+        case "morning":
+            return 4;
+        case "evening":
+            return 17;
+        case "pm":
+        case "noon":
+        case "afternoon":
+            return 12;
+        case "am":
+        case "midnight":
+        case "night":
+        default:
+            return 0;
+    }
+}
+function normalizeTwoDigitYear(twoDigitYear, currentYear) {
+    const isCommonEra = currentYear > 0;
+    // Absolute number of the current year:
+    // 1 -> 1 AC
+    // 0 -> 1 BC
+    // -1 -> 2 BC
+    const absCurrentYear = isCommonEra ? currentYear : 1 - currentYear;
+    let result;
+    if (absCurrentYear <= 50) result = twoDigitYear || 100;
+    else {
+        const rangeEnd = absCurrentYear + 50;
+        const rangeEndCentury = Math.trunc(rangeEnd / 100) * 100;
+        const isPreviousCentury = twoDigitYear >= rangeEnd % 100;
+        result = twoDigitYear + rangeEndCentury - (isPreviousCentury ? 100 : 0);
+    }
+    return isCommonEra ? result : 1 - result;
+}
+function isLeapYearIndex(year) {
+    return year % 400 === 0 || year % 4 === 0 && year % 100 !== 0;
+}
+
+},{"../../constants.mjs":"iISMq","./constants.mjs":"cdRUr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cdRUr":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "numericPatterns", ()=>numericPatterns);
+parcelHelpers.export(exports, "timezonePatterns", ()=>timezonePatterns);
+const numericPatterns = {
+    month: /^(1[0-2]|0?\d)/,
+    date: /^(3[0-1]|[0-2]?\d)/,
+    dayOfYear: /^(36[0-6]|3[0-5]\d|[0-2]?\d?\d)/,
+    week: /^(5[0-3]|[0-4]?\d)/,
+    hour23h: /^(2[0-3]|[0-1]?\d)/,
+    hour24h: /^(2[0-4]|[0-1]?\d)/,
+    hour11h: /^(1[0-1]|0?\d)/,
+    hour12h: /^(1[0-2]|0?\d)/,
+    minute: /^[0-5]?\d/,
+    second: /^[0-5]?\d/,
+    singleDigit: /^\d/,
+    twoDigits: /^\d{1,2}/,
+    threeDigits: /^\d{1,3}/,
+    fourDigits: /^\d{1,4}/,
+    anyDigitsSigned: /^-?\d+/,
+    singleDigitSigned: /^-?\d/,
+    twoDigitsSigned: /^-?\d{1,2}/,
+    threeDigitsSigned: /^-?\d{1,3}/,
+    fourDigitsSigned: /^-?\d{1,4}/
+};
+const timezonePatterns = {
+    basicOptionalMinutes: /^([+-])(\d{2})(\d{2})?|Z/,
+    basic: /^([+-])(\d{2})(\d{2})|Z/,
+    basicOptionalSeconds: /^([+-])(\d{2})(\d{2})((\d{2}))?|Z/,
+    extended: /^([+-])(\d{2}):(\d{2})|Z/,
+    extendedOptionalSeconds: /^([+-])(\d{2}):(\d{2})(:(\d{2}))?|Z/
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4nBpf":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// Local week-numbering year
+parcelHelpers.export(exports, "LocalWeekYearParser", ()=>LocalWeekYearParser);
+var _getWeekYearMjs = require("../../../getWeekYear.mjs");
+var _startOfWeekMjs = require("../../../startOfWeek.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class LocalWeekYearParser extends (0, _parserMjs.Parser) {
+    priority = 130;
+    parse(dateString, token, match) {
+        const valueCallback = (year)=>({
+                year,
+                isTwoDigitYear: token === "YY"
+            });
+        switch(token){
+            case "Y":
+                return (0, _utilsMjs.mapValue)((0, _utilsMjs.parseNDigits)(4, dateString), valueCallback);
+            case "Yo":
+                return (0, _utilsMjs.mapValue)(match.ordinalNumber(dateString, {
+                    unit: "year"
+                }), valueCallback);
+            default:
+                return (0, _utilsMjs.mapValue)((0, _utilsMjs.parseNDigits)(token.length, dateString), valueCallback);
+        }
+    }
+    validate(_date, value) {
+        return value.isTwoDigitYear || value.year > 0;
+    }
+    set(date, flags, value, options) {
+        const currentYear = (0, _getWeekYearMjs.getWeekYear)(date, options);
+        if (value.isTwoDigitYear) {
+            const normalizedTwoDigitYear = (0, _utilsMjs.normalizeTwoDigitYear)(value.year, currentYear);
+            date.setFullYear(normalizedTwoDigitYear, 0, options.firstWeekContainsDate);
+            date.setHours(0, 0, 0, 0);
+            return (0, _startOfWeekMjs.startOfWeek)(date, options);
+        }
+        const year = !("era" in flags) || flags.era === 1 ? value.year : 1 - value.year;
+        date.setFullYear(year, 0, options.firstWeekContainsDate);
+        date.setHours(0, 0, 0, 0);
+        return (0, _startOfWeekMjs.startOfWeek)(date, options);
+    }
+    incompatibleTokens = [
+        "y",
+        "R",
+        "u",
+        "Q",
+        "q",
+        "M",
+        "L",
+        "I",
+        "d",
+        "D",
+        "i",
+        "t",
+        "T"
+    ];
+}
+
+},{"../../../getWeekYear.mjs":"4qgzW","../../../startOfWeek.mjs":"807UC","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"10vHV":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// ISO week-numbering year
+parcelHelpers.export(exports, "ISOWeekYearParser", ()=>ISOWeekYearParser);
+var _startOfISOWeekMjs = require("../../../startOfISOWeek.mjs");
+var _constructFromMjs = require("../../../constructFrom.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class ISOWeekYearParser extends (0, _parserMjs.Parser) {
+    priority = 130;
+    parse(dateString, token) {
+        if (token === "R") return (0, _utilsMjs.parseNDigitsSigned)(4, dateString);
+        return (0, _utilsMjs.parseNDigitsSigned)(token.length, dateString);
+    }
+    set(date, _flags, value) {
+        const firstWeekOfYear = (0, _constructFromMjs.constructFrom)(date, 0);
+        firstWeekOfYear.setFullYear(value, 0, 4);
+        firstWeekOfYear.setHours(0, 0, 0, 0);
+        return (0, _startOfISOWeekMjs.startOfISOWeek)(firstWeekOfYear);
+    }
+    incompatibleTokens = [
+        "G",
+        "y",
+        "Y",
+        "u",
+        "Q",
+        "q",
+        "M",
+        "L",
+        "w",
+        "d",
+        "D",
+        "e",
+        "c",
+        "t",
+        "T"
+    ];
+}
+
+},{"../../../startOfISOWeek.mjs":"jQoij","../../../constructFrom.mjs":"xte3t","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fflXY":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ExtendedYearParser", ()=>ExtendedYearParser);
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class ExtendedYearParser extends (0, _parserMjs.Parser) {
+    priority = 130;
+    parse(dateString, token) {
+        if (token === "u") return (0, _utilsMjs.parseNDigitsSigned)(4, dateString);
+        return (0, _utilsMjs.parseNDigitsSigned)(token.length, dateString);
+    }
+    set(date, _flags, value) {
+        date.setFullYear(value, 0, 1);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "G",
+        "y",
+        "Y",
+        "R",
+        "w",
+        "I",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+    ];
+}
+
+},{"../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"37BuX":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "QuarterParser", ()=>QuarterParser);
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class QuarterParser extends (0, _parserMjs.Parser) {
+    priority = 120;
+    parse(dateString, token, match) {
+        switch(token){
+            // 1, 2, 3, 4
+            case "Q":
+            case "QQ":
+                return (0, _utilsMjs.parseNDigits)(token.length, dateString);
+            // 1st, 2nd, 3rd, 4th
+            case "Qo":
+                return match.ordinalNumber(dateString, {
+                    unit: "quarter"
+                });
+            // Q1, Q2, Q3, Q4
+            case "QQQ":
+                return match.quarter(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.quarter(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // 1, 2, 3, 4 (narrow quarter; could be not numerical)
+            case "QQQQQ":
+                return match.quarter(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // 1st quarter, 2nd quarter, ...
+            case "QQQQ":
+            default:
+                return match.quarter(dateString, {
+                    width: "wide",
+                    context: "formatting"
+                }) || match.quarter(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.quarter(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+        }
+    }
+    validate(_date, value) {
+        return value >= 1 && value <= 4;
+    }
+    set(date, _flags, value) {
+        date.setMonth((value - 1) * 3, 1);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "Y",
+        "R",
+        "q",
+        "M",
+        "L",
+        "w",
+        "I",
+        "d",
+        "D",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+    ];
+}
+
+},{"../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aNEce":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "StandAloneQuarterParser", ()=>StandAloneQuarterParser);
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class StandAloneQuarterParser extends (0, _parserMjs.Parser) {
+    priority = 120;
+    parse(dateString, token, match) {
+        switch(token){
+            // 1, 2, 3, 4
+            case "q":
+            case "qq":
+                return (0, _utilsMjs.parseNDigits)(token.length, dateString);
+            // 1st, 2nd, 3rd, 4th
+            case "qo":
+                return match.ordinalNumber(dateString, {
+                    unit: "quarter"
+                });
+            // Q1, Q2, Q3, Q4
+            case "qqq":
+                return match.quarter(dateString, {
+                    width: "abbreviated",
+                    context: "standalone"
+                }) || match.quarter(dateString, {
+                    width: "narrow",
+                    context: "standalone"
+                });
+            // 1, 2, 3, 4 (narrow quarter; could be not numerical)
+            case "qqqqq":
+                return match.quarter(dateString, {
+                    width: "narrow",
+                    context: "standalone"
+                });
+            // 1st quarter, 2nd quarter, ...
+            case "qqqq":
+            default:
+                return match.quarter(dateString, {
+                    width: "wide",
+                    context: "standalone"
+                }) || match.quarter(dateString, {
+                    width: "abbreviated",
+                    context: "standalone"
+                }) || match.quarter(dateString, {
+                    width: "narrow",
+                    context: "standalone"
+                });
+        }
+    }
+    validate(_date, value) {
+        return value >= 1 && value <= 4;
+    }
+    set(date, _flags, value) {
+        date.setMonth((value - 1) * 3, 1);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "Y",
+        "R",
+        "Q",
+        "M",
+        "L",
+        "w",
+        "I",
+        "d",
+        "D",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+    ];
+}
+
+},{"../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aYUFs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MonthParser", ()=>MonthParser);
+var _constantsMjs = require("../constants.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class MonthParser extends (0, _parserMjs.Parser) {
+    incompatibleTokens = [
+        "Y",
+        "R",
+        "q",
+        "Q",
+        "L",
+        "w",
+        "I",
+        "D",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+    ];
+    priority = 110;
+    parse(dateString, token, match) {
+        const valueCallback = (value)=>value - 1;
+        switch(token){
+            // 1, 2, ..., 12
+            case "M":
+                return (0, _utilsMjs.mapValue)((0, _utilsMjs.parseNumericPattern)((0, _constantsMjs.numericPatterns).month, dateString), valueCallback);
+            // 01, 02, ..., 12
+            case "MM":
+                return (0, _utilsMjs.mapValue)((0, _utilsMjs.parseNDigits)(2, dateString), valueCallback);
+            // 1st, 2nd, ..., 12th
+            case "Mo":
+                return (0, _utilsMjs.mapValue)(match.ordinalNumber(dateString, {
+                    unit: "month"
+                }), valueCallback);
+            // Jan, Feb, ..., Dec
+            case "MMM":
+                return match.month(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.month(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // J, F, ..., D
+            case "MMMMM":
+                return match.month(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // January, February, ..., December
+            case "MMMM":
+            default:
+                return match.month(dateString, {
+                    width: "wide",
+                    context: "formatting"
+                }) || match.month(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.month(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+        }
+    }
+    validate(_date, value) {
+        return value >= 0 && value <= 11;
+    }
+    set(date, _flags, value) {
+        date.setMonth(value, 1);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
+}
+
+},{"../constants.mjs":"cdRUr","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3PH3y":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "StandAloneMonthParser", ()=>StandAloneMonthParser);
+var _constantsMjs = require("../constants.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class StandAloneMonthParser extends (0, _parserMjs.Parser) {
+    priority = 110;
+    parse(dateString, token, match) {
+        const valueCallback = (value)=>value - 1;
+        switch(token){
+            // 1, 2, ..., 12
+            case "L":
+                return (0, _utilsMjs.mapValue)((0, _utilsMjs.parseNumericPattern)((0, _constantsMjs.numericPatterns).month, dateString), valueCallback);
+            // 01, 02, ..., 12
+            case "LL":
+                return (0, _utilsMjs.mapValue)((0, _utilsMjs.parseNDigits)(2, dateString), valueCallback);
+            // 1st, 2nd, ..., 12th
+            case "Lo":
+                return (0, _utilsMjs.mapValue)(match.ordinalNumber(dateString, {
+                    unit: "month"
+                }), valueCallback);
+            // Jan, Feb, ..., Dec
+            case "LLL":
+                return match.month(dateString, {
+                    width: "abbreviated",
+                    context: "standalone"
+                }) || match.month(dateString, {
+                    width: "narrow",
+                    context: "standalone"
+                });
+            // J, F, ..., D
+            case "LLLLL":
+                return match.month(dateString, {
+                    width: "narrow",
+                    context: "standalone"
+                });
+            // January, February, ..., December
+            case "LLLL":
+            default:
+                return match.month(dateString, {
+                    width: "wide",
+                    context: "standalone"
+                }) || match.month(dateString, {
+                    width: "abbreviated",
+                    context: "standalone"
+                }) || match.month(dateString, {
+                    width: "narrow",
+                    context: "standalone"
+                });
+        }
+    }
+    validate(_date, value) {
+        return value >= 0 && value <= 11;
+    }
+    set(date, _flags, value) {
+        date.setMonth(value, 1);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "Y",
+        "R",
+        "q",
+        "Q",
+        "M",
+        "w",
+        "I",
+        "D",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+    ];
+}
+
+},{"../constants.mjs":"cdRUr","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cu7h9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// Local week of year
+parcelHelpers.export(exports, "LocalWeekParser", ()=>LocalWeekParser);
+var _setWeekMjs = require("../../../setWeek.mjs");
+var _startOfWeekMjs = require("../../../startOfWeek.mjs");
+var _constantsMjs = require("../constants.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class LocalWeekParser extends (0, _parserMjs.Parser) {
+    priority = 100;
+    parse(dateString, token, match) {
+        switch(token){
+            case "w":
+                return (0, _utilsMjs.parseNumericPattern)((0, _constantsMjs.numericPatterns).week, dateString);
+            case "wo":
+                return match.ordinalNumber(dateString, {
+                    unit: "week"
+                });
+            default:
+                return (0, _utilsMjs.parseNDigits)(token.length, dateString);
+        }
+    }
+    validate(_date, value) {
+        return value >= 1 && value <= 53;
+    }
+    set(date, _flags, value, options) {
+        return (0, _startOfWeekMjs.startOfWeek)((0, _setWeekMjs.setWeek)(date, value, options), options);
+    }
+    incompatibleTokens = [
+        "y",
+        "R",
+        "u",
+        "q",
+        "Q",
+        "M",
+        "L",
+        "I",
+        "d",
+        "D",
+        "i",
+        "t",
+        "T"
+    ];
+}
+
+},{"../../../setWeek.mjs":"gTSv8","../../../startOfWeek.mjs":"807UC","../constants.mjs":"cdRUr","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gTSv8":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link setWeek} function options.
+ */ /**
+ * @name setWeek
+ * @category Week Helpers
+ * @summary Set the local week to the given date.
+ *
+ * @description
+ * Set the local week to the given date, saving the weekday number.
+ * The exact calculation depends on the values of
+ * `options.weekStartsOn` (which is the index of the first day of the week)
+ * and `options.firstWeekContainsDate` (which is the day of January, which is always in
+ * the first week of the week-numbering year)
+ *
+ * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param week - The week of the new date
+ * @param options - An object with options
+ *
+ * @returns The new date with the local week set
+ *
+ * @example
+ * // Set the 1st week to 2 January 2005 with default options:
+ * const result = setWeek(new Date(2005, 0, 2), 1)
+ * //=> Sun Dec 26 2004 00:00:00
+ *
+ * @example
+ * // Set the 1st week to 2 January 2005,
+ * // if Monday is the first day of the week,
+ * // and the first week of the year always contains 4 January:
+ * const result = setWeek(new Date(2005, 0, 2), 1, {
+ *   weekStartsOn: 1,
+ *   firstWeekContainsDate: 4
+ * })
+ * //=> Sun Jan 4 2004 00:00:00
+ */ parcelHelpers.export(exports, "setWeek", ()=>setWeek);
+var _getWeekMjs = require("./getWeek.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function setWeek(date, week, options) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const diff = (0, _getWeekMjs.getWeek)(_date, options) - week;
+    _date.setDate(_date.getDate() - diff * 7);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = setWeek;
+
+},{"./getWeek.mjs":"81Dj9","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"JNWxY":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// ISO week of year
+parcelHelpers.export(exports, "ISOWeekParser", ()=>ISOWeekParser);
+var _setISOWeekMjs = require("../../../setISOWeek.mjs");
+var _startOfISOWeekMjs = require("../../../startOfISOWeek.mjs");
+var _constantsMjs = require("../constants.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class ISOWeekParser extends (0, _parserMjs.Parser) {
+    priority = 100;
+    parse(dateString, token, match) {
+        switch(token){
+            case "I":
+                return (0, _utilsMjs.parseNumericPattern)((0, _constantsMjs.numericPatterns).week, dateString);
+            case "Io":
+                return match.ordinalNumber(dateString, {
+                    unit: "week"
+                });
+            default:
+                return (0, _utilsMjs.parseNDigits)(token.length, dateString);
+        }
+    }
+    validate(_date, value) {
+        return value >= 1 && value <= 53;
+    }
+    set(date, _flags, value) {
+        return (0, _startOfISOWeekMjs.startOfISOWeek)((0, _setISOWeekMjs.setISOWeek)(date, value));
+    }
+    incompatibleTokens = [
+        "y",
+        "Y",
+        "u",
+        "q",
+        "Q",
+        "M",
+        "L",
+        "w",
+        "d",
+        "D",
+        "e",
+        "c",
+        "t",
+        "T"
+    ];
+}
+
+},{"../../../setISOWeek.mjs":"fg4CQ","../../../startOfISOWeek.mjs":"jQoij","../constants.mjs":"cdRUr","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fg4CQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name setISOWeek
+ * @category ISO Week Helpers
+ * @summary Set the ISO week to the given date.
+ *
+ * @description
+ * Set the ISO week to the given date, saving the weekday number.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param week - The ISO week of the new date
+ *
+ * @returns The new date with the ISO week set
+ *
+ * @example
+ * // Set the 53rd ISO week to 7 August 2004:
+ * const result = setISOWeek(new Date(2004, 7, 7), 53)
+ * //=> Sat Jan 01 2005 00:00:00
+ */ parcelHelpers.export(exports, "setISOWeek", ()=>setISOWeek);
+var _getISOWeekMjs = require("./getISOWeek.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function setISOWeek(date, week) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const diff = (0, _getISOWeekMjs.getISOWeek)(_date) - week;
+    _date.setDate(_date.getDate() - diff * 7);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = setISOWeek;
+
+},{"./getISOWeek.mjs":"jExzB","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eI6Wt":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// Day of the month
+parcelHelpers.export(exports, "DateParser", ()=>DateParser);
+var _constantsMjs = require("../constants.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+const DAYS_IN_MONTH = [
+    31,
+    28,
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31
+];
+const DAYS_IN_MONTH_LEAP_YEAR = [
+    31,
+    29,
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31
+];
+class DateParser extends (0, _parserMjs.Parser) {
+    priority = 90;
+    subPriority = 1;
+    parse(dateString, token, match) {
+        switch(token){
+            case "d":
+                return (0, _utilsMjs.parseNumericPattern)((0, _constantsMjs.numericPatterns).date, dateString);
+            case "do":
+                return match.ordinalNumber(dateString, {
+                    unit: "date"
+                });
+            default:
+                return (0, _utilsMjs.parseNDigits)(token.length, dateString);
+        }
+    }
+    validate(date, value) {
+        const year = date.getFullYear();
+        const isLeapYear = (0, _utilsMjs.isLeapYearIndex)(year);
+        const month = date.getMonth();
+        if (isLeapYear) return value >= 1 && value <= DAYS_IN_MONTH_LEAP_YEAR[month];
+        else return value >= 1 && value <= DAYS_IN_MONTH[month];
+    }
+    set(date, _flags, value) {
+        date.setDate(value);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "Y",
+        "R",
+        "q",
+        "Q",
+        "w",
+        "I",
+        "D",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+    ];
+}
+
+},{"../constants.mjs":"cdRUr","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"i659t":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "DayOfYearParser", ()=>DayOfYearParser);
+var _constantsMjs = require("../constants.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class DayOfYearParser extends (0, _parserMjs.Parser) {
+    priority = 90;
+    subpriority = 1;
+    parse(dateString, token, match) {
+        switch(token){
+            case "D":
+            case "DD":
+                return (0, _utilsMjs.parseNumericPattern)((0, _constantsMjs.numericPatterns).dayOfYear, dateString);
+            case "Do":
+                return match.ordinalNumber(dateString, {
+                    unit: "date"
+                });
+            default:
+                return (0, _utilsMjs.parseNDigits)(token.length, dateString);
+        }
+    }
+    validate(date, value) {
+        const year = date.getFullYear();
+        const isLeapYear = (0, _utilsMjs.isLeapYearIndex)(year);
+        if (isLeapYear) return value >= 1 && value <= 366;
+        else return value >= 1 && value <= 365;
+    }
+    set(date, _flags, value) {
+        date.setMonth(0, value);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "Y",
+        "R",
+        "q",
+        "Q",
+        "M",
+        "L",
+        "w",
+        "I",
+        "d",
+        "E",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+    ];
+}
+
+},{"../constants.mjs":"cdRUr","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6XLdp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// Day of week
+parcelHelpers.export(exports, "DayParser", ()=>DayParser);
+var _setDayMjs = require("../../../setDay.mjs");
+var _parserMjs = require("../Parser.mjs");
+class DayParser extends (0, _parserMjs.Parser) {
+    priority = 90;
+    parse(dateString, token, match) {
+        switch(token){
+            // Tue
+            case "E":
+            case "EE":
+            case "EEE":
+                return match.day(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "short",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // T
+            case "EEEEE":
+                return match.day(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // Tu
+            case "EEEEEE":
+                return match.day(dateString, {
+                    width: "short",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // Tuesday
+            case "EEEE":
+            default:
+                return match.day(dateString, {
+                    width: "wide",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "short",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+        }
+    }
+    validate(_date, value) {
+        return value >= 0 && value <= 6;
+    }
+    set(date, _flags, value, options) {
+        date = (0, _setDayMjs.setDay)(date, value, options);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "D",
+        "i",
+        "e",
+        "c",
+        "t",
+        "T"
+    ];
+}
+
+},{"../../../setDay.mjs":"dFWzp","../Parser.mjs":"1vYos","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dFWzp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link setDay} function options.
+ */ /**
+ * @name setDay
+ * @category Weekday Helpers
+ * @summary Set the day of the week to the given date.
+ *
+ * @description
+ * Set the day of the week to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param day - The day of the week of the new date
+ * @param options - An object with options.
+ *
+ * @returns The new date with the day of the week set
+ *
+ * @example
+ * // Set week day to Sunday, with the default weekStartsOn of Sunday:
+ * const result = setDay(new Date(2014, 8, 1), 0)
+ * //=> Sun Aug 31 2014 00:00:00
+ *
+ * @example
+ * // Set week day to Sunday, with a weekStartsOn of Monday:
+ * const result = setDay(new Date(2014, 8, 1), 0, { weekStartsOn: 1 })
+ * //=> Sun Sep 07 2014 00:00:00
+ */ parcelHelpers.export(exports, "setDay", ()=>setDay);
+var _addDaysMjs = require("./addDays.mjs");
+var _toDateMjs = require("./toDate.mjs");
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+function setDay(date, day, options) {
+    const defaultOptions = (0, _defaultOptionsMjs.getDefaultOptions)();
+    const weekStartsOn = options?.weekStartsOn ?? options?.locale?.options?.weekStartsOn ?? defaultOptions.weekStartsOn ?? defaultOptions.locale?.options?.weekStartsOn ?? 0;
+    const _date = (0, _toDateMjs.toDate)(date);
+    const currentDay = _date.getDay();
+    const remainder = day % 7;
+    const dayIndex = (remainder + 7) % 7;
+    const delta = 7 - weekStartsOn;
+    const diff = day < 0 || day > 6 ? day - (currentDay + delta) % 7 : (dayIndex + delta) % 7 - (currentDay + delta) % 7;
+    return (0, _addDaysMjs.addDays)(_date, diff);
+}
+// Fallback for modularized imports:
+exports.default = setDay;
+
+},{"./addDays.mjs":"4IE0s","./toDate.mjs":"fJykt","./_lib/defaultOptions.mjs":"6QlMe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"53HKF":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// Local day of week
+parcelHelpers.export(exports, "LocalDayParser", ()=>LocalDayParser);
+var _setDayMjs = require("../../../setDay.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class LocalDayParser extends (0, _parserMjs.Parser) {
+    priority = 90;
+    parse(dateString, token, match, options) {
+        const valueCallback = (value)=>{
+            // We want here floor instead of trunc, so we get -7 for value 0 instead of 0
+            const wholeWeekDays = Math.floor((value - 1) / 7) * 7;
+            return (value + options.weekStartsOn + 6) % 7 + wholeWeekDays;
+        };
+        switch(token){
+            // 3
+            case "e":
+            case "ee":
+                return (0, _utilsMjs.mapValue)((0, _utilsMjs.parseNDigits)(token.length, dateString), valueCallback);
+            // 3rd
+            case "eo":
+                return (0, _utilsMjs.mapValue)(match.ordinalNumber(dateString, {
+                    unit: "day"
+                }), valueCallback);
+            // Tue
+            case "eee":
+                return match.day(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "short",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // T
+            case "eeeee":
+                return match.day(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // Tu
+            case "eeeeee":
+                return match.day(dateString, {
+                    width: "short",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            // Tuesday
+            case "eeee":
+            default:
+                return match.day(dateString, {
+                    width: "wide",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "short",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+        }
+    }
+    validate(_date, value) {
+        return value >= 0 && value <= 6;
+    }
+    set(date, _flags, value, options) {
+        date = (0, _setDayMjs.setDay)(date, value, options);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "y",
+        "R",
+        "u",
+        "q",
+        "Q",
+        "M",
+        "L",
+        "I",
+        "d",
+        "D",
+        "E",
+        "i",
+        "c",
+        "t",
+        "T"
+    ];
+}
+
+},{"../../../setDay.mjs":"dFWzp","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1NqHQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// Stand-alone local day of week
+parcelHelpers.export(exports, "StandAloneLocalDayParser", ()=>StandAloneLocalDayParser);
+var _setDayMjs = require("../../../setDay.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class StandAloneLocalDayParser extends (0, _parserMjs.Parser) {
+    priority = 90;
+    parse(dateString, token, match, options) {
+        const valueCallback = (value)=>{
+            // We want here floor instead of trunc, so we get -7 for value 0 instead of 0
+            const wholeWeekDays = Math.floor((value - 1) / 7) * 7;
+            return (value + options.weekStartsOn + 6) % 7 + wholeWeekDays;
+        };
+        switch(token){
+            // 3
+            case "c":
+            case "cc":
+                return (0, _utilsMjs.mapValue)((0, _utilsMjs.parseNDigits)(token.length, dateString), valueCallback);
+            // 3rd
+            case "co":
+                return (0, _utilsMjs.mapValue)(match.ordinalNumber(dateString, {
+                    unit: "day"
+                }), valueCallback);
+            // Tue
+            case "ccc":
+                return match.day(dateString, {
+                    width: "abbreviated",
+                    context: "standalone"
+                }) || match.day(dateString, {
+                    width: "short",
+                    context: "standalone"
+                }) || match.day(dateString, {
+                    width: "narrow",
+                    context: "standalone"
+                });
+            // T
+            case "ccccc":
+                return match.day(dateString, {
+                    width: "narrow",
+                    context: "standalone"
+                });
+            // Tu
+            case "cccccc":
+                return match.day(dateString, {
+                    width: "short",
+                    context: "standalone"
+                }) || match.day(dateString, {
+                    width: "narrow",
+                    context: "standalone"
+                });
+            // Tuesday
+            case "cccc":
+            default:
+                return match.day(dateString, {
+                    width: "wide",
+                    context: "standalone"
+                }) || match.day(dateString, {
+                    width: "abbreviated",
+                    context: "standalone"
+                }) || match.day(dateString, {
+                    width: "short",
+                    context: "standalone"
+                }) || match.day(dateString, {
+                    width: "narrow",
+                    context: "standalone"
+                });
+        }
+    }
+    validate(_date, value) {
+        return value >= 0 && value <= 6;
+    }
+    set(date, _flags, value, options) {
+        date = (0, _setDayMjs.setDay)(date, value, options);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "y",
+        "R",
+        "u",
+        "q",
+        "Q",
+        "M",
+        "L",
+        "I",
+        "d",
+        "D",
+        "E",
+        "i",
+        "e",
+        "t",
+        "T"
+    ];
+}
+
+},{"../../../setDay.mjs":"dFWzp","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lwvu5":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// ISO day of week
+parcelHelpers.export(exports, "ISODayParser", ()=>ISODayParser);
+var _setISODayMjs = require("../../../setISODay.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class ISODayParser extends (0, _parserMjs.Parser) {
+    priority = 90;
+    parse(dateString, token, match) {
+        const valueCallback = (value)=>{
+            if (value === 0) return 7;
+            return value;
+        };
+        switch(token){
+            // 2
+            case "i":
+            case "ii":
+                return (0, _utilsMjs.parseNDigits)(token.length, dateString);
+            // 2nd
+            case "io":
+                return match.ordinalNumber(dateString, {
+                    unit: "day"
+                });
+            // Tue
+            case "iii":
+                return (0, _utilsMjs.mapValue)(match.day(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "short",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                }), valueCallback);
+            // T
+            case "iiiii":
+                return (0, _utilsMjs.mapValue)(match.day(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                }), valueCallback);
+            // Tu
+            case "iiiiii":
+                return (0, _utilsMjs.mapValue)(match.day(dateString, {
+                    width: "short",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                }), valueCallback);
+            // Tuesday
+            case "iiii":
+            default:
+                return (0, _utilsMjs.mapValue)(match.day(dateString, {
+                    width: "wide",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "short",
+                    context: "formatting"
+                }) || match.day(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                }), valueCallback);
+        }
+    }
+    validate(_date, value) {
+        return value >= 1 && value <= 7;
+    }
+    set(date, _flags, value) {
+        date = (0, _setISODayMjs.setISODay)(date, value);
+        date.setHours(0, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "y",
+        "Y",
+        "u",
+        "q",
+        "Q",
+        "M",
+        "L",
+        "w",
+        "d",
+        "D",
+        "E",
+        "e",
+        "c",
+        "t",
+        "T"
+    ];
+}
+
+},{"../../../setISODay.mjs":"k5eHg","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5eHg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name setISODay
+ * @category Weekday Helpers
+ * @summary Set the day of the ISO week to the given date.
+ *
+ * @description
+ * Set the day of the ISO week to the given date.
+ * ISO week starts with Monday.
+ * 7 is the index of Sunday, 1 is the index of Monday etc.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param day - The day of the ISO week of the new date
+ *
+ * @returns The new date with the day of the ISO week set
+ *
+ * @example
+ * // Set Sunday to 1 September 2014:
+ * const result = setISODay(new Date(2014, 8, 1), 7)
+ * //=> Sun Sep 07 2014 00:00:00
+ */ parcelHelpers.export(exports, "setISODay", ()=>setISODay);
+var _addDaysMjs = require("./addDays.mjs");
+var _getISODayMjs = require("./getISODay.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function setISODay(date, day) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const currentDay = (0, _getISODayMjs.getISODay)(_date);
+    const diff = day - currentDay;
+    return (0, _addDaysMjs.addDays)(_date, diff);
+}
+// Fallback for modularized imports:
+exports.default = setISODay;
+
+},{"./addDays.mjs":"4IE0s","./getISODay.mjs":"ir4Qk","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g6Zoj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AMPMParser", ()=>AMPMParser);
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class AMPMParser extends (0, _parserMjs.Parser) {
+    priority = 80;
+    parse(dateString, token, match) {
+        switch(token){
+            case "a":
+            case "aa":
+            case "aaa":
+                return match.dayPeriod(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.dayPeriod(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            case "aaaaa":
+                return match.dayPeriod(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            case "aaaa":
+            default:
+                return match.dayPeriod(dateString, {
+                    width: "wide",
+                    context: "formatting"
+                }) || match.dayPeriod(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.dayPeriod(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+        }
+    }
+    set(date, _flags, value) {
+        date.setHours((0, _utilsMjs.dayPeriodEnumToHours)(value), 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "b",
+        "B",
+        "H",
+        "k",
+        "t",
+        "T"
+    ];
+}
+
+},{"../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a1Vq2":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AMPMMidnightParser", ()=>AMPMMidnightParser);
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class AMPMMidnightParser extends (0, _parserMjs.Parser) {
+    priority = 80;
+    parse(dateString, token, match) {
+        switch(token){
+            case "b":
+            case "bb":
+            case "bbb":
+                return match.dayPeriod(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.dayPeriod(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            case "bbbbb":
+                return match.dayPeriod(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            case "bbbb":
+            default:
+                return match.dayPeriod(dateString, {
+                    width: "wide",
+                    context: "formatting"
+                }) || match.dayPeriod(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.dayPeriod(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+        }
+    }
+    set(date, _flags, value) {
+        date.setHours((0, _utilsMjs.dayPeriodEnumToHours)(value), 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "a",
+        "B",
+        "H",
+        "k",
+        "t",
+        "T"
+    ];
+}
+
+},{"../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"i8lzl":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// in the morning, in the afternoon, in the evening, at night
+parcelHelpers.export(exports, "DayPeriodParser", ()=>DayPeriodParser);
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class DayPeriodParser extends (0, _parserMjs.Parser) {
+    priority = 80;
+    parse(dateString, token, match) {
+        switch(token){
+            case "B":
+            case "BB":
+            case "BBB":
+                return match.dayPeriod(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.dayPeriod(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            case "BBBBB":
+                return match.dayPeriod(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+            case "BBBB":
+            default:
+                return match.dayPeriod(dateString, {
+                    width: "wide",
+                    context: "formatting"
+                }) || match.dayPeriod(dateString, {
+                    width: "abbreviated",
+                    context: "formatting"
+                }) || match.dayPeriod(dateString, {
+                    width: "narrow",
+                    context: "formatting"
+                });
+        }
+    }
+    set(date, _flags, value) {
+        date.setHours((0, _utilsMjs.dayPeriodEnumToHours)(value), 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "a",
+        "b",
+        "t",
+        "T"
+    ];
+}
+
+},{"../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8TuZm":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Hour1to12Parser", ()=>Hour1to12Parser);
+var _constantsMjs = require("../constants.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class Hour1to12Parser extends (0, _parserMjs.Parser) {
+    priority = 70;
+    parse(dateString, token, match) {
+        switch(token){
+            case "h":
+                return (0, _utilsMjs.parseNumericPattern)((0, _constantsMjs.numericPatterns).hour12h, dateString);
+            case "ho":
+                return match.ordinalNumber(dateString, {
+                    unit: "hour"
+                });
+            default:
+                return (0, _utilsMjs.parseNDigits)(token.length, dateString);
+        }
+    }
+    validate(_date, value) {
+        return value >= 1 && value <= 12;
+    }
+    set(date, _flags, value) {
+        const isPM = date.getHours() >= 12;
+        if (isPM && value < 12) date.setHours(value + 12, 0, 0, 0);
+        else if (!isPM && value === 12) date.setHours(0, 0, 0, 0);
+        else date.setHours(value, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "H",
+        "K",
+        "k",
+        "t",
+        "T"
+    ];
+}
+
+},{"../constants.mjs":"cdRUr","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ePfRx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Hour0to23Parser", ()=>Hour0to23Parser);
+var _constantsMjs = require("../constants.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class Hour0to23Parser extends (0, _parserMjs.Parser) {
+    priority = 70;
+    parse(dateString, token, match) {
+        switch(token){
+            case "H":
+                return (0, _utilsMjs.parseNumericPattern)((0, _constantsMjs.numericPatterns).hour23h, dateString);
+            case "Ho":
+                return match.ordinalNumber(dateString, {
+                    unit: "hour"
+                });
+            default:
+                return (0, _utilsMjs.parseNDigits)(token.length, dateString);
+        }
+    }
+    validate(_date, value) {
+        return value >= 0 && value <= 23;
+    }
+    set(date, _flags, value) {
+        date.setHours(value, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "a",
+        "b",
+        "h",
+        "K",
+        "k",
+        "t",
+        "T"
+    ];
+}
+
+},{"../constants.mjs":"cdRUr","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hYJ77":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Hour0To11Parser", ()=>Hour0To11Parser);
+var _constantsMjs = require("../constants.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class Hour0To11Parser extends (0, _parserMjs.Parser) {
+    priority = 70;
+    parse(dateString, token, match) {
+        switch(token){
+            case "K":
+                return (0, _utilsMjs.parseNumericPattern)((0, _constantsMjs.numericPatterns).hour11h, dateString);
+            case "Ko":
+                return match.ordinalNumber(dateString, {
+                    unit: "hour"
+                });
+            default:
+                return (0, _utilsMjs.parseNDigits)(token.length, dateString);
+        }
+    }
+    validate(_date, value) {
+        return value >= 0 && value <= 11;
+    }
+    set(date, _flags, value) {
+        const isPM = date.getHours() >= 12;
+        if (isPM && value < 12) date.setHours(value + 12, 0, 0, 0);
+        else date.setHours(value, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "h",
+        "H",
+        "k",
+        "t",
+        "T"
+    ];
+}
+
+},{"../constants.mjs":"cdRUr","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2Z5cw":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Hour1To24Parser", ()=>Hour1To24Parser);
+var _constantsMjs = require("../constants.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class Hour1To24Parser extends (0, _parserMjs.Parser) {
+    priority = 70;
+    parse(dateString, token, match) {
+        switch(token){
+            case "k":
+                return (0, _utilsMjs.parseNumericPattern)((0, _constantsMjs.numericPatterns).hour24h, dateString);
+            case "ko":
+                return match.ordinalNumber(dateString, {
+                    unit: "hour"
+                });
+            default:
+                return (0, _utilsMjs.parseNDigits)(token.length, dateString);
+        }
+    }
+    validate(_date, value) {
+        return value >= 1 && value <= 24;
+    }
+    set(date, _flags, value) {
+        const hours = value <= 24 ? value % 24 : value;
+        date.setHours(hours, 0, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "a",
+        "b",
+        "h",
+        "H",
+        "K",
+        "t",
+        "T"
+    ];
+}
+
+},{"../constants.mjs":"cdRUr","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7rpRE":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MinuteParser", ()=>MinuteParser);
+var _constantsMjs = require("../constants.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class MinuteParser extends (0, _parserMjs.Parser) {
+    priority = 60;
+    parse(dateString, token, match) {
+        switch(token){
+            case "m":
+                return (0, _utilsMjs.parseNumericPattern)((0, _constantsMjs.numericPatterns).minute, dateString);
+            case "mo":
+                return match.ordinalNumber(dateString, {
+                    unit: "minute"
+                });
+            default:
+                return (0, _utilsMjs.parseNDigits)(token.length, dateString);
+        }
+    }
+    validate(_date, value) {
+        return value >= 0 && value <= 59;
+    }
+    set(date, _flags, value) {
+        date.setMinutes(value, 0, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "t",
+        "T"
+    ];
+}
+
+},{"../constants.mjs":"cdRUr","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"40xPZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "SecondParser", ()=>SecondParser);
+var _constantsMjs = require("../constants.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class SecondParser extends (0, _parserMjs.Parser) {
+    priority = 50;
+    parse(dateString, token, match) {
+        switch(token){
+            case "s":
+                return (0, _utilsMjs.parseNumericPattern)((0, _constantsMjs.numericPatterns).second, dateString);
+            case "so":
+                return match.ordinalNumber(dateString, {
+                    unit: "second"
+                });
+            default:
+                return (0, _utilsMjs.parseNDigits)(token.length, dateString);
+        }
+    }
+    validate(_date, value) {
+        return value >= 0 && value <= 59;
+    }
+    set(date, _flags, value) {
+        date.setSeconds(value, 0);
+        return date;
+    }
+    incompatibleTokens = [
+        "t",
+        "T"
+    ];
+}
+
+},{"../constants.mjs":"cdRUr","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hfWPq":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FractionOfSecondParser", ()=>FractionOfSecondParser);
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class FractionOfSecondParser extends (0, _parserMjs.Parser) {
+    priority = 30;
+    parse(dateString, token) {
+        const valueCallback = (value)=>Math.trunc(value * Math.pow(10, -token.length + 3));
+        return (0, _utilsMjs.mapValue)((0, _utilsMjs.parseNDigits)(token.length, dateString), valueCallback);
+    }
+    set(date, _flags, value) {
+        date.setMilliseconds(value);
+        return date;
+    }
+    incompatibleTokens = [
+        "t",
+        "T"
+    ];
+}
+
+},{"../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aLEus":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// Timezone (ISO-8601. +00:00 is `'Z'`)
+parcelHelpers.export(exports, "ISOTimezoneWithZParser", ()=>ISOTimezoneWithZParser);
+var _constructFromMjs = require("../../../constructFrom.mjs");
+var _getTimezoneOffsetInMillisecondsMjs = require("../../../_lib/getTimezoneOffsetInMilliseconds.mjs");
+var _constantsMjs = require("../constants.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class ISOTimezoneWithZParser extends (0, _parserMjs.Parser) {
+    priority = 10;
+    parse(dateString, token) {
+        switch(token){
+            case "X":
+                return (0, _utilsMjs.parseTimezonePattern)((0, _constantsMjs.timezonePatterns).basicOptionalMinutes, dateString);
+            case "XX":
+                return (0, _utilsMjs.parseTimezonePattern)((0, _constantsMjs.timezonePatterns).basic, dateString);
+            case "XXXX":
+                return (0, _utilsMjs.parseTimezonePattern)((0, _constantsMjs.timezonePatterns).basicOptionalSeconds, dateString);
+            case "XXXXX":
+                return (0, _utilsMjs.parseTimezonePattern)((0, _constantsMjs.timezonePatterns).extendedOptionalSeconds, dateString);
+            case "XXX":
+            default:
+                return (0, _utilsMjs.parseTimezonePattern)((0, _constantsMjs.timezonePatterns).extended, dateString);
+        }
+    }
+    set(date, flags, value) {
+        if (flags.timestampIsSet) return date;
+        return (0, _constructFromMjs.constructFrom)(date, date.getTime() - (0, _getTimezoneOffsetInMillisecondsMjs.getTimezoneOffsetInMilliseconds)(date) - value);
+    }
+    incompatibleTokens = [
+        "t",
+        "T",
+        "x"
+    ];
+}
+
+},{"../../../constructFrom.mjs":"xte3t","../../../_lib/getTimezoneOffsetInMilliseconds.mjs":"KaqYL","../constants.mjs":"cdRUr","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g9g0U":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// Timezone (ISO-8601)
+parcelHelpers.export(exports, "ISOTimezoneParser", ()=>ISOTimezoneParser);
+var _constructFromMjs = require("../../../constructFrom.mjs");
+var _getTimezoneOffsetInMillisecondsMjs = require("../../../_lib/getTimezoneOffsetInMilliseconds.mjs");
+var _constantsMjs = require("../constants.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class ISOTimezoneParser extends (0, _parserMjs.Parser) {
+    priority = 10;
+    parse(dateString, token) {
+        switch(token){
+            case "x":
+                return (0, _utilsMjs.parseTimezonePattern)((0, _constantsMjs.timezonePatterns).basicOptionalMinutes, dateString);
+            case "xx":
+                return (0, _utilsMjs.parseTimezonePattern)((0, _constantsMjs.timezonePatterns).basic, dateString);
+            case "xxxx":
+                return (0, _utilsMjs.parseTimezonePattern)((0, _constantsMjs.timezonePatterns).basicOptionalSeconds, dateString);
+            case "xxxxx":
+                return (0, _utilsMjs.parseTimezonePattern)((0, _constantsMjs.timezonePatterns).extendedOptionalSeconds, dateString);
+            case "xxx":
+            default:
+                return (0, _utilsMjs.parseTimezonePattern)((0, _constantsMjs.timezonePatterns).extended, dateString);
+        }
+    }
+    set(date, flags, value) {
+        if (flags.timestampIsSet) return date;
+        return (0, _constructFromMjs.constructFrom)(date, date.getTime() - (0, _getTimezoneOffsetInMillisecondsMjs.getTimezoneOffsetInMilliseconds)(date) - value);
+    }
+    incompatibleTokens = [
+        "t",
+        "T",
+        "X"
+    ];
+}
+
+},{"../../../constructFrom.mjs":"xte3t","../../../_lib/getTimezoneOffsetInMilliseconds.mjs":"KaqYL","../constants.mjs":"cdRUr","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bTuT2":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "TimestampSecondsParser", ()=>TimestampSecondsParser);
+var _constructFromMjs = require("../../../constructFrom.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class TimestampSecondsParser extends (0, _parserMjs.Parser) {
+    priority = 40;
+    parse(dateString) {
+        return (0, _utilsMjs.parseAnyDigitsSigned)(dateString);
+    }
+    set(date, _flags, value) {
+        return [
+            (0, _constructFromMjs.constructFrom)(date, value * 1000),
+            {
+                timestampIsSet: true
+            }
+        ];
+    }
+    incompatibleTokens = "*";
+}
+
+},{"../../../constructFrom.mjs":"xte3t","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5UNar":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "TimestampMillisecondsParser", ()=>TimestampMillisecondsParser);
+var _constructFromMjs = require("../../../constructFrom.mjs");
+var _parserMjs = require("../Parser.mjs");
+var _utilsMjs = require("../utils.mjs");
+class TimestampMillisecondsParser extends (0, _parserMjs.Parser) {
+    priority = 20;
+    parse(dateString) {
+        return (0, _utilsMjs.parseAnyDigitsSigned)(dateString);
+    }
+    set(date, _flags, value) {
+        return [
+            (0, _constructFromMjs.constructFrom)(date, value),
+            {
+                timestampIsSet: true
+            }
+        ];
+    }
+    incompatibleTokens = "*";
+}
+
+},{"../../../constructFrom.mjs":"xte3t","../Parser.mjs":"1vYos","../utils.mjs":"jEONO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ah6py":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isMonday
+ * @category Weekday Helpers
+ * @summary Is the given date Monday?
+ *
+ * @description
+ * Is the given date Monday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is Monday
+ *
+ * @example
+ * // Is 22 September 2014 Monday?
+ * const result = isMonday(new Date(2014, 8, 22))
+ * //=> true
+ */ parcelHelpers.export(exports, "isMonday", ()=>isMonday);
+var _toDateMjs = require("./toDate.mjs");
+function isMonday(date) {
+    return (0, _toDateMjs.toDate)(date).getDay() === 1;
+}
+// Fallback for modularized imports:
+exports.default = isMonday;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hWvpj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isPast
+ * @category Common Helpers
+ * @summary Is the given date in the past?
+ * @pure false
+ *
+ * @description
+ * Is the given date in the past?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is in the past
+ *
+ * @example
+ * // If today is 6 October 2014, is 2 July 2014 in the past?
+ * const result = isPast(new Date(2014, 6, 2))
+ * //=> true
+ */ parcelHelpers.export(exports, "isPast", ()=>isPast);
+var _toDateMjs = require("./toDate.mjs");
+function isPast(date) {
+    return +(0, _toDateMjs.toDate)(date) < Date.now();
+}
+// Fallback for modularized imports:
+exports.default = isPast;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eTTni":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isSameHour
+ * @category Hour Helpers
+ * @summary Are the given dates in the same hour (and same day)?
+ *
+ * @description
+ * Are the given dates in the same hour (and same day)?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The first date to check
+ * @param dateRight - The second date to check
+ *
+ * @returns The dates are in the same hour (and same day)
+ *
+ * @example
+ * // Are 4 September 2014 06:00:00 and 4 September 06:30:00 in the same hour?
+ * const result = isSameHour(new Date(2014, 8, 4, 6, 0), new Date(2014, 8, 4, 6, 30))
+ * //=> true
+ *
+ * @example
+ * // Are 4 September 2014 06:00:00 and 5 September 06:00:00 in the same hour?
+ * const result = isSameHour(new Date(2014, 8, 4, 6, 0), new Date(2014, 8, 5, 6, 0))
+ * //=> false
+ */ parcelHelpers.export(exports, "isSameHour", ()=>isSameHour);
+var _startOfHourMjs = require("./startOfHour.mjs");
+function isSameHour(dateLeft, dateRight) {
+    const dateLeftStartOfHour = (0, _startOfHourMjs.startOfHour)(dateLeft);
+    const dateRightStartOfHour = (0, _startOfHourMjs.startOfHour)(dateRight);
+    return +dateLeftStartOfHour === +dateRightStartOfHour;
+}
+// Fallback for modularized imports:
+exports.default = isSameHour;
+
+},{"./startOfHour.mjs":"7NKU4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7NKU4":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name startOfHour
+ * @category Hour Helpers
+ * @summary Return the start of an hour for the given date.
+ *
+ * @description
+ * Return the start of an hour for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of an hour
+ *
+ * @example
+ * // The start of an hour for 2 September 2014 11:55:00:
+ * const result = startOfHour(new Date(2014, 8, 2, 11, 55))
+ * //=> Tue Sep 02 2014 11:00:00
+ */ parcelHelpers.export(exports, "startOfHour", ()=>startOfHour);
+var _toDateMjs = require("./toDate.mjs");
+function startOfHour(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setMinutes(0, 0, 0);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = startOfHour;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9lDVb":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isSameISOWeek
+ * @category ISO Week Helpers
+ * @summary Are the given dates in the same ISO week (and year)?
+ *
+ * @description
+ * Are the given dates in the same ISO week (and year)?
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The first date to check
+ * @param dateRight - The second date to check
+ *
+ * @returns The dates are in the same ISO week (and year)
+ *
+ * @example
+ * // Are 1 September 2014 and 7 September 2014 in the same ISO week?
+ * const result = isSameISOWeek(new Date(2014, 8, 1), new Date(2014, 8, 7))
+ * //=> true
+ *
+ * @example
+ * // Are 1 September 2014 and 1 September 2015 in the same ISO week?
+ * const result = isSameISOWeek(new Date(2014, 8, 1), new Date(2015, 8, 1))
+ * //=> false
+ */ parcelHelpers.export(exports, "isSameISOWeek", ()=>isSameISOWeek);
+var _isSameWeekMjs = require("./isSameWeek.mjs");
+function isSameISOWeek(dateLeft, dateRight) {
+    return (0, _isSameWeekMjs.isSameWeek)(dateLeft, dateRight, {
+        weekStartsOn: 1
+    });
+}
+// Fallback for modularized imports:
+exports.default = isSameISOWeek;
+
+},{"./isSameWeek.mjs":"dBLnf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dBLnf":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link isSameWeek} function options.
+ */ /**
+ * @name isSameWeek
+ * @category Week Helpers
+ * @summary Are the given dates in the same week (and month and year)?
+ *
+ * @description
+ * Are the given dates in the same week (and month and year)?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The first date to check
+ * @param dateRight - The second date to check
+ * @param options - An object with options
+ *
+ * @returns The dates are in the same week (and month and year)
+ *
+ * @example
+ * // Are 31 August 2014 and 4 September 2014 in the same week?
+ * const result = isSameWeek(new Date(2014, 7, 31), new Date(2014, 8, 4))
+ * //=> true
+ *
+ * @example
+ * // If week starts with Monday,
+ * // are 31 August 2014 and 4 September 2014 in the same week?
+ * const result = isSameWeek(new Date(2014, 7, 31), new Date(2014, 8, 4), {
+ *   weekStartsOn: 1
+ * })
+ * //=> false
+ *
+ * @example
+ * // Are 1 January 2014 and 1 January 2015 in the same week?
+ * const result = isSameWeek(new Date(2014, 0, 1), new Date(2015, 0, 1))
+ * //=> false
+ */ parcelHelpers.export(exports, "isSameWeek", ()=>isSameWeek);
+var _startOfWeekMjs = require("./startOfWeek.mjs");
+function isSameWeek(dateLeft, dateRight, options) {
+    const dateLeftStartOfWeek = (0, _startOfWeekMjs.startOfWeek)(dateLeft, options);
+    const dateRightStartOfWeek = (0, _startOfWeekMjs.startOfWeek)(dateRight, options);
+    return +dateLeftStartOfWeek === +dateRightStartOfWeek;
+}
+// Fallback for modularized imports:
+exports.default = isSameWeek;
+
+},{"./startOfWeek.mjs":"807UC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5qi57":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isSameISOWeekYear
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Are the given dates in the same ISO week-numbering year?
+ *
+ * @description
+ * Are the given dates in the same ISO week-numbering year?
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The first date to check
+ * @param dateRight - The second date to check
+ *
+ * @returns The dates are in the same ISO week-numbering year
+ *
+ * @example
+ * // Are 29 December 2003 and 2 January 2005 in the same ISO week-numbering year?
+ * const result = isSameISOWeekYear(new Date(2003, 11, 29), new Date(2005, 0, 2))
+ * //=> true
+ */ parcelHelpers.export(exports, "isSameISOWeekYear", ()=>isSameISOWeekYear);
+var _startOfISOWeekYearMjs = require("./startOfISOWeekYear.mjs");
+function isSameISOWeekYear(dateLeft, dateRight) {
+    const dateLeftStartOfYear = (0, _startOfISOWeekYearMjs.startOfISOWeekYear)(dateLeft);
+    const dateRightStartOfYear = (0, _startOfISOWeekYearMjs.startOfISOWeekYear)(dateRight);
+    return +dateLeftStartOfYear === +dateRightStartOfYear;
+}
+// Fallback for modularized imports:
+exports.default = isSameISOWeekYear;
+
+},{"./startOfISOWeekYear.mjs":"7q0Zg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4sTlr":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isSameMinute
+ * @category Minute Helpers
+ * @summary Are the given dates in the same minute (and hour and day)?
+ *
+ * @description
+ * Are the given dates in the same minute (and hour and day)?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The first date to check
+ * @param dateRight - The second date to check
+ *
+ * @returns The dates are in the same minute (and hour and day)
+ *
+ * @example
+ * // Are 4 September 2014 06:30:00 and 4 September 2014 06:30:15 in the same minute?
+ * const result = isSameMinute(
+ *   new Date(2014, 8, 4, 6, 30),
+ *   new Date(2014, 8, 4, 6, 30, 15)
+ * )
+ * //=> true
+ *
+ * @example
+ * // Are 4 September 2014 06:30:00 and 5 September 2014 06:30:00 in the same minute?
+ * const result = isSameMinute(
+ *   new Date(2014, 8, 4, 6, 30),
+ *   new Date(2014, 8, 5, 6, 30)
+ * )
+ * //=> false
+ */ parcelHelpers.export(exports, "isSameMinute", ()=>isSameMinute);
+var _startOfMinuteMjs = require("./startOfMinute.mjs");
+function isSameMinute(dateLeft, dateRight) {
+    const dateLeftStartOfMinute = (0, _startOfMinuteMjs.startOfMinute)(dateLeft);
+    const dateRightStartOfMinute = (0, _startOfMinuteMjs.startOfMinute)(dateRight);
+    return +dateLeftStartOfMinute === +dateRightStartOfMinute;
+}
+// Fallback for modularized imports:
+exports.default = isSameMinute;
+
+},{"./startOfMinute.mjs":"dBcAF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hVgEo":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isSameMonth
+ * @category Month Helpers
+ * @summary Are the given dates in the same month (and year)?
+ *
+ * @description
+ * Are the given dates in the same month (and year)?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The first date to check
+ * @param dateRight - The second date to check
+ *
+ * @returns The dates are in the same month (and year)
+ *
+ * @example
+ * // Are 2 September 2014 and 25 September 2014 in the same month?
+ * const result = isSameMonth(new Date(2014, 8, 2), new Date(2014, 8, 25))
+ * //=> true
+ *
+ * @example
+ * // Are 2 September 2014 and 25 September 2015 in the same month?
+ * const result = isSameMonth(new Date(2014, 8, 2), new Date(2015, 8, 25))
+ * //=> false
+ */ parcelHelpers.export(exports, "isSameMonth", ()=>isSameMonth);
+var _toDateMjs = require("./toDate.mjs");
+function isSameMonth(dateLeft, dateRight) {
+    const _dateLeft = (0, _toDateMjs.toDate)(dateLeft);
+    const _dateRight = (0, _toDateMjs.toDate)(dateRight);
+    return _dateLeft.getFullYear() === _dateRight.getFullYear() && _dateLeft.getMonth() === _dateRight.getMonth();
+}
+// Fallback for modularized imports:
+exports.default = isSameMonth;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"83UF5":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isSameQuarter
+ * @category Quarter Helpers
+ * @summary Are the given dates in the same quarter (and year)?
+ *
+ * @description
+ * Are the given dates in the same quarter (and year)?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The first date to check
+ * @param dateRight - The second date to check
+
+ * @returns The dates are in the same quarter (and year)
+ *
+ * @example
+ * // Are 1 January 2014 and 8 March 2014 in the same quarter?
+ * const result = isSameQuarter(new Date(2014, 0, 1), new Date(2014, 2, 8))
+ * //=> true
+ *
+ * @example
+ * // Are 1 January 2014 and 1 January 2015 in the same quarter?
+ * const result = isSameQuarter(new Date(2014, 0, 1), new Date(2015, 0, 1))
+ * //=> false
+ */ parcelHelpers.export(exports, "isSameQuarter", ()=>isSameQuarter);
+var _startOfQuarterMjs = require("./startOfQuarter.mjs");
+function isSameQuarter(dateLeft, dateRight) {
+    const dateLeftStartOfQuarter = (0, _startOfQuarterMjs.startOfQuarter)(dateLeft);
+    const dateRightStartOfQuarter = (0, _startOfQuarterMjs.startOfQuarter)(dateRight);
+    return +dateLeftStartOfQuarter === +dateRightStartOfQuarter;
+}
+// Fallback for modularized imports:
+exports.default = isSameQuarter;
+
+},{"./startOfQuarter.mjs":"6Q8Lm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"26KaU":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isSameSecond
+ * @category Second Helpers
+ * @summary Are the given dates in the same second (and hour and day)?
+ *
+ * @description
+ * Are the given dates in the same second (and hour and day)?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The first date to check
+ * @param dateRight - The second date to check
+ *
+ * @returns The dates are in the same second (and hour and day)
+ *
+ * @example
+ * // Are 4 September 2014 06:30:15.000 and 4 September 2014 06:30.15.500 in the same second?
+ * const result = isSameSecond(
+ *   new Date(2014, 8, 4, 6, 30, 15),
+ *   new Date(2014, 8, 4, 6, 30, 15, 500)
+ * )
+ * //=> true
+ *
+ * @example
+ * // Are 4 September 2014 06:00:15.000 and 4 September 2014 06:01.15.000 in the same second?
+ * const result = isSameSecond(
+ *   new Date(2014, 8, 4, 6, 0, 15),
+ *   new Date(2014, 8, 4, 6, 1, 15)
+ * )
+ * //=> false
+ *
+ * @example
+ * // Are 4 September 2014 06:00:15.000 and 5 September 2014 06:00.15.000 in the same second?
+ * const result = isSameSecond(
+ *   new Date(2014, 8, 4, 6, 0, 15),
+ *   new Date(2014, 8, 5, 6, 0, 15)
+ * )
+ * //=> false
+ */ parcelHelpers.export(exports, "isSameSecond", ()=>isSameSecond);
+var _startOfSecondMjs = require("./startOfSecond.mjs");
+function isSameSecond(dateLeft, dateRight) {
+    const dateLeftStartOfSecond = (0, _startOfSecondMjs.startOfSecond)(dateLeft);
+    const dateRightStartOfSecond = (0, _startOfSecondMjs.startOfSecond)(dateRight);
+    return +dateLeftStartOfSecond === +dateRightStartOfSecond;
+}
+// Fallback for modularized imports:
+exports.default = isSameSecond;
+
+},{"./startOfSecond.mjs":"g72cK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g72cK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name startOfSecond
+ * @category Second Helpers
+ * @summary Return the start of a second for the given date.
+ *
+ * @description
+ * Return the start of a second for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of a second
+ *
+ * @example
+ * // The start of a second for 1 December 2014 22:15:45.400:
+ * const result = startOfSecond(new Date(2014, 11, 1, 22, 15, 45, 400))
+ * //=> Mon Dec 01 2014 22:15:45.000
+ */ parcelHelpers.export(exports, "startOfSecond", ()=>startOfSecond);
+var _toDateMjs = require("./toDate.mjs");
+function startOfSecond(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setMilliseconds(0);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = startOfSecond;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9MtEr":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isSameYear
+ * @category Year Helpers
+ * @summary Are the given dates in the same year?
+ *
+ * @description
+ * Are the given dates in the same year?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param dateLeft - The first date to check
+ * @param dateRight - The second date to check
+ *
+ * @returns The dates are in the same year
+ *
+ * @example
+ * // Are 2 September 2014 and 25 September 2014 in the same year?
+ * const result = isSameYear(new Date(2014, 8, 2), new Date(2014, 8, 25))
+ * //=> true
+ */ parcelHelpers.export(exports, "isSameYear", ()=>isSameYear);
+var _toDateMjs = require("./toDate.mjs");
+function isSameYear(dateLeft, dateRight) {
+    const _dateLeft = (0, _toDateMjs.toDate)(dateLeft);
+    const _dateRight = (0, _toDateMjs.toDate)(dateRight);
+    return _dateLeft.getFullYear() === _dateRight.getFullYear();
+}
+// Fallback for modularized imports:
+exports.default = isSameYear;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kfYcw":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isThisHour
+ * @category Hour Helpers
+ * @summary Is the given date in the same hour as the current date?
+ * @pure false
+ *
+ * @description
+ * Is the given date in the same hour as the current date?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is in this hour
+ *
+ * @example
+ * // If now is 25 September 2014 18:30:15.500,
+ * // is 25 September 2014 18:00:00 in this hour?
+ * const result = isThisHour(new Date(2014, 8, 25, 18))
+ * //=> true
+ */ parcelHelpers.export(exports, "isThisHour", ()=>isThisHour);
+var _isSameHourMjs = require("./isSameHour.mjs");
+function isThisHour(date) {
+    return (0, _isSameHourMjs.isSameHour)(Date.now(), date);
+}
+// Fallback for modularized imports:
+exports.default = isThisHour;
+
+},{"./isSameHour.mjs":"eTTni","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a8yFj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isThisISOWeek
+ * @category ISO Week Helpers
+ * @summary Is the given date in the same ISO week as the current date?
+ * @pure false
+ *
+ * @description
+ * Is the given date in the same ISO week as the current date?
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is in this ISO week
+ *
+ * @example
+ * // If today is 25 September 2014, is 22 September 2014 in this ISO week?
+ * const result = isThisISOWeek(new Date(2014, 8, 22))
+ * //=> true
+ */ parcelHelpers.export(exports, "isThisISOWeek", ()=>isThisISOWeek);
+var _isSameISOWeekMjs = require("./isSameISOWeek.mjs");
+function isThisISOWeek(date) {
+    return (0, _isSameISOWeekMjs.isSameISOWeek)(date, Date.now());
+}
+// Fallback for modularized imports:
+exports.default = isThisISOWeek;
+
+},{"./isSameISOWeek.mjs":"9lDVb","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4JW4s":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isThisMinute
+ * @category Minute Helpers
+ * @summary Is the given date in the same minute as the current date?
+ * @pure false
+ *
+ * @description
+ * Is the given date in the same minute as the current date?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is in this minute
+ *
+ * @example
+ * // If now is 25 September 2014 18:30:15.500,
+ * // is 25 September 2014 18:30:00 in this minute?
+ * const result = isThisMinute(new Date(2014, 8, 25, 18, 30))
+ * //=> true
+ */ parcelHelpers.export(exports, "isThisMinute", ()=>isThisMinute);
+var _isSameMinuteMjs = require("./isSameMinute.mjs");
+function isThisMinute(date) {
+    return (0, _isSameMinuteMjs.isSameMinute)(Date.now(), date);
+}
+// Fallback for modularized imports:
+exports.default = isThisMinute;
+
+},{"./isSameMinute.mjs":"4sTlr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fZRqh":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isThisMonth
+ * @category Month Helpers
+ * @summary Is the given date in the same month as the current date?
+ * @pure false
+ *
+ * @description
+ * Is the given date in the same month as the current date?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is in this month
+ *
+ * @example
+ * // If today is 25 September 2014, is 15 September 2014 in this month?
+ * const result = isThisMonth(new Date(2014, 8, 15))
+ * //=> true
+ */ parcelHelpers.export(exports, "isThisMonth", ()=>isThisMonth);
+var _isSameMonthMjs = require("./isSameMonth.mjs");
+function isThisMonth(date) {
+    return (0, _isSameMonthMjs.isSameMonth)(Date.now(), date);
+}
+// Fallback for modularized imports:
+exports.default = isThisMonth;
+
+},{"./isSameMonth.mjs":"hVgEo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7samY":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isThisQuarter
+ * @category Quarter Helpers
+ * @summary Is the given date in the same quarter as the current date?
+ * @pure false
+ *
+ * @description
+ * Is the given date in the same quarter as the current date?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is in this quarter
+ *
+ * @example
+ * // If today is 25 September 2014, is 2 July 2014 in this quarter?
+ * const result = isThisQuarter(new Date(2014, 6, 2))
+ * //=> true
+ */ parcelHelpers.export(exports, "isThisQuarter", ()=>isThisQuarter);
+var _isSameQuarterMjs = require("./isSameQuarter.mjs");
+function isThisQuarter(date) {
+    return (0, _isSameQuarterMjs.isSameQuarter)(Date.now(), date);
+}
+// Fallback for modularized imports:
+exports.default = isThisQuarter;
+
+},{"./isSameQuarter.mjs":"83UF5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"imZlD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isThisSecond
+ * @category Second Helpers
+ * @summary Is the given date in the same second as the current date?
+ * @pure false
+ *
+ * @description
+ * Is the given date in the same second as the current date?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is in this second
+ *
+ * @example
+ * // If now is 25 September 2014 18:30:15.500,
+ * // is 25 September 2014 18:30:15.000 in this second?
+ * const result = isThisSecond(new Date(2014, 8, 25, 18, 30, 15))
+ * //=> true
+ */ parcelHelpers.export(exports, "isThisSecond", ()=>isThisSecond);
+var _isSameSecondMjs = require("./isSameSecond.mjs");
+function isThisSecond(date) {
+    return (0, _isSameSecondMjs.isSameSecond)(Date.now(), date);
+}
+// Fallback for modularized imports:
+exports.default = isThisSecond;
+
+},{"./isSameSecond.mjs":"26KaU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hUtNS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link isThisWeek} function options.
+ */ /**
+ * @name isThisWeek
+ * @category Week Helpers
+ * @summary Is the given date in the same week as the current date?
+ * @pure false
+ *
+ * @description
+ * Is the given date in the same week as the current date?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ * @param options - The object with options
+ *
+ * @returns The date is in this week
+ *
+ * @example
+ * // If today is 25 September 2014, is 21 September 2014 in this week?
+ * const result = isThisWeek(new Date(2014, 8, 21))
+ * //=> true
+ *
+ * @example
+ * // If today is 25 September 2014 and week starts with Monday
+ * // is 21 September 2014 in this week?
+ * const result = isThisWeek(new Date(2014, 8, 21), { weekStartsOn: 1 })
+ * //=> false
+ */ parcelHelpers.export(exports, "isThisWeek", ()=>isThisWeek);
+var _isSameWeekMjs = require("./isSameWeek.mjs");
+function isThisWeek(date, options) {
+    return (0, _isSameWeekMjs.isSameWeek)(date, Date.now(), options);
+}
+// Fallback for modularized imports:
+exports.default = isThisWeek;
+
+},{"./isSameWeek.mjs":"dBLnf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eH6sI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isThisYear
+ * @category Year Helpers
+ * @summary Is the given date in the same year as the current date?
+ * @pure false
+ *
+ * @description
+ * Is the given date in the same year as the current date?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is in this year
+ *
+ * @example
+ * // If today is 25 September 2014, is 2 July 2014 in this year?
+ * const result = isThisYear(new Date(2014, 6, 2))
+ * //=> true
+ */ parcelHelpers.export(exports, "isThisYear", ()=>isThisYear);
+var _isSameYearMjs = require("./isSameYear.mjs");
+function isThisYear(date) {
+    return (0, _isSameYearMjs.isSameYear)(date, Date.now());
+}
+// Fallback for modularized imports:
+exports.default = isThisYear;
+
+},{"./isSameYear.mjs":"9MtEr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iSkAB":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isThursday
+ * @category Weekday Helpers
+ * @summary Is the given date Thursday?
+ *
+ * @description
+ * Is the given date Thursday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is Thursday
+ *
+ * @example
+ * // Is 25 September 2014 Thursday?
+ * const result = isThursday(new Date(2014, 8, 25))
+ * //=> true
+ */ parcelHelpers.export(exports, "isThursday", ()=>isThursday);
+var _toDateMjs = require("./toDate.mjs");
+function isThursday(date) {
+    return (0, _toDateMjs.toDate)(date).getDay() === 4;
+}
+// Fallback for modularized imports:
+exports.default = isThursday;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1UEm8":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isToday
+ * @category Day Helpers
+ * @summary Is the given date today?
+ * @pure false
+ *
+ * @description
+ * Is the given date today?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is today
+ *
+ * @example
+ * // If today is 6 October 2014, is 6 October 14:00:00 today?
+ * const result = isToday(new Date(2014, 9, 6, 14, 0))
+ * //=> true
+ */ parcelHelpers.export(exports, "isToday", ()=>isToday);
+var _isSameDayMjs = require("./isSameDay.mjs");
+function isToday(date) {
+    return (0, _isSameDayMjs.isSameDay)(date, Date.now());
+}
+// Fallback for modularized imports:
+exports.default = isToday;
+
+},{"./isSameDay.mjs":"ivgld","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ecGRP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isTomorrow
+ * @category Day Helpers
+ * @summary Is the given date tomorrow?
+ * @pure false
+ *
+ * @description
+ * Is the given date tomorrow?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is tomorrow
+ *
+ * @example
+ * // If today is 6 October 2014, is 7 October 14:00:00 tomorrow?
+ * const result = isTomorrow(new Date(2014, 9, 7, 14, 0))
+ * //=> true
+ */ parcelHelpers.export(exports, "isTomorrow", ()=>isTomorrow);
+var _addDaysMjs = require("./addDays.mjs");
+var _isSameDayMjs = require("./isSameDay.mjs");
+function isTomorrow(date) {
+    return (0, _isSameDayMjs.isSameDay)(date, (0, _addDaysMjs.addDays)(Date.now(), 1));
+}
+// Fallback for modularized imports:
+exports.default = isTomorrow;
+
+},{"./addDays.mjs":"4IE0s","./isSameDay.mjs":"ivgld","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5kMBz":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isTuesday
+ * @category Weekday Helpers
+ * @summary Is the given date Tuesday?
+ *
+ * @description
+ * Is the given date Tuesday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is Tuesday
+ *
+ * @example
+ * // Is 23 September 2014 Tuesday?
+ * const result = isTuesday(new Date(2014, 8, 23))
+ * //=> true
+ */ parcelHelpers.export(exports, "isTuesday", ()=>isTuesday);
+var _toDateMjs = require("./toDate.mjs");
+function isTuesday(date) {
+    return (0, _toDateMjs.toDate)(date).getDay() === 2;
+}
+// Fallback for modularized imports:
+exports.default = isTuesday;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lfvUC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isWednesday
+ * @category Weekday Helpers
+ * @summary Is the given date Wednesday?
+ *
+ * @description
+ * Is the given date Wednesday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is Wednesday
+ *
+ * @example
+ * // Is 24 September 2014 Wednesday?
+ * const result = isWednesday(new Date(2014, 8, 24))
+ * //=> true
+ */ parcelHelpers.export(exports, "isWednesday", ()=>isWednesday);
+var _toDateMjs = require("./toDate.mjs");
+function isWednesday(date) {
+    return (0, _toDateMjs.toDate)(date).getDay() === 3;
+}
+// Fallback for modularized imports:
+exports.default = isWednesday;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hBAF1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isWithinInterval
+ * @category Interval Helpers
+ * @summary Is the given date within the interval?
+ *
+ * @description
+ * Is the given date within the interval? (Including start and end.)
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ * @param interval - The interval to check
+ *
+ * @returns The date is within the interval
+ *
+ * @example
+ * // For the date within the interval:
+ * isWithinInterval(new Date(2014, 0, 3), {
+ *   start: new Date(2014, 0, 1),
+ *   end: new Date(2014, 0, 7)
+ * })
+ * //=> true
+ *
+ * @example
+ * // For the date outside of the interval:
+ * isWithinInterval(new Date(2014, 0, 10), {
+ *   start: new Date(2014, 0, 1),
+ *   end: new Date(2014, 0, 7)
+ * })
+ * //=> false
+ *
+ * @example
+ * // For date equal to interval start:
+ * isWithinInterval(date, { start, end: date })
+ * // => true
+ *
+ * @example
+ * // For date equal to interval end:
+ * isWithinInterval(date, { start: date, end })
+ * // => true
+ */ parcelHelpers.export(exports, "isWithinInterval", ()=>isWithinInterval);
+var _toDateMjs = require("./toDate.mjs");
+function isWithinInterval(date, interval) {
+    const time = +(0, _toDateMjs.toDate)(date);
+    const [startTime, endTime] = [
+        +(0, _toDateMjs.toDate)(interval.start),
+        +(0, _toDateMjs.toDate)(interval.end)
+    ].sort((a, b)=>a - b);
+    return time >= startTime && time <= endTime;
+}
+// Fallback for modularized imports:
+exports.default = isWithinInterval;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ZKGX1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name isYesterday
+ * @category Day Helpers
+ * @summary Is the given date yesterday?
+ * @pure false
+ *
+ * @description
+ * Is the given date yesterday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ *
+ * @returns The date is yesterday
+ *
+ * @example
+ * // If today is 6 October 2014, is 5 October 14:00:00 yesterday?
+ * const result = isYesterday(new Date(2014, 9, 5, 14, 0))
+ * //=> true
+ */ parcelHelpers.export(exports, "isYesterday", ()=>isYesterday);
+var _isSameDayMjs = require("./isSameDay.mjs");
+var _subDaysMjs = require("./subDays.mjs");
+function isYesterday(date) {
+    return (0, _isSameDayMjs.isSameDay)(date, (0, _subDaysMjs.subDays)(Date.now(), 1));
+}
+// Fallback for modularized imports:
+exports.default = isYesterday;
+
+},{"./isSameDay.mjs":"ivgld","./subDays.mjs":"bH7Da","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bH7Da":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name subDays
+ * @category Day Helpers
+ * @summary Subtract the specified number of days from the given date.
+ *
+ * @description
+ * Subtract the specified number of days from the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of days to be subtracted.
+ *
+ * @returns The new date with the days subtracted
+ *
+ * @example
+ * // Subtract 10 days from 1 September 2014:
+ * const result = subDays(new Date(2014, 8, 1), 10)
+ * //=> Fri Aug 22 2014 00:00:00
+ */ parcelHelpers.export(exports, "subDays", ()=>subDays);
+var _addDaysMjs = require("./addDays.mjs");
+function subDays(date, amount) {
+    return (0, _addDaysMjs.addDays)(date, -amount);
+}
+// Fallback for modularized imports:
+exports.default = subDays;
+
+},{"./addDays.mjs":"4IE0s","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"37bx8":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name lastDayOfDecade
+ * @category Decade Helpers
+ * @summary Return the last day of a decade for the given date.
+ *
+ * @description
+ * Return the last day of a decade for the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The last day of a decade
+ *
+ * @example
+ * // The last day of a decade for 21 December 2012 21:12:00:
+ * const result = lastDayOfDecade(new Date(2012, 11, 21, 21, 12, 00))
+ * //=> Wed Dec 31 2019 00:00:00
+ */ parcelHelpers.export(exports, "lastDayOfDecade", ()=>lastDayOfDecade);
+var _toDateMjs = require("./toDate.mjs");
+function lastDayOfDecade(date) {
+    // TODO: Switch to more technical definition in of decades that start with 1
+    // end with 0. I.e. 2001-2010 instead of current 2000-2009. It's a breaking
+    // change, so it can only be done in 4.0.
+    const _date = (0, _toDateMjs.toDate)(date);
+    const year = _date.getFullYear();
+    const decade = 9 + Math.floor(year / 10) * 10;
+    _date.setFullYear(decade + 1, 0, 0);
+    _date.setHours(0, 0, 0, 0);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = lastDayOfDecade;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9xROz":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name lastDayOfISOWeek
+ * @category ISO Week Helpers
+ * @summary Return the last day of an ISO week for the given date.
+ *
+ * @description
+ * Return the last day of an ISO week for the given date.
+ * The result will be in the local timezone.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The last day of an ISO week
+ *
+ * @example
+ * // The last day of an ISO week for 2 September 2014 11:55:00:
+ * const result = lastDayOfISOWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Sun Sep 07 2014 00:00:00
+ */ parcelHelpers.export(exports, "lastDayOfISOWeek", ()=>lastDayOfISOWeek);
+var _lastDayOfWeekMjs = require("./lastDayOfWeek.mjs");
+function lastDayOfISOWeek(date) {
+    return (0, _lastDayOfWeekMjs.lastDayOfWeek)(date, {
+        weekStartsOn: 1
+    });
+}
+// Fallback for modularized imports:
+exports.default = lastDayOfISOWeek;
+
+},{"./lastDayOfWeek.mjs":"hMOz9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hMOz9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link lastDayOfWeek} function options.
+ */ /**
+ * @name lastDayOfWeek
+ * @category Week Helpers
+ * @summary Return the last day of a week for the given date.
+ *
+ * @description
+ * Return the last day of a week for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param options - An object with options
+ *
+ * @returns The last day of a week
+ *
+ * @example
+ * // The last day of a week for 2 September 2014 11:55:00:
+ * const result = lastDayOfWeek(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Sat Sep 06 2014 00:00:00
+ *
+ * @example
+ * // If the week starts on Monday, the last day of the week for 2 September 2014 11:55:00:
+ * const result = lastDayOfWeek(new Date(2014, 8, 2, 11, 55, 0), { weekStartsOn: 1 })
+ * //=> Sun Sep 07 2014 00:00:00
+ */ parcelHelpers.export(exports, "lastDayOfWeek", ()=>lastDayOfWeek);
+var _toDateMjs = require("./toDate.mjs");
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+function lastDayOfWeek(date, options) {
+    const defaultOptions = (0, _defaultOptionsMjs.getDefaultOptions)();
+    const weekStartsOn = options?.weekStartsOn ?? options?.locale?.options?.weekStartsOn ?? defaultOptions.weekStartsOn ?? defaultOptions.locale?.options?.weekStartsOn ?? 0;
+    const _date = (0, _toDateMjs.toDate)(date);
+    const day = _date.getDay();
+    const diff = (day < weekStartsOn ? -7 : 0) + 6 - (day - weekStartsOn);
+    _date.setHours(0, 0, 0, 0);
+    _date.setDate(_date.getDate() + diff);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = lastDayOfWeek;
+
+},{"./toDate.mjs":"fJykt","./_lib/defaultOptions.mjs":"6QlMe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"N8MdU":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name lastDayOfISOWeekYear
+ * @category ISO Week-Numbering Year Helpers
+ * @summary Return the last day of an ISO week-numbering year for the given date.
+ *
+ * @description
+ * Return the last day of an ISO week-numbering year,
+ * which always starts 3 days before the year's first Thursday.
+ * The result will be in the local timezone.
+ *
+ * ISO week-numbering year: http://en.wikipedia.org/wiki/ISO_week_date
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The end of an ISO week-numbering year
+ *
+ * @example
+ * // The last day of an ISO week-numbering year for 2 July 2005:
+ * const result = lastDayOfISOWeekYear(new Date(2005, 6, 2))
+ * //=> Sun Jan 01 2006 00:00:00
+ */ parcelHelpers.export(exports, "lastDayOfISOWeekYear", ()=>lastDayOfISOWeekYear);
+var _getISOWeekYearMjs = require("./getISOWeekYear.mjs");
+var _startOfISOWeekMjs = require("./startOfISOWeek.mjs");
+var _constructFromMjs = require("./constructFrom.mjs");
+function lastDayOfISOWeekYear(date) {
+    const year = (0, _getISOWeekYearMjs.getISOWeekYear)(date);
+    const fourthOfJanuary = (0, _constructFromMjs.constructFrom)(date, 0);
+    fourthOfJanuary.setFullYear(year + 1, 0, 4);
+    fourthOfJanuary.setHours(0, 0, 0, 0);
+    const _date = (0, _startOfISOWeekMjs.startOfISOWeek)(fourthOfJanuary);
+    _date.setDate(_date.getDate() - 1);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = lastDayOfISOWeekYear;
+
+},{"./getISOWeekYear.mjs":"io5kR","./startOfISOWeek.mjs":"jQoij","./constructFrom.mjs":"xte3t","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dktiQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name lastDayOfQuarter
+ * @category Quarter Helpers
+ * @summary Return the last day of a year quarter for the given date.
+ *
+ * @description
+ * Return the last day of a year quarter for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The last day of a quarter
+ *
+ * @example
+ * // The last day of a quarter for 2 September 2014 11:55:00:
+ * const result = lastDayOfQuarter(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 30 2014 00:00:00
+ */ parcelHelpers.export(exports, "lastDayOfQuarter", ()=>lastDayOfQuarter);
+var _toDateMjs = require("./toDate.mjs");
+function lastDayOfQuarter(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const currentMonth = _date.getMonth();
+    const month = currentMonth - currentMonth % 3 + 3;
+    _date.setMonth(month, 0);
+    _date.setHours(0, 0, 0, 0);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = lastDayOfQuarter;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a51mN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name lastDayOfYear
+ * @category Year Helpers
+ * @summary Return the last day of a year for the given date.
+ *
+ * @description
+ * Return the last day of a year for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The last day of a year
+ *
+ * @example
+ * // The last day of a year for 2 September 2014 11:55:00:
+ * const result = lastDayOfYear(new Date(2014, 8, 2, 11, 55, 00))
+ * //=> Wed Dec 31 2014 00:00:00
+ */ parcelHelpers.export(exports, "lastDayOfYear", ()=>lastDayOfYear);
+var _toDateMjs = require("./toDate.mjs");
+function lastDayOfYear(date) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const year = _date.getFullYear();
+    _date.setFullYear(year + 1, 0, 0);
+    _date.setHours(0, 0, 0, 0);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = lastDayOfYear;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lou9c":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// Rexports of internal for libraries to use.
+// See: https://github.com/date-fns/date-fns/issues/3638#issuecomment-1877082874
+parcelHelpers.export(exports, "lightFormatters", ()=>(0, _lightFormattersMjs.lightFormatters));
+/**
+ * @private
+ */ /**
+ * @name lightFormat
+ * @category Common Helpers
+ * @summary Format the date.
+ *
+ * @description
+ * Return the formatted date string in the given format. Unlike `format`,
+ * `lightFormat` doesn't use locales and outputs date using the most popular tokens.
+ *
+ * > ⚠️ Please note that the `lightFormat` tokens differ from Moment.js and other libraries.
+ * > See: https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md
+ *
+ * The characters wrapped between two single quotes characters (') are escaped.
+ * Two single quotes in a row, whether inside or outside a quoted sequence, represent a 'real' single quote.
+ *
+ * Format of the string is based on Unicode Technical Standard #35:
+ * https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ *
+ * Accepted patterns:
+ * | Unit                            | Pattern | Result examples                   |
+ * |---------------------------------|---------|-----------------------------------|
+ * | AM, PM                          | a..aaa  | AM, PM                            |
+ * |                                 | aaaa    | a.m., p.m.                        |
+ * |                                 | aaaaa   | a, p                              |
+ * | Calendar year                   | y       | 44, 1, 1900, 2017                 |
+ * |                                 | yy      | 44, 01, 00, 17                    |
+ * |                                 | yyy     | 044, 001, 000, 017                |
+ * |                                 | yyyy    | 0044, 0001, 1900, 2017            |
+ * | Month (formatting)              | M       | 1, 2, ..., 12                     |
+ * |                                 | MM      | 01, 02, ..., 12                   |
+ * | Day of month                    | d       | 1, 2, ..., 31                     |
+ * |                                 | dd      | 01, 02, ..., 31                   |
+ * | Hour [1-12]                     | h       | 1, 2, ..., 11, 12                 |
+ * |                                 | hh      | 01, 02, ..., 11, 12               |
+ * | Hour [0-23]                     | H       | 0, 1, 2, ..., 23                  |
+ * |                                 | HH      | 00, 01, 02, ..., 23               |
+ * | Minute                          | m       | 0, 1, ..., 59                     |
+ * |                                 | mm      | 00, 01, ..., 59                   |
+ * | Second                          | s       | 0, 1, ..., 59                     |
+ * |                                 | ss      | 00, 01, ..., 59                   |
+ * | Fraction of second              | S       | 0, 1, ..., 9                      |
+ * |                                 | SS      | 00, 01, ..., 99                   |
+ * |                                 | SSS     | 000, 001, ..., 999                |
+ * |                                 | SSSS    | ...                               |
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ * @param format - The string of tokens
+ *
+ * @returns The formatted date string
+ *
+ * @throws `Invalid time value` if the date is invalid
+ * @throws format string contains an unescaped latin alphabet character
+ *
+ * @example
+ * const result = lightFormat(new Date(2014, 1, 11), 'yyyy-MM-dd')
+ * //=> '2014-02-11'
+ */ parcelHelpers.export(exports, "lightFormat", ()=>lightFormat);
+var _isValidMjs = require("./isValid.mjs");
+var _toDateMjs = require("./toDate.mjs");
+var _lightFormattersMjs = require("./_lib/format/lightFormatters.mjs");
+// This RegExp consists of three parts separated by `|`:
+// - (\w)\1* matches any sequences of the same letter
+// - '' matches two quote characters in a row
+// - '(''|[^'])+('|$) matches anything surrounded by two quote characters ('),
+//   except a single quote symbol, which ends the sequence.
+//   Two quote characters do not end the sequence.
+//   If there is no matching single quote
+//   then the sequence will continue until the end of the string.
+// - . matches any single character unmatched by previous parts of the RegExps
+const formattingTokensRegExp = /(\w)\1*|''|'(''|[^'])+('|$)|./g;
+const escapedStringRegExp = /^'([^]*?)'?$/;
+const doubleQuoteRegExp = /''/g;
+const unescapedLatinCharacterRegExp = /[a-zA-Z]/;
+function lightFormat(date, formatStr) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    if (!(0, _isValidMjs.isValid)(_date)) throw new RangeError("Invalid time value");
+    const tokens = formatStr.match(formattingTokensRegExp);
+    // The only case when formattingTokensRegExp doesn't match the string is when it's empty
+    if (!tokens) return "";
+    const result = tokens.map((substring)=>{
+        // Replace two single quote characters with one single quote character
+        if (substring === "''") return "'";
+        const firstCharacter = substring[0];
+        if (firstCharacter === "'") return cleanEscapedString(substring);
+        const formatter = (0, _lightFormattersMjs.lightFormatters)[firstCharacter];
+        if (formatter) return formatter(_date, substring);
+        if (firstCharacter.match(unescapedLatinCharacterRegExp)) throw new RangeError("Format string contains an unescaped latin alphabet character `" + firstCharacter + "`");
+        return substring;
+    }).join("");
+    return result;
+}
+function cleanEscapedString(input) {
+    const matches = input.match(escapedStringRegExp);
+    if (!matches) return input;
+    return matches[1].replace(doubleQuoteRegExp, "'");
+}
+// Fallback for modularized imports:
+exports.default = lightFormat;
+
+},{"./isValid.mjs":"dX2Ty","./toDate.mjs":"fJykt","./_lib/format/lightFormatters.mjs":"fyEW6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dtnE7":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name milliseconds
+ * @category Millisecond Helpers
+ * @summary
+ * Returns the number of milliseconds in the specified, years, months, weeks, days, hours, minutes and seconds.
+ *
+ * @description
+ * Returns the number of milliseconds in the specified, years, months, weeks, days, hours, minutes and seconds.
+ *
+ * One years equals 365.2425 days according to the formula:
+ *
+ * > Leap year occures every 4 years, except for years that are divisable by 100 and not divisable by 400.
+ * > 1 mean year = (365+1/4-1/100+1/400) days = 365.2425 days
+ *
+ * One month is a year divided by 12.
+ *
+ * @param duration - The object with years, months, weeks, days, hours, minutes and seconds to be added.
+ *
+ * @returns The milliseconds
+ *
+ * @example
+ * // 1 year in milliseconds
+ * milliseconds({ years: 1 })
+ * //=> 31556952000
+ *
+ * // 3 months in milliseconds
+ * milliseconds({ months: 3 })
+ * //=> 7889238000
+ */ parcelHelpers.export(exports, "milliseconds", ()=>milliseconds);
+var _constantsMjs = require("./constants.mjs");
+function milliseconds({ years, months, weeks, days, hours, minutes, seconds }) {
+    let totalDays = 0;
+    if (years) totalDays += years * (0, _constantsMjs.daysInYear);
+    if (months) totalDays += months * ((0, _constantsMjs.daysInYear) / 12);
+    if (weeks) totalDays += weeks * 7;
+    if (days) totalDays += days;
+    let totalSeconds = totalDays * 86400;
+    if (hours) totalSeconds += hours * 3600;
+    if (minutes) totalSeconds += minutes * 60;
+    if (seconds) totalSeconds += seconds;
+    return Math.trunc(totalSeconds * 1000);
+}
+// Fallback for modularized imports:
+exports.default = milliseconds;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kalm1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name millisecondsToHours
+ * @category Conversion Helpers
+ * @summary Convert milliseconds to hours.
+ *
+ * @description
+ * Convert a number of milliseconds to a full number of hours.
+ *
+ * @param milliseconds - The number of milliseconds to be converted
+ *
+ * @returns The number of milliseconds converted in hours
+ *
+ * @example
+ * // Convert 7200000 milliseconds to hours:
+ * const result = millisecondsToHours(7200000)
+ * //=> 2
+ *
+ * @example
+ * // It uses floor rounding:
+ * const result = millisecondsToHours(7199999)
+ * //=> 1
+ */ parcelHelpers.export(exports, "millisecondsToHours", ()=>millisecondsToHours);
+var _constantsMjs = require("./constants.mjs");
+function millisecondsToHours(milliseconds) {
+    const hours = milliseconds / (0, _constantsMjs.millisecondsInHour);
+    return Math.trunc(hours);
+}
+// Fallback for modularized imports:
+exports.default = millisecondsToHours;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d6UrI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name millisecondsToMinutes
+ * @category Conversion Helpers
+ * @summary Convert milliseconds to minutes.
+ *
+ * @description
+ * Convert a number of milliseconds to a full number of minutes.
+ *
+ * @param milliseconds - The number of milliseconds to be converted
+ *
+ * @returns The number of milliseconds converted in minutes
+ *
+ * @example
+ * // Convert 60000 milliseconds to minutes:
+ * const result = millisecondsToMinutes(60000)
+ * //=> 1
+ *
+ * @example
+ * // It uses floor rounding:
+ * const result = millisecondsToMinutes(119999)
+ * //=> 1
+ */ parcelHelpers.export(exports, "millisecondsToMinutes", ()=>millisecondsToMinutes);
+var _constantsMjs = require("./constants.mjs");
+function millisecondsToMinutes(milliseconds) {
+    const minutes = milliseconds / (0, _constantsMjs.millisecondsInMinute);
+    return Math.trunc(minutes);
+}
+// Fallback for modularized imports:
+exports.default = millisecondsToMinutes;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fFwOu":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name millisecondsToSeconds
+ * @category Conversion Helpers
+ * @summary Convert milliseconds to seconds.
+ *
+ * @description
+ * Convert a number of milliseconds to a full number of seconds.
+ *
+ * @param milliseconds - The number of milliseconds to be converted
+ *
+ * @returns The number of milliseconds converted in seconds
+ *
+ * @example
+ * // Convert 1000 miliseconds to seconds:
+ * const result = millisecondsToSeconds(1000)
+ * //=> 1
+ *
+ * @example
+ * // It uses floor rounding:
+ * const result = millisecondsToSeconds(1999)
+ * //=> 1
+ */ parcelHelpers.export(exports, "millisecondsToSeconds", ()=>millisecondsToSeconds);
+var _constantsMjs = require("./constants.mjs");
+function millisecondsToSeconds(milliseconds) {
+    const seconds = milliseconds / (0, _constantsMjs.millisecondsInSecond);
+    return Math.trunc(seconds);
+}
+// Fallback for modularized imports:
+exports.default = millisecondsToSeconds;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iGS0X":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name minutesToHours
+ * @category Conversion Helpers
+ * @summary Convert minutes to hours.
+ *
+ * @description
+ * Convert a number of minutes to a full number of hours.
+ *
+ * @param minutes - The number of minutes to be converted
+ *
+ * @returns The number of minutes converted in hours
+ *
+ * @example
+ * // Convert 140 minutes to hours:
+ * const result = minutesToHours(120)
+ * //=> 2
+ *
+ * @example
+ * // It uses floor rounding:
+ * const result = minutesToHours(179)
+ * //=> 2
+ */ parcelHelpers.export(exports, "minutesToHours", ()=>minutesToHours);
+var _constantsMjs = require("./constants.mjs");
+function minutesToHours(minutes) {
+    const hours = minutes / (0, _constantsMjs.minutesInHour);
+    return Math.trunc(hours);
+}
+// Fallback for modularized imports:
+exports.default = minutesToHours;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cHyT2":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name minutesToMilliseconds
+ * @category Conversion Helpers
+ * @summary Convert minutes to milliseconds.
+ *
+ * @description
+ * Convert a number of minutes to a full number of milliseconds.
+ *
+ * @param minutes - The number of minutes to be converted
+ *
+ * @returns The number of minutes converted in milliseconds
+ *
+ * @example
+ * // Convert 2 minutes to milliseconds
+ * const result = minutesToMilliseconds(2)
+ * //=> 120000
+ */ parcelHelpers.export(exports, "minutesToMilliseconds", ()=>minutesToMilliseconds);
+var _constantsMjs = require("./constants.mjs");
+function minutesToMilliseconds(minutes) {
+    return Math.trunc(minutes * (0, _constantsMjs.millisecondsInMinute));
+}
+// Fallback for modularized imports:
+exports.default = minutesToMilliseconds;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lBM6k":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name minutesToSeconds
+ * @category Conversion Helpers
+ * @summary Convert minutes to seconds.
+ *
+ * @description
+ * Convert a number of minutes to a full number of seconds.
+ *
+ * @param minutes - The number of minutes to be converted
+ *
+ * @returns The number of minutes converted in seconds
+ *
+ * @example
+ * // Convert 2 minutes to seconds
+ * const result = minutesToSeconds(2)
+ * //=> 120
+ */ parcelHelpers.export(exports, "minutesToSeconds", ()=>minutesToSeconds);
+var _constantsMjs = require("./constants.mjs");
+function minutesToSeconds(minutes) {
+    return Math.trunc(minutes * (0, _constantsMjs.secondsInMinute));
+}
+// Fallback for modularized imports:
+exports.default = minutesToSeconds;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eyEGw":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name monthsToQuarters
+ * @category Conversion Helpers
+ * @summary Convert number of months to quarters.
+ *
+ * @description
+ * Convert a number of months to a full number of quarters.
+ *
+ * @param months - The number of months to be converted.
+ *
+ * @returns The number of months converted in quarters
+ *
+ * @example
+ * // Convert 6 months to quarters:
+ * const result = monthsToQuarters(6)
+ * //=> 2
+ *
+ * @example
+ * // It uses floor rounding:
+ * const result = monthsToQuarters(7)
+ * //=> 2
+ */ parcelHelpers.export(exports, "monthsToQuarters", ()=>monthsToQuarters);
+var _constantsMjs = require("./constants.mjs");
+function monthsToQuarters(months) {
+    const quarters = months / (0, _constantsMjs.monthsInQuarter);
+    return Math.trunc(quarters);
+}
+// Fallback for modularized imports:
+exports.default = monthsToQuarters;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6wekY":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name monthsToYears
+ * @category Conversion Helpers
+ * @summary Convert number of months to years.
+ *
+ * @description
+ * Convert a number of months to a full number of years.
+ *
+ * @param months - The number of months to be converted
+ *
+ * @returns The number of months converted in years
+ *
+ * @example
+ * // Convert 36 months to years:
+ * const result = monthsToYears(36)
+ * //=> 3
+ *
+ * // It uses floor rounding:
+ * const result = monthsToYears(40)
+ * //=> 3
+ */ parcelHelpers.export(exports, "monthsToYears", ()=>monthsToYears);
+var _constantsMjs = require("./constants.mjs");
+function monthsToYears(months) {
+    const years = months / (0, _constantsMjs.monthsInYear);
+    return Math.trunc(years);
+}
+// Fallback for modularized imports:
+exports.default = monthsToYears;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fBtES":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name nextDay
+ * @category Weekday Helpers
+ * @summary When is the next day of the week?
+ *
+ * @description
+ * When is the next day of the week? 0-6 the day of the week, 0 represents Sunday.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ * @param day - day of the week
+ *
+ * @returns The date is the next day of week
+ *
+ * @example
+ * // When is the next Monday after Mar, 20, 2020?
+ * const result = nextDay(new Date(2020, 2, 20), 1)
+ * //=> Mon Mar 23 2020 00:00:00
+ *
+ * @example
+ * // When is the next Tuesday after Mar, 21, 2020?
+ * const result = nextDay(new Date(2020, 2, 21), 2)
+ * //=> Tue Mar 24 2020 00:00:00
+ */ parcelHelpers.export(exports, "nextDay", ()=>nextDay);
+var _addDaysMjs = require("./addDays.mjs");
+var _getDayMjs = require("./getDay.mjs");
+function nextDay(date, day) {
+    let delta = day - (0, _getDayMjs.getDay)(date);
+    if (delta <= 0) delta += 7;
+    return (0, _addDaysMjs.addDays)(date, delta);
+}
+// Fallback for modularized imports:
+exports.default = nextDay;
+
+},{"./addDays.mjs":"4IE0s","./getDay.mjs":"aQoyF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f6C7g":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name nextFriday
+ * @category Weekday Helpers
+ * @summary When is the next Friday?
+ *
+ * @description
+ * When is the next Friday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to start counting from
+ *
+ * @returns The next Friday
+ *
+ * @example
+ * // When is the next Friday after Mar, 22, 2020?
+ * const result = nextFriday(new Date(2020, 2, 22))
+ * //=> Fri Mar 27 2020 00:00:00
+ */ parcelHelpers.export(exports, "nextFriday", ()=>nextFriday);
+var _nextDayMjs = require("./nextDay.mjs");
+function nextFriday(date) {
+    return (0, _nextDayMjs.nextDay)(date, 5);
+}
+// Fallback for modularized imports:
+exports.default = nextFriday;
+
+},{"./nextDay.mjs":"fBtES","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9uwtr":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name nextMonday
+ * @category Weekday Helpers
+ * @summary When is the next Monday?
+ *
+ * @description
+ * When is the next Monday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to start counting from
+ *
+ * @returns The next Monday
+ *
+ * @example
+ * // When is the next Monday after Mar, 22, 2020?
+ * const result = nextMonday(new Date(2020, 2, 22))
+ * //=> Mon Mar 23 2020 00:00:00
+ */ parcelHelpers.export(exports, "nextMonday", ()=>nextMonday);
+var _nextDayMjs = require("./nextDay.mjs");
+function nextMonday(date) {
+    return (0, _nextDayMjs.nextDay)(date, 1);
+}
+// Fallback for modularized imports:
+exports.default = nextMonday;
+
+},{"./nextDay.mjs":"fBtES","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ecsvp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name nextSaturday
+ * @category Weekday Helpers
+ * @summary When is the next Saturday?
+ *
+ * @description
+ * When is the next Saturday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to start counting from
+ *
+ * @returns The next Saturday
+ *
+ * @example
+ * // When is the next Saturday after Mar, 22, 2020?
+ * const result = nextSaturday(new Date(2020, 2, 22))
+ * //=> Sat Mar 28 2020 00:00:00
+ */ parcelHelpers.export(exports, "nextSaturday", ()=>nextSaturday);
+var _nextDayMjs = require("./nextDay.mjs");
+function nextSaturday(date) {
+    return (0, _nextDayMjs.nextDay)(date, 6);
+}
+// Fallback for modularized imports:
+exports.default = nextSaturday;
+
+},{"./nextDay.mjs":"fBtES","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2nwKm":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name nextSunday
+ * @category Weekday Helpers
+ * @summary When is the next Sunday?
+ *
+ * @description
+ * When is the next Sunday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to start counting from
+ *
+ * @returns The next Sunday
+ *
+ * @example
+ * // When is the next Sunday after Mar, 22, 2020?
+ * const result = nextSunday(new Date(2020, 2, 22))
+ * //=> Sun Mar 29 2020 00:00:00
+ */ parcelHelpers.export(exports, "nextSunday", ()=>nextSunday);
+var _nextDayMjs = require("./nextDay.mjs");
+function nextSunday(date) {
+    return (0, _nextDayMjs.nextDay)(date, 0);
+}
+// Fallback for modularized imports:
+exports.default = nextSunday;
+
+},{"./nextDay.mjs":"fBtES","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"grrcG":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name nextThursday
+ * @category Weekday Helpers
+ * @summary When is the next Thursday?
+ *
+ * @description
+ * When is the next Thursday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to start counting from
+ *
+ * @returns The next Thursday
+ *
+ * @example
+ * // When is the next Thursday after Mar, 22, 2020?
+ * const result = nextThursday(new Date(2020, 2, 22))
+ * //=> Thur Mar 26 2020 00:00:00
+ */ parcelHelpers.export(exports, "nextThursday", ()=>nextThursday);
+var _nextDayMjs = require("./nextDay.mjs");
+function nextThursday(date) {
+    return (0, _nextDayMjs.nextDay)(date, 4);
+}
+// Fallback for modularized imports:
+exports.default = nextThursday;
+
+},{"./nextDay.mjs":"fBtES","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lJlZD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name nextTuesday
+ * @category Weekday Helpers
+ * @summary When is the next Tuesday?
+ *
+ * @description
+ * When is the next Tuesday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to start counting from
+ *
+ * @returns The next Tuesday
+ *
+ * @example
+ * // When is the next Tuesday after Mar, 22, 2020?
+ * const result = nextTuesday(new Date(2020, 2, 22))
+ * //=> Tue Mar 24 2020 00:00:00
+ */ parcelHelpers.export(exports, "nextTuesday", ()=>nextTuesday);
+var _nextDayMjs = require("./nextDay.mjs");
+function nextTuesday(date) {
+    return (0, _nextDayMjs.nextDay)(date, 2);
+}
+// Fallback for modularized imports:
+exports.default = nextTuesday;
+
+},{"./nextDay.mjs":"fBtES","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fRKX1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name nextWednesday
+ * @category Weekday Helpers
+ * @summary When is the next Wednesday?
+ *
+ * @description
+ * When is the next Wednesday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to start counting from
+ *
+ * @returns The next Wednesday
+ *
+ * @example
+ * // When is the next Wednesday after Mar, 22, 2020?
+ * const result = nextWednesday(new Date(2020, 2, 22))
+ * //=> Wed Mar 25 2020 00:00:00
+ */ parcelHelpers.export(exports, "nextWednesday", ()=>nextWednesday);
+var _nextDayMjs = require("./nextDay.mjs");
+function nextWednesday(date) {
+    return (0, _nextDayMjs.nextDay)(date, 3);
+}
+// Fallback for modularized imports:
+exports.default = nextWednesday;
+
+},{"./nextDay.mjs":"fBtES","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"b6IGO":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link parseISO} function options.
+ */ /**
+ * @name parseISO
+ * @category Common Helpers
+ * @summary Parse ISO string
+ *
+ * @description
+ * Parse the given string in ISO 8601 format and return an instance of Date.
+ *
+ * Function accepts complete ISO 8601 formats as well as partial implementations.
+ * ISO 8601: http://en.wikipedia.org/wiki/ISO_8601
+ *
+ * If the argument isn't a string, the function cannot parse the string or
+ * the values are invalid, it returns Invalid Date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param argument - The value to convert
+ * @param options - An object with options
+ *
+ * @returns The parsed date in the local time zone
+ *
+ * @example
+ * // Convert string '2014-02-11T11:30:30' to date:
+ * const result = parseISO('2014-02-11T11:30:30')
+ * //=> Tue Feb 11 2014 11:30:30
+ *
+ * @example
+ * // Convert string '+02014101' to date,
+ * // if the additional number of digits in the extended year format is 1:
+ * const result = parseISO('+02014101', { additionalDigits: 1 })
+ * //=> Fri Apr 11 2014 00:00:00
+ */ parcelHelpers.export(exports, "parseISO", ()=>parseISO);
+var _constantsMjs = require("./constants.mjs");
+function parseISO(argument, options) {
+    const additionalDigits = options?.additionalDigits ?? 2;
+    const dateStrings = splitDateString(argument);
+    let date;
+    if (dateStrings.date) {
+        const parseYearResult = parseYear(dateStrings.date, additionalDigits);
+        date = parseDate(parseYearResult.restDateString, parseYearResult.year);
+    }
+    if (!date || isNaN(date.getTime())) return new Date(NaN);
+    const timestamp = date.getTime();
+    let time = 0;
+    let offset;
+    if (dateStrings.time) {
+        time = parseTime(dateStrings.time);
+        if (isNaN(time)) return new Date(NaN);
+    }
+    if (dateStrings.timezone) {
+        offset = parseTimezone(dateStrings.timezone);
+        if (isNaN(offset)) return new Date(NaN);
+    } else {
+        const dirtyDate = new Date(timestamp + time);
+        // JS parsed string assuming it's in UTC timezone
+        // but we need it to be parsed in our timezone
+        // so we use utc values to build date in our timezone.
+        // Year values from 0 to 99 map to the years 1900 to 1999
+        // so set year explicitly with setFullYear.
+        const result = new Date(0);
+        result.setFullYear(dirtyDate.getUTCFullYear(), dirtyDate.getUTCMonth(), dirtyDate.getUTCDate());
+        result.setHours(dirtyDate.getUTCHours(), dirtyDate.getUTCMinutes(), dirtyDate.getUTCSeconds(), dirtyDate.getUTCMilliseconds());
+        return result;
+    }
+    return new Date(timestamp + time + offset);
+}
+const patterns = {
+    dateTimeDelimiter: /[T ]/,
+    timeZoneDelimiter: /[Z ]/i,
+    timezone: /([Z+-].*)$/
+};
+const dateRegex = /^-?(?:(\d{3})|(\d{2})(?:-?(\d{2}))?|W(\d{2})(?:-?(\d{1}))?|)$/;
+const timeRegex = /^(\d{2}(?:[.,]\d*)?)(?::?(\d{2}(?:[.,]\d*)?))?(?::?(\d{2}(?:[.,]\d*)?))?$/;
+const timezoneRegex = /^([+-])(\d{2})(?::?(\d{2}))?$/;
+function splitDateString(dateString) {
+    const dateStrings = {};
+    const array = dateString.split(patterns.dateTimeDelimiter);
+    let timeString;
+    // The regex match should only return at maximum two array elements.
+    // [date], [time], or [date, time].
+    if (array.length > 2) return dateStrings;
+    if (/:/.test(array[0])) timeString = array[0];
+    else {
+        dateStrings.date = array[0];
+        timeString = array[1];
+        if (patterns.timeZoneDelimiter.test(dateStrings.date)) {
+            dateStrings.date = dateString.split(patterns.timeZoneDelimiter)[0];
+            timeString = dateString.substr(dateStrings.date.length, dateString.length);
+        }
+    }
+    if (timeString) {
+        const token = patterns.timezone.exec(timeString);
+        if (token) {
+            dateStrings.time = timeString.replace(token[1], "");
+            dateStrings.timezone = token[1];
+        } else dateStrings.time = timeString;
+    }
+    return dateStrings;
+}
+function parseYear(dateString, additionalDigits) {
+    const regex = new RegExp("^(?:(\\d{4}|[+-]\\d{" + (4 + additionalDigits) + "})|(\\d{2}|[+-]\\d{" + (2 + additionalDigits) + "})$)");
+    const captures = dateString.match(regex);
+    // Invalid ISO-formatted year
+    if (!captures) return {
+        year: NaN,
+        restDateString: ""
+    };
+    const year = captures[1] ? parseInt(captures[1]) : null;
+    const century = captures[2] ? parseInt(captures[2]) : null;
+    // either year or century is null, not both
+    return {
+        year: century === null ? year : century * 100,
+        restDateString: dateString.slice((captures[1] || captures[2]).length)
+    };
+}
+function parseDate(dateString, year) {
+    // Invalid ISO-formatted year
+    if (year === null) return new Date(NaN);
+    const captures = dateString.match(dateRegex);
+    // Invalid ISO-formatted string
+    if (!captures) return new Date(NaN);
+    const isWeekDate = !!captures[4];
+    const dayOfYear = parseDateUnit(captures[1]);
+    const month = parseDateUnit(captures[2]) - 1;
+    const day = parseDateUnit(captures[3]);
+    const week = parseDateUnit(captures[4]);
+    const dayOfWeek = parseDateUnit(captures[5]) - 1;
+    if (isWeekDate) {
+        if (!validateWeekDate(year, week, dayOfWeek)) return new Date(NaN);
+        return dayOfISOWeekYear(year, week, dayOfWeek);
+    } else {
+        const date = new Date(0);
+        if (!validateDate(year, month, day) || !validateDayOfYearDate(year, dayOfYear)) return new Date(NaN);
+        date.setUTCFullYear(year, month, Math.max(dayOfYear, day));
+        return date;
+    }
+}
+function parseDateUnit(value) {
+    return value ? parseInt(value) : 1;
+}
+function parseTime(timeString) {
+    const captures = timeString.match(timeRegex);
+    if (!captures) return NaN; // Invalid ISO-formatted time
+    const hours = parseTimeUnit(captures[1]);
+    const minutes = parseTimeUnit(captures[2]);
+    const seconds = parseTimeUnit(captures[3]);
+    if (!validateTime(hours, minutes, seconds)) return NaN;
+    return hours * (0, _constantsMjs.millisecondsInHour) + minutes * (0, _constantsMjs.millisecondsInMinute) + seconds * 1000;
+}
+function parseTimeUnit(value) {
+    return value && parseFloat(value.replace(",", ".")) || 0;
+}
+function parseTimezone(timezoneString) {
+    if (timezoneString === "Z") return 0;
+    const captures = timezoneString.match(timezoneRegex);
+    if (!captures) return 0;
+    const sign = captures[1] === "+" ? -1 : 1;
+    const hours = parseInt(captures[2]);
+    const minutes = captures[3] && parseInt(captures[3]) || 0;
+    if (!validateTimezone(hours, minutes)) return NaN;
+    return sign * (hours * (0, _constantsMjs.millisecondsInHour) + minutes * (0, _constantsMjs.millisecondsInMinute));
+}
+function dayOfISOWeekYear(isoWeekYear, week, day) {
+    const date = new Date(0);
+    date.setUTCFullYear(isoWeekYear, 0, 4);
+    const fourthOfJanuaryDay = date.getUTCDay() || 7;
+    const diff = (week - 1) * 7 + day + 1 - fourthOfJanuaryDay;
+    date.setUTCDate(date.getUTCDate() + diff);
+    return date;
+}
+// Validation functions
+// February is null to handle the leap year (using ||)
+const daysInMonths = [
+    31,
+    null,
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31
+];
+function isLeapYearIndex(year) {
+    return year % 400 === 0 || year % 4 === 0 && year % 100 !== 0;
+}
+function validateDate(year, month, date) {
+    return month >= 0 && month <= 11 && date >= 1 && date <= (daysInMonths[month] || (isLeapYearIndex(year) ? 29 : 28));
+}
+function validateDayOfYearDate(year, dayOfYear) {
+    return dayOfYear >= 1 && dayOfYear <= (isLeapYearIndex(year) ? 366 : 365);
+}
+function validateWeekDate(_year, week, day) {
+    return week >= 1 && week <= 53 && day >= 0 && day <= 6;
+}
+function validateTime(hours, minutes, seconds) {
+    if (hours === 24) return minutes === 0 && seconds === 0;
+    return seconds >= 0 && seconds < 60 && minutes >= 0 && minutes < 60 && hours >= 0 && hours < 25;
+}
+function validateTimezone(_hours, minutes) {
+    return minutes >= 0 && minutes <= 59;
+}
+// Fallback for modularized imports:
+exports.default = parseISO;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1iLLH":[function(require,module,exports) {
+/**
+ * @name parseJSON
+ * @category Common Helpers
+ * @summary Parse a JSON date string
+ *
+ * @description
+ * Converts a complete ISO date string in UTC time, the typical format for transmitting
+ * a date in JSON, to a JavaScript `Date` instance.
+ *
+ * This is a minimal implementation for converting dates retrieved from a JSON API to
+ * a `Date` instance which can be used with other functions in the `date-fns` library.
+ * The following formats are supported:
+ *
+ * - `2000-03-15T05:20:10.123Z`: The output of `.toISOString()` and `JSON.stringify(new Date())`
+ * - `2000-03-15T05:20:10Z`: Without milliseconds
+ * - `2000-03-15T05:20:10+00:00`: With a zero offset, the default JSON encoded format in some other languages
+ * - `2000-03-15T05:20:10+05:45`: With a positive or negative offset, the default JSON encoded format in some other languages
+ * - `2000-03-15T05:20:10+0000`: With a zero offset without a colon
+ * - `2000-03-15T05:20:10`: Without a trailing 'Z' symbol
+ * - `2000-03-15T05:20:10.1234567`: Up to 7 digits in milliseconds field. Only first 3 are taken into account since JS does not allow fractional milliseconds
+ * - `2000-03-15 05:20:10`: With a space instead of a 'T' separator for APIs returning a SQL date without reformatting
+ *
+ * For convenience and ease of use these other input types are also supported
+ * via [toDate](https://date-fns.org/docs/toDate):
+ *
+ * - A `Date` instance will be cloned
+ * - A `number` will be treated as a timestamp
+ *
+ * Any other input type or invalid date strings will return an `Invalid Date`.
+ *
+ * @param dateStr - A fully formed ISO8601 date string to convert
+ *
+ * @returns The parsed date in the local time zone
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "parseJSON", ()=>parseJSON);
+function parseJSON(dateStr) {
+    const parts = dateStr.match(/(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2}):(\d{2})(?:\.(\d{0,7}))?(?:Z|(.)(\d{2}):?(\d{2})?)?/);
+    if (parts) // Group 8 matches the sign
+    return new Date(Date.UTC(+parts[1], +parts[2] - 1, +parts[3], +parts[4] - (+parts[9] || 0) * (parts[8] == "-" ? -1 : 1), +parts[5] - (+parts[10] || 0) * (parts[8] == "-" ? -1 : 1), +parts[6], +((parts[7] || "0") + "00").substring(0, 3)));
+    return new Date(NaN);
+}
+// Fallback for modularized imports:
+exports.default = parseJSON;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aJ77j":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name previousDay
+ * @category Weekday Helpers
+ * @summary When is the previous day of the week?
+ *
+ * @description
+ * When is the previous day of the week? 0-6 the day of the week, 0 represents Sunday.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to check
+ * @param day - The day of the week
+ *
+ * @returns The date is the previous day of week
+ *
+ * @example
+ * // When is the previous Monday before Mar, 20, 2020?
+ * const result = previousDay(new Date(2020, 2, 20), 1)
+ * //=> Mon Mar 16 2020 00:00:00
+ *
+ * @example
+ * // When is the previous Tuesday before Mar, 21, 2020?
+ * const result = previousDay(new Date(2020, 2, 21), 2)
+ * //=> Tue Mar 17 2020 00:00:00
+ */ parcelHelpers.export(exports, "previousDay", ()=>previousDay);
+var _getDayMjs = require("./getDay.mjs");
+var _subDaysMjs = require("./subDays.mjs");
+function previousDay(date, day) {
+    let delta = (0, _getDayMjs.getDay)(date) - day;
+    if (delta <= 0) delta += 7;
+    return (0, _subDaysMjs.subDays)(date, delta);
+}
+// Fallback for modularized imports:
+exports.default = previousDay;
+
+},{"./getDay.mjs":"aQoyF","./subDays.mjs":"bH7Da","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hXbQM":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name previousFriday
+ * @category Weekday Helpers
+ * @summary When is the previous Friday?
+ *
+ * @description
+ * When is the previous Friday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to start counting from
+ *
+ * @returns The previous Friday
+ *
+ * @example
+ * // When is the previous Friday before Jun, 19, 2021?
+ * const result = previousFriday(new Date(2021, 5, 19))
+ * //=> Fri June 18 2021 00:00:00
+ */ parcelHelpers.export(exports, "previousFriday", ()=>previousFriday);
+var _previousDayMjs = require("./previousDay.mjs");
+function previousFriday(date) {
+    return (0, _previousDayMjs.previousDay)(date, 5);
+}
+// Fallback for modularized imports:
+exports.default = previousFriday;
+
+},{"./previousDay.mjs":"aJ77j","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5h0Fc":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name previousMonday
+ * @category Weekday Helpers
+ * @summary When is the previous Monday?
+ *
+ * @description
+ * When is the previous Monday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to start counting from
+ *
+ * @returns The previous Monday
+ *
+ * @example
+ * // When is the previous Monday before Jun, 18, 2021?
+ * const result = previousMonday(new Date(2021, 5, 18))
+ * //=> Mon June 14 2021 00:00:00
+ */ parcelHelpers.export(exports, "previousMonday", ()=>previousMonday);
+var _previousDayMjs = require("./previousDay.mjs");
+function previousMonday(date) {
+    return (0, _previousDayMjs.previousDay)(date, 1);
+}
+// Fallback for modularized imports:
+exports.default = previousMonday;
+
+},{"./previousDay.mjs":"aJ77j","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dDPIS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name previousSaturday
+ * @category Weekday Helpers
+ * @summary When is the previous Saturday?
+ *
+ * @description
+ * When is the previous Saturday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to start counting from
+ *
+ * @returns The previous Saturday
+ *
+ * @example
+ * // When is the previous Saturday before Jun, 20, 2021?
+ * const result = previousSaturday(new Date(2021, 5, 20))
+ * //=> Sat June 19 2021 00:00:00
+ */ parcelHelpers.export(exports, "previousSaturday", ()=>previousSaturday);
+var _previousDayMjs = require("./previousDay.mjs");
+function previousSaturday(date) {
+    return (0, _previousDayMjs.previousDay)(date, 6);
+}
+// Fallback for modularized imports:
+exports.default = previousSaturday;
+
+},{"./previousDay.mjs":"aJ77j","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bUhCU":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name previousSunday
+ * @category Weekday Helpers
+ * @summary When is the previous Sunday?
+ *
+ * @description
+ * When is the previous Sunday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to start counting from
+ *
+ * @returns The previous Sunday
+ *
+ * @example
+ * // When is the previous Sunday before Jun, 21, 2021?
+ * const result = previousSunday(new Date(2021, 5, 21))
+ * //=> Sun June 20 2021 00:00:00
+ */ parcelHelpers.export(exports, "previousSunday", ()=>previousSunday);
+var _previousDayMjs = require("./previousDay.mjs");
+function previousSunday(date) {
+    return (0, _previousDayMjs.previousDay)(date, 0);
+}
+// Fallback for modularized imports:
+exports.default = previousSunday;
+
+},{"./previousDay.mjs":"aJ77j","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e9zbM":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name previousThursday
+ * @category Weekday Helpers
+ * @summary When is the previous Thursday?
+ *
+ * @description
+ * When is the previous Thursday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to start counting from
+ *
+ * @returns The previous Thursday
+ *
+ * @example
+ * // When is the previous Thursday before Jun, 18, 2021?
+ * const result = previousThursday(new Date(2021, 5, 18))
+ * //=> Thu June 17 2021 00:00:00
+ */ parcelHelpers.export(exports, "previousThursday", ()=>previousThursday);
+var _previousDayMjs = require("./previousDay.mjs");
+function previousThursday(date) {
+    return (0, _previousDayMjs.previousDay)(date, 4);
+}
+// Fallback for modularized imports:
+exports.default = previousThursday;
+
+},{"./previousDay.mjs":"aJ77j","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aCVby":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name previousTuesday
+ * @category Weekday Helpers
+ * @summary When is the previous Tuesday?
+ *
+ * @description
+ * When is the previous Tuesday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to start counting from
+ *
+ * @returns The previous Tuesday
+ *
+ * @example
+ * // When is the previous Tuesday before Jun, 18, 2021?
+ * const result = previousTuesday(new Date(2021, 5, 18))
+ * //=> Tue June 15 2021 00:00:00
+ */ parcelHelpers.export(exports, "previousTuesday", ()=>previousTuesday);
+var _previousDayMjs = require("./previousDay.mjs");
+function previousTuesday(date) {
+    return (0, _previousDayMjs.previousDay)(date, 2);
+}
+// Fallback for modularized imports:
+exports.default = previousTuesday;
+
+},{"./previousDay.mjs":"aJ77j","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3wKvu":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name previousWednesday
+ * @category Weekday Helpers
+ * @summary When is the previous Wednesday?
+ *
+ * @description
+ * When is the previous Wednesday?
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to start counting from
+ *
+ * @returns The previous Wednesday
+ *
+ * @example
+ * // When is the previous Wednesday before Jun, 18, 2021?
+ * const result = previousWednesday(new Date(2021, 5, 18))
+ * //=> Wed June 16 2021 00:00:00
+ */ parcelHelpers.export(exports, "previousWednesday", ()=>previousWednesday);
+var _previousDayMjs = require("./previousDay.mjs");
+function previousWednesday(date) {
+    return (0, _previousDayMjs.previousDay)(date, 3);
+}
+// Fallback for modularized imports:
+exports.default = previousWednesday;
+
+},{"./previousDay.mjs":"aJ77j","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gWhoS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name quartersToMonths
+ * @category Conversion Helpers
+ * @summary Convert number of quarters to months.
+ *
+ * @description
+ * Convert a number of quarters to a full number of months.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param quarters - The number of quarters to be converted
+ *
+ * @returns The number of quarters converted in months
+ *
+ * @example
+ * // Convert 2 quarters to months
+ * const result = quartersToMonths(2)
+ * //=> 6
+ */ parcelHelpers.export(exports, "quartersToMonths", ()=>quartersToMonths);
+var _constantsMjs = require("./constants.mjs");
+function quartersToMonths(quarters) {
+    return Math.trunc(quarters * (0, _constantsMjs.monthsInQuarter));
+}
+// Fallback for modularized imports:
+exports.default = quartersToMonths;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ktQU6":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name quartersToYears
+ * @category Conversion Helpers
+ * @summary Convert number of quarters to years.
+ *
+ * @description
+ * Convert a number of quarters to a full number of years.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param quarters - The number of quarters to be converted
+ *
+ * @returns The number of quarters converted in years
+ *
+ * @example
+ * // Convert 8 quarters to years
+ * const result = quartersToYears(8)
+ * //=> 2
+ *
+ * @example
+ * // It uses floor rounding:
+ * const result = quartersToYears(11)
+ * //=> 2
+ */ parcelHelpers.export(exports, "quartersToYears", ()=>quartersToYears);
+var _constantsMjs = require("./constants.mjs");
+function quartersToYears(quarters) {
+    const years = quarters / (0, _constantsMjs.quartersInYear);
+    return Math.trunc(years);
+}
+// Fallback for modularized imports:
+exports.default = quartersToYears;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lRkBc":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link roundToNearestMinutes} function options.
+ */ /**
+ * @name roundToNearestMinutes
+ * @category Minute Helpers
+ * @summary Rounds the given date to the nearest minute
+ *
+ * @description
+ * Rounds the given date to the nearest minute (or number of minutes).
+ * Rounds up when the given date is exactly between the nearest round minutes.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to round
+ * @param options - An object with options.
+ *
+ * @returns The new date rounded to the closest minute
+ *
+ * @example
+ * // Round 10 July 2014 12:12:34 to nearest minute:
+ * const result = roundToNearestMinutes(new Date(2014, 6, 10, 12, 12, 34))
+ * //=> Thu Jul 10 2014 12:13:00
+ *
+ * @example
+ * // Round 10 July 2014 12:12:34 to nearest quarter hour:
+ * const result = roundToNearestMinutes(new Date(2014, 6, 10, 12, 12, 34), { nearestTo: 15 })
+ * //=> Thu Jul 10 2014 12:15:00
+ *
+ * @example
+ * // Floor (rounds down) 10 July 2014 12:12:34 to nearest minute:
+ * const result = roundToNearestMinutes(new Date(2014, 6, 10, 12, 12, 34), { roundingMethod: 'floor' })
+ * //=> Thu Jul 10 2014 12:12:00
+ *
+ * @example
+ * // Ceil (rounds up) 10 July 2014 12:12:34 to nearest half hour:
+ * const result = roundToNearestMinutes(new Date(2014, 6, 10, 12, 12, 34), { roundingMethod: 'ceil', nearestTo: 30 })
+ * //=> Thu Jul 10 2014 12:30:00
+ */ parcelHelpers.export(exports, "roundToNearestMinutes", ()=>roundToNearestMinutes);
+var _getRoundingMethodMjs = require("./_lib/getRoundingMethod.mjs");
+var _constructFromMjs = require("./constructFrom.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function roundToNearestMinutes(date, options) {
+    const nearestTo = options?.nearestTo ?? 1;
+    if (nearestTo < 1 || nearestTo > 30) return (0, _constructFromMjs.constructFrom)(date, NaN);
+    const _date = (0, _toDateMjs.toDate)(date);
+    const fractionalSeconds = _date.getSeconds() / 60;
+    const fractionalMilliseconds = _date.getMilliseconds() / 1000 / 60;
+    const minutes = _date.getMinutes() + fractionalSeconds + fractionalMilliseconds;
+    // Unlike the `differenceIn*` functions, the default rounding behavior is `round` and not 'trunc'
+    const method = options?.roundingMethod ?? "round";
+    const roundingMethod = (0, _getRoundingMethodMjs.getRoundingMethod)(method);
+    const roundedMinutes = roundingMethod(minutes / nearestTo) * nearestTo;
+    const result = (0, _constructFromMjs.constructFrom)(date, _date);
+    result.setMinutes(roundedMinutes, 0, 0);
+    return result;
+}
+// Fallback for modularized imports:
+exports.default = roundToNearestMinutes;
+
+},{"./_lib/getRoundingMethod.mjs":"ccMm0","./constructFrom.mjs":"xte3t","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"18VdI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name secondsToHours
+ * @category Conversion Helpers
+ * @summary Convert seconds to hours.
+ *
+ * @description
+ * Convert a number of seconds to a full number of hours.
+ *
+ * @param seconds - The number of seconds to be converted
+ *
+ * @returns The number of seconds converted in hours
+ *
+ * @example
+ * // Convert 7200 seconds into hours
+ * const result = secondsToHours(7200)
+ * //=> 2
+ *
+ * @example
+ * // It uses floor rounding:
+ * const result = secondsToHours(7199)
+ * //=> 1
+ */ parcelHelpers.export(exports, "secondsToHours", ()=>secondsToHours);
+var _constantsMjs = require("./constants.mjs");
+function secondsToHours(seconds) {
+    const hours = seconds / (0, _constantsMjs.secondsInHour);
+    return Math.trunc(hours);
+}
+// Fallback for modularized imports:
+exports.default = secondsToHours;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5aSEL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name secondsToMilliseconds
+ * @category Conversion Helpers
+ * @summary Convert seconds to milliseconds.
+ *
+ * @description
+ * Convert a number of seconds to a full number of milliseconds.
+ *
+ * @param seconds - The number of seconds to be converted
+ *
+ * @returns The number of seconds converted in milliseconds
+ *
+ * @example
+ * // Convert 2 seconds into milliseconds
+ * const result = secondsToMilliseconds(2)
+ * //=> 2000
+ */ parcelHelpers.export(exports, "secondsToMilliseconds", ()=>secondsToMilliseconds);
+var _constantsMjs = require("./constants.mjs");
+function secondsToMilliseconds(seconds) {
+    return seconds * (0, _constantsMjs.millisecondsInSecond);
+}
+// Fallback for modularized imports:
+exports.default = secondsToMilliseconds;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7csXy":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name secondsToMinutes
+ * @category Conversion Helpers
+ * @summary Convert seconds to minutes.
+ *
+ * @description
+ * Convert a number of seconds to a full number of minutes.
+ *
+ * @param seconds - The number of seconds to be converted
+ *
+ * @returns The number of seconds converted in minutes
+ *
+ * @example
+ * // Convert 120 seconds into minutes
+ * const result = secondsToMinutes(120)
+ * //=> 2
+ *
+ * @example
+ * // It uses floor rounding:
+ * const result = secondsToMinutes(119)
+ * //=> 1
+ */ parcelHelpers.export(exports, "secondsToMinutes", ()=>secondsToMinutes);
+var _constantsMjs = require("./constants.mjs");
+function secondsToMinutes(seconds) {
+    const minutes = seconds / (0, _constantsMjs.secondsInMinute);
+    return Math.trunc(minutes);
+}
+// Fallback for modularized imports:
+exports.default = secondsToMinutes;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1Giwc":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name set
+ * @category Common Helpers
+ * @summary Set date values to a given date.
+ *
+ * @description
+ * Set date values to a given date.
+ *
+ * Sets time values to date from object `values`.
+ * A value is not set if it is undefined or null or doesn't exist in `values`.
+ *
+ * Note about bundle size: `set` does not internally use `setX` functions from date-fns but instead opts
+ * to use native `Date#setX` methods. If you use this function, you may not want to include the
+ * other `setX` functions that date-fns provides if you are concerned about the bundle size.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param values - The date values to be set
+ *
+ * @returns The new date with options set
+ *
+ * @example
+ * // Transform 1 September 2014 into 20 October 2015 in a single line:
+ * const result = set(new Date(2014, 8, 20), { year: 2015, month: 9, date: 20 })
+ * //=> Tue Oct 20 2015 00:00:00
+ *
+ * @example
+ * // Set 12 PM to 1 September 2014 01:23:45 to 1 September 2014 12:00:00:
+ * const result = set(new Date(2014, 8, 1, 1, 23, 45), { hours: 12 })
+ * //=> Mon Sep 01 2014 12:23:45
+ */ parcelHelpers.export(exports, "set", ()=>set);
+var _constructFromMjs = require("./constructFrom.mjs");
+var _setMonthMjs = require("./setMonth.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function set(date, values) {
+    let _date = (0, _toDateMjs.toDate)(date);
+    // Check if date is Invalid Date because Date.prototype.setFullYear ignores the value of Invalid Date
+    if (isNaN(+_date)) return (0, _constructFromMjs.constructFrom)(date, NaN);
+    if (values.year != null) _date.setFullYear(values.year);
+    if (values.month != null) _date = (0, _setMonthMjs.setMonth)(_date, values.month);
+    if (values.date != null) _date.setDate(values.date);
+    if (values.hours != null) _date.setHours(values.hours);
+    if (values.minutes != null) _date.setMinutes(values.minutes);
+    if (values.seconds != null) _date.setSeconds(values.seconds);
+    if (values.milliseconds != null) _date.setMilliseconds(values.milliseconds);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = set;
+
+},{"./constructFrom.mjs":"xte3t","./setMonth.mjs":"lUfSA","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lUfSA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name setMonth
+ * @category Month Helpers
+ * @summary Set the month to the given date.
+ *
+ * @description
+ * Set the month to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param month - The month of the new date
+ *
+ * @returns The new date with the month set
+ *
+ * @example
+ * // Set February to 1 September 2014:
+ * const result = setMonth(new Date(2014, 8, 1), 1)
+ * //=> Sat Feb 01 2014 00:00:00
+ */ parcelHelpers.export(exports, "setMonth", ()=>setMonth);
+var _constructFromMjs = require("./constructFrom.mjs");
+var _getDaysInMonthMjs = require("./getDaysInMonth.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function setMonth(date, month) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const year = _date.getFullYear();
+    const day = _date.getDate();
+    const dateWithDesiredMonth = (0, _constructFromMjs.constructFrom)(date, 0);
+    dateWithDesiredMonth.setFullYear(year, month, 15);
+    dateWithDesiredMonth.setHours(0, 0, 0, 0);
+    const daysInMonth = (0, _getDaysInMonthMjs.getDaysInMonth)(dateWithDesiredMonth);
+    // Set the last day of the new month
+    // if the original date was the last day of the longer month
+    _date.setMonth(month, Math.min(day, daysInMonth));
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = setMonth;
+
+},{"./constructFrom.mjs":"xte3t","./getDaysInMonth.mjs":"eATrW","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aWiH1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name setDate
+ * @category Day Helpers
+ * @summary Set the day of the month to the given date.
+ *
+ * @description
+ * Set the day of the month to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param dayOfMonth - The day of the month of the new date
+ *
+ * @returns The new date with the day of the month set
+ *
+ * @example
+ * // Set the 30th day of the month to 1 September 2014:
+ * const result = setDate(new Date(2014, 8, 1), 30)
+ * //=> Tue Sep 30 2014 00:00:00
+ */ parcelHelpers.export(exports, "setDate", ()=>setDate);
+var _toDateMjs = require("./toDate.mjs");
+function setDate(date, dayOfMonth) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setDate(dayOfMonth);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = setDate;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aHMyD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name setDayOfYear
+ * @category Day Helpers
+ * @summary Set the day of the year to the given date.
+ *
+ * @description
+ * Set the day of the year to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param dayOfYear - The day of the year of the new date
+ *
+ * @returns The new date with the day of the year set
+ *
+ * @example
+ * // Set the 2nd day of the year to 2 July 2014:
+ * const result = setDayOfYear(new Date(2014, 6, 2), 2)
+ * //=> Thu Jan 02 2014 00:00:00
+ */ parcelHelpers.export(exports, "setDayOfYear", ()=>setDayOfYear);
+var _toDateMjs = require("./toDate.mjs");
+function setDayOfYear(date, dayOfYear) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setMonth(0);
+    _date.setDate(dayOfYear);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = setDayOfYear;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1hC2m":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name setDefaultOptions
+ * @category Common Helpers
+ * @summary Set default options including locale.
+ * @pure false
+ *
+ * @description
+ * Sets the defaults for
+ * `options.locale`, `options.weekStartsOn` and `options.firstWeekContainsDate`
+ * arguments for all functions.
+ *
+ * @param options - An object with options
+ *
+ * @example
+ * // Set global locale:
+ * import { es } from 'date-fns/locale'
+ * setDefaultOptions({ locale: es })
+ * const result = format(new Date(2014, 8, 2), 'PPPP')
+ * //=> 'martes, 2 de septiembre de 2014'
+ *
+ * @example
+ * // Start of the week for 2 September 2014:
+ * const result = startOfWeek(new Date(2014, 8, 2))
+ * //=> Sun Aug 31 2014 00:00:00
+ *
+ * @example
+ * // Start of the week for 2 September 2014,
+ * // when we set that week starts on Monday by default:
+ * setDefaultOptions({ weekStartsOn: 1 })
+ * const result = startOfWeek(new Date(2014, 8, 2))
+ * //=> Mon Sep 01 2014 00:00:00
+ *
+ * @example
+ * // Manually set options take priority over default options:
+ * setDefaultOptions({ weekStartsOn: 1 })
+ * const result = startOfWeek(new Date(2014, 8, 2), { weekStartsOn: 0 })
+ * //=> Sun Aug 31 2014 00:00:00
+ *
+ * @example
+ * // Remove the option by setting it to `undefined`:
+ * setDefaultOptions({ weekStartsOn: 1 })
+ * setDefaultOptions({ weekStartsOn: undefined })
+ * const result = startOfWeek(new Date(2014, 8, 2))
+ * //=> Sun Aug 31 2014 00:00:00
+ */ parcelHelpers.export(exports, "setDefaultOptions", ()=>setDefaultOptions);
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+function setDefaultOptions(options) {
+    const result = {};
+    const defaultOptions = (0, _defaultOptionsMjs.getDefaultOptions)();
+    for(const property in defaultOptions)if (Object.prototype.hasOwnProperty.call(defaultOptions, property)) // eslint-disable-next-line @typescript-eslint/no-explicit-any -- I challange you to fix the type
+    result[property] = defaultOptions[property];
+    for(const property in options)if (Object.prototype.hasOwnProperty.call(options, property)) {
+        if (options[property] === undefined) // eslint-disable-next-line @typescript-eslint/no-explicit-any -- I challange you to fix the type
+        delete result[property];
+        else // eslint-disable-next-line @typescript-eslint/no-explicit-any -- I challange you to fix the type
+        result[property] = options[property];
+    }
+    (0, _defaultOptionsMjs.setDefaultOptions)(result);
+}
+// Fallback for modularized imports:
+exports.default = setDefaultOptions;
+
+},{"./_lib/defaultOptions.mjs":"6QlMe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"91uTX":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name setHours
+ * @category Hour Helpers
+ * @summary Set the hours to the given date.
+ *
+ * @description
+ * Set the hours to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param hours - The hours of the new date
+ *
+ * @returns The new date with the hours set
+ *
+ * @example
+ * // Set 4 hours to 1 September 2014 11:30:00:
+ * const result = setHours(new Date(2014, 8, 1, 11, 30), 4)
+ * //=> Mon Sep 01 2014 04:30:00
+ */ parcelHelpers.export(exports, "setHours", ()=>setHours);
+var _toDateMjs = require("./toDate.mjs");
+function setHours(date, hours) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setHours(hours);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = setHours;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"zOYY1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name setMilliseconds
+ * @category Millisecond Helpers
+ * @summary Set the milliseconds to the given date.
+ *
+ * @description
+ * Set the milliseconds to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param milliseconds - The milliseconds of the new date
+ *
+ * @returns The new date with the milliseconds set
+ *
+ * @example
+ * // Set 300 milliseconds to 1 September 2014 11:30:40.500:
+ * const result = setMilliseconds(new Date(2014, 8, 1, 11, 30, 40, 500), 300)
+ * //=> Mon Sep 01 2014 11:30:40.300
+ */ parcelHelpers.export(exports, "setMilliseconds", ()=>setMilliseconds);
+var _toDateMjs = require("./toDate.mjs");
+function setMilliseconds(date, milliseconds) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setMilliseconds(milliseconds);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = setMilliseconds;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ceFiY":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name setMinutes
+ * @category Minute Helpers
+ * @summary Set the minutes to the given date.
+ *
+ * @description
+ * Set the minutes to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param minutes - The minutes of the new date
+ *
+ * @returns The new date with the minutes set
+ *
+ * @example
+ * // Set 45 minutes to 1 September 2014 11:30:40:
+ * const result = setMinutes(new Date(2014, 8, 1, 11, 30, 40), 45)
+ * //=> Mon Sep 01 2014 11:45:40
+ */ parcelHelpers.export(exports, "setMinutes", ()=>setMinutes);
+var _toDateMjs = require("./toDate.mjs");
+function setMinutes(date, minutes) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setMinutes(minutes);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = setMinutes;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kPyij":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name setQuarter
+ * @category Quarter Helpers
+ * @summary Set the year quarter to the given date.
+ *
+ * @description
+ * Set the year quarter to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param quarter - The quarter of the new date
+ *
+ * @returns The new date with the quarter set
+ *
+ * @example
+ * // Set the 2nd quarter to 2 July 2014:
+ * const result = setQuarter(new Date(2014, 6, 2), 2)
+ * //=> Wed Apr 02 2014 00:00:00
+ */ parcelHelpers.export(exports, "setQuarter", ()=>setQuarter);
+var _setMonthMjs = require("./setMonth.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function setQuarter(date, quarter) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    const oldQuarter = Math.trunc(_date.getMonth() / 3) + 1;
+    const diff = quarter - oldQuarter;
+    return (0, _setMonthMjs.setMonth)(_date, _date.getMonth() + diff * 3);
+}
+// Fallback for modularized imports:
+exports.default = setQuarter;
+
+},{"./setMonth.mjs":"lUfSA","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dNLfK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name setSeconds
+ * @category Second Helpers
+ * @summary Set the seconds to the given date.
+ *
+ * @description
+ * Set the seconds to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param seconds - The seconds of the new date
+ *
+ * @returns The new date with the seconds set
+ *
+ * @example
+ * // Set 45 seconds to 1 September 2014 11:30:40:
+ * const result = setSeconds(new Date(2014, 8, 1, 11, 30, 40), 45)
+ * //=> Mon Sep 01 2014 11:30:45
+ */ parcelHelpers.export(exports, "setSeconds", ()=>setSeconds);
+var _toDateMjs = require("./toDate.mjs");
+function setSeconds(date, seconds) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    _date.setSeconds(seconds);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = setSeconds;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"xwS0N":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * The {@link setWeekYear} function options.
+ */ /**
+ * @name setWeekYear
+ * @category Week-Numbering Year Helpers
+ * @summary Set the local week-numbering year to the given date.
+ *
+ * @description
+ * Set the local week-numbering year to the given date,
+ * saving the week number and the weekday number.
+ * The exact calculation depends on the values of
+ * `options.weekStartsOn` (which is the index of the first day of the week)
+ * and `options.firstWeekContainsDate` (which is the day of January, which is always in
+ * the first week of the week-numbering year)
+ *
+ * Week numbering: https://en.wikipedia.org/wiki/Week#The_ISO_week_date_system
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param weekYear - The local week-numbering year of the new date
+ * @param options - An object with options
+ *
+ * @returns The new date with the local week-numbering year set
+ *
+ * @example
+ * // Set the local week-numbering year 2004 to 2 January 2010 with default options:
+ * const result = setWeekYear(new Date(2010, 0, 2), 2004)
+ * //=> Sat Jan 03 2004 00:00:00
+ *
+ * @example
+ * // Set the local week-numbering year 2004 to 2 January 2010,
+ * // if Monday is the first day of week
+ * // and 4 January is always in the first week of the year:
+ * const result = setWeekYear(new Date(2010, 0, 2), 2004, {
+ *   weekStartsOn: 1,
+ *   firstWeekContainsDate: 4
+ * })
+ * //=> Sat Jan 01 2005 00:00:00
+ */ parcelHelpers.export(exports, "setWeekYear", ()=>setWeekYear);
+var _constructFromMjs = require("./constructFrom.mjs");
+var _differenceInCalendarDaysMjs = require("./differenceInCalendarDays.mjs");
+var _startOfWeekYearMjs = require("./startOfWeekYear.mjs");
+var _toDateMjs = require("./toDate.mjs");
+var _defaultOptionsMjs = require("./_lib/defaultOptions.mjs");
+function setWeekYear(date, weekYear, options) {
+    const defaultOptions = (0, _defaultOptionsMjs.getDefaultOptions)();
+    const firstWeekContainsDate = options?.firstWeekContainsDate ?? options?.locale?.options?.firstWeekContainsDate ?? defaultOptions.firstWeekContainsDate ?? defaultOptions.locale?.options?.firstWeekContainsDate ?? 1;
+    let _date = (0, _toDateMjs.toDate)(date);
+    const diff = (0, _differenceInCalendarDaysMjs.differenceInCalendarDays)(_date, (0, _startOfWeekYearMjs.startOfWeekYear)(_date, options));
+    const firstWeek = (0, _constructFromMjs.constructFrom)(date, 0);
+    firstWeek.setFullYear(weekYear, 0, firstWeekContainsDate);
+    firstWeek.setHours(0, 0, 0, 0);
+    _date = (0, _startOfWeekYearMjs.startOfWeekYear)(firstWeek, options);
+    _date.setDate(_date.getDate() + diff);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = setWeekYear;
+
+},{"./constructFrom.mjs":"xte3t","./differenceInCalendarDays.mjs":"bLx9a","./startOfWeekYear.mjs":"4Wklp","./toDate.mjs":"fJykt","./_lib/defaultOptions.mjs":"6QlMe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5I57g":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name setYear
+ * @category Year Helpers
+ * @summary Set the year to the given date.
+ *
+ * @description
+ * Set the year to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param year - The year of the new date
+ *
+ * @returns The new date with the year set
+ *
+ * @example
+ * // Set year 2013 to 1 September 2014:
+ * const result = setYear(new Date(2014, 8, 1), 2013)
+ * //=> Sun Sep 01 2013 00:00:00
+ */ parcelHelpers.export(exports, "setYear", ()=>setYear);
+var _constructFromMjs = require("./constructFrom.mjs");
+var _toDateMjs = require("./toDate.mjs");
+function setYear(date, year) {
+    const _date = (0, _toDateMjs.toDate)(date);
+    // Check if date is Invalid Date because Date.prototype.setFullYear ignores the value of Invalid Date
+    if (isNaN(+_date)) return (0, _constructFromMjs.constructFrom)(date, NaN);
+    _date.setFullYear(year);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = setYear;
+
+},{"./constructFrom.mjs":"xte3t","./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fmDOQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name startOfDecade
+ * @category Decade Helpers
+ * @summary Return the start of a decade for the given date.
+ *
+ * @description
+ * Return the start of a decade for the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of a decade
+ *
+ * @example
+ * // The start of a decade for 21 October 2015 00:00:00:
+ * const result = startOfDecade(new Date(2015, 9, 21, 00, 00, 00))
+ * //=> Jan 01 2010 00:00:00
+ */ parcelHelpers.export(exports, "startOfDecade", ()=>startOfDecade);
+var _toDateMjs = require("./toDate.mjs");
+function startOfDecade(date) {
+    // TODO: Switch to more technical definition in of decades that start with 1
+    // end with 0. I.e. 2001-2010 instead of current 2000-2009. It's a breaking
+    // change, so it can only be done in 4.0.
+    const _date = (0, _toDateMjs.toDate)(date);
+    const year = _date.getFullYear();
+    const decade = Math.floor(year / 10) * 10;
+    _date.setFullYear(decade, 0, 1);
+    _date.setHours(0, 0, 0, 0);
+    return _date;
+}
+// Fallback for modularized imports:
+exports.default = startOfDecade;
+
+},{"./toDate.mjs":"fJykt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5Ksrk":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name startOfToday
+ * @category Day Helpers
+ * @summary Return the start of today.
+ * @pure false
+ *
+ * @description
+ * Return the start of today.
+ *
+ * @returns The start of today
+ *
+ * @example
+ * // If today is 6 October 2014:
+ * const result = startOfToday()
+ * //=> Mon Oct 6 2014 00:00:00
+ */ parcelHelpers.export(exports, "startOfToday", ()=>startOfToday);
+var _startOfDayMjs = require("./startOfDay.mjs");
+function startOfToday() {
+    return (0, _startOfDayMjs.startOfDay)(Date.now());
+}
+// Fallback for modularized imports:
+exports.default = startOfToday;
+
+},{"./startOfDay.mjs":"91DPV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bijBY":[function(require,module,exports) {
+/**
+ * @name startOfTomorrow
+ * @category Day Helpers
+ * @summary Return the start of tomorrow.
+ * @pure false
+ *
+ * @description
+ * Return the start of tomorrow.
+ *
+ * @returns The start of tomorrow
+ *
+ * @example
+ * // If today is 6 October 2014:
+ * const result = startOfTomorrow()
+ * //=> Tue Oct 7 2014 00:00:00
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "startOfTomorrow", ()=>startOfTomorrow);
+function startOfTomorrow() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const day = now.getDate();
+    const date = new Date(0);
+    date.setFullYear(year, month, day + 1);
+    date.setHours(0, 0, 0, 0);
+    return date;
+}
+// Fallback for modularized imports:
+exports.default = startOfTomorrow;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"70wwU":[function(require,module,exports) {
+/**
+ * @name startOfYesterday
+ * @category Day Helpers
+ * @summary Return the start of yesterday.
+ * @pure false
+ *
+ * @description
+ * Return the start of yesterday.
+ *
+ * @returns The start of yesterday
+ *
+ * @example
+ * // If today is 6 October 2014:
+ * const result = startOfYesterday()
+ * //=> Sun Oct 5 2014 00:00:00
+ */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "startOfYesterday", ()=>startOfYesterday);
+function startOfYesterday() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const day = now.getDate();
+    const date = new Date(0);
+    date.setFullYear(year, month, day - 1);
+    date.setHours(0, 0, 0, 0);
+    return date;
+}
+// Fallback for modularized imports:
+exports.default = startOfYesterday;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jSnGP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name sub
+ * @category Common Helpers
+ * @summary Subtract the specified years, months, weeks, days, hours, minutes and seconds from the given date.
+ *
+ * @description
+ * Subtract the specified years, months, weeks, days, hours, minutes and seconds from the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param duration - The object with years, months, weeks, days, hours, minutes and seconds to be subtracted
+ *
+ * | Key     | Description                        |
+ * |---------|------------------------------------|
+ * | years   | Amount of years to be subtracted   |
+ * | months  | Amount of months to be subtracted  |
+ * | weeks   | Amount of weeks to be subtracted   |
+ * | days    | Amount of days to be subtracted    |
+ * | hours   | Amount of hours to be subtracted   |
+ * | minutes | Amount of minutes to be subtracted |
+ * | seconds | Amount of seconds to be subtracted |
+ *
+ * All values default to 0
+ *
+ * @returns The new date with the seconds subtracted
+ *
+ * @example
+ * // Subtract the following duration from 15 June 2017 15:29:20
+ * const result = sub(new Date(2017, 5, 15, 15, 29, 20), {
+ *   years: 2,
+ *   months: 9,
+ *   weeks: 1,
+ *   days: 7,
+ *   hours: 5,
+ *   minutes: 9,
+ *   seconds: 30
+ * })
+ * //=> Mon Sep 1 2014 10:19:50
+ */ parcelHelpers.export(exports, "sub", ()=>sub);
+var _subDaysMjs = require("./subDays.mjs");
+var _subMonthsMjs = require("./subMonths.mjs");
+var _constructFromMjs = require("./constructFrom.mjs");
+function sub(date, duration) {
+    const { years = 0, months = 0, weeks = 0, days = 0, hours = 0, minutes = 0, seconds = 0 } = duration;
+    // Subtract years and months
+    const dateWithoutMonths = (0, _subMonthsMjs.subMonths)(date, months + years * 12);
+    // Subtract weeks and days
+    const dateWithoutDays = (0, _subDaysMjs.subDays)(dateWithoutMonths, days + weeks * 7);
+    // Subtract hours, minutes and seconds
+    const minutestoSub = minutes + hours * 60;
+    const secondstoSub = seconds + minutestoSub * 60;
+    const mstoSub = secondstoSub * 1000;
+    const finalDate = (0, _constructFromMjs.constructFrom)(date, dateWithoutDays.getTime() - mstoSub);
+    return finalDate;
+}
+// Fallback for modularized imports:
+exports.default = sub;
+
+},{"./subDays.mjs":"bH7Da","./subMonths.mjs":"gJugE","./constructFrom.mjs":"xte3t","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gJugE":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name subMonths
+ * @category Month Helpers
+ * @summary Subtract the specified number of months from the given date.
+ *
+ * @description
+ * Subtract the specified number of months from the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of months to be subtracted.
+ *
+ * @returns The new date with the months subtracted
+ *
+ * @example
+ * // Subtract 5 months from 1 February 2015:
+ * const result = subMonths(new Date(2015, 1, 1), 5)
+ * //=> Mon Sep 01 2014 00:00:00
+ */ parcelHelpers.export(exports, "subMonths", ()=>subMonths);
+var _addMonthsMjs = require("./addMonths.mjs");
+function subMonths(date, amount) {
+    return (0, _addMonthsMjs.addMonths)(date, -amount);
+}
+// Fallback for modularized imports:
+exports.default = subMonths;
+
+},{"./addMonths.mjs":"2Zag2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dnQ9Q":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name subBusinessDays
+ * @category Day Helpers
+ * @summary Substract the specified number of business days (mon - fri) to the given date.
+ *
+ * @description
+ * Substract the specified number of business days (mon - fri) to the given date, ignoring weekends.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of business days to be subtracted.
+ *
+ * @returns The new date with the business days subtracted
+ *
+ * @example
+ * // Substract 10 business days from 1 September 2014:
+ * const result = subBusinessDays(new Date(2014, 8, 1), 10)
+ * //=> Mon Aug 18 2014 00:00:00 (skipped weekend days)
+ */ parcelHelpers.export(exports, "subBusinessDays", ()=>subBusinessDays);
+var _addBusinessDaysMjs = require("./addBusinessDays.mjs");
+function subBusinessDays(date, amount) {
+    return (0, _addBusinessDaysMjs.addBusinessDays)(date, -amount);
+}
+// Fallback for modularized imports:
+exports.default = subBusinessDays;
+
+},{"./addBusinessDays.mjs":"flbco","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jnel6":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name subHours
+ * @category Hour Helpers
+ * @summary Subtract the specified number of hours from the given date.
+ *
+ * @description
+ * Subtract the specified number of hours from the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of hours to be subtracted.
+ *
+ * @returns The new date with the hours subtracted
+ *
+ * @example
+ * // Subtract 2 hours from 11 July 2014 01:00:00:
+ * const result = subHours(new Date(2014, 6, 11, 1, 0), 2)
+ * //=> Thu Jul 10 2014 23:00:00
+ */ parcelHelpers.export(exports, "subHours", ()=>subHours);
+var _addHoursMjs = require("./addHours.mjs");
+function subHours(date, amount) {
+    return (0, _addHoursMjs.addHours)(date, -amount);
+}
+// Fallback for modularized imports:
+exports.default = subHours;
+
+},{"./addHours.mjs":"f3Bhk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3sky1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name subMilliseconds
+ * @category Millisecond Helpers
+ * @summary Subtract the specified number of milliseconds from the given date.
+ *
+ * @description
+ * Subtract the specified number of milliseconds from the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of milliseconds to be subtracted.
+ *
+ * @returns The new date with the milliseconds subtracted
+ *
+ * @example
+ * // Subtract 750 milliseconds from 10 July 2014 12:45:30.000:
+ * const result = subMilliseconds(new Date(2014, 6, 10, 12, 45, 30, 0), 750)
+ * //=> Thu Jul 10 2014 12:45:29.250
+ */ parcelHelpers.export(exports, "subMilliseconds", ()=>subMilliseconds);
+var _addMillisecondsMjs = require("./addMilliseconds.mjs");
+function subMilliseconds(date, amount) {
+    return (0, _addMillisecondsMjs.addMilliseconds)(date, -amount);
+}
+// Fallback for modularized imports:
+exports.default = subMilliseconds;
+
+},{"./addMilliseconds.mjs":"lfi1S","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iKEGN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name subMinutes
+ * @category Minute Helpers
+ * @summary Subtract the specified number of minutes from the given date.
+ *
+ * @description
+ * Subtract the specified number of minutes from the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of minutes to be subtracted.
+ *
+ * @returns The new date with the minutes subtracted
+ *
+ * @example
+ * // Subtract 30 minutes from 10 July 2014 12:00:00:
+ * const result = subMinutes(new Date(2014, 6, 10, 12, 0), 30)
+ * //=> Thu Jul 10 2014 11:30:00
+ */ parcelHelpers.export(exports, "subMinutes", ()=>subMinutes);
+var _addMinutesMjs = require("./addMinutes.mjs");
+function subMinutes(date, amount) {
+    return (0, _addMinutesMjs.addMinutes)(date, -amount);
+}
+// Fallback for modularized imports:
+exports.default = subMinutes;
+
+},{"./addMinutes.mjs":"gVy8g","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bNCOg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name subQuarters
+ * @category Quarter Helpers
+ * @summary Subtract the specified number of year quarters from the given date.
+ *
+ * @description
+ * Subtract the specified number of year quarters from the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of quarters to be subtracted.
+ *
+ * @returns The new date with the quarters subtracted
+ *
+ * @example
+ * // Subtract 3 quarters from 1 September 2014:
+ * const result = subQuarters(new Date(2014, 8, 1), 3)
+ * //=> Sun Dec 01 2013 00:00:00
+ */ parcelHelpers.export(exports, "subQuarters", ()=>subQuarters);
+var _addQuartersMjs = require("./addQuarters.mjs");
+function subQuarters(date, amount) {
+    return (0, _addQuartersMjs.addQuarters)(date, -amount);
+}
+// Fallback for modularized imports:
+exports.default = subQuarters;
+
+},{"./addQuarters.mjs":"9gf9h","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dnH92":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name subSeconds
+ * @category Second Helpers
+ * @summary Subtract the specified number of seconds from the given date.
+ *
+ * @description
+ * Subtract the specified number of seconds from the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of seconds to be subtracted.
+ *
+ * @returns The new date with the seconds subtracted
+ *
+ * @example
+ * // Subtract 30 seconds from 10 July 2014 12:45:00:
+ * const result = subSeconds(new Date(2014, 6, 10, 12, 45, 0), 30)
+ * //=> Thu Jul 10 2014 12:44:30
+ */ parcelHelpers.export(exports, "subSeconds", ()=>subSeconds);
+var _addSecondsMjs = require("./addSeconds.mjs");
+function subSeconds(date, amount) {
+    return (0, _addSecondsMjs.addSeconds)(date, -amount);
+}
+// Fallback for modularized imports:
+exports.default = subSeconds;
+
+},{"./addSeconds.mjs":"kxXPn","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ktmFS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name subWeeks
+ * @category Week Helpers
+ * @summary Subtract the specified number of weeks from the given date.
+ *
+ * @description
+ * Subtract the specified number of weeks from the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of weeks to be subtracted.
+ *
+ * @returns The new date with the weeks subtracted
+ *
+ * @example
+ * // Subtract 4 weeks from 1 September 2014:
+ * const result = subWeeks(new Date(2014, 8, 1), 4)
+ * //=> Mon Aug 04 2014 00:00:00
+ */ parcelHelpers.export(exports, "subWeeks", ()=>subWeeks);
+var _addWeeksMjs = require("./addWeeks.mjs");
+function subWeeks(date, amount) {
+    return (0, _addWeeksMjs.addWeeks)(date, -amount);
+}
+// Fallback for modularized imports:
+exports.default = subWeeks;
+
+},{"./addWeeks.mjs":"7YgKz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6lxPz":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name subYears
+ * @category Year Helpers
+ * @summary Subtract the specified number of years from the given date.
+ *
+ * @description
+ * Subtract the specified number of years from the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of years to be subtracted.
+ *
+ * @returns The new date with the years subtracted
+ *
+ * @example
+ * // Subtract 5 years from 1 September 2014:
+ * const result = subYears(new Date(2014, 8, 1), 5)
+ * //=> Tue Sep 01 2009 00:00:00
+ */ parcelHelpers.export(exports, "subYears", ()=>subYears);
+var _addYearsMjs = require("./addYears.mjs");
+function subYears(date, amount) {
+    return (0, _addYearsMjs.addYears)(date, -amount);
+}
+// Fallback for modularized imports:
+exports.default = subYears;
+
+},{"./addYears.mjs":"itTGn","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7vXfd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name weeksToDays
+ * @category Conversion Helpers
+ * @summary Convert weeks to days.
+ *
+ * @description
+ * Convert a number of weeks to a full number of days.
+ *
+ * @param weeks - The number of weeks to be converted
+ *
+ * @returns The number of weeks converted in days
+ *
+ * @example
+ * // Convert 2 weeks into days
+ * const result = weeksToDays(2)
+ * //=> 14
+ */ parcelHelpers.export(exports, "weeksToDays", ()=>weeksToDays);
+var _constantsMjs = require("./constants.mjs");
+function weeksToDays(weeks) {
+    return Math.trunc(weeks * (0, _constantsMjs.daysInWeek));
+}
+// Fallback for modularized imports:
+exports.default = weeksToDays;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"i0fzy":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name yearsToDays
+ * @category Conversion Helpers
+ * @summary Convert years to days.
+ *
+ * @description
+ * Convert a number of years to a full number of days.
+ *
+ * @param years - The number of years to be converted
+ *
+ * @returns The number of years converted in days
+ *
+ * @example
+ * // Convert 2 years into days
+ * const result = yearsToDays(2)
+ * //=> 24
+ */ parcelHelpers.export(exports, "yearsToDays", ()=>yearsToDays);
+var _constantsMjs = require("./constants.mjs");
+function yearsToDays(years) {
+    return Math.trunc(years * (0, _constantsMjs.daysInYear));
+}
+// Fallback for modularized imports:
+exports.default = yearsToDays;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1vYP2":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name yearsToMonths
+ * @category Conversion Helpers
+ * @summary Convert years to months.
+ *
+ * @description
+ * Convert a number of years to a full number of months.
+ *
+ * @param years - The number of years to be converted
+ *
+ * @returns The number of years converted in months
+ *
+ * @example
+ * // Convert 2 years into months
+ * const result = yearsToMonths(2)
+ * //=> 24
+ */ parcelHelpers.export(exports, "yearsToMonths", ()=>yearsToMonths);
+var _constantsMjs = require("./constants.mjs");
+function yearsToMonths(years) {
+    return Math.trunc(years * (0, _constantsMjs.monthsInYear));
+}
+// Fallback for modularized imports:
+exports.default = yearsToMonths;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k7tbI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/**
+ * @name yearsToQuarters
+ * @category Conversion Helpers
+ * @summary Convert years to quarters.
+ *
+ * @description
+ * Convert a number of years to a full number of quarters.
+ *
+ * @param years - The number of years to be converted
+ *
+ * @returns The number of years converted in quarters
+ *
+ * @example
+ * // Convert 2 years to quarters
+ * const result = yearsToQuarters(2)
+ * //=> 8
+ */ parcelHelpers.export(exports, "yearsToQuarters", ()=>yearsToQuarters);
+var _constantsMjs = require("./constants.mjs");
+function yearsToQuarters(years) {
+    return Math.trunc(years * (0, _constantsMjs.quartersInYear));
+}
+// Fallback for modularized imports:
+exports.default = yearsToQuarters;
+
+},{"./constants.mjs":"iISMq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2SBwg":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$95d1 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -53600,162 +68933,245 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _s = $RefreshSig$();
-function UpdateUser({ localUser: initialUser, handleSubmit, handleUpdate }) {
+const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
     _s();
-    const [localUser, setLocalUser] = (0, _react.useState)(initialUser); // Set the local user state with the initial user data
-    console.log("localUser in UpdateUser: ", localUser);
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
-            className: "m-4",
-            style: {
-                borderRadius: "3%",
-                overflow: "hidden"
-            },
-            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
+    const [username, setUsername] = (0, _react.useState)(user.username);
+    const [password, setPassword] = (0, _react.useState)(""); // password field cannot be pre-filled, nor do we have access to the user's password
+    const [email, setEmail] = (0, _react.useState)(user.email);
+    const [birthday, setBirthday] = (0, _react.useState)(user.birthday);
+    const navigate = (0, _reactRouterDom.useNavigate)(); // Use useNavigate hook for React Router v6
+    const handleSubmitChanges = async (e)=>{
+        e.preventDefault(); // Prevent the default form submit action
+        const updatedUserData = {
+            username,
+            password,
+            email,
+            birthday
+        };
+        try {
+            // Make an API call to update the user data
+            const response = await (0, _axiosDefault.default).put(`https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${user.username}`, updatedUserData, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            });
+            // If the API call is successful, use the onUserUpdate callback to update the parent component
+            onUserUpdate(response.data);
+            alert("User information updated successfully.");
+        } catch (error) {
+            console.error("Error updating user information:", error);
+            alert("Failed to update user information.");
+        }
+    };
+    const formatDateForInput = (isoDateString)=>{
+        return isoDateString.split("T")[0]; // This splits the ISO string at 'T' and returns the date part
+    };
+    const handleDeleteAccount = async ()=>{
+        const confirmDelete = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
+        if (confirmDelete) try {
+            const response = await (0, _axiosDefault.default).delete(`https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${username}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            });
+            if (response.status === 200) {
+                alert("Account successfully deleted.");
+                onLoggedOut();
+                navigate("/login");
+            }
+        } catch (error) {
+            console.error("Error deleting account:", error);
+            alert("Failed to delete account. Please try again.");
+        }
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
+        className: "m-4",
+        style: {
+            borderRadius: "3%",
+            overflow: "hidden"
+        },
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
+                    className: "mb-4",
+                    style: {
+                        fontSize: "36px"
+                    },
+                    children: "Update Your Information:"
+                }, void 0, false, {
+                    fileName: "src/components/profile-view/update-user.jsx",
+                    lineNumber: 77,
+                    columnNumber: 9
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
+                    onSubmit: handleSubmitChanges,
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                            controlId: "formUsername",
                             children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
-                                    className: "mb-4",
-                                    style: {
-                                        fontSize: "36px"
-                                    },
-                                    children: "Update Your Information:"
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                    children: "Username:"
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/update-user.jsx",
-                                    lineNumber: 16,
-                                    columnNumber: 25
-                                }, this),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                    children: [
-                                        "User Name: ",
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                            type: "text",
-                                            name: "Username",
-                                            defaultValue: localUser.username
-                                        }, void 0, false, {
-                                            fileName: "src/components/profile-view/update-user.jsx",
-                                            lineNumber: 17,
-                                            columnNumber: 47
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/profile-view/update-user.jsx",
-                                    lineNumber: 17,
-                                    columnNumber: 25
-                                }, this),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                    children: [
-                                        "Password: ",
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                            type: "password",
-                                            name: "Password"
-                                        }, void 0, false, {
-                                            fileName: "src/components/profile-view/update-user.jsx",
-                                            lineNumber: 19,
-                                            columnNumber: 46
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/profile-view/update-user.jsx",
-                                    lineNumber: 19,
-                                    columnNumber: 25
-                                }, this),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                    children: [
-                                        "Email: ",
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                            type: "email",
-                                            name: "Email",
-                                            defaultValue: localUser.Email
-                                        }, void 0, false, {
-                                            fileName: "src/components/profile-view/update-user.jsx",
-                                            lineNumber: 21,
-                                            columnNumber: 43
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/profile-view/update-user.jsx",
-                                    lineNumber: 21,
-                                    columnNumber: 25
-                                }, this),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
-                                    children: [
-                                        "Birthday: ",
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                            type: "date",
-                                            name: "Birthday",
-                                            defaultValue: localUser.birthday
-                                        }, void 0, false, {
-                                            fileName: "src/components/profile-view/update-user.jsx",
-                                            lineNumber: 23,
-                                            columnNumber: 46
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/profile-view/update-user.jsx",
-                                    lineNumber: 23,
-                                    columnNumber: 25
-                                }, this),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                    onClick: ()=>handleSubmit(),
-                                    children: "Submit Changes"
+                                    lineNumber: 82,
+                                    columnNumber: 13
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                    type: "text",
+                                    value: username,
+                                    onChange: (e)=>setUsername(e.target.value)
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/update-user.jsx",
-                                    lineNumber: 25,
-                                    columnNumber: 25
-                                }, this),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                                    to: `/`,
-                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        className: "back-button m-4 btn-lg",
-                                        style: {
-                                            cursor: "pointer"
-                                        },
-                                        children: "Back"
-                                    }, void 0, false, {
-                                        fileName: "src/components/profile-view/update-user.jsx",
-                                        lineNumber: 27,
-                                        columnNumber: 28
-                                    }, this)
-                                }, void 0, false, {
-                                    fileName: "src/components/profile-view/update-user.jsx",
-                                    lineNumber: 26,
-                                    columnNumber: 25
-                                }, this)
+                                    lineNumber: 83,
+                                    columnNumber: 13
+                                }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/profile-view/update-user.jsx",
-                            lineNumber: 15,
-                            columnNumber: 22
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "src/components/profile-view/update-user.jsx",
-                        lineNumber: 14,
-                        columnNumber: 19
-                    }, this)
-                }, void 0, false, {
+                            lineNumber: 81,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                            controlId: "formPassword",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                    children: "Password (leave blank to keep the current password):"
+                                }, void 0, false, {
+                                    fileName: "src/components/profile-view/update-user.jsx",
+                                    lineNumber: 91,
+                                    columnNumber: 13
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                    type: "password",
+                                    value: password,
+                                    onChange: (e)=>setPassword(e.target.value)
+                                }, void 0, false, {
+                                    fileName: "src/components/profile-view/update-user.jsx",
+                                    lineNumber: 94,
+                                    columnNumber: 13
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/profile-view/update-user.jsx",
+                            lineNumber: 90,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                            controlId: "formEmail",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                    children: "Email:"
+                                }, void 0, false, {
+                                    fileName: "src/components/profile-view/update-user.jsx",
+                                    lineNumber: 102,
+                                    columnNumber: 13
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                    type: "email",
+                                    value: email,
+                                    onChange: (e)=>setEmail(e.target.value)
+                                }, void 0, false, {
+                                    fileName: "src/components/profile-view/update-user.jsx",
+                                    lineNumber: 103,
+                                    columnNumber: 13
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/profile-view/update-user.jsx",
+                            lineNumber: 101,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                            controlId: "formBirthday",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                    children: "Birthday:"
+                                }, void 0, false, {
+                                    fileName: "src/components/profile-view/update-user.jsx",
+                                    lineNumber: 111,
+                                    columnNumber: 13
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                    type: "date",
+                                    value: formatDateForInput(birthday),
+                                    onChange: (e)=>setBirthday(e.target.value)
+                                }, void 0, false, {
+                                    fileName: "src/components/profile-view/update-user.jsx",
+                                    lineNumber: 112,
+                                    columnNumber: 13
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/profile-view/update-user.jsx",
+                            lineNumber: 110,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                            className: "m-4 btn-lg",
+                            variant: "primary",
+                            type: "submit",
+                            children: "Submit Changes"
+                        }, void 0, false, {
+                            fileName: "src/components/profile-view/update-user.jsx",
+                            lineNumber: 119,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                            className: "m-4 btn-lg",
+                            variant: "danger",
+                            onClick: handleDeleteAccount,
+                            children: "Delete Account"
+                        }, void 0, false, {
+                            fileName: "src/components/profile-view/update-user.jsx",
+                            lineNumber: 122,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                            to: `/`,
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                className: "back-button m-4 btn-lg",
+                                style: {
+                                    cursor: "pointer"
+                                },
+                                children: "Back"
+                            }, void 0, false, {
+                                fileName: "src/components/profile-view/update-user.jsx",
+                                lineNumber: 130,
+                                columnNumber: 13
+                            }, undefined)
+                        }, void 0, false, {
+                            fileName: "src/components/profile-view/update-user.jsx",
+                            lineNumber: 129,
+                            columnNumber: 11
+                        }, undefined)
+                    ]
+                }, void 0, true, {
                     fileName: "src/components/profile-view/update-user.jsx",
-                    lineNumber: 13,
-                    columnNumber: 16
-                }, this)
-            }, void 0, false, {
-                fileName: "src/components/profile-view/update-user.jsx",
-                lineNumber: 12,
-                columnNumber: 13
-            }, this)
-        }, void 0, false, {
+                    lineNumber: 80,
+                    columnNumber: 9
+                }, undefined)
+            ]
+        }, void 0, true, {
             fileName: "src/components/profile-view/update-user.jsx",
-            lineNumber: 11,
-            columnNumber: 10
-        }, this)
-    }, void 0, false);
-}
-_s(UpdateUser, "Xhfv+wMMjRSzPNTuppzsnjBADhM=");
+            lineNumber: 76,
+            columnNumber: 7
+        }, undefined)
+    }, void 0, false, {
+        fileName: "src/components/profile-view/update-user.jsx",
+        lineNumber: 75,
+        columnNumber: 5
+    }, undefined);
+};
+_s(UpdateUser, "jOxn0fCvrPxvCvJkVBE5HroDBF8=", false, function() {
+    return [
+        (0, _reactRouterDom.useNavigate)
+    ];
+});
 _c = UpdateUser;
-exports.default = UpdateUser; // onChange={(e) => handleUpdate(e)}  was removed from the input tags
+exports.default = UpdateUser;
 var _c;
 $RefreshReg$(_c, "UpdateUser");
 
@@ -53764,7 +69180,7 @@ $RefreshReg$(_c, "UpdateUser");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-router-dom":"9xmpe"}],"dTTQH":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","axios":"jo6P5","react-bootstrap":"3AD9A","react-router-dom":"9xmpe"}],"dTTQH":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$8767 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
