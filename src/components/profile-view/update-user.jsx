@@ -29,6 +29,7 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut }) => {
             }
          )
          onUserUpdate(response.data)     // If the API call is successful, use the onUserUpdate callback to update the parent component
+         localStorage.setItem("user", JSON.stringify(response.data));
          alert('User information updated successfully.')
       } catch (error) {
          console.error('Error updating user information:', error)

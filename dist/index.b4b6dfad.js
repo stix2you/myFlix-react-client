@@ -46675,6 +46675,7 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
             });
             onUserUpdate(response.data) // If the API call is successful, use the onUserUpdate callback to update the parent component
             ;
+            localStorage.setItem("user", JSON.stringify(response.data));
             alert("User information updated successfully.");
         } catch (error) {
             console.error("Error updating user information:", error);
@@ -46719,7 +46720,7 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
                     children: "Update Your Information:"
                 }, void 0, false, {
                     fileName: "src/components/profile-view/update-user.jsx",
-                    lineNumber: 72,
+                    lineNumber: 73,
                     columnNumber: 13
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
@@ -46737,7 +46738,7 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
                                                         children: "Username:"
                                                     }, void 0, false, {
                                                         fileName: "src/components/profile-view/update-user.jsx",
-                                                        lineNumber: 80,
+                                                        lineNumber: 81,
                                                         columnNumber: 28
                                                     }, undefined),
                                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -46746,18 +46747,18 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
                                                         onChange: (e)=>setUsername(e.target.value)
                                                     }, void 0, false, {
                                                         fileName: "src/components/profile-view/update-user.jsx",
-                                                        lineNumber: 81,
+                                                        lineNumber: 82,
                                                         columnNumber: 28
                                                     }, undefined)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "src/components/profile-view/update-user.jsx",
-                                                lineNumber: 79,
+                                                lineNumber: 80,
                                                 columnNumber: 25
                                             }, undefined)
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/update-user.jsx",
-                                            lineNumber: 78,
+                                            lineNumber: 79,
                                             columnNumber: 22
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -46768,7 +46769,7 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
                                                         children: "Password (leave blank if no change):"
                                                     }, void 0, false, {
                                                         fileName: "src/components/profile-view/update-user.jsx",
-                                                        lineNumber: 90,
+                                                        lineNumber: 91,
                                                         columnNumber: 28
                                                     }, undefined),
                                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -46777,24 +46778,24 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
                                                         onChange: (e)=>setPassword(e.target.value)
                                                     }, void 0, false, {
                                                         fileName: "src/components/profile-view/update-user.jsx",
-                                                        lineNumber: 93,
+                                                        lineNumber: 94,
                                                         columnNumber: 28
                                                     }, undefined)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "src/components/profile-view/update-user.jsx",
-                                                lineNumber: 89,
+                                                lineNumber: 90,
                                                 columnNumber: 25
                                             }, undefined)
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/update-user.jsx",
-                                            lineNumber: 88,
+                                            lineNumber: 89,
                                             columnNumber: 22
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/profile-view/update-user.jsx",
-                                    lineNumber: 77,
+                                    lineNumber: 78,
                                     columnNumber: 19
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -46807,7 +46808,7 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
                                                         children: "Email:"
                                                     }, void 0, false, {
                                                         fileName: "src/components/profile-view/update-user.jsx",
-                                                        lineNumber: 104,
+                                                        lineNumber: 105,
                                                         columnNumber: 28
                                                     }, undefined),
                                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -46816,18 +46817,18 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
                                                         onChange: (e)=>setEmail(e.target.value)
                                                     }, void 0, false, {
                                                         fileName: "src/components/profile-view/update-user.jsx",
-                                                        lineNumber: 105,
+                                                        lineNumber: 106,
                                                         columnNumber: 28
                                                     }, undefined)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "src/components/profile-view/update-user.jsx",
-                                                lineNumber: 103,
+                                                lineNumber: 104,
                                                 columnNumber: 25
                                             }, undefined)
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/update-user.jsx",
-                                            lineNumber: 102,
+                                            lineNumber: 103,
                                             columnNumber: 22
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -46838,7 +46839,7 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
                                                         children: "Birthday:"
                                                     }, void 0, false, {
                                                         fileName: "src/components/profile-view/update-user.jsx",
-                                                        lineNumber: 114,
+                                                        lineNumber: 115,
                                                         columnNumber: 28
                                                     }, undefined),
                                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -46847,30 +46848,30 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
                                                         onChange: (e)=>setBirthday(e.target.value)
                                                     }, void 0, false, {
                                                         fileName: "src/components/profile-view/update-user.jsx",
-                                                        lineNumber: 115,
+                                                        lineNumber: 116,
                                                         columnNumber: 28
                                                     }, undefined)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "src/components/profile-view/update-user.jsx",
-                                                lineNumber: 113,
+                                                lineNumber: 114,
                                                 columnNumber: 25
                                             }, undefined)
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/update-user.jsx",
-                                            lineNumber: 112,
+                                            lineNumber: 113,
                                             columnNumber: 22
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/profile-view/update-user.jsx",
-                                    lineNumber: 101,
+                                    lineNumber: 102,
                                     columnNumber: 19
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/profile-view/update-user.jsx",
-                            lineNumber: 76,
+                            lineNumber: 77,
                             columnNumber: 16
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -46880,7 +46881,7 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
                             children: "Submit Changes"
                         }, void 0, false, {
                             fileName: "src/components/profile-view/update-user.jsx",
-                            lineNumber: 124,
+                            lineNumber: 125,
                             columnNumber: 16
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -46890,7 +46891,7 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
                             children: "Delete Account"
                         }, void 0, false, {
                             fileName: "src/components/profile-view/update-user.jsx",
-                            lineNumber: 127,
+                            lineNumber: 128,
                             columnNumber: 16
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
@@ -46903,29 +46904,29 @@ const UpdateUser = ({ localUser: user, onUserUpdate, onLoggedOut })=>{
                                 children: "Back"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/update-user.jsx",
-                                lineNumber: 135,
+                                lineNumber: 136,
                                 columnNumber: 19
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/profile-view/update-user.jsx",
-                            lineNumber: 134,
+                            lineNumber: 135,
                             columnNumber: 16
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/profile-view/update-user.jsx",
-                    lineNumber: 75,
+                    lineNumber: 76,
                     columnNumber: 13
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/profile-view/update-user.jsx",
-            lineNumber: 71,
+            lineNumber: 72,
             columnNumber: 10
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/profile-view/update-user.jsx",
-        lineNumber: 70,
+        lineNumber: 71,
         columnNumber: 7
     }, undefined);
 };
