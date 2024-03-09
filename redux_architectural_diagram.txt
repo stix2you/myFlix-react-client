@@ -1,0 +1,31 @@
+Identify states to be managed using Redux.  Identify actions and response to actions.
+
+    As the app stands at the moment, we are only using two sets of data: Users, and Movies.
+
+------------
+  User List:
+------------
+    Since we are mostly keeping the user data on the server side, we are primarily concerned with the CURRENT user who is logged in.  This is the data which will need to be accessed from multiple components throughout the app.  
+
+        User Login Status: TOGGLE_LOGGED_IN -- true or false value, toggled
+        Create Logged In User:  CURRENT_USER  -- Load the array for the currently logged in user into the global state for user. 
+        Edit Logged In User:  UPDATE_USERNAME, UPDATE_PASSWORD, UPDATE_EMAIL, UPDATE_BIRTHDAY, ADD_FAVORITE_MOVIE, DELETE_FAVORITE_MOVIE -- Edit the global state of the currently logged in user (we are also updating the server side database, but this is separate from Redux)
+        Remove Logged In User:  DELETE_USER -- remove the data from the global user state and return to "null"
+        
+    The token is used in multiple components, but this is set in LocalStorage and accessed via that when needed, so the state of the token is only changing on loggout.  Still, because it does need to be set to 'null' on logout, perhaps a method for manipulating it globally is prudent:
+
+        Add: ADD_TOKEN -- update the global token state with the current token value
+        Delete: DELETE_TOKEN -- clear the token state to null
+
+
+------------
+Movies List:
+------------
+As it stands, we are not changing the state of the Movie Database at all.  During my construction of the movie app, I had great problems dealing with access to a data state across multiple components.  I plan to implement React Context API to deal with this better than the prop drilling I'm currently using.  I feel React Context API is a more elegant way to deal with the global data state in this case because the data state is not changing, it simply needs to be accessed via components globally.  Redux seems like an overcomplication in this context.
+
+
+
+
+
+ 
+
