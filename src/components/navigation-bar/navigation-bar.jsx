@@ -1,7 +1,8 @@
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Container, Nav, Form, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
+   
    return (
       <Navbar bg="primary" data-bs-theme="dark" className=" rounded-3 mb-4" sticky="top" expand="lg">
          <Container>
