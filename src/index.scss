@@ -3,9 +3,22 @@ $body-bg: rgb(233, 199, 125);
 $card-bg: rgb(255, 249, 238);
 
 .custom-navbar {
-   background-color: rgb(128, 41, 41); /* Custom background color */
-   color: #fff; /* Custom text color */
-   margin-bottom: 20px; /* Custom margin */
+   background-color: rgb(128, 41, 41);
+   /* Custom background color */
+   color: #fff;
+   /* Custom text color */
+   margin-bottom: 20px;
+   /* Custom margin */
+}
+
+.search-input {
+   background-color: rgb(233, 199, 125) !important; /* Sets the background color of the input */
+   color: #fff !important; /* Sets the text color of the input */
+ }
+ 
+ .search-input::placeholder {
+   color: #fff !important; /* Specifically targets and sets the placeholder text color */
+   opacity: 1; /* Ensures the placeholder text is fully opaque */
  }
 
 @import '~bootstrap/scss/bootstrap.scss';

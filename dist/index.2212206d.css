@@ -7364,6 +7364,16 @@ button, input, optgroup, select, textarea {
   margin-bottom: 20px;
 }
 
+.search-input {
+  color: #fff !important;
+  background-color: #e9c77d !important;
+}
+
+.search-input::placeholder {
+  opacity: 1;
+  color: #fff !important;
+}
+
 :root, [data-bs-theme="light"] {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;

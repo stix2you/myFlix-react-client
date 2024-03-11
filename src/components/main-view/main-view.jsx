@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
 import { PropTypes } from "prop-types";
+import { DisplayMovies } from "../display-movies/display-movies";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Row, Container } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -16,6 +16,11 @@ export const MainView = () => {
    const [user, setUser] = useState(storedUser ? storedUser : null);
    const [token, setToken] = useState(storedToken ? storedToken : null);
    const [movies, setMovies] = useState([]);
+   const [searchQuery, setSearchQuery] = useState("");
+
+   const handleSearch = (query) => {
+      setSearchQuery(query);
+    };
 
    const handleUserDataUpdate = (updatedUserData) => {
       setUser(updatedUserData); // Update the state with the new user data
@@ -67,6 +72,7 @@ export const MainView = () => {
       <Container>
          <BrowserRouter>
             <NavigationBar
+            onSearch={handleSearch}
                user={user}
                onLoggedOut={() => {
                   setUser(null), setToken(null), localStorage.clear();
@@ -130,8 +136,19 @@ export const MainView = () => {
                         </>
                      }
                   />
-
                   <Route
+                     path="/"
+                     element={
+                        <>
+                           {!user ? (
+                              <Navigate to="/login" replace />
+                           ) : (
+                              <DisplayMovies movies={movies} user={user} searchQuery={searchQuery} onUserUpdate={handleUserUpdate} />
+                           )}
+                        </>
+                     }
+                  />
+                  {/* <Route
                      path="/"
                      element={
                         <>
@@ -156,7 +173,7 @@ export const MainView = () => {
                            )}
                         </>
                      }
-                  />
+                  /> */}
 
                   <Route
                      path="/users/:username"

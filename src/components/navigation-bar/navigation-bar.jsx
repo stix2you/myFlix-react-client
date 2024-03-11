@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Navbar, Container, Nav, Form, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export const NavigationBar = ({ user, onLoggedOut }) => {
+export const NavigationBar = ({ user, onLoggedOut, onSearch }) => {
    const [searchTerm, setSearchTerm] = useState('');
 
    const handleSearchChange = (e) => {
@@ -12,14 +12,14 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
    };
 
    return (
-      <Navbar bg="primary" data-bs-theme="dark" className=" rounded-3 mb-4" sticky="top" expand="lg">
+      <Navbar bg="primary" data-bs-theme="dark" className="custom-navbar rounded-3 mb-4" sticky="top" expand="lg">
          <Container>
             <Navbar.Brand as={Link} to="/">
                MyFlix App
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-               <Nav className="me-auto">
+               <Nav className="mr-auto">
                   {!user && (
                      <>
                         <Nav.Link as={Link} to="/login">
@@ -47,13 +47,12 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                   )}
                   {user && (
                      <>
-                        <Form inline>
+                        <Form inline className="ml-auto">
                            <FormControl
                               type="text"
                               placeholder="Search movies"
                               className="mr-sm-2"
-                              value={searchTerm}
-                              onChange={handleSearchChange}
+                              onChange={(e) => onSearch(e.target.value)}
                            />
                         </Form>
                      </>
