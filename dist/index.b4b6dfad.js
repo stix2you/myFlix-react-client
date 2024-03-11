@@ -47066,6 +47066,12 @@ const MovieCard = ({ user: initialUser, movie, onUserUpdate })=>{
     _s();
     const [localUser, setLocalUser] = (0, _react.useState)(initialUser);
     const isFavorite = (movieTitle)=>localUser.favorite_movies.includes(movieTitle); // Check if the movie is already in the favorites
+    const navigate = (0, _reactRouterDom.useNavigate)();
+    const handleCardClick = ()=>navigate(`/movies/${encodeURIComponent(movie.id)}`);
+    const handleAddToFavoritesClick = (e)=>{
+        e.stopPropagation(); // Prevent the click from triggering the card's onClick
+        addToFavorites();
+    };
     const addToFavorites = async ()=>{
         if (!isFavorite(movie.title)) try {
             const response = await (0, _axiosDefault.default).post(`https://stix2you-myflix-5cbcd3c20372.herokuapp.com/users/${localUser.username}/movies/${movie.title}`, {}, {
@@ -47086,26 +47092,29 @@ const MovieCard = ({ user: initialUser, movie, onUserUpdate })=>{
             cursor: "pointer"
         },
         className: "h-100",
+        onClick: handleCardClick,
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Img, {
                 variant: "top",
                 src: movie.image,
                 style: {
                     width: "100%",
-                    overflow: "hidden"
+                    height: "300px",
+                    objectFit: "contain"
                 }
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 33,
+                lineNumber: 40,
                 columnNumber: 10
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
+                className: "flex-grow-1",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
                         children: movie.title
                     }, void 0, false, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 35,
+                        lineNumber: 42,
                         columnNumber: 13
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
@@ -47119,53 +47128,43 @@ const MovieCard = ({ user: initialUser, movie, onUserUpdate })=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 36,
+                        lineNumber: 43,
                         columnNumber: 13
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
                         children: movie.director
                     }, void 0, false, {
                         fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 37,
-                        columnNumber: 13
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                        to: `/movies/${encodeURIComponent(movie.id)}`,
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                            variant: "link",
-                            children: "Open"
-                        }, void 0, false, {
-                            fileName: "src/components/movie-card/movie-card.jsx",
-                            lineNumber: 39,
-                            columnNumber: 16
-                        }, undefined)
-                    }, void 0, false, {
-                        fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 38,
-                        columnNumber: 13
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                        onClick: addToFavorites,
-                        children: isFavorite(movie.title) ? "Already in Favorites" : "Add to Favorites"
-                    }, void 0, false, {
-                        fileName: "src/components/movie-card/movie-card.jsx",
-                        lineNumber: 41,
+                        lineNumber: 44,
                         columnNumber: 13
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 34,
+                lineNumber: 41,
+                columnNumber: 10
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                className: "m-3",
+                onClick: handleAddToFavoritesClick,
+                children: isFavorite(movie.title) ? "Already in Favorites" : "Add to Favorites"
+            }, void 0, false, {
+                fileName: "src/components/movie-card/movie-card.jsx",
+                lineNumber: 46,
                 columnNumber: 10
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/movie-card/movie-card.jsx",
-        lineNumber: 32,
+        lineNumber: 39,
         columnNumber: 7
     }, undefined);
 };
-_s(MovieCard, "Xhfv+wMMjRSzPNTuppzsnjBADhM=");
+_s(MovieCard, "lrgbbnhNJjfrDSO4LxspeLqtl6g=", false, function() {
+    return [
+        (0, _reactRouterDom.useNavigate)
+    ];
+});
 _c = MovieCard;
 MovieCard.propTypes = {
     movie: (0, _propTypesDefault.default).shape({

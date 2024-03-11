@@ -11,14 +11,4 @@ $card-bg: rgb(255, 249, 238);
    /* Custom margin */
 }
 
-.search-input {
-   background-color: rgb(233, 199, 125) !important; /* Sets the background color of the input */
-   color: #fff !important; /* Sets the text color of the input */
- }
- 
- .search-input::placeholder {
-   color: #fff !important; /* Specifically targets and sets the placeholder text color */
-   opacity: 1; /* Ensures the placeholder text is fully opaque */
- }
-
 @import '~bootstrap/scss/bootstrap.scss';

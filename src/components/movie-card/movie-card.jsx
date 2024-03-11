@@ -1,13 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Card, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
-export const MovieCard = ({ user: initialUser, movie, onUserUpdate }) => {  
+export const MovieCard = ({ user: initialUser, movie, onUserUpdate }) => {
    const [localUser, setLocalUser] = useState(initialUser);
    const isFavorite = (movieTitle) => localUser.favorite_movies.includes(movieTitle);  // Check if the movie is already in the favorites
+   const navigate = useNavigate();
+   const handleCardClick = () => navigate(`/movies/${encodeURIComponent(movie.id)}`);
+
+   const handleAddToFavoritesClick = (e) => {
+      e.stopPropagation(); // Prevent the click from triggering the card's onClick
+      addToFavorites();
+   };
 
    const addToFavorites = async () => {
       if (!isFavorite(movie.title)) {
@@ -29,17 +36,14 @@ export const MovieCard = ({ user: initialUser, movie, onUserUpdate }) => {
    };
 
    return (
-      <Card style={{ cursor: "pointer" }} className="h-100">
-         <Card.Img variant="top" src={movie.image} style={{ width: "100%", overflow: 'hidden' }} />
-         <Card.Body>
+      <Card style={{ cursor: "pointer" }} className="h-100" onClick={handleCardClick}>
+         <Card.Img variant="top" src={movie.image} style={{ width: "100%", height: '300px', objectFit: 'contain' }} />
+         <Card.Body className="flex-grow-1">
             <Card.Title>{movie.title}</Card.Title>
             <Card.Text style={{ whiteSpace: 'pre' }}>{movie.releaseYear}        {movie.rating}</Card.Text>
-            <Card.Text>{movie.director}</Card.Text>
-            <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-               <Button variant="link">Open</Button>
-            </Link>
-            <Button onClick={addToFavorites}>{isFavorite(movie.title) ? "Already in Favorites" : "Add to Favorites"}</Button>
+            <Card.Text >{movie.director}</Card.Text>
          </Card.Body>
+         <Button className="m-3" onClick={handleAddToFavoritesClick}>{isFavorite(movie.title) ? "Already in Favorites" : "Add to Favorites"}</Button>
       </Card>
    );
 };
