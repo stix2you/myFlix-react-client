@@ -1,8 +1,16 @@
+import { useState } from "react";
 import { Navbar, Container, Nav, Form, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
-   
+   const [searchTerm, setSearchTerm] = useState('');
+
+   const handleSearchChange = (e) => {
+      const term = e.target.value;
+      setSearchTerm(term);
+      onSearchChange(term); // Pass the search term to the parent component
+   };
+
    return (
       <Navbar bg="primary" data-bs-theme="dark" className=" rounded-3 mb-4" sticky="top" expand="lg">
          <Container>
@@ -35,6 +43,19 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                            Profile
                         </Nav.Link>
                         <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link>
+                     </>
+                  )}
+                  {user && (
+                     <>
+                        <Form inline>
+                           <FormControl
+                              type="text"
+                              placeholder="Search movies"
+                              className="mr-sm-2"
+                              value={searchTerm}
+                              onChange={handleSearchChange}
+                           />
+                        </Form>
                      </>
                   )}
                </Nav>
