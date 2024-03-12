@@ -11,16 +11,18 @@ import { Col, Row, Container } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
-   const storedUser = JSON.parse(localStorage.getItem("user")); // retrieves the user data from local storage which is a
-   const storedToken = localStorage.getItem("token");
-   const [user, setUser] = useState(storedUser ? storedUser : null);
+   const storedUser = JSON.parse(localStorage.getItem("user")); // retrieves the user data from local storage and parses it into a JSON object
+   const storedToken = localStorage.getItem("token");           // retrieves the token from local storage and parses it into a JSON object
+   
+   // State variables init
+   const [user, setUser] = useState(storedUser ? storedUser : null);      
    const [token, setToken] = useState(storedToken ? storedToken : null);
    const [movies, setMovies] = useState([]);
    const [searchQuery, setSearchQuery] = useState("");
 
-   const handleSearch = (query) => {
+   const handleSearch = (query) => {  // updates the searchQuery state with the value of the input field, so it can be passed to DisplayMovies component
       setSearchQuery(query);
-    };
+   };
 
    const handleUserDataUpdate = (updatedUserData) => {
       setUser(updatedUserData); // Update the state with the new user data
@@ -72,7 +74,7 @@ export const MainView = () => {
       <Container>
          <BrowserRouter>
             <NavigationBar
-            onSearch={handleSearch}
+               onSearch={handleSearch}
                user={user}
                onLoggedOut={() => {
                   setUser(null), setToken(null), localStorage.clear();
@@ -80,7 +82,8 @@ export const MainView = () => {
             />
             <Row className="justify-content-lg-center">
                <Routes>
-                  <Route
+
+                  <Route  // Route for the signup view
                      path="/signup"
                      element={
                         <>
@@ -94,7 +97,8 @@ export const MainView = () => {
                         </> // navigate to the signup view if the user is not logged in
                      }
                   />
-                  <Route
+
+                  <Route  // Route for the login view
                      path="/login"
                      element={
                         <>
@@ -114,7 +118,7 @@ export const MainView = () => {
                      }
                   />
 
-                  <Route
+                  <Route  // Route for the individual movie view (movie details view)
                      path="/movies/:moviesId"
                      element={
                         <>
@@ -136,7 +140,8 @@ export const MainView = () => {
                         </>
                      }
                   />
-                  <Route
+
+                  <Route   // Route for the home page, or the main movie list view
                      path="/"
                      element={
                         <>
@@ -148,34 +153,8 @@ export const MainView = () => {
                         </>
                      }
                   />
-                  {/* <Route
-                     path="/"
-                     element={
-                        <>
-                           {!user ? (
-                              <Navigate to="/login" replace />
-                           ) : movies.length === 0 ? (
-                              <Col>
-                                 <h2>Loading Movie Data . . .</h2>
-                              </Col>
-                           ) : (
-                              <>
-                                 {movies.map((movie) => (
-                                    <Col className="mb-4" key={movie.id} md={3}>
-                                       <MovieCard
-                                          user={user}
-                                          movie={movie}
-                                          onUserUpdate={handleUserUpdate}
-                                       />
-                                    </Col> // map over the movies and create a card for each one, MovieCard component renders the movie card
-                                 ))}
-                              </>
-                           )}
-                        </>
-                     }
-                  /> */}
 
-                  <Route
+                  <Route   // Route for the user profile view, which includes the favorite movies list
                      path="/users/:username"
                      element={
                         <>
@@ -198,6 +177,7 @@ export const MainView = () => {
                         </>
                      }
                   />
+
                </Routes>
             </Row>
          </BrowserRouter>
